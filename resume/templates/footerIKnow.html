@@ -1,0 +1,33 @@
+<style>
+    /*#knowSummary div span{*/
+        /*font-size: 10pt;*/
+    /*}*/
+    #knowSummary div {
+        padding: 5px;
+    }
+</style>
+<section class="bs nav-tabs-custom">
+<div class=""  ng-app="myAjs">
+    <div id="knowSummary" ng-controller="Summary">
+        <div>
+            <span class="btn " ng-click="setDisplayValues('tools');">Tools</span> JIRA, Fisheye, SVN, git, notepadd++, sublime, vscode, netbeans, word,
+            excel, ppt, winmerge,toad,ssms, putty, winscp, argon
+        </div>
+        <div>
+            <span class="btn " ng-click="setDisplayValues('apis');">APIs+Framework</span> ReactJS, flask, pymongo, boto, AngularJs, Jquery, D3,
+            ag-grid, pqgrid
+        </div>
+        <div><span class="btn " ng-click="setDisplayValues('bimi');">BI-MI</span> power builder, sas va, tableau, excel,access, html5</div>
+        <div>
+            <span class="btn " ng-click="setDisplayValues('aws');">AWS</span> EC2, S3, Polly, SNS, Lambda, Cloud watch, Dynamo DB, IAM, EFS,
+            cloudFront, VPC, NAT Instance, NAT Gateways
+        </div>
+    </div>
+</div>
+</section>
+
+<script>
+    $(document).ready(function(){
+        setBtnDisplay()
+    })
+</script>

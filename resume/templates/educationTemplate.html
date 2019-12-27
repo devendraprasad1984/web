@@ -1,0 +1,43 @@
+<style>
+    #eduSummary div {
+        list-style: none;
+        padding: 5px;
+    }
+
+    #eduSummary div {
+        font-size: 10pt;
+        cursor: pointer;
+        /*border: 2px solid;*/
+    }
+    /*#eduSummary span.badge-light{*/
+        /*top:-20px;*/
+        /*left:-50%;*/
+    /*}*/
+</style>
+<section class="bs nav-tabs-custom">
+    <div ng-app="myAjs" class="">
+        <div ng-controller="Summary" id="eduSummary">
+            <div>
+                <span ng-click="setDisplayValues('edu_itm');" class="btn ">PGDITM<span class="badge badge-light">62.75% (A grade)</span></span>
+                SCDL, Pune, Maharashtra, India (2015 - 2017), First Division(IT Management)
+            </div>
+            <div>
+                <span ng-click="setDisplayValues('edu_btech');" class="btn ">BTech IT<span class="badge badge-light">76.6% (IT Hons)</span></span>
+                MDU, Rohtak, Haryana, India (2002 - 2006),First Division
+            </div>
+            <div>
+                <span ng-click="setDisplayValues('rbs_12th');" class="btn ">Physics, Chemistry, Math<span class="badge badge-light">80% (12th Standard)</span></span>
+                CBSE, New Delhi, India,(2002)
+            </div>
+            <div>
+                <span ng-click="setDisplayValues('rbs_10th');" class="btn ">all subjects<span class="badge badge-light" >77% (10th Standard)</span></span>
+                CBSE, New Delhi, India(2000)
+            </div>
+        </div>
+</section>
+
+<script>
+    $(document).ready(function(){
+        setBtnDisplay()
+    })
+</script>

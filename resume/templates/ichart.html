@@ -1,0 +1,36 @@
+<style>
+    #myChartElem a{
+        padding: 2px;
+        margin: 5px;
+    }
+</style>
+<div ng-app="myAjs">
+    <section class="bs nav-tabs-custom">
+        <div id="myCharts" ng-controller="googleChartsController">
+            <div class="btn btn-success" onclick="loadRuntimeScripts()">click to load Dummy Charts <span class="badge badge-danger">{{chartLoaderMsg}}</span></div>
+            <div id="toolbar_div"></div>
+            <div id="myChartElem" class="row container-fluid">
+                <a href="#!" ng-click="drawDashboard(this)">Dashboard</a>
+                <a href="#!" ng-click="drawPieChart(this)">Pie</a>
+                <a href="#!" ng-click="drawBarChart(this)">Bar</a>
+                <a href="#!" ng-click="drawAreaChart(this)">Area</a>
+                <a href="#!" ng-click="drawDonutChart(this)">Donut</a>
+                <a href="#!" ng-click="drawMapChart(this)">Map</a>
+                <a href="#!" ng-click="drawSankeyChart(this)">Sankey</a>
+                <a href="#!" ng-click="drawAnimationChart(this)">Animated</a>
+                <a href="#!" ng-click="drawLineChart(this)">Line</a>
+                <a href="#!" ng-click="drawWaterFallChart(this)">WaterFall</a>
+                <a href="#!" ng-click="drawScatterChart(this)">Scatter</a>
+                <a href="#!" ng-click="drawTimelineChart(this)">Timeline</a>
+            </div>
+            <div id="filter_div"></div>
+            <div id="chart_div" style="width: 100%; min-height:480px; position: relative; overflow: auto"></div>
+        </div>
+    </section>
+</div>
+
+<script>
+    $(document).ready(function(){
+        setBtnDisplay()
+    })
+</script>

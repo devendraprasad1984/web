@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=yes">
+    <link href='https://fonts.googleapis.com/css?family=Amaranth|Amiri|Angkor|Arbutus|Arimo|Arya|"Atomic Age"|Audiowide|B612|Balthazar|Barrio|"Bungee Shade"|"Caesar Dressing"|Charmonman' rel='stylesheet'>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/angular.js"></script>
+    <!--<script src="js/angular-route.js"></script>-->
+    <!--<script src="js/popper.js"></script>-->
+
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <!--<link rel="stylesheet" href="bootstrap/css/bootstrap-grid.css"/>-->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+    <!--<link rel="stylesheet" href="bootstrap/css/bootstrap-reboot.css"/>-->
+
+    <link rel="stylesheet" href="js/AdminLTE.min.css">
+    <!--<link rel="stylesheet" href="js/dist/css/skins/_all-skins.min.css">-->
+    <!--<link rel="stylesheet" href="js/bootstrap3-wysihtml5.min.css">-->
+    <!--<link rel="stylesheet" href="css/view3.css">-->
+    <script src="js/modernizr.min.js"></script>
+
+    <!--<script src="js/jquery-ui.js"></script>-->
+    <!--<script src="js/moment.min.js"></script>-->
+    <!--<script src="js/bootstrap3-wysihtml5.all.min.js"></script>-->
+    <!--<script src="js/demo.js"></script>-->
+    <!--<script src="js/app.min.js"></script>-->
+    <!--<script src="js/loader.js"></script>-->
+    <!--<script src="js/jquery.dataTables.js"></script>-->
+
+    <!--<script src="js/contextMenu.min.js"></script>-->
+    <!--<link rel="stylesheet" href="js/contextMenu.min.css">-->
+
+    <!--<script src="js/react.js"></script>-->
+    <!--<script src="js/react-dom.js"></script>-->
+    <!--<script src="js/browser.min.js"></script>-->
+    <!--<script src="js/react-data-grid.min.js"></script>-->
+
+    <!--[if lt IE 9]>
+    <!--<script src="js/html5shiv.js"></script>-->
+    <!--<script src="js/respond.min.js"></script>-->
+    <!--<![endif]&ndash;&gt;-->
+    <!--<script src="js/pace.min.js"-->
+    <!--data-pace-options='{ "ajax": true, "ghostTime":1000, "restartOnRequestAfter": false }'></script>-->
+    <!--<script src="js/loadgo.js"></script>-->
+
+    <link href="css/style1.css" rel="stylesheet"/>
+    <!--<link href="css/font-awesome.min.css" rel="stylesheet"/>-->
+    <!--https://www.w3schools.com/icons/google_icons_alert.asp-->
+    <!--<script src="js/pdf.worker.js"></script>-->
+    <script src="js/pdf.js"></script>
+    <script src="js/myJs1.js"></script>
+    <!--<script language="text/babel" src="js/myJs.jsx"></script>-->
+
+</head>
+<body class="container-fluid">
+<!--<h1>-->
+<!--<div id="loadMsg">loading</div>-->
+<!--</h1>-->
+
+<!--main flow and controllers and variables in them goes from here - application flow control-->
+<div id="startLoaderTag" ng-app="myAjs" ng-controller="mainViewController as ctrl">
+    <div ng-controller="ITSummary">
+        <!--<div class="bg-orange">check - {{bgTagColor}} {{tagName}} {{content}}</div>-->
+        <div ng-controller="Summary">
+            <div id="idHeader">
+                <run-time-templates url="templates/headerTemplate.html"></run-time-templates>
+                <run-time-templates id="experienceTimeline" url="templates/experienceTimeline.html"></run-time-templates>
+            </div>
+            <div id="idMainContainer" class="bg-dark" >
+                <div style="margin-top: 1em;" ng-include="viewName"></div>
+            </div>
+        </div>
+        <run-time-templates url="templates/pageDiv.html"></run-time-templates>        
+    </div>
+</div>
+test
+<div id="idRunTimeScriptsContainer"></div>
+<div id="idcolor" style="display: none; background-color: lightgrey"></div>
+</body>
+</html>

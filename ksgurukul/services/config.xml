@@ -1,0 +1,14 @@
+<root>
+    <SMTPDebug>1</SMTPDebug>
+    <Mailer>smtp</Mailer>
+    <Host>mail.ksgurukul.in</Host>
+    <Port>25</Port>
+    <SMTPAuth>true</SMTPAuth>
+    <Username>support@ksgurukul.in</Username>
+    <SMTPSecure></SMTPSecure>
+    <ToAddress>ks.academic@yahoo.com</ToAddress>
+    <ReplyAddress></ReplyAddress>
+    <Plugdir></Plugdir>
+    <Wordwrap>150</Wordwrap>
+    <Subject>no-reply mailer</Subject>
+</root>

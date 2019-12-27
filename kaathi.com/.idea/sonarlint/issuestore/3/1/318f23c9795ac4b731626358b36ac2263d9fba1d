@@ -1,0 +1,68 @@
+
+x	php:S1488À"]Immediately return this expression instead of assigning it to the temporary variable "$data".(ÕåÂÙøÿÿÿÿ
+\	php:S1192}"GDefine a constant instead of duplicating this literal "slider" 3 times.(ÃÅİÍ
+4php:S125â"Remove this commented out code.(ªÂÖ‚
+Ephp:S121"0Add curly braces around the nested statement(s).(•–‰ğ
+9php:S125§"Remove this commented out code.(¶‘Öˆûÿÿÿÿ
+Cphp:S121i"0Add curly braces around the nested statement(s).(ÏÀ{
+_	php:S1192Ì"IDefine a constant instead of duplicating this literal "username" 3 times.(—ú°ù
+kphp:S101"RRename class "genericObjects" to match the regular expression ^[A-Z][a-zA-Z0-9]*$.(³Ö«Üúÿÿÿÿ
+C	php:S1481y")Remove this unused "$key" local variable.(áÏÇşÿÿÿÿ
+Ephp:S121‹"0Add curly braces around the nested statement(s).(ŒçÆÒ
+9php:S125Ü"Remove this commented out code.(¶‘Öˆûÿÿÿÿ
+Ephp:S121Š"0Add curly braces around the nested statement(s).(À«æ®
+?	php:S1481Ï")Remove this unused "$key" local variable.(“¾Î¾
+a	php:S1192u"GDefine a constant instead of duplicating this literal "option" 3 times.(—ú† üÿÿÿÿ
+4php:S125Ã"Remove this commented out code.(°——å
+9php:S125³"Remove this commented out code.(¶‘Öˆûÿÿÿÿ
+Iphp:S121`"0Add curly braces around the nested statement(s).(ê³Ÿıÿÿÿÿÿ
+Ephp:S121‡"0Add curly braces around the nested statement(s).(ô©íª
+Ephp:S121"0Add curly braces around the nested statement(s).(À«æ®
+3php:S125|"Remove this commented out code.(´şü
+Ephp:S121ü"0Add curly braces around the nested statement(s).(‘›å
+3php:S125~"Remove this commented out code.(ôó¹ø
+Ephp:S121ì"0Add curly braces around the nested statement(s).(‘›å
+Jphp:S121Œ"0Add curly braces around the nested statement(s).(Ñ‰Ğúÿÿÿÿ
+Ephp:S121«"0Add curly braces around the nested statement(s).(‘›å
+c	php:S1192‡"MDefine a constant instead of duplicating this literal "manageSlider" 4 times.(ßÛÇç
+9php:S125™"Remove this commented out code.(¶‘Öˆûÿÿÿÿ
+9php:S125¶"Remove this commented out code.(¶‘Öˆûÿÿÿÿ
+9php:S125Õ"Remove this commented out code.(¶‘Öˆûÿÿÿÿ
+4php:S125Ù"Remove this commented out code.(½›ã¿
+8php:S125,"Remove this commented out code.(ÍŠ»÷øÿÿÿÿ
+s	php:S1488"^Immediately return this expression instead of assigning it to the temporary variable "$token".(Ùş–·
+D	php:S1481ç".Remove this unused "$tokenVal" local variable.(ï·ÅÅ
+3php:S125n"Remove this commented out code.(æÉá³
+4php:S125÷"Remove this commented out code.(øçŞ
+Ephp:S121’"0Add curly braces around the nested statement(s).(‘›å
+9php:S125ı"Remove this commented out code.(¶‘Öˆûÿÿÿÿ
+8php:S125"Remove this commented out code.(êŸš‚úÿÿÿÿ
+Jphp:S121È"0Add curly braces around the nested statement(s).(®Üúÿÿÿÿ
+C	php:S1481è"-Remove this unused "$decoded" local variable.(ƒ©¯©
+Ephp:S121à"0Add curly braces around the nested statement(s).(‘›å
+n	php:S3776e"TRefactor this function to reduce its Cognitive Complexity from 56 to the 15 allowed.(ğ…¨øÿÿÿÿ
+Dphp:S121k"0Add curly braces around the nested statement(s).(×Óó
+`	php:S1192i"LDefine a constant instead of duplicating this literal "getDataFile" 5 times.(ÏÀ{
+9php:S125…"Remove this commented out code.(¶‘Öˆûÿÿÿÿ
+r	php:S14886"]Immediately return this expression instead of assigning it to the temporary variable "$host".(¦šÙ
+9php:S125…"Remove this commented out code.(¶‘Öˆûÿÿÿÿ
+>	php:S1481š"(Remove this unused "$k1" local variable.(äæâ
+9php:S125‰"Remove this commented out code.(©ÃàÌùÿÿÿÿ
+Jphp:S121‰"0Add curly braces around the nested statement(s).(®¾Ï—øÿÿÿÿ
+Ephp:S121º"0Add curly braces around the nested statement(s).(‘›å
+9php:S125Á"Remove this commented out code.(ÉçÊ„üÿÿÿÿ
+9php:S125¾"Remove this commented out code.(¶‘Öˆûÿÿÿÿ
+3php:S125p"Remove this commented out code.(ÎÊµë
+9php:S125Ç"Remove this commented out code.(¶‘Öˆûÿÿÿÿ
+v	php:S1488;"\Immediately return this expression instead of assigning it to the temporary variable "$ref".(İèŞÀüÿÿÿÿ
+9php:S125Ò"Remove this commented out code.(êŸš‚úÿÿÿÿ
+8php:S125C"Remove this commented out code.(èÀÊïşÿÿÿÿ
+Jphp:S121ª"0Add curly braces around the nested statement(s).(Ñ‰Ğúÿÿÿÿ
+d	php:S1192Í"IDefine a constant instead of duplicating this literal "password" 3 times.(ƒ£‹²üÿÿÿÿ
+Jphp:S121»"0Add curly braces around the nested statement(s).(ĞÍôÔûÿÿÿÿ
+^	php:S1192ö"HDefine a constant instead of duplicating this literal "getType" 3 times.(ş½ËŠ
+Ephp:S121¬"0Add curly braces around the nested statement(s).(”ùÆ
+Jphp:S121…"0Add curly braces around the nested statement(s).(Œ”Ùíüÿÿÿÿ
+Ephp:S121Ë"0Add curly braces around the nested statement(s).(À«æ®
+9php:S125è"Remove this commented out code.(¶‘Öˆûÿÿÿÿ
+4php:S125™"Remove this commented out code.(×­ô¾

@@ -1,0 +1,17 @@
+<root>
+    <SMTPDebug>1</SMTPDebug>
+    <Mailer>smtp</Mailer>
+    <Host>mail.dpresume.com</Host>
+    <Port>25</Port>
+    <SMTPAuth>true</SMTPAuth>
+    <Username>dlrgvkes@dpresume.com</Username>
+    <Password>3vg3wWRm56</Password>
+    <SMTPSecure></SMTPSecure>
+    <FromAddress>dlrgvkes@dpresume.com</FromAddress>
+    <FromName>site message</FromName>
+    <ToAddress>devendraprasad1984@gmail.com</ToAddress>
+    <ReplyAddress></ReplyAddress>
+    <Plugdir></Plugdir>
+    <Wordwrap>150</Wordwrap>
+    <Subject>no-reply mailer</Subject>
+</root>

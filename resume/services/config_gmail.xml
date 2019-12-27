@@ -1,0 +1,17 @@
+<root>
+    <SMTPDebug>1</SMTPDebug>
+    <Mailer>smtp</Mailer>
+    <Host>smtp.gmail.com</Host>
+    <Port>465</Port>
+    <SMTPAuth>true</SMTPAuth>
+    <Username>devendraprasad1984@gmail.com</Username>
+    <Password>rbs6200#</Password>
+    <SMTPSecure>ssl</SMTPSecure>
+    <FromAddress>devendraprasad1984@gmail.com</FromAddress>
+    <FromName>site message</FromName>
+    <ToAddress>sonicageindia@gmail.com</ToAddress>
+    <ReplyAddress></ReplyAddress>
+    <Plugdir></Plugdir>
+    <Wordwrap>150</Wordwrap>
+    <Subject>no-reply mailer</Subject>
+</root>

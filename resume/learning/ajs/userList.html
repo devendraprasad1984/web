@@ -1,0 +1,12 @@
+<h3>Users</h3>
+<table class="table table-striped">
+  <tbody><tr ng-repeat="user in users">
+    <td>
+      <button class="btn" ng-click="editUser(user.id)">
+        <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit
+      </button>
+    </td>
+    <td>{{ user.fName }}</td>
+    <td>{{ user.lName }}</td>
+  </tr></tbody>
+</table> 

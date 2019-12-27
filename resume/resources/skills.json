@@ -1,0 +1,50 @@
+{
+  "skills": {
+    "front-end": [
+      "react:16.7.0",
+      "ag-grid:20.1.0",
+      "redux:4.0.1",
+      "redux-form:8.1.0",
+      "thunk:2.3.0",
+      "axios:0.18.0",
+      "json-server:0.14.2",
+      "lodash:4.17.11"
+    ],
+    "back-end": [
+      "python:3.6.7",
+      "pypy:2.7.0",
+      "Flask:1.0.2",
+      "Tornado:5.1.1",
+      "Django:2.1.7",
+      "cx-Oracle:7.0.0"
+    ],
+    "databases": [
+      "Oracle 11g",
+      "mysql",
+      "sql Loader",
+      "ETL"
+    ],
+    "cloud": [
+      "AWS & toolsets"
+    ],
+    "Servers": [
+      "apache: 2.4",
+      "tomcat: 8.0.21",
+      "heroku"
+    ],
+    "tools": [
+      "Intellij, jira, git, winmerge, putty, filezilla, office"
+    ],
+    "awareness": [
+      "Waterfall",
+      "Agile",
+      "SAFe",
+      "Zachman",
+      "TOGAF",
+      "MAF",
+      "Oauth",
+      "DevOps",
+      "NoSql"
+    ]
+  }
+}

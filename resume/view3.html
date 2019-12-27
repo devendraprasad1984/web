@@ -1,0 +1,62 @@
+<style>
+    #contentView3 div.container {
+        width: 100%;
+        height: 600px;
+    }
+</style>
+
+<div ng-app="myAjs">
+    <div class="">
+        <div class="component">
+            <button class=" btn btn-info" style="width: 100%; font-weight: bolder" id="cn-button">menu</button>
+            <div class="cn-wrapper" id="cn-wrapper">
+                <ul>
+                    <li onclick="setVisibility('about')"><a href="#"><span>About</span></a></li>
+                    <li onclick="setVisibility('experience')"><a href="#"><span>Experience</span></a></li>
+                    <li onclick="setVisibility('education')"><a href="#"><span>Education</span></a></li>
+                    <li onclick="setVisibility('skills')"><a href="#"><span>Skills</span></a></li>
+                    <li onclick="setVisibility('interest')"><a href="#"><span>Interest</span></a></li>
+                    <li onclick="setVisibility('git')"><a href="#"><span>Git</span></a></li>
+                    <li onclick="setVisibility('rest')"><a href="#"><span>REST</span></a></li>
+                    <!--<li onclick="setVisibility('ui')"><a href="#"><span>UI</span></a></li>-->
+                </ul>
+            </div>
+        </div>
+
+
+        <!--<div id="idContent" style="margin-top: 3em; overflow: auto; position: relative"></div>-->
+        <div id="view3MainDiv" class="bg-gray bs nav-tabs-custom">
+            <div id="contentView3">
+                <div id="about" class="container" style="display: block;">
+                    <run-time-templates url="templates/leftTemplate.html"></run-time-templates>
+                </div>
+                <div id="experience" class="container" style="display: none;">
+                    <run-time-templates url="templates/experienceTemplate.html"></run-time-templates>
+                </div>
+                <div id="education" class="container" style="display: none;">
+                    <run-time-templates url="templates/educationTemplate.html"></run-time-templates>
+                </div>
+                <div id="skills" class="container" style="display: none;">
+                    <run-time-templates url="templates/footerLinks.html"></run-time-templates>
+                </div>
+                <div id="interest" class="container" style="display: none;">
+                    <run-time-templates url="templates/interestTemplate.html"></run-time-templates>
+                </div>
+                <div id="git" class="container" style="display: none;">
+                    <run-time-templates url="templates/footerIKnow.html"></run-time-templates>
+                </div>
+                <div id="rest" class="container" style="display: none;">
+                    <run-time-templates url="templates/experienceTemplate.html"></run-time-templates>
+                </div>
+                <!--<div id="ui"class="container" style="display: none;" >-->
+                <!--<run-time-templates url="templates/uiSkills.html"></run-time-templates>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div ng-include=""class="container" ng-view="" src="'templates/pageDiv.html'"></div>-->
+<!--</div>-->
+<!--<script src="js/view3.js"></script>-->
+<!--</div>-->

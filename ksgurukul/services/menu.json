@@ -1,0 +1,87 @@
+{
+  "menu": [
+    {
+      "id": "1",
+      "name": "home",
+      "desc": "Home",
+      "defaultLoad": "show",
+      "loadIn": "myHomeData",
+      "uri": "services/ServiceDetails.php?getDataFile=home&getType=yes&title=no",
+      "func":"home"
+    },
+    {
+      "id": "2",
+      "name": "course",
+      "desc": "Course",
+      "defaultLoad": "hide",
+      "loadIn": "courseID",
+      "uri": "services/ServiceDetails.php?getDataFile=courses&getType=option&toload=myCourseData"
+    },
+    {
+      "id": "3",
+      "name": "event",
+      "desc": "Events",
+      "defaultLoad": "hide",
+      "loadIn": "eventID",
+      "uri": "services/ServiceDetails.php?getDataFile=events&getType=anchor&toload=myEventData"
+    },
+    {
+      "id": "4",
+      "name": "team",
+      "desc": "Faculty",
+      "defaultLoad": "hide",
+      "loadIn": "teamId",
+      "uri": "services/ServiceDetails.php?getDataFile=team&getType=yes"
+    },
+    {
+      "id": "5",
+      "name": "blog",
+      "desc": "Blog",
+      "defaultLoad": "hide",
+      "loadIn": "myBlogData",
+      "uri": "services/ServiceDetails.php?getDataFile=blog&getType=yes"
+    },
+    {
+      "id": "6",
+      "name": "testimonial",
+      "desc": "Testimonials",
+      "defaultLoad": "hide",
+      "loadIn": "myTestimonialData",
+      "uri": "services/ServiceDetails.php?getDataFile=testimonials&getType=yes&toload=ok"
+    },
+    {
+      "id": "7",
+      "name": "contact",
+      "desc": "Contact",
+      "defaultLoad": "hide",
+      "loadIn": "contactID",
+      "uri": "services/ServiceDetails.php?getDataFile=contact&getType=anchor&toload=contactID"
+    },
+    {
+      "id": "0",
+      "name": "header",
+      "desc": "",
+      "defaultLoad": "hide",
+      "loadIn": "top1",
+      "uri": "services/ServiceDetails.php?getDataFile=header&getType=yes&title=no"
+    },
+    {
+      "id": "0",
+      "name": "footer",
+      "desc": "",
+      "defaultLoad": "hide",
+      "loadIn": "footerID",
+      "uri": "services/ServiceDetails.php?getDataFile=footer&getType=yes&title=no"
+    }
+  ,
+    {
+      "id": "0",
+      "name": "slider",
+      "desc": "",
+      "defaultLoad": "hide",
+      "loadIn": "",
+      "uri": "services/ServiceDetails.php?slider=1",
+      "func":"slider"
+    }
+  ]
+}

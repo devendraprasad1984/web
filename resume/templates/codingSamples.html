@@ -1,0 +1,173 @@
+<html>
+<head>
+    <script src="../js/angular.js"></script>
+    <script src="../js/readCodeFiles.js"></script>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"/>
+
+    <style>
+        html {
+            /*font-family: "Courier New";*/
+            font-size: 10pt;
+            min-height: calc(100vh - 70px);
+        }
+
+        body {
+            /*background-color: lightgoldenrodyellow;*/
+        }
+
+        ul {
+            /*padding: 1px;*/
+            text-decoration: none;
+        }
+
+        li {
+            text-decoration: none;
+            list-style-type: none;
+            line-height: 1px;
+            display: inline-block;
+            /*padding: 0;*/
+            margin: 1px;
+        }
+
+        li a {
+            text-decoration: none;
+            font-weight: bolder;
+            /*color: #bd2130;*/
+        }
+
+        table {
+            margin: 2px;
+            border-color: #00bcd4;
+            vertical-align: top;
+            text-align: left;
+            width: 100%;
+            height: 300px;
+        }
+
+        div, td {
+            text-align: left;
+            vertical-align: top;
+            padding: 1px;
+        }
+
+        span {
+            text-align: left;
+            vertical-align: top;
+            font-weight: bolder;
+        }
+
+        .custom-file-input::-webkit-file-upload-button {
+            visibility: hidden;
+        }
+
+        .custom-file-input::before {
+            content: 'choose';
+            display: inline-block;
+            background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+            border: 1px solid #999;
+            border-radius: 3px;
+            /*padding: 5px 8px;*/
+            outline: none;
+            white-space: nowrap;
+            -webkit-user-select: none;
+            cursor: pointer;
+            text-shadow: 1px 1px #fff;
+            font-weight: 700;
+            font-size: 14pt;
+        }
+
+        .custom-file-input:hover::before {
+            border-color: black;
+        }
+
+        .custom-file-input:active::before {
+            background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+        }
+
+        span.btn {
+            font-weight: bolder;
+            width: 200px;
+            text-align: left;
+        }
+        div a.btn {
+            font-weight: bolder;
+            width: 250px;
+            text-align: left;
+        }
+        span.badge{
+            font-size: 12pt;
+        }
+
+    </style>
+
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- remove this if you use Modernizr -->
+    <script>(function (e, t, n) {
+        var r = e.querySelectorAll("html")[0];
+        r.className = r.className.replace(/(^|\s)no-js(\s|$)/, "$1js$2")
+    })(document, window, 0);</script>
+</head>
+
+<body ng-app="myCodeAngular">
+<div id="itSummaryScope" style="width: 100%; height: 90%; overflow: auto; position: relative;">
+    <h2>I love Coding in python, nodeJs, PL/Sql, Solution Design, Microservices over Cloud, Brain Storming</h2>
+    <!--<div ng-controller="myChoiceController">-->
+    <!--&lt;!&ndash;<input type="file" id="choice" value="choose" multiple="true" ng-change="getFiles2Send();"/>&ndash;&gt;-->
+    <!--<input type="file" file-model="choice" multiple/>-->
+    <!--<button ng-click="getFiles2Send()">Choice</button>-->
+    <!--<div>{{selectedFiles}}</div>-->
+    <!--</div>-->
+
+
+    <div id="getDataForTest">
+        <form id="testRes" action="services/choice.php" method="post" enctype="multipart/form-data"
+              target='upTarget'>
+            <input type="text" name="dirName" id="dirName" value="js" style="width: 50px;"/>
+            <input class="btn btn-warning" type="file" name="fTest" id="fileToUpload" onchange="this.form.submit()" class="custom-file-input">
+            <!--<input type="submit" value="OK" name="submit">-->
+        </form>
+        <iframe name="upTarget" id="upTarget"
+                style="border:0; display: none; height: 40px; width:100%; overflow: auto;"></iframe>
+
+    </div>
+
+
+    <div ng-init="init();getFolderList('');" ng-controller="initController">
+        <table border="0" cellpadding="0" cellspacing="0">
+            <th><span class="btn btn-danger">Programming Languages</span></th>
+            <th>
+                <span class="btn btn-danger">Coding Samples [ <span class="badge badge-success">{{dirName}}</span> ]</span>
+                <input type="text" style="width:100px;" placeholder="filter" ng-model="codeFilterByName"/>
+            </th>
+            <th><span class="btn btn-danger">How I Code [ <span class="badge badge-warning">{{codeName}}</span> ]</span>
+            </th>
+            <tr>
+                <td width="25%">
+                    <div style="height: 300px; overflow: auto;">
+                        <div ng-repeat="i in codeDirList">
+                            <a href="#" ng-click="getFolderList(i);" class="btn btn-success">{{$index+1}}: {{i}}</a>
+                        </div>
+                    </div>
+                </td>
+                <td width="25%">
+                    <div style="height: 300px; overflow: auto;">
+                        <div ng-repeat="i in fileList| filter: codeFilterByName">
+                            <a href="#" ng-click="getCodeContents(i);" class="btn btn-primary">{{$index+1}}: {{i}}</a>
+                        </div>
+                    </div>
+                </td>
+                <td width="50%">
+                    <div style="height: 400px; overflow: auto;">
+                        <p ng-bind-html="codeContents  | text2html"></p>
+                        <!--<p>{{codeContents }}"></p>-->
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

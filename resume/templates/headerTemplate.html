@@ -1,0 +1,184 @@
+<style>
+    /*#startLoaderTag {*/
+    /*display: none;*/
+    /*}*/
+
+    /*.dropbtn {*/
+    /*background-color: black;*/
+    /*color: white;*/
+    /*padding: 5px;*/
+    /*font-size: 12px;*/
+    /*border: none;*/
+    /*cursor: pointer;*/
+    /*}*/
+
+    /*.dropbtn:hover, .dropbtn:focus {*/
+    /*background-color: #2980B9;*/
+    /*}*/
+
+    /*.dropdown {*/
+    /*position: relative;*/
+    /*display: inline-block;*/
+    /*z-index: 1;*/
+    /*}*/
+
+    /*.dropdown-content {*/
+    /*display: none;*/
+    /*position: absolute;*/
+    /*background-color: #f1f1f1;*/
+    /*min-width: 200px;*/
+    /*overflow: auto;*/
+    /*box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);*/
+    /*z-index: 1;*/
+    /*!*opacity: 0.9;*!*/
+    /*}*/
+
+    /*.dropdown-content a {*/
+    /*color: black;*/
+    /*padding: 12px 12px;*/
+    /*text-decoration: none;*/
+    /*display: block;*/
+    /*font-size: 10pt;*/
+    /*}*/
+
+    /*.show {*/
+    /*display: block;*/
+    /*}*/
+
+    #divHeader div p, #divHeader div  a {
+        font-weight: bolder;
+        text-align: right;
+        /*float: right;*/
+        top: 0;
+        margin: 2px;
+    }
+</style>
+
+<div>
+    <div class="bg-dark text-white" id="divHeader">
+        <div id="mobiMenu" class="btn" onclick="$('#topMenu,#topColors').toggle()">Menu</div>
+        <span style="font-size: 30pt; text-align: left; font-weight: bolder">Devendra Prasad</span>
+        <div id="topBadge" style="float: right; font-size: 10pt;">
+            <p class="badge badge-warning">Tech Lead & Developer</p>
+            <p id="idJavaBadge" class="badge badge-info" onclick="openPythonGitHubPage()">python/flask/django/tornado</p>
+            <a id="idReactBadge" href="https://github.com/devendraprasad1984/somePhp/tree/master/react/jsx" target="_blank" class="badge badge-info">React/Redux</a>
+            <p id="idBootstrapBadge" class="badge badge-light">bootstrap</p>
+            <p id="idJsBadge" class="badge badge-light">js/jquery</p>
+            <p id="idGooglrBadge" class="badge badge-light">google charts</p>
+        </div>
+    </div>
+
+    <!--<div class="badge dropdown">-->
+    <!--<button onclick="myMenuClickFunc('myDropdown')" class="dropbtn">Choose View-->
+    <!--<span id="idBadgeInfo" onclick="displayMyViews('curr',this);" style="font-size: 12pt;" class="badge badge-danger badge-pill">...</span>-->
+    <!--</button>-->
+    <!--<div id="myDropdown" class="dropdown-content">-->
+    <!--<a type="button" class="btn-outline-primary" href="#" ng-click="displayMyViews('view1','Flat');">Flat</a>-->
+    <!--<a type="button" class=" btn-outline-primary" href="#" ng-click="displayMyViews('view2','Tabbed');">Tabbed</a>-->
+    <!--<a type="button" class=" btn-outline-primary" href="#" ng-click="displayMyViews('view3','Circular');">Circular</a>-->
+    <!--<a type="button" class=" btn-outline-primary" href="#" ng-click="displayMyViews('view4','Carousal');">Carousal</a>-->
+    <!--<a type="button" class=" btn-outline-primary" href="#" ng-click="displayMyViews('view5','Collage');">Collage</a>-->
+    <!--<a type="button" class=" btn-outline-primary" href="#" ng-click="displayMyViews('view6','Dashboard');">Dashboard</a>-->
+    <!--<a type="button" class=" btn-outline-primary" href="react.html" target="_blank">ReactJS</a>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <div class="" style="margin-top: 5px;">
+        <div class="row">
+            <div id="topColors" class="col-lg-12 main_color">
+                <a data-id="deep-purple" class="preview color-1">&nbsp;</a>
+                <a data-id="red" class="preview color-2">&nbsp;</a>
+                <a data-id="blue" class="preview color-3">&nbsp;</a>
+                <!--<a data-id="deep-orange" class="preview color-4">&nbsp;</a>-->
+                <a data-id="green" class="current-main-color preview color-5">&nbsp;</a>
+                <a data-id="light-blue" class="preview color-6">&nbsp;</a>
+                <!--<a data-id="pink" class="preview color-7">&nbsp;</a>-->
+                <!--<a data-id="purple" class="preview color-8">&nbsp;</a>-->
+                <a data-id="orange" class="preview color-9">&nbsp;</a>
+                <a data-id="amber" class="preview color-10">&nbsp;</a>
+                <a data-id="lime" class="preview color-11">&nbsp;</a>
+                <a data-id="teal" class="preview color-12">&nbsp;</a>
+            </div>
+        </div>
+        <div id="topMenu">
+            <a id="id9" class="btn" ng-click="displayMyViews('id8','viewElegant','Elegant');">Elegant</a>
+            <a id="id8" class="btn" ng-click="displayMyViews('id8','view8','Simple');">Simple</a>
+            <a id="id1" class="btn" ng-click="displayMyViews('id1','view7','Click');">Click</a>
+            <a id="id2" class="btn " ng-click="displayMyViews('id2','view1','Flat');">Flat</a>
+            <a id="id3" class="btn " ng-click="displayMyViews('id3','view2','Tabbed');">Tabbed</a>
+            <a id="id4" class="btn " ng-click="displayMyViews('id4','view3','Circular');">Circular</a>
+            <a id="id5" class="btn" ng-click="displayMyViews('id5','view4','Carousal');">Carousal</a>
+            <a id="id6" class="btn " ng-click="displayMyViews('id6','view5','Collage');">Collage</a>
+            <a id="id7" class=" btn" ng-click="displayMyViews('id7','view6','Dashboard');">Dashboard</a>
+            <span><a class=" bg-white text-danger " href="/react-build" target="_blank">ReactJS</a></span>
+        </div>
+    </div>
+</div>
+<script>
+    // $(function () {
+    //     // Paceoptions={
+    //     //     ghostTime:5000
+    //     //     ,ajax: false
+    //     // }
+    //     Pace.on('hide', function () {
+    //         // console.log('loading hide');
+    //     });
+    //
+    //     Pace.track(function () {
+    //         // $.ajax({url:'http://www.google.com',success:function(){console.log("request completed")}})
+    //     })
+    //
+    //     Pace.on('done', function () {
+    //         $('#startLoaderTag').fadeIn(2500)
+    //         $('#loadMsg').css({display: 'none'})
+    //     });
+    //     Pace.restart();
+    //
+    //
+    //     var colors = ["blue", "black", "green", "orange", "pink", "purple", "red", "silver"]
+    //     var rndNum = Math.floor(Math.random() * Math.floor(colors.length - 1) + 1);
+    //     var cssNames = [
+    //         "pace-theme-big-counter"
+    //         , "pace-theme-bounce"
+    //         , "pace-theme-center-atom"
+    //         , "pace-theme-center-circle"
+    //         , "pace-theme-center-radar"
+    //         , "pace-theme-center-simple"
+    //         , "pace-theme-flash"
+    //         , "pace-theme-flat-top"
+    //         , "pace-theme-loading-bar"
+    //         , "pace-theme-mac-osx"
+    //         , "pace-theme-material"
+    //     ]
+    //     rndNum = Math.floor(Math.random() * Math.floor(cssNames.length - 1) + 1);
+    //     var color = (typeof colors[rndNum] === 'undefined') ? 'blue' : colors[rndNum];
+    //     var cssName = (typeof cssNames[rndNum] === 'undefined') ? 'pace-theme-mac-osx' : cssNames[rndNum];
+    //     $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', 'theme/' + color + '/' + cssName + '.css'));
+    // })
+
+    function myMenuClickFunc(elmId) {
+        document.getElementById(elmId).classList.toggle("show");
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function (event) {
+        if (!event.target.matches('.dropbtn')) {
+
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+</script>
+
+
+<script>
+    $(document).ready(function(){
+        setBtnDisplay()
+    })
+</script>

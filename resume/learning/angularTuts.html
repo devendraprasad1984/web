@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="js/angular.js"></script>
+        <script src="js/jquery2.js"></script>
+        <script src="js/my.js"></script>
+        <!-- <script src="js/html5.js"></script> -->
+        <!--        <link rel="stylesheet" href="css/bootstrap.css">-->
+
+
+        <style>
+            html, body{
+                margin-left:30px;
+            }
+            table, th , td {
+                border: 1px solid grey;
+                border-collapse: collapse;
+                padding: 5px;
+            }
+            table tr:nth-child(odd) {
+                background-color: #f1f1f1;
+            }
+            table tr:nth-child(even) {
+                background-color: #ffffff;
+            }
+        </style>
+    </head>
+
+    <body ng-app="myAjs">
+        <hr/>
+        <div ng-controller="myName">
+            <p>FirstName : <input type="text" ng-model="firstName"></p>
+            <p>LastName : <input type="text" ng-model="lastName"></p>
+
+            <button ng-click="count = count + 1">Click Me!</button>
+            <p>{{ count}}</p>
+
+            <!-- <p>Welcome, {{firstName + " " + lastName}}</p> -->
+            <p>Welcome, {{ getName()}}</p>
+        </div>
+        <p>My first expression: {{ 5 + 5}}</p>
+
+        <hr/>
+        <div ng-app="" ng-init="person={fn:'Devendra',ln:'Prasad'}">
+            <p>Array Test: {{person.fn + ", " + person.ln}}</p>
+        </div>
+
+        <hr/>
+        <div ng-app="" ng-init="quantity = 1;
+                price = 5">
+            Quantity: <input type="number"	ng-model="quantity">
+            Costs:    <input type="number" ng-model="price">
+            Total in dollar: {{ quantity * price}}
+        </div>
+
+        <hr/>
+        <div ng-controller="nameArrTest">
+            <ul>
+                <li ng-repeat="x in names| orderBy:'country'">
+                    {{ x.name + ', ' + x.country | uppercase }}
+                </li>
+            </ul>
+        </div> 
+
+
+        <hr/>
+        <div class="container">
+            <div ng-view ng-include src="'ajs/readFromPhp.html'">
+            </div>
+
+
+            <hr/>
+            <!--  	<form  ng-controller="validateCtrl" name="myForm" novalidate> -->
+            <form  ng-controller="validateCtrl" name="myForm">
+                <p>Username:<input type="text" name="user" ng-model="user" required>
+                    <span style="color:red" ng-show="myForm.user.$dirty && myForm.user.$invalid">
+                        <span ng-show="myForm.user.$error.required">Username is required.</span>
+                    </span>
+                </p>
+
+                <p>Email:<input type="email" name="email" ng-model="email" required>
+                    <span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+                        <span ng-show="myForm.email.$error.required">Email is required.</span>
+                        <span ng-show="myForm.email.$error.email">Invalid email address.</span>
+                    </span>
+                </p>
+                <!-- <p><input type="submit" ng-disabled="myForm.user.$dirty && myForm.user.$invalid || myForm.email.$dirty && myForm.email.$invalid"></p> -->
+                <p><input type="submit"></p>
+            </form>
+        </div>
+
+
+        <hr/>
+        <div class="container">
+            <div ng-controller="userCtrl">
+                <div ng-include src="'ajs/userList.html'"><br/>
+                    <div ng-include src="'ajs/userForm.html'">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr/>
+        <div class="container">
+            <div ng-controller="myNoteCtrl">
+                <div ng-include src="'ajs/myNoteApp.html'">
+                </div>
+            </div>
+        </div>
+
+        <hr/>
+        <div class="container">
+            <div ng-view ng-include src="'ajs/readFromPhp.html'">
+            </div>
+        </div>
+        
+        <hr/>
+        testing my dmon rest api in php
+        <div ng-controller="dmonRestApi">
+            <div>
+                <table>
+                    <tr>
+                        <td>{{prices}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+    </body>
+</html> 

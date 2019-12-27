@@ -1,0 +1,10 @@
+<p>Reading from PHP serverside</p>
+<div ng-controller="customersCtrl">
+    <table>
+        <tr ng-repeat="x in names| orderBy:'country'">
+            <td>{{x.Name}}</td>
+            <td>{{x.City|lowercase}}</td>
+            <td>{{x.Country|uppercase}}</td>
+        </tr>
+    </table>
+</div>

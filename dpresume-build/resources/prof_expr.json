@@ -1,0 +1,58 @@
+{
+  "RBS": {
+    "role": "Tech Lead @ Royal Bank Of Scotland",
+    "time": "Oct11-current",
+    "projects": [
+      "Arria NLG (Natural Language Generation)",
+    "DRA - Disclosure Reporting Automation",
+    "Oracle Analytical Cloud Service",
+    "Cash Nostro Management Systems"
+    ],
+    "summary": [
+      "I work on application development using Python/Tornado(Asynchronous IO based networking framework, RESTFul), React, PL/Sql and high edger data volume in Oracle 11g",
+      "I run pylint, jshint and coverage.py for code quality and follow TDD approaches",
+      "I do code review using tools built in git / fisheye",
+      "I have worked on all aspects of Reporting Automation Solution (DRA project) such as DB design, REST API Design, data loader & data consumption stragegy using Python3 / k-Shell / Autosys / sqlloader / sql / plsql",
+      "we use JIRA for agile, bug tracking and backlog grooming",
+      "I can work smoothly on UI development & build in React.js",
+      "I worked with Architects finalising strategies around our solution",
+      "In RBS, we deliver cross platform message(soap & json) / file transfer using Argon APIs which is similar to Kafka / RabbitMQ sort of Pub-Sub ( observer / source-sink / push-pull) implementation",
+      "I help defining project outcomes, recruit & grow team, handle end-user queries",
+      "and support technical documentation",
+      "I have also trained some of new joiners and graduates within team",
+      "We follow MBDL(More Better Different Less) practices for retrospectives"
+    ]
+  },
+  "syntel": {
+    "role": "Programmer @ Syntel",
+    "time": "Apr11-Sep11",
+    "projects": [
+      "Information Publisher macros",
+      "Markdown Optimisation template for requisition management system"
+    ],
+    "summary": [
+      "As an agile sprint developer i handled development of above projects and also dealt in other SDLC phases and to end to end support of the projects"
+    ]
+  },
+  "9dim": {
+    "role": "Programmer @ 9 Dimensions",
+    "time": "Nov09-Mar11",
+    "projects": [
+      "PRVit (Performance Risk Valuation Investment Technique)"
+    ],
+    "summary": [
+      "i handled all development and support related work in the project"
+    ]
+  },
+  "DAVIM": {
+    "role": "Programmer @ DAVIM",
+    "time": "Sep07-Sep08",
+    "projects": [
+      "Software development training to MCA students",
+      "Library Management"
+    ],
+    "summary": [
+      "i handled all development and support related work in the project and also trained MCA students on VB6 application development platform"
+    ]
+  }
+}

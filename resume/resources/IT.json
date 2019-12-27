@@ -1,0 +1,100 @@
+{
+  "skills": [
+    {
+      "skillName": "python+algorithm+DS+flask+AWS+django1.11.5",
+      "rating": "70",
+      "href": "images/py/1.png,images/py/2.png,images/py/3.png,images/py/4.png,images/py/5.png,images/py/6.png,images/py/7.png,images/py/8.png,images/py/9.png,images/py/10.png,images/py/11.png,images/py/12.png,images/py/13.png,images/py/13.png,images/py/14.png,images/py/15.png,images/py/16.png,images/py/17.png,images/py/18.png,images/py/19.png,images/py/20.png,images/py/21.png,images/py/22,images/py/23.png,images/py/24.png,images/py/25.png,images/py/26.png,images/py/27.png,images/py/28.png,images/py/29.png,images/py/30.png,images/py/31.png,images/py/32.png,images/py/33.png,docs/aws-symbi-project.pdf",
+      "bg": "color-12 text-white",
+      "bgReact": "color-12 text-white progress-bar text-white text-left ",
+      "style": "opacity: 0.9;"
+    },
+    {
+      "skillName": "T-SQL+PL/SQL dev",
+      "rating": "85",
+      "href": "",
+      "bg": "color-12 text-white",
+      "bgReact": "color-12 text-white progress-bar text-white text-left ",
+      "style": "opacity: 0.9;"
+    },
+    {
+      "skillName": "HTML5+CSS+JS+Jquery+SPA",
+      "rating": "80",
+      "href": "/learning",
+      "bg": "color-12 text-white",
+      "bgReact": "color-12 text-white progress-bar text-white text-left ",
+      "style": "opacity: 0.9;"
+    },
+    {
+      "skillName": "React+AngularJS",
+      "rating": "60",
+      "href": "https://github.com/devendraprasad1984/PythonAndNodeSamples/tree/master/react,http://dpresume.com/react.html",
+      "bg": "color-12 text-white",
+      "bgReact": "color-12 text-white progress-bar text-white text-left ",
+      "style": "opacity: 0.9;"
+    },
+    {
+      "skillName": "NodeJs+MongoDB",
+      "rating": "75",
+      "href": "images/node/1.png,images/node/2.png,images/node/3.png,images/node/4.png",
+      "bg": "color-12 text-white",
+      "bgReact": "color-12 text-white progress-bar text-white text-left ",
+      "style": "opacity: 0.9;"
+    },
+    {
+      "skillName": "Java+REST+EJB+Servlet",
+      "rating": "55",
+      "href": "https://github.com/devendraprasad1984/java/tree/master/src,images/java/img1.png",
+      "bg": "color-12 text-white",
+      "bgReact": "color-12 text-white progress-bar text-white text-left ",
+      "style": "opacity: 0.9;"
+    },
+    {
+      "skillName": "RestFull Services",
+      "rating": "80",
+      "href": "docs/RESTDemo_AWS.pdf",
+      "bg": "color-12 text-white",
+      "bgReact": "color-12 text-white progress-bar text-white text-left ",
+      "style": "opacity: 0.9;"
+    },
+    {
+      "skillName": "IntelliJ+NetBeans+SVN+JIRA+GIT",
+      "rating": "100",
+      "href": "",
+      "bg": "color-12 text-white",
+      "bgReact": "color-12 text-white progress-bar text-white text-left ",
+      "style": "opacity: 0.9;"
+    },
+    {
+      "skillName": "Autosys+ARM+CI/CD",
+      "rating": "70",
+      "href": "images/cicd/1.png,images/cicd/2.png,images/cicd/3.png,,images/cicd/4.png,,images/cicd/5.png,images/cicd/6.png,images/cicd/7.png,images/cicd/8.png,images/cicd/9.png,images/cicd/10.png,images/cicd/11.png,images/cicd/12.png,images/cicd/13.png",
+      "bg": "color-12 text-white",
+      "bgReact": "color-12 text-white progress-bar text-white text-left ",
+      "style": "opacity: 0.9;"
+    },
+    {
+      "skillName": "SDLC+Agile+Scrum",
+      "rating": "100",
+      "href": "images/scrum/scrum.png,images/scrum/scrum1.png,images/scrum/scrum3.png,images/scrum/scrum4.png,images/scrum/scrum5.png,images/scrum/scrum6.png,images/scrum/scrum7.png,images/scrum/scrum8.png,images/scrum/scrum9.png",
+      "bg": "color-12 text-white",
+      "bgReact": "color-12 text-white progress-bar text-white text-left ",
+      "style": "opacity: 0.9;"
+    },
+    {
+      "skillName": "Change+Release+SCM+Incidents",
+      "rating": "100",
+      "href": "images/change/1.png,images/change/2.png,images/change/3.png,images/change/4.png,images/change/5.png,images/change/6.png",
+      "bg": "color-12 text-white",
+      "bgReact": "color-12 text-white progress-bar text-white text-left ",
+      "style": "opacity: 0.9;"
+    },
+    {
+      "skillName": "requirements+Advance Excel+Access+VBA",
+      "rating": "100",
+      "href": "docs/VBAEyeOpner.pdf",
+      "bg": "color-12 text-white",
+      "bgReact": "color-12 text-white progress-bar text-white text-left ",
+      "style": "opacity: 0.9;"
+    }
+  ]
+}

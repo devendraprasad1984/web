@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<script src="js/jquery2.js"></script>
+</head>
+<style>
+	html {
+		/*background-color: black;*/
+	}
+
+	body {
+		font-size: 12pt;
+		margin: 10pt;
+	}
+
+	a {
+		text-decoration: none;
+		/*color: white;*/
+	}
+
+	td {
+		vertical-align: top;
+	}
+
+	.my-window {
+		height: 600px;
+		width: 100%;
+		overflow: auto;
+		position: relative;
+	}
+
+	.main-heading {
+		font-size: 28pt;
+		font-weight: bolder;
+		/*color: white;*/
+	}
+
+	.vflow {
+		overflow: none;
+		position: relative;
+	}
+
+	table {
+		width: 100%;
+	}
+</style>
+
+<script>
+	function setContents(url) {
+		$("#contents").html("<iframe class='my-window' src='" + url +
+			"' frameborder=0></iframe>");
+	}
+
+	function goBack() {
+		window.history.back();
+	}
+</script>
+
+<body>
+	<div><span class="main-heading">Self Learning</span>&nbsp; <button onclick="goBack()">Go Back</button></div>
+	<table>
+		<tr>
+			<td width="10%" class="vflow">
+				<div>
+					<b><a href=#>Basic Test</a></b><br/>
+					<a href=# onclick="setContents('javascriptTuts.html');">-javascript</a><br/>
+					<a href=# onclick="setContents('jqueryTuts.html');">-jquery</a><br/>
+					<a href=# onclick="setContents('angularTuts.html');">-angular</a><br/>
+					<a href=# onclick="setContents('nodeTest.html');">-node</a><br/>
+					<a href=# onclick="setContents('mongoTest.html');">-nosql</a><br/>
+					<a href=# onclick="setContents('arrayProj.html');">-js array</a><br/>
+					<b><a href=#>KPI Dashbord</a></b><br/>
+					<a href=# onclick="setContents('myTemplates/admin/index.html');">-dashboard-1</a><br/>
+					<a href=# onclick="setContents('myTemplates/admin/index2.html');">-dashboard-2</a><br/>
+					<b><a href=#>Some Design</a></b><br/>
+					<a href=# onclick="setContents('myTemplates/assets/arial/index.html');">-arial</a><br/>
+					<a href=# onclick="setContents('myTemplates/assets/astral/index.html');">-astral</a><br/>
+					<a href=# onclick="setContents('myTemplates/assets/fractal/index.html');">-fractal</a><br/>
+					<a href=# onclick="setContents('myTemplates/assets/helios/index.html');">-helio</a><br/>
+					<a href=# onclick="setContents('myTemplates/assets/verti/index.html');">-verti</a><br/>
+					<a href=# onclick="setContents('samples/FooTable/demo-filtering-pagination.htm');">-filter1</a><br/>
+					<a href=# onclick="setContents('samples/FooTable/demo-widthHeightOverride.htm');">-filter2</a><br/>
+					<a href=# onclick="setContents('samples/grid/index.htm');">-grid</a><br/>
+					<a href=# onclick="setContents('samples/autoCompleteMaster/index.html');">-autoComplete</a><br/>
+					<b><a href=#>AWS</a></b><br/>
+					<a href=# onclick="setContents('https://s3-us-west-1.amazonaws.com/dp-polly-web/index.html');">-S3+nosql+Polly</a><br/>
+					<b><a href=#>Node+Express+react<br/>+jade+angular</a></b><br/>
+					<a href=# onclick="setContents('https://mysterious-inlet-67999.herokuapp.com/');">-node-test-2</a><br/>
+					<a href=#>python</a><br/>
+				</div>
+			</td>
+			<td width="90%" class="vflow">
+				<div id="contents"></div>
+			</td>
+		</tr>
+	</table>
+</body>
+
+</html>

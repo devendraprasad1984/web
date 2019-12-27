@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>This is array project to store student database</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/jquery2.js"></script>
+        <script src="js/arrStu.js"></script>
+    </head>
+    <body>
+        <h1>Student Database: Array Project</h1>
+        <div>
+            <table border="1" width="100%">
+                <tr>
+                    <td width="50%" style="vertical-align:top;">
+                        <div>
+                            <form>
+                                <table width="100%">
+                                    <tr><td>Existing ID</td><td><input type="text" id="tId" disabled /></td></tr>
+                                    <tr><td>Name: </td><td><input type="text" id="tName" /></td></tr>
+                                    <tr><td>Age: </td><td><input type="text" id="tAge" /></td></tr>
+                                    <tr><td>English: </td><td><input type="text" id="tEng" /></td></tr>
+                                    <tr><td>Hindi: </td><td><input type="text" id="tHin" /></td></tr>
+                                    <tr><td>Maths: </td><td><input type="text" id="tMath" /></td></tr>
+                                    <tr><td colspan="2"><input type="button" id="bSave" value="SAVE" onclick="storeRecords();"/>
+                                            <input type="reset" id="bReset" value="CLEAR" onclick="$('#myReport').html('');"/>
+                                            <input type="button" id="bRefresh" value="RefreshData" onclick="displayStuRecord();"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                    </td>
+                    <td width="50%" style="vertical-align:top;">
+                        <div id="myReport"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,11 @@
+{
+"menu":[
+  {"id":"1","name":"home","desc":"Home","defaultLoad":"show"}
+  ,{"id":"2","name":"course","desc":"Course","defaultLoad":"hide"}
+  ,{"id":"3","name":"event","desc":"Events","defaultLoad":"hide"}
+  ,{"id":"4","name":"team","desc":"Faculty","defaultLoad":"hide"}
+  ,{"id":"5","name":"blog","desc":"Blog","defaultLoad":"hide"}
+  ,{"id":"6","name":"testimonial","desc":"Testimonials","defaultLoad":"hide"}
+  ,{"id":"7","name":"contact","desc":"Contact","defaultLoad":"hide"}
+]
+}
