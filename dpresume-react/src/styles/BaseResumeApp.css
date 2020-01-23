@@ -1,0 +1,17 @@
+#main_id div {
+
+}
+
+#main_id .bottom_div {
+    margin-top: 10px;
+    bottom: 0;
+    float: bottom;
+    position: relative;
+    width: 100%;
+}
+
+div span.btn.btn-primary {
+    margin: 2px;
+    padding: 2px;
+    font-size: 12px;
+}

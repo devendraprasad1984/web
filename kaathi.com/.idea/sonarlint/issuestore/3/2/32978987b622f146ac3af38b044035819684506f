@@ -1,80 +1,0 @@
-
-h	php:S1192"MDefine a constant instead of duplicating this literal "Content-Type" 9 times.(ì¹İøÿÿÿÿ
-`	php:S1192%"KDefine a constant instead of duplicating this literal "text/plain" 4 times.(•—‰Ÿ
-h	php:S1192Ã"RDefine a constant instead of duplicating this literal "extension_missing" 4 times.(¹…éÈ
-aphp:S107’%"GThis function has 8 parameters, which is greater than the 7 authorized.(ø£‡ıÿÿÿÿ
-e	php:S1142ª"OReduce the number of returns of this function 6, down to the maximum allowed 3.(Ã£Ï
-e	php:S1142¬!"OReduce the number of returns of this function 5, down to the maximum allowed 3.(ÕÜÎ×
-j	php:S3776…"TRefactor this function to reduce its Cognitive Complexity from 48 to the 15 allowed.(å¦½¶
-j	php:S3776Æ"TRefactor this function to reduce its Cognitive Complexity from 42 to the 15 allowed.(€†ÿĞ
-c	php:S1192î"NDefine a constant instead of duplicating this literal "sendmail_from" 3 times.(«ÑéX
-]	php:S1117ß"GRename "$to" which has the same name as the field declared at line 590.(¬âïÚ
-a	php:S1192³"KDefine a constant instead of duplicating this literal "attachment" 7 times.(·ÁÑ¿
-j	php:S3776»"TRefactor this function to reduce its Cognitive Complexity from 28 to the 15 allowed.(Ÿ©÷
-j	php:S1142™"OReduce the number of returns of this function 5, down to the maximum allowed 3.(á¼¿Îûÿÿÿÿ
-”php:S138ú"zThis function "createBody" has 255 lines, which is greater than the 150 lines authorized. Split it into smaller functions.(æé—øÿÿÿÿ
-_	php:S1192‹"IDefine a constant instead of duplicating this literal "Reply-To" 6 times.(äæéŠ
-g	php:S1192­"RDefine a constant instead of duplicating this literal "alt_inline_attach" 3 times.(éó§
-a	php:S1192¬"KDefine a constant instead of duplicating this literal "alt_attach" 3 times.(ïÈÛ¤
-{	php:S1448"fClass "PHPMailer" has 110 methods, which is greater than 20 authorized. Split it into smaller classes.(‰À©Ï
-j	php:S3776Õ"TRefactor this function to reduce its Cognitive Complexity from 21 to the 15 allowed.(â–«‡
-[	php:S1192”"FDefine a constant instead of duplicating this literal "\r\n " 4 times.(¸—ÕE
-z	php:S1488È"dImmediately return this expression instead of assigning it to the temporary variable "$file_buffer".(îûé
-o	php:S3776¢"TRefactor this function to reduce its Cognitive Complexity from 32 to the 15 allowed.(’’Šÿøÿÿÿÿ
-b	php:S1192¤"LDefine a constant instead of duplicating this literal "%s (%s): %s" 3 times.(÷øçã
-p	php:S1192¸"ZDefine a constant instead of duplicating this literal "Content-Transfer-Encoding" 3 times.(ºŸí†
-`	php:S1192®!"JDefine a constant instead of duplicating this literal "extension" 4 times.(êõÌ»
-J	php:S1066Â"/Merge this if statement with the enclosing one.(°ĞÒÊÿÿÿÿÿ
-a	php:S1192«"KDefine a constant instead of duplicating this literal "alt_inline" 3 times.(§Íâ
-c	php:S1192"HDefine a constant instead of duplicating this literal "inline" 13 times.(îº–íûÿÿÿÿ
-^	php:S1192€"HDefine a constant instead of duplicating this literal "Subject" 4 times.(°óÜ
-]	php:S1192ƒ"GDefine a constant instead of duplicating this literal "phrase" 3 times.(å¯ÎÆ
-^	php:S1192®!"HDefine a constant instead of duplicating this literal "dirname" 4 times.(êõÌ»
-d	php:S1192'"JDefine a constant instead of duplicating this literal "text/html" 4 times.(İÌ ßøÿÿÿÿ
-s	php:S1192¿ "XDefine a constant instead of duplicating this literal "application/x-httpd-php" 4 times.(™„å…üÿÿÿÿ
-a	php:S1192È"FDefine a constant instead of duplicating this literal "error" 4 times.(›»Åıÿÿÿÿ
-_	php:S1192®!"IDefine a constant instead of duplicating this literal "filename" 4 times.(êõÌ»
-f	php:S1192Í "KDefine a constant instead of duplicating this literal "audio/mpeg" 3 times.(ÇàıÙÿÿÿÿÿ
-9php:S125Á"Remove this commented out code.(âë¼íúÿÿÿÿ
-j	php:S1142œ"OReduce the number of returns of this function 5, down to the maximum allowed 3.(úŒòÎøÿÿÿÿ
-m	php:S1192° "WDefine a constant instead of duplicating this literal "application/postscript" 3 times.(ÜÆË–
-c	php:S1192Ñ "MDefine a constant instead of duplicating this literal "audio/x-aiff" 3 times.(¦ºà—
-b	php:S1192Û#"GDefine a constant instead of duplicating this literal "label" 11 times.(ª˜¯şÿÿÿÿÿ
-j	php:S3776“"TRefactor this function to reduce its Cognitive Complexity from 60 to the 15 allowed.(Êî
-^	php:S1192º"HDefine a constant instead of duplicating this literal " type="" 3 times.(•šÍ¤
-`	php:S1192­"JDefine a constant instead of duplicating this literal "file_open" 3 times.(²øùâ
-d	php:S1192ö"IDefine a constant instead of duplicating this literal "X-Mailer" 3 times.(¹š¦Êùÿÿÿÿ
-j	php:S1142Ó"OReduce the number of returns of this function 5, down to the maximum allowed 3.(ëÇ¼Òıÿÿÿÿ
-o	php:S3776ú"TRefactor this function to reduce its Cognitive Complexity from 45 to the 15 allowed.(æé—øÿÿÿÿ
-j	php:S3776	"TRefactor this function to reduce its Cognitive Complexity from 27 to the 15 allowed.(ÃãšÅ
-`	php:S1192ş"JDefine a constant instead of duplicating this literal "/[\r\n]+/" 3 times.(§À­ã
-j	php:S1192µ"TDefine a constant instead of duplicating this literal "smtp_connect_failed" 3 times.(”¤ŠÀ
-_	php:S1192»"IDefine a constant instead of duplicating this literal "sendmail" 4 times.(ÌĞ˜˜
-a	php:S1192Ê"FDefine a constant instead of duplicating this literal "qmail" 6 times.(€¯ßüÿÿÿÿ
-b	php:S1192È"GDefine a constant instead of duplicating this literal "detail" 3 times.(›»Åıÿÿÿÿ
-f	php:S1192÷ "KDefine a constant instead of duplicating this literal "video/mpeg" 3 times.(ìğ ©ùÿÿÿÿ
-e	php:S1142
-"OReduce the number of returns of this function 5, down to the maximum allowed 3.(»±ßè
-b	php:S1192¬"LDefine a constant instead of duplicating this literal "file_access" 3 times.(Øèí°
-a	php:S1192Ü "KDefine a constant instead of duplicating this literal "image/jpeg" 3 times.(î¸«ß
-u	php:S1488®"_Immediately return this expression instead of assigning it to the temporary variable "$result".(‘”»
-b	php:S1192Ÿ"LDefine a constant instead of duplicating this literal " boundary="" 8 times.(…ÖØä
-o	php:S3776º#"TRefactor this function to reduce its Cognitive Complexity from 43 to the 15 allowed.(ÿç¸±ÿÿÿÿÿ
-b	php:S1192¡"GDefine a constant instead of duplicating this literal "attach" 3 times.(›ÈÃªùÿÿÿÿ
-i	php:S1192ê"NDefine a constant instead of duplicating this literal "empty_message" 3 times.(«»´÷ÿÿÿÿÿ
-]	php:S1192ë"GDefine a constant instead of duplicating this literal "sha256" 6 times.(ª¶ñ
-c	php:S1192ê"HDefine a constant instead of duplicating this literal "file://" 4 times.(ØÅ©üÿÿÿÿÿ
-s	php:S2068İ"X'password' detected in this variable name, review this potentially hardcoded credential.(ñ¥ú®ıÿÿÿÿ
-u	php:S1192¥ "ZDefine a constant instead of duplicating this literal "application/octet-stream" 10 times.(÷É×úıÿÿÿÿ
-k	php:S1192¥"PDefine a constant instead of duplicating this literal "invalid_address" 5 times.(¸ôûÕúÿÿÿÿ
-^	php:S1192›	"HDefine a constant instead of duplicating this literal "address" 3 times.(¥¤Áß
-j	php:S1142‹"OReduce the number of returns of this function 4, down to the maximum allowed 3.(Êúšòüÿÿÿÿ
-a	php:S1192Û#"FDefine a constant instead of duplicating this literal "value" 6 times.(ª˜¯şÿÿÿÿÿ
-o	php:S3776‹"TRefactor this function to reduce its Cognitive Complexity from 19 to the 15 allowed.(Êúšòüÿÿÿÿ
-_	php:S1192®!"IDefine a constant instead of duplicating this literal "basename" 4 times.(êõÌ»
-^	php:S1192Ã"HDefine a constant instead of duplicating this literal "openssl" 3 times.(¹…éÈ
-^	php:S1192ì"HDefine a constant instead of duplicating this literal "execute" 5 times.(ëù×†
-j	php:S3776‹"TRefactor this function to reduce its Cognitive Complexity from 43 to the 15 allowed.(«»
-r	php:S1192º "WDefine a constant instead of duplicating this literal "application/x-director" 3 times.(øüĞıÿÿÿÿ
-d	php:S1192ª"IDefine a constant instead of duplicating this literal "encoding" 7 times.(ã·Š¹ÿÿÿÿÿ
-i	php:S3776°"TRefactor this function to reduce its Cognitive Complexity from 19 to the 15 allowed.(—ïÄ
