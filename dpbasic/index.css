@@ -13,7 +13,7 @@ footer div{
 
 .content {
     padding-top: 50px;
-    min-height: 450px;
+    /*min-height: 450px;*/
 }
 
 .togglePanel{
@@ -61,7 +61,7 @@ h1{
 
 li:hover {
     color: #DB4437;
-    background-color: #F4B400;
+    background-color: white;
 }
 
 li > span {
@@ -80,17 +80,15 @@ a {
 }
 
 .content-right {
-    min-height: 450px;
+    height: 450px;
     background-color: #F4B400;
-    height: 110px;
     color: #000000;
     overflow: auto;
-    /*text-align: justify;*/
     word-wrap: break-word;
 }
 
 .content-left {
-    min-height: 450px;
+    height: 450px;
     background-color: #0F9D58;
 }
 
@@ -101,7 +99,7 @@ ul {
 }
 
 .cursel{
-    background-color: #F4B400;
+    background-color: white;
     color: #DB4437;
 }
 
@@ -116,16 +114,18 @@ li {
 
 .parent div {
     padding: 10px;
+    overflow-x: hidden;
+    /*display: inline-grid;*/
 }
 
 .first {
     width: 200px;
     float: left;
 }
-
 .second {
     width: auto;
 }
+
 
 
 @media only screen and (max-width: 600px) {

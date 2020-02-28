@@ -60,6 +60,8 @@ let toggleLeftPanel = function (e) {
     e.innerText = e.innerText == 'Hide Menu' ? 'Menu' : 'Hide Menu';
 }
 let handleAnchorClick = function (key) {
+    let rightContainer=getTab(rightPanelDiv);
+    rightContainer.style.backgroundColor="white";
     let allLeftLI = document.querySelectorAll('.content-left ul li');
     for (let i in allLeftLI) {
         let x = allLeftLI[i];
