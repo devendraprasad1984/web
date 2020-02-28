@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Item</title>
+</head>
+<body>
+<h2>add a new item</h2>
+    <div>
+        <labe>enter item</labe>
+        <input type="text" id="item" autofocus/>
+    </div>
+    <button type="button" onclick="addItem()">Add Item</button>
+
+
+<script>
+    //pass the item to main window using electron ipc renderer (inter process communication)
+    const electron=require('electron');
+    const ipc=electron.ipcRenderer;
+    // document.querySelector('form').addEventListener('submit',submitForm);
+    function addItem(){
+        let item=document.querySelector('#item').value;
+        console.log(item);
+        ipc.sendSync('xitem',item);
+    }
+</script>
+</body>
+</html>
