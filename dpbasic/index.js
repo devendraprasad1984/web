@@ -1,14 +1,10 @@
 let leftMenu = {
-    "About": {
-        url: ['images/dp.png'],
-        text: "About Us",
-        uri: "resources/summary.json"
-    }
-    , "Education": {url: [], text: "Education Details", uri: "resources/education.json"}
-    , "Certification": {url: [], text: "Certification Details", uri: "resources/certifications.json"}
-    , "Experience": {url: [], text: "Experience Summary", uri: "resources/prof_expr.json"}
-    , "Projects": {url: [], text: "Projects I have Undertaken most recently", uri: "resources/projects.json"}
-    , "WhatElse": {url: [], text: "What else I know", uri: "resources/skills.json"}
+    "About": {url: ['images/dp.png'], text: "About Us", uri: "resources/summary.json"},
+    "Education": {url: [], text: "Education Details", uri: "resources/education.json"},
+    "Certification": {url: [], text: "Certification Details", uri: "resources/certifications.json"},
+    "Experience": {url: [], text: "Experience Summary", uri: "resources/prof_expr.json"},
+    "Projects": {url: [], text: "Projects I have Undertaken most recently", uri: "resources/projects.json"},
+    "WhatElse": {url: [], text: "What else I know", uri: "resources/skills.json"}
 };
 let menuLKeys = Object.keys(leftMenu);
 let idLeftMenu = 'leftMenu';
@@ -32,13 +28,13 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
 function getLinksDisplay() {
     getFromWeb(true, 'resources/links.json', function (successData) {
-        let header=successData.header;
-        let links=[]
-        for(let x in header){
-            links.push('<a href="'+header[x]+'" target="_blank">'+x+'</a>')
+        let header = successData.header;
+        let links = []
+        for (let x in header) {
+            links.push('<a href="' + header[x] + '" target="_blank">' + x + '</a>')
         }
-        let linksDiv=getTab('idLinks');
-        linksDiv.innerHTML+=links.join(' | ');
+        let linksDiv = getTab('idLinks');
+        linksDiv.innerHTML += links.join(' | ');
     }, function (failedData) {
         console.log(failedData)
     })
@@ -60,8 +56,8 @@ let toggleLeftPanel = function (e) {
     e.innerText = e.innerText == 'Hide Menu' ? 'Menu' : 'Hide Menu';
 }
 let handleAnchorClick = function (key) {
-    let rightContainer=getTab(rightPanelDiv);
-    rightContainer.style.backgroundColor="white";
+    let rightContainer = getTab(rightPanelDiv);
+    rightContainer.style.backgroundColor = "white";
     let allLeftLI = document.querySelectorAll('.content-left ul li');
     for (let i in allLeftLI) {
         let x = allLeftLI[i];
@@ -89,7 +85,7 @@ let handleAnchorClick = function (key) {
     //     console.log(x)
     // });
     getFromWeb(false, uri, function (successData) {
-        container.innerHTML = pageHeader + successData + br2 + xurls.join(br);
+        container.innerHTML = pageHeader + successData + xurls.join(br);
     }, function (failedData) {
         console.log(failedData)
     });
@@ -137,8 +133,9 @@ let getFromWeb = function (raw, uri, resolve, reject) {
             let vals2display = raw ? data : '';
             if (!raw) {
                 for (let x in data) {
-                    if (data[x] instanceof Object)
-                        vals2display += '<h1>' + x.replace('data', '').toUpperCase() + '</h1>';
+                    if (data[x] instanceof Object) {
+                        vals2display += (x === 'data' ? '' : '<h1>' + x.replace('data', '').toUpperCase() + '</h1>');
+                    }
                     for (let i in data[x]) {
                         if (isNaN(i)) {
                             let el = data[x][i];
