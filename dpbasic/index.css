@@ -1,0 +1,135 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: "Open Sans",ariel, sans-serif;
+    font-size: 12px;
+}
+
+footer div{
+    padding: 2px;
+    bottom: 0;
+    background-color: #DB4437;
+}
+
+.content {
+    padding-top: 50px;
+    min-height: 450px;
+}
+
+.togglePanel{
+    font-size: 14pt;
+}
+
+header {
+    background-color: #4285F4;
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100vw;
+}
+header div{
+    margin: 5px;
+    padding: 3px;
+}
+.name {
+    font-weight: bold;
+    font-size: 18pt;
+    vertical-align: middle;
+}
+
+.tld {
+    vertical-align: middle;
+    float: right;
+    font-weight: bold;
+    margin-right: 30px;
+}
+
+ul > li {
+    padding: 2px;
+    margin: 3px;
+}
+
+h1{
+    text-decoration: underline;
+}
+
+.btn {
+    background-color: #4285F4;
+    color: white;
+    width: auto;
+}
+
+li:hover {
+    color: #DB4437;
+    background-color: #F4B400;
+}
+
+li > span {
+    cursor: pointer;
+}
+
+a {
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.content-left li {
+    min-width: 100px;
+}
+
+.content-right {
+    min-height: 450px;
+    background-color: #F4B400;
+    height: 110px;
+    color: #000000;
+    overflow: auto;
+    /*text-align: justify;*/
+    word-wrap: break-word;
+}
+
+.content-left {
+    min-height: 450px;
+    background-color: #0F9D58;
+}
+
+ul {
+    list-style: none;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.cursel{
+    background-color: #F4B400;
+    color: #DB4437;
+}
+
+li {
+    padding: -5px;
+}
+
+.parent {
+    width: 100%;
+    min-height: 500px;
+}
+
+.parent div {
+    padding: 10px;
+}
+
+.first {
+    width: 200px;
+    float: left;
+}
+
+.second {
+    width: auto;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .content-left{
+        width: 100px;
+    }
+}
