@@ -13,7 +13,7 @@ let br = '<br>';
 let br2 = '<br><br>';
 let idOverlay = 'idOverlay';
 let idOverlayContent = 'idOverlayContent';
-// let beforeLI='<span class="beforeli">&#10004;</span>';
+let beforeLI='<span>&#10004;</span>';
 
 let getById = function (id) {
     return document.getElementById(id);
@@ -98,9 +98,9 @@ let getFromWeb = function (raw, uri, resolve, reject) {
                     for (let i in data[x]) {
                         if (isNaN(i)) {
                             let el = data[x][i];
-                            vals2display += '<b>' + i.toUpperCase() + ': </b>'+br + (Array.isArray(el) ? el.join(br) : el) + br;
+                            vals2display += '<b>' + i.toUpperCase() + ': </b>'+br+beforeLI + (Array.isArray(el) ? el.join(br+beforeLI) : el) + br;
                         } else
-                            vals2display += '<li class="beforeli">'+data[x][i]+'</li>';
+                            vals2display += '<li>'+beforeLI+data[x][i]+'</li>';
                     }
                 }
                 vals2display+='</ul>';
