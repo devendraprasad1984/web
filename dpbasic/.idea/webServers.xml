@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="25ba8a4e-8366-41c6-a31c-c41b4867ad56" name="dpresume" url="http://dpresume.com">
+        <fileTransfer host="dpresume.com" port="21" rootFolder="/httpdocs">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="2ca06a14-022e-4100-9ba0-729bc833bb7e" name="dpresume_misc" url="http://dpresume.com">
+        <fileTransfer host="dpresume.com" port="21" rootFolder="/httpdocs/docs/pdf/">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
