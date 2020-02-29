@@ -11,6 +11,8 @@ let idLeftMenu = 'leftMenu';
 let rightPanelDiv = 'rightPanelDiv';
 let br = '<br>';
 let br2 = '<br><br>';
+let idOverlay = 'idOverlay';
+let idOverlayContent = 'idOverlayContent';
 
 String.prototype.camelize = function () {
     return this.replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
@@ -18,7 +20,7 @@ String.prototype.camelize = function () {
     }).replace(/\s+/g, '');
 }
 
-let getTab = function (id) {
+let getById = function (id) {
     return document.getElementById(id);
 };
 document.addEventListener('DOMContentLoaded', function (event) {
@@ -33,7 +35,7 @@ function getLinksDisplay() {
         for (let x in header) {
             links.push('<a href="' + header[x] + '" target="_blank">' + x + '</a>')
         }
-        let linksDiv = getTab('idLinks');
+        let linksDiv = getById('idLinks');
         linksDiv.innerHTML += links.join(' | ');
     }, function (failedData) {
         console.log(failedData)
@@ -46,17 +48,17 @@ function app() {
     for (let ex in leftMenu) {
         elm.push('<li id=' + ('id' + ex) + ' onclick="handleAnchorClick(\'' + ex + '\')"><span>' + ex + '</span></li>');
     }
-    getTab(idLeftMenu).innerHTML = elm.join('');
+    getById(idLeftMenu).innerHTML = elm.join('');
     handleAnchorClick(menuLKeys[0]);
 }
 
 let toggleLeftPanel = function (e) {
-    let panel = getTab('leftPanel');
+    let panel = getById('leftPanel');
     panel.style.display = (panel.style.display == 'none' ? 'block' : 'none');
     e.innerText = e.innerText == 'Hide Menu' ? 'Menu' : 'Hide Menu';
 }
 let handleAnchorClick = function (key) {
-    let rightContainer = getTab(rightPanelDiv);
+    let rightContainer = getById(rightPanelDiv);
     rightContainer.style.backgroundColor = "white";
     let allLeftLI = document.querySelectorAll('.content-left ul li');
     for (let i in allLeftLI) {
@@ -66,8 +68,8 @@ let handleAnchorClick = function (key) {
     let url = leftMenu[key]["url"];
     let text = leftMenu[key]["text"];
     let uri = leftMenu[key]["uri"];
-    let pageHeader = '<h1>' + text + '</h1>';
-    let container = getTab(rightPanelDiv);
+    let pageHeader = '<h1 onclick="handleOverlayContent(\'' + text + '\')">' + text + '</h1>';
+    let container = getById(rightPanelDiv);
     let xurls = [];
     for (let i in url) {
         let e = url[i];
@@ -89,41 +91,13 @@ let handleAnchorClick = function (key) {
     }, function (failedData) {
         console.log(failedData)
     });
+
+    // //right Panel transition
+    // let rightPanel=getById(rightPanelDiv);
+    // rightPanel.style.transition='all 3s ease-in-out';
+    // rightPanel.style.borderRadius='5% 5%';
 }
-
-//ES6 promise is handles from async calls of calling an api end point
-// let getFromWeb = function (uri) {
-//     return new Promise(function (resolve, reject) {
-//         let req = new XMLHttpRequest();
-//         req.onload = function () {
-//             var data = JSON.parse(this.response);
-//             if (req.status >= 200 && req.status < 400) {
-//                 let dataKeys = Object.keys[data];
-//                 let vals2display = '';
-//                 for (let x in data) {
-//                     if (data[x] instanceof Object)
-//                         vals2display += '<h1>' + x.replace('data', '') + '</h1>';
-//                     for (let i in data[x]) {
-//                         if (isNaN(i))
-//                             vals2display += '<b>' + i + ': </b>' + data[x][i] + br;
-//                         else
-//                             vals2display += data[x][i] + br;
-//                     }
-//                 }
-//                 resolve(vals2display);
-//             } else {
-//                 req.onerror = reject('check input error');
-//             }
-//         }
-//         // xmlhttp.open("POST", url, true);
-//         // xmlhttp.setRequestHeader("Content-Type", "application/json");
-//         // xmlhttp.send(JSON.stringify(body));
-//         req.open('GET', uri, true);
-//         req.send();
-//     });
-// }
-
-//older js callbacks way
+//older js callbacks way, similar to return new Promise(resolve,reject)
 let getFromWeb = function (raw, uri, resolve, reject) {
     that = this;
     let req = new XMLHttpRequest();
@@ -134,7 +108,7 @@ let getFromWeb = function (raw, uri, resolve, reject) {
             if (!raw) {
                 for (let x in data) {
                     if (data[x] instanceof Object) {
-                        vals2display += (x === 'data' ? '' : '<h1>' + x.replace('data', '').toUpperCase() + '</h1>');
+                        vals2display += (x === 'data' ? '' : '<h1 onclick="handleOverlayContent(\'' + x + '\')">' + x.replace('data', '').toUpperCase() + '</h1>');
                     }
                     for (let i in data[x]) {
                         if (isNaN(i)) {
@@ -155,6 +129,29 @@ let getFromWeb = function (raw, uri, resolve, reject) {
     // xmlhttp.send(JSON.stringify(body));
     req.open('GET', uri, true);
     req.send();
+}
+
+
+function handleOverlayContent(text) {
+    let overlayDiv = getById(idOverlay);
+    let xobj = {text: text};
+    let headerLine = '<h1>' + xobj.text + '</h1>';
+    let contetnLine = '<div>' + 'this is content line' + '</div>';
+    let overlayContentDiv = getById(idOverlayContent);
+    overlayContentDiv.innerHTML = headerLine + contetnLine;
+    openNav(overlayDiv.id);
+}
+
+function openNav(divid, param) {
+    let x = getById(divid);
+    x.style.width = "100vw";
+    x.style.display = "block";
+}
+
+function closeNav(divid) {
+    let x = getById(divid);
+    x.style.width = "0%";
+    x.style.display = "none";
 }
 
 // (app)();

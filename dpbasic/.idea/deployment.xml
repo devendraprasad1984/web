@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="dpresume">
+  <component name="PublishConfigData" serverName="dpresume" persistUploadOnCheckin="false">
     <serverData>
       <paths name="dpresume_misc">
         <serverdata>

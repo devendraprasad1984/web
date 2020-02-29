@@ -22,12 +22,16 @@
 </header>
 
 <section class="content">
+<!--    <a href="">&#9776;</a>-->
     <a onclick="toggleLeftPanel(this)" class="togglePanel">Hide Menu</a>
     <div class="parent" id="idParent">
         <div id="leftPanel" class="content-left first">
             <ul id="leftMenu"></ul>
         </div>
-        <div class="content-right second" id="rightPanelDiv">
+        <div class="content-right second" id="rightPanelDiv"></div>
+        <div class="overlay" id="idOverlay">
+            <a class="btn" onclick="closeNav('idOverlay')" style="float: right; margin-right: 50px;">Close</a>
+            <div class="overlay-content" id="idOverlayContent"></div>
         </div>
     </div>
 </section>
