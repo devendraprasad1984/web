@@ -1,5 +1,5 @@
 let leftMenu = {
-    "About": {url: ['images/dp.png'], text: "About Us", uri: "resources/summary.json"},
+    "About": {url: ['images/dp.png'], text: "Who I Am...", uri: "resources/summary.json"},
     "Education": {url: [], text: "Education Details", uri: "resources/education.json"},
     "Certification": {url: [], text: "Certification Details", uri: "resources/certifications.json"},
     "Experience": {url: [], text: "Experience Summary", uri: "resources/prof_expr.json"},
@@ -13,12 +13,7 @@ let br = '<br>';
 let br2 = '<br><br>';
 let idOverlay = 'idOverlay';
 let idOverlayContent = 'idOverlayContent';
-
-String.prototype.camelize = function () {
-    return this.replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
-        return index === 0 ? word.toLowerCase() : word.toUpperCase();
-    }).replace(/\s+/g, '');
-}
+// let beforeLI='<span class="beforeli">&#10004;</span>';
 
 let getById = function (id) {
     return document.getElementById(id);
@@ -81,21 +76,11 @@ let handleAnchorClick = function (key) {
         }
         xurls.push(x);
     }
-    // getFromWeb(uri).then(function (dataFromURI) {
-    //     container.innerHTML = pageHeader + dataFromURI + br2 + xurls.join(br);
-    // }).catch(function (x) {
-    //     console.log(x)
-    // });
     getFromWeb(false, uri, function (successData) {
         container.innerHTML = pageHeader + successData + xurls.join(br);
     }, function (failedData) {
         console.log(failedData)
     });
-
-    // //right Panel transition
-    // let rightPanel=getById(rightPanelDiv);
-    // rightPanel.style.transition='all 3s ease-in-out';
-    // rightPanel.style.borderRadius='5% 5%';
 }
 //older js callbacks way, similar to return new Promise(resolve,reject)
 let getFromWeb = function (raw, uri, resolve, reject) {
@@ -104,20 +89,21 @@ let getFromWeb = function (raw, uri, resolve, reject) {
     req.onload = function () {
         var data = JSON.parse(this.response);
         if (req.status >= 200 && req.status < 400) {
-            let vals2display = raw ? data : '';
+            let vals2display = raw ? data : '<ul class="noHover">';
             if (!raw) {
                 for (let x in data) {
                     if (data[x] instanceof Object) {
-                        vals2display += (x === 'data' ? '' : '<h1 onclick="handleOverlayContent(\'' + x + '\')">' + x.replace('data', '').toUpperCase() + '</h1>');
+                        vals2display += (x === 'data' ? '' : '<h1>' +x.replace('data', '').toUpperCase()+ '</h1>');
                     }
                     for (let i in data[x]) {
                         if (isNaN(i)) {
                             let el = data[x][i];
-                            vals2display += '<b>' + i.toUpperCase() + ': </b>' + br + (Array.isArray(el) ? el.join(br) : el) + br;
+                            vals2display += '<b>' + i.toUpperCase() + ': </b>'+br + (Array.isArray(el) ? el.join(br) : el) + br;
                         } else
-                            vals2display += data[x][i] + br;
+                            vals2display += '<li class="beforeli">'+data[x][i]+'</li>';
                     }
                 }
+                vals2display+='</ul>';
             }
             resolve(vals2display);
         } else {
