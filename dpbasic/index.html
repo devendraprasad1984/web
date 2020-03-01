@@ -17,20 +17,20 @@
 <header>
     <div>
         <a class="name" href="docs/pdf/Devendra_Prasad_sidebar.pdf" target="_blank">Devendra Prasad</a>
+        <span onclick="toggleLeftPanel(this)" class="togglePanel btn bg-warning">&#9776;</span>
         <span class="tld">Tech Lead Developer</span>
     </div>
 </header>
 
 <section class="content">
 <!--    <a href="">&#9776;</a>-->
-    <a onclick="toggleLeftPanel(this)" class="togglePanel">Hide Menu</a>
     <div class="parent" id="idParent">
         <div id="leftPanel" class="content-left first">
             <ul id="leftMenu" style="font-weight: bold; list-style: none;"></ul>
         </div>
         <div class="content-right second" id="rightPanelDiv"></div>
         <div class="overlay" id="idOverlay">
-            <a class="btn" onclick="closeNav('idOverlay')" style="float: right; margin-right: 50px;">Close</a>
+            <span class="btn bg-warning" onclick="closeNav('idOverlay')" style="float: right; margin-right: 50px;">Close</span>
             <div class="overlay-content" id="idOverlayContent"></div>
         </div>
     </div>

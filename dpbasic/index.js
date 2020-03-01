@@ -40,6 +40,8 @@ function getLinksDisplay() {
 //init function
 function app() {
     let elm = [];
+    // let icon='<a onclick="toggleLeftPanel(this)" class="togglePanel btn bg-primary">Hide Menu</a>';
+    // elm.push(icon);
     for (let ex in leftMenu) {
         elm.push('<li id=' + ('id' + ex) + ' onclick="handleAnchorClick(\'' + ex + '\')"><span>' + ex + '</span></li>');
     }
@@ -50,7 +52,6 @@ function app() {
 let toggleLeftPanel = function (e) {
     let panel = getById('leftPanel');
     panel.style.display = (panel.style.display == 'none' ? 'block' : 'none');
-    e.innerText = e.innerText == 'Hide Menu' ? 'Menu' : 'Hide Menu';
 }
 let handleAnchorClick = function (key) {
     let rightContainer = getById(rightPanelDiv);
@@ -91,17 +92,19 @@ let getFromWeb = function (raw, uri, resolve, reject) {
         if (req.status >= 200 && req.status < 400) {
             let vals2display = raw ? data : '<ul class="noHover">';
             if (!raw) {
+                let cbox='<div class="box">';
                 for (let x in data) {
                     if (data[x] instanceof Object) {
-                        vals2display += (x === 'data' ? '' : '<h1>' +x.replace('data', '').toUpperCase()+ '</h1>');
+                        vals2display += (x === 'data' ? cbox : cbox+'<h1>' +x.replace('data', '').toUpperCase()+ '</h1>');
                     }
                     for (let i in data[x]) {
+                        let el = data[x][i];
                         if (isNaN(i)) {
-                            let el = data[x][i];
-                            vals2display += '<b>' + i.toUpperCase() + ': </b>'+br+beforeLI + (Array.isArray(el) ? el.join(br+beforeLI) : el) + br;
+                            vals2display += '<b>' + i.toUpperCase() + ': </b>'+br+beforeLI + (Array.isArray(el) ? el.join(br+beforeLI) : el)+br;
                         } else
-                            vals2display += '<li>'+beforeLI+data[x][i]+'</li>';
+                            vals2display += '<li>'+beforeLI+el+'</li>';
                     }
+                    vals2display+='</div>';
                 }
                 vals2display+='</ul>';
             }
