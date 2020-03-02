@@ -16,29 +16,32 @@
 <body>
 <header>
     <div>
-        <a class="name" href="docs/pdf/Devendra_Prasad_sidebar.pdf" target="_blank">Devendra Prasad</a>
-        <span onclick="toggleLeftPanel(this)" class="togglePanel btn bg-warning">&#9776;</span>
+        <span onclick="toggleLeftPanel(this)" class="btn bg-warning">&#9776;</span>
+        <a class="name" href="docs/pdf/Devendra_Prasad_sidebar.pdf" target="_blank" title="+91 9582797772">Devendra Prasad</a>
         <span class="tld">Tech Lead Developer</span>
     </div>
 </header>
 
 <section class="content">
 <!--    <a href="">&#9776;</a>-->
-    <div class="parent" id="idParent">
-        <div id="leftPanel" class="content-left first">
+    <div class="" id="idParent">
+        <div id="leftPanel" class="content-left">
             <ul id="leftMenu" style="font-weight: bold; list-style: none;"></ul>
         </div>
-        <div class="content-right second" id="rightPanelDiv"></div>
-        <div class="overlay" id="idOverlay">
-            <span class="btn bg-warning" onclick="closeNav('idOverlay')" style="float: right; margin-right: 50px;">Close</span>
-            <div class="overlay-content" id="idOverlayContent"></div>
-        </div>
+        <div class="content-right" id="rightPanelDiv"></div>
+    </div>
+</section>
+
+<!--section for page view-->
+<section  class="parent">
+    <div class="overlay" id="idOverlay">
+        <span class="btn bg-warning" onclick="closeNav('idOverlay')" style="float: right; margin-right: 50px;">Close</span>
+        <div class="overlay-content" id="idOverlayContent"></div>
     </div>
 </section>
 
 <footer>
     <div>
-        <a>+91 9582797772</a>
         <span id="idLinks" style="float: right;"></span>
     </div>
 </footer>

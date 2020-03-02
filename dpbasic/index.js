@@ -133,7 +133,7 @@ function handleOverlayContent(text) {
 
 function openNav(divid, param) {
     let x = getById(divid);
-    x.style.width = "100vw";
+    x.style.width = "100%";
     x.style.display = "block";
 }
 

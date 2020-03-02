@@ -1,13 +1,14 @@
 *, ::after, ::before {
     box-sizing: border-box
 }
+
 html {
     font-family: sans-serif;
     line-height: 1.15;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
     -ms-overflow-style: scrollbar;
-    -webkit-tap-highlight-color: transparent
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -16,10 +17,13 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     line-height: 1.5;
     font-size: 1rem;
+    zoom: 90%;
     font-weight: 400;
 }
+
 @-ms-viewport {
-    width: device-width;
+    width: 100vw;
+    height: 100vh;
 }
 
 /*html5 compatible old browser IE*/
@@ -27,27 +31,40 @@ article, aside, details, figcaption, figure, footer, header, section, hgroup, me
     display: block;
 }
 
-footer div {
-    padding: 2px;
+footer {
+    background-color: #4285F4;
+    padding: 4px;
     bottom: 0;
-    background-color: #DB4437;
-}
-
-/*li::before{*/
-/*    padding: 10px;*/
-/*}*/
-.beforeli::before {
+    left: 0;
+    position: fixed;
+    width: 100%;
     font-size: 12px;
-    color: #4285F4;
-    content: "\2713\0020";
 }
 
 .content {
-    padding-top: 70px;
+    padding-top: 50px;
 }
 
-.togglePanel {
-    font-size: 14pt;
+.content-left li {
+    padding: 5px;
+}
+
+.content-right, .content-left {
+    height: calc(100vh - 30px);
+    padding-top: 15px;
+    padding-left: 15px;
+}
+
+.content-left {
+    float: left;
+    background-color: #686868;
+}
+
+.content-right {
+    color: black;
+    overflow: auto;
+    word-wrap: break-word;
+    position: relative;
 }
 
 header {
@@ -55,12 +72,13 @@ header {
     top: 0;
     left: 0;
     position: fixed;
-    width: 100vw;
+    width: 100%;
     z-index: 100;
+    font-size: 14px;
 }
 
 header div {
-    margin: 5px;
+    margin: 2px;
     padding: 3px;
 }
 
@@ -68,14 +86,16 @@ header div {
     font-weight: bold;
     font-size: 18pt;
     vertical-align: middle;
+    /*float: left;*/
     text-decoration: underline;
 }
 
 .tld {
+    font-weight: bold;
+    font-size: 18pt;
     vertical-align: middle;
     float: right;
-    font-weight: bold;
-    margin-right: 30px;
+    /*text-decoration: underline;*/
 }
 
 dl, ol, ul {
@@ -103,7 +123,7 @@ p {
 .btn {
     border-color: #007bff;
     display: inline-block;
-    font-weight: 450;
+    font-weight: bold;
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
@@ -112,30 +132,34 @@ p {
     -ms-user-select: none;
     user-select: none;
     border: 1px solid transparent;
-    padding: .375rem .75rem;
+    padding: .275rem .75rem;
     font-size: 1rem;
     line-height: 1.5;
     border-radius: .25rem;
-    /*margin-bottom: 10px;*/
+    cursor: pointer;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
 }
+
 .btn:hover {
     color: white;
     background-color: black;
+    cursor: pointer;
 }
 
 li:hover {
-    color: #DB4437;
+    color: #4285F4;
     background-color: white;
 }
 
 li > span {
     cursor: pointer;
 }
+
 code, kbd, pre, samp {
     font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     font-size: 1em
 }
+
 pre {
     margin-top: 0;
     -ms-overflow-style: scrollbar
@@ -150,15 +174,10 @@ a {
     background-color: transparent;
     -webkit-text-decoration-skip: objects;
 }
-a:hover {
-    color: #0056b3;
-    text-decoration: underline
-}
 
-.content-left li {
-    min-width: 150px;
-    /*padding: 2px;*/
-    /*font-size: 14px;*/
+a:hover {
+    color: #495057;
+    text-decoration: underline
 }
 
 .droplet {
@@ -168,31 +187,13 @@ a:hover {
     transition-timing: ease-in-out;
 }
 
-/*.droplet:hover {*/
-/*     transform: rotate(1080deg);*/
-/*}*/
-
-
-.content-right {
-    height: 450px;
-    color: #000000;
-    overflow: auto;
-    word-wrap: break-word;
-}
-
-.content-left {
-    min-width: 130px;
-    height: 450px;
-    background-color: #0F9D58;
-}
-
 .noHover {
     pointer-events: none;
 }
 
 .cursel {
     background-color: white;
-    color: #DB4437;
+    color: #4285F4;
 }
 
 li {
@@ -200,38 +201,8 @@ li {
     position: relative;
 }
 
-/*li::before {*/
-/*    content: '&#10004';*/
-/*    position: absolute;*/
-/*    left: -1em;*/
-/*    font-size: 1em;*/
-/*    top:-0.2em;*/
-/*}*/
-
-.parent {
-    width: 100%;
-    min-height: 500px;
-}
-
-.parent div {
-    padding: 10px;
-    overflow-x: hidden;
-    word-wrap: break-word;
-    /*display: inline-grid;*/
-}
-
-.first {
-    /*min-width: 150px;*/
-    width: 100px;
-    float: left;
-}
-
-.second {
-    width: auto;
-}
-
 .overlay {
-    height: 100vh;
+    height: 100%;
     width: 0;
     position: absolute;
     z-index: 1000;
@@ -245,18 +216,17 @@ li {
 
 .overlay-content {
     position: relative;
-    top: 1%;
-    width: 100%;
+    /*top: 1%;*/
+    width: calc(100% - 150px);
+    padding: 30px;
     margin-top: 5px;
     overflow-x: hidden;
     overflow-y: auto;
 }
 
 .overlay .closebtn {
-    position: absolute;
-    top: 20px;
+    position: fixed;
     right: 45px;
-    font-size: 60px;
 }
 
 .box {
@@ -306,25 +276,14 @@ li {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
 @media screen and (max-width: 600px) {
     body, .parent div {
         font-size: 9px;
-        padding: 2px;
+        padding: 3px;
     }
 
-    .overlay a {
-        font-size: 20px
+    .content {
+        padding-top: 40px;
     }
 
     .overlay .closebtn {
@@ -333,32 +292,19 @@ li {
         right: 35px;
     }
 
-    .name {
-        font-size: 14px;
+    .name, .tld {
+        font-size: 12px;
     }
 
     .togglePanel {
         font-size: 12px;
     }
 
-
-    .first {
-        min-width: 80px;
-        width: 80px;
-        padding: 2px;
-    }
-
-    /*.content {*/
-    /*    padding-top: 10%;*/
-    /*}*/
-
-    .content-left li {
-        min-width: 90px;
-        /*padding: 2px;*/
-        font-size: 11px;
-    }
-
     footer {
         font-size: 10px;
+    }
+
+    .content-right, .content-left {
+        height: calc(100vh - 150px);
     }
 }
