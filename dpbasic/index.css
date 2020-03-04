@@ -97,8 +97,8 @@ section {
 
 .content-right, .content-left, .content-right-subdiv {
     height: calc(100vh - 110px);
-    padding-top: 15px;
-    padding-left: 15px;
+    padding-top: 5px;
+    padding-left: 5px;
 }
 
 .content-left {
@@ -305,11 +305,11 @@ li {
 }
 
 .box {
-    border: 2px solid rgba(0, 0, 0, .125);
-    border-radius: .50rem;
+    border: 2px solid rgba(0, 0, 0, .225);
+    border-radius: .30rem;
     padding: 5px;
     left: 0;
-    margin: 5px;
+    margin: 3px;
 }
 
 
