@@ -1,22 +1,49 @@
 let leftMenu = {
-    "About": {url: ['images/dp.png'], text: "Who I Am...", uri: "resources/summary.json", overlayID: "Summary"},
-    "Education": {url: [], text: "Education Details", uri: "resources/education.json", overlayID: "Education"},
+    "About": {
+        url: ['images/dp.png'],
+        text: "Who I Am...",
+        uri: "resources/summary.json",
+        overlayID: "Summary",
+        displaySubDiv: false
+    },
+    "Education": {
+        url: [],
+        text: "Education Details",
+        uri: "resources/education.json",
+        overlayID: "Education",
+        displaySubDiv: false
+    },
     "Certification": {
         url: [],
         text: "Certification Details",
         uri: "resources/certifications.json",
-        overlayID: "Certification"
+        overlayID: "Certification",
+        displaySubDiv: false
     },
-    "Experience": {url: [], text: "Experience Summary", uri: "resources/prof_expr.json", overlayID: "Experience"},
+    "Experience": {
+        url: [],
+        text: "Experience Summary",
+        uri: "resources/prof_expr.json",
+        overlayID: "Experience",
+        displaySubDiv: false
+    },
     "Projects": {
         url: [],
         text: "Projects I have Undertaken most recently",
         uri: "resources/projects.json",
-        overlayID: "Projects"
+        overlayID: "Projects",
+        displaySubDiv: false
     },
-    "WhatElse": {url: [], text: "What else I know", uri: "resources/skills.json", overlayID: "whatElse"}
+    "WhatElse": {
+        url: [],
+        text: "What else I know",
+        uri: "resources/skills.json",
+        overlayID: "whatElse",
+        displaySubDiv: true
+    }
 };
-let menuLKeys = Object.keys(leftMenu);
+let subDiv = 'rightPanelDivSub';
+let menuKeys = Object.keys(leftMenu);
 let idLeftMenu = 'leftMenu';
 let rightPanelDiv = 'rightPanelDiv';
 let br = '<br>';
@@ -27,6 +54,8 @@ let beforeLI = '<span>&#10004;</span>';
 let adhocDataSet = {};
 var width = 1;
 var bar = document.getElementById("barStatus");
+let current = {}
+let cnt = 0;
 
 let getById = function (id) {
     return document.getElementById(id);
@@ -68,7 +97,20 @@ function app() {
         elm.push('<li id=' + ('id' + ex) + ' onclick="handleAnchorClick(\'' + ex + '\')"><span>' + ex + '</span></li>');
     }
     getById(idLeftMenu).innerHTML = elm.join('');
-    handleAnchorClick(menuLKeys[0]);
+    handleAnchorClick(menuKeys[0]);
+}
+
+let doRotate=function(){
+    setInterval(rotate, 2000);
+    function rotate() {
+        cnt += 1;
+        if (cnt >= menuKeys.length) cnt = 0;
+        rotatorView(cnt);
+    }
+}
+
+let rotatorView = function (x) {
+    handleAnchorClick(menuKeys[x]);
 }
 
 let toggleLeftPanel = function (e) {
@@ -84,10 +126,15 @@ let handleAnchorClick = function (key) {
         let x = allLeftLI[i];
         x.className = (x.id == 'id' + key ? 'cursel' : '');
     }
-    let url = leftMenu[key]["url"];
-    let text = leftMenu[key]["text"];
-    let uri = leftMenu[key]["uri"];
-    let overlayID = leftMenu[key]["overlayID"];
+    current = leftMenu[key];
+    let url = current["url"];
+    let text = current["text"];
+    let uri = current["uri"];
+    let overlayID = current["overlayID"];
+    let subDisplay = current["displaySubDiv"];
+
+    let sub = getById(subDiv);
+    sub.style.display = 'none';
     let pageHeader = '<h1 onclick="handleOverlayContent(\'' + text + '\',\'' + overlayID + '\')">' + text + '</h1>';
     let container = getById(rightPanelDiv);
     let xurls = [];
@@ -106,7 +153,28 @@ let handleAnchorClick = function (key) {
     }, function (failedData) {
         console.log(failedData)
     });
+    //subdiv display
+    if (subDisplay) {
+        fnSubDivDisplay(sub);
+    }
 }
+
+function fnSubDivDisplay(sub) {
+    let contRightSub = '';
+    let dataSub = [['images/dp.png', 'images/dp.png'], ['images/dp.png', 'images/dp.png'], ['images/dp.png'], ['images/dp.png', 'images/dp.png', 'images/dp.png'], ['images/dp.png', 'images/dp.png'], ['images/dp.png', 'images/dp.png', 'images/dp.png']];
+    for (let i in dataSub) {
+        contRightSub += '<div  id="subxdiv" class="row" >';
+        x = dataSub[i];
+        for (let j in x) {
+            let y = x[j].indexOf('.png') !== -1 ? '<img class="dp" src="' + x[j] + '" />' : x[j];
+            contRightSub += '<div class="box column bg-white click">' + y + '</div>';
+        }
+        contRightSub += '</div>';
+    }
+    sub.innerHTML = contRightSub;
+    sub.style.display = 'block';
+}
+
 //older js callbacks way, similar to return new Promise(resolve,reject)
 let getFromWeb = function (raw, uri, resolve, reject) {
     moveProgress();
@@ -177,14 +245,15 @@ function closeNav(divid) {
 
 //for progress bar
 function moveProgress() {
-    bar.style.display='block';
-    bar.style.width=width+'%';
+    bar.style.display = 'block';
+    bar.style.width = width + '%';
     var id = setInterval(frame, 30);
+
     function frame() {
         if (width >= 100) {
             width = 1;
             clearInterval(id);
-            bar.style.display='none';
+            bar.style.display = 'none';
         } else {
             width++;
             bar.style.width = width + '%';

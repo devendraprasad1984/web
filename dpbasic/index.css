@@ -18,7 +18,13 @@ body {
     line-height: 1.5;
     font-size: 1rem;
     /*zoom: 90%;*/
+    margin: 0;
     font-weight: 400;
+}
+
+pre {
+    font-family: monospace, monospace; /* 1 */
+    font-size: 1em; /* 2 */
 }
 
 @-ms-viewport {
@@ -57,7 +63,17 @@ section {
     padding: 5px;
 }
 
-.content-right, .content-left {
+.column {
+    flex: 50%;
+    padding: 10px;
+    height: 300px;
+}
+.row{
+    display: flex;
+}
+
+
+.content-right, .content-left,.content-right-subdiv {
     height: calc(100vh - 110px);
     padding-top: 15px;
     padding-left: 15px;
@@ -74,6 +90,25 @@ section {
     word-wrap: break-word;
     position: relative;
 }
+.content-right-subdiv{
+    display: none;
+    color: #005cbf;
+    overflow: auto;
+    word-wrap: break-word;
+    position: relative;
+    background-color: #e9ecef;
+}
+/*#subxdiv:before {*/
+/*    content: counter(mega-step, upper-roman);*/
+/*    display: block;*/
+/*    !*padding: 5px;*!*/
+/*    !*margin: 5px;*!*/
+/*    background: #005cbf;*/
+/*    !*width: 20%;*!*/
+/*    text-align: center;*/
+/*    vertical-align: middle;*/
+/*    color: white;*/
+/*}*/
 
 header {
     background-color: #4285F4;
@@ -233,6 +268,11 @@ li {
     overflow-y: auto;
 }
 
+.click{
+    cursor:pointer;
+    /*background-color: white;*/
+}
+
 .overlay .closebtn {
     position: fixed;
     right: 45px;
@@ -271,7 +311,9 @@ li {
 .bg-warning {
     background-color: #ffc107 !important
 }
-
+.bg-white {
+    background-color: white !important
+}
 
 .bg-danger {
     background-color: #dc3545 !important
@@ -288,7 +330,7 @@ li {
 }
 
 .dp {
-    height: auto;
+    height: 100%;
     width: 100%;
 }
 
@@ -333,5 +375,10 @@ li {
     .btn {
         padding: .275rem .225rem;
         line-height: 1;
+    }
+    .row{
+        display: inline;
+        clear: both;
+        padding: unset;
     }
 }

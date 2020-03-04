@@ -6050,7 +6050,7 @@ a.bg-dark:focus, a.bg-dark:hover, button.bg-dark:focus, button.bg-dark:hover {
 }
 
 .bg-white {
-    background-color: #fff !important
+    background-color: white !important
 }
 
 .bg-transparent {
@@ -9111,5 +9111,3 @@ a.text-dark:focus, a.text-dark:hover {
         border-color: #dee2e6
     }
 }
-
-/*# sourceMappingURL=bootstrap.min.css.map */
