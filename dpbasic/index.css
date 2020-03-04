@@ -68,12 +68,34 @@ section {
     padding: 10px;
     height: 300px;
 }
-.row{
+
+.row {
     display: flex;
 }
 
+.right {
+    float: right;
+}
 
-.content-right, .content-left,.content-right-subdiv {
+.left {
+    float: left;
+}
+
+.star {
+    color: #c82333;
+    cursor: pointer;
+}
+
+.star:hover {
+    color: #005cbf;
+    float: right;
+}
+
+.noHover div > span {
+    pointer-events: auto;
+}
+
+.content-right, .content-left, .content-right-subdiv {
     height: calc(100vh - 110px);
     padding-top: 15px;
     padding-left: 15px;
@@ -90,7 +112,8 @@ section {
     word-wrap: break-word;
     position: relative;
 }
-.content-right-subdiv{
+
+.content-right-subdiv {
     display: none;
     color: #005cbf;
     overflow: auto;
@@ -98,6 +121,7 @@ section {
     position: relative;
     background-color: #e9ecef;
 }
+
 /*#subxdiv:before {*/
 /*    content: counter(mega-step, upper-roman);*/
 /*    display: block;*/
@@ -268,8 +292,8 @@ li {
     overflow-y: auto;
 }
 
-.click{
-    cursor:pointer;
+.click {
+    cursor: pointer;
     /*background-color: white;*/
 }
 
@@ -311,6 +335,7 @@ li {
 .bg-warning {
     background-color: #ffc107 !important
 }
+
 .bg-white {
     background-color: white !important
 }
@@ -332,6 +357,20 @@ li {
 .dp {
     height: 100%;
     width: 100%;
+    object-fit: cover;
+    overflow:hidden;
+}
+.portrait{
+    height: 100%;
+    width: 40px;
+}
+.landscape{
+    height: 100%;
+    width: 80px;
+}
+.square{
+    height: 100%;
+    width: 100px;
 }
 
 #barStatus {
@@ -376,7 +415,8 @@ li {
         padding: .275rem .225rem;
         line-height: 1;
     }
-    .row{
+
+    .row {
         display: inline;
         clear: both;
         padding: unset;

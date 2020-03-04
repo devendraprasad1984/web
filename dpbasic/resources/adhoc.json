@@ -75,9 +75,36 @@
     "img",
     "img",
     "pdf"
-  ],"whatElse": [
-  "img",
-  "img",
-  "pdf"
-]
+  ],
+  "Skills": [
+    "img",
+    "img",
+    "pdf"
+  ],
+  "About": [
+    [
+      "images/mongo.png",
+      "images/dp_lead_nlg.png"
+    ],
+    [
+      "images/oracle_sql.png",
+      "images/open_edg.png"
+    ],
+    [
+      "images/js.png"
+    ],
+    [
+      "images/gitpy.png",
+      "images/linkedin.png",
+      "images/sdlc.png"
+    ]
+  ],
+  "Projects": [
+    [
+      "images/mongo.png"
+    ],
+    [
+      "images/dp_lead_nlg.png"
+    ]
+  ]
 }

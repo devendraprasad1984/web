@@ -1,31 +1,31 @@
 {
   "skills": {
     "BackEnd:": [
-      "python: 3.6.7",
-      "Tornado: 5.1.1"
+      "python: 3.6.7~5",
+      "Tornado: 5.1.1~3"
     ],
     "FrontEnd": [
-      "HTML5 . ES6",
-      "react: 16.8.0",
-      "redux: 4.0.1",
-      "ag-grid: 20.1.0"
+      "HTML5 . ES6~5",
+      "react: 16.8.0~4",
+      "redux: 4.0.1~3",
+      "ag-grid: 20.1.0~5"
     ],
     "Databases": [
-      "Oracle 11g",
-      "sql.plsql.joins"
+      "Oracle 11g~4",
+      "sql.plsql.joins~5"
     ],
     "Servers": [
-      "apache: 2.4.0"
+      "apache: 2.4.0~5"
     ],
     "what else": [
-      "Flask: 1.0.2",
-      "dJango: 2.1.7",
-      "lodash: 4.17.11",
-      "Tableau: 2019.1.3",
-      "sqlAlchemy",
-      "autosys",
-      "mongoDB",
-      "Git"
+      "Flask: 1.0.2~4",
+      "dJango: 2.1.7~3",
+      "lodash: 4.17.11~5",
+      "Tableau: 2019.1.3~5",
+      "sqlAlchemy~3",
+      "autosys~5",
+      "mongoDB~2",
+      "Git~5"
     ]
   }
 }

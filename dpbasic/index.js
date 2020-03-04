@@ -4,7 +4,7 @@ let leftMenu = {
         text: "Who I Am...",
         uri: "resources/summary.json",
         overlayID: "Summary",
-        displaySubDiv: false
+        displaySubDiv: true
     },
     "Education": {
         url: [],
@@ -32,14 +32,14 @@ let leftMenu = {
         text: "Projects I have Undertaken most recently",
         uri: "resources/projects.json",
         overlayID: "Projects",
-        displaySubDiv: false
+        displaySubDiv: true
     },
-    "WhatElse": {
+    "Skills": {
         url: [],
         text: "What else I know",
         uri: "resources/skills.json",
         overlayID: "whatElse",
-        displaySubDiv: true
+        displaySubDiv: false
     }
 };
 let subDiv = 'rightPanelDivSub';
@@ -63,12 +63,14 @@ let getById = function (id) {
 document.addEventListener('DOMContentLoaded', function (event) {
     app(); //run when document is initialised and contents are ready to be displayed
     getLinksDisplay();
-    getAdhocListing();
 });
 
-function getAdhocListing() {
+function getAdhocListing(key,what2run) {
     getFromWeb(true, 'resources/adhoc.json', function (successData) {
         adhocDataSet = successData;
+        akeys=Object.keys(adhocDataSet);
+        if(akeys.indexOf(key)!==-1)
+            what2run(adhocDataSet[key]);
     }, function (failedData) {
         console.log(failedData)
     })
@@ -100,8 +102,9 @@ function app() {
     handleAnchorClick(menuKeys[0]);
 }
 
-let doRotate=function(){
+let doRotate = function () {
     setInterval(rotate, 2000);
+
     function rotate() {
         cnt += 1;
         if (cnt >= menuKeys.length) cnt = 0;
@@ -155,19 +158,22 @@ let handleAnchorClick = function (key) {
     });
     //subdiv display
     if (subDisplay) {
-        fnSubDivDisplay(sub);
+        getAdhocListing(key,fnSubDivDisplay);
     }
 }
 
-function fnSubDivDisplay(sub) {
+
+function fnSubDivDisplay(ds) {
+    let sub = getById(subDiv);
     let contRightSub = '';
-    let dataSub = [['images/dp.png', 'images/dp.png'], ['images/dp.png', 'images/dp.png'], ['images/dp.png'], ['images/dp.png', 'images/dp.png', 'images/dp.png'], ['images/dp.png', 'images/dp.png'], ['images/dp.png', 'images/dp.png', 'images/dp.png']];
+    // let dataSub = [['images/mongo.png', 'images/dp_lead_nlg.png'], ['images/oracle_sql.png', 'images/open_edg.png'], ['images/js.png'], ['images/gitpy.png', 'images/linkedin.png', 'images/sdlc.png']];
+    let dataSub = ds;
     for (let i in dataSub) {
         contRightSub += '<div  id="subxdiv" class="row" >';
         x = dataSub[i];
         for (let j in x) {
             let y = x[j].indexOf('.png') !== -1 ? '<img class="dp" src="' + x[j] + '" />' : x[j];
-            contRightSub += '<div class="box column bg-white click">' + y + '</div>';
+            contRightSub += '<div class="box column bg-white click"><a href="' + x[j] + '" target="_blank">' + y + '</a></div>';
         }
         contRightSub += '</div>';
     }
@@ -177,7 +183,6 @@ function fnSubDivDisplay(sub) {
 
 //older js callbacks way, similar to return new Promise(resolve,reject)
 let getFromWeb = function (raw, uri, resolve, reject) {
-    moveProgress();
     that = this;
     let req = new XMLHttpRequest();
     req.onload = function () {
@@ -193,7 +198,20 @@ let getFromWeb = function (raw, uri, resolve, reject) {
                     for (let i in data[x]) {
                         let el = data[x][i];
                         if (isNaN(i)) {
-                            vals2display += '<b>' + i.toUpperCase() + ': </b>' + br + beforeLI + (Array.isArray(el) ? el.join(br + beforeLI) : el) + br;
+                            // vals2display += '<b>' + i.toUpperCase() + ': </b>' + br + beforeLI + (Array.isArray(el) ? el.join(br + beforeLI) : el) + br;
+                            vals2display += '<b>' + i.toUpperCase() + '</b>';
+                            if (Array.isArray(el)) {
+                                for (let k in el) {
+                                    if (x.toLowerCase() === 'skills' && el[k].indexOf('~') !== -1) {
+                                        d1 = el[k].split('~');
+                                        vals2display += '<div><span>' + d1[0] + '</span>' + '<span class="right star" title="I know ' + d1[0] + ' - ' + d1[1] + '/5">' + getStar(d1[1]) + '</span></div>';
+                                    } else {
+                                        vals2display += '<div>' + el[k] + '</div>';
+                                    }
+                                }
+                            } else {
+                                vals2display += '<div>' + el + '</div>';
+                            }
                         } else
                             vals2display += '<li>' + beforeLI + el + '</li>';
                     }
@@ -211,6 +229,14 @@ let getFromWeb = function (raw, uri, resolve, reject) {
     // xmlhttp.send(JSON.stringify(body));
     req.open('GET', uri, true);
     req.send();
+}
+
+function getStar(n) {
+    let out = '';
+    for (i = 0; i < n; i++) {
+        out += '&#9733;';
+    }
+    return out;
 }
 
 
@@ -247,7 +273,7 @@ function closeNav(divid) {
 function moveProgress() {
     bar.style.display = 'block';
     bar.style.width = width + '%';
-    var id = setInterval(frame, 30);
+    var id = setInterval(frame, 10);
 
     function frame() {
         if (width >= 100) {
