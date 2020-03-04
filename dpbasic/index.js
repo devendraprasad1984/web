@@ -1,10 +1,10 @@
 let leftMenu = {
-    "About": {url: ['images/dp.png'], text: "Who I Am...", uri: "resources/summary.json"},
-    "Education": {url: [], text: "Education Details", uri: "resources/education.json"},
-    "Certification": {url: [], text: "Certification Details", uri: "resources/certifications.json"},
-    "Experience": {url: [], text: "Experience Summary", uri: "resources/prof_expr.json"},
-    "Projects": {url: [], text: "Projects I have Undertaken most recently", uri: "resources/projects.json"},
-    "WhatElse": {url: [], text: "What else I know", uri: "resources/skills.json"}
+    "About": {url: ['images/dp.png'], text: "Who I Am...", uri: "resources/summary.json",overlayID:"Summary"},
+    "Education": {url: [], text: "Education Details", uri: "resources/education.json",overlayID:"Education"},
+    "Certification": {url: [], text: "Certification Details", uri: "resources/certifications.json",overlayID:"Certification"},
+    "Experience": {url: [], text: "Experience Summary", uri: "resources/prof_expr.json",overlayID:"Experience"},
+    "Projects": {url: [], text: "Projects I have Undertaken most recently", uri: "resources/projects.json",overlayID:"Projects"},
+    "WhatElse": {url: [], text: "What else I know", uri: "resources/skills.json",overlayID:"whatElse"}
 };
 let menuLKeys = Object.keys(leftMenu);
 let idLeftMenu = 'leftMenu';
@@ -14,6 +14,7 @@ let br2 = '<br><br>';
 let idOverlay = 'idOverlay';
 let idOverlayContent = 'idOverlayContent';
 let beforeLI='<span>&#10004;</span>';
+let adhocDataSet={};
 
 let getById = function (id) {
     return document.getElementById(id);
@@ -21,7 +22,16 @@ let getById = function (id) {
 document.addEventListener('DOMContentLoaded', function (event) {
     app(); //run when document is initialised and contents are ready to be displayed
     getLinksDisplay();
+    getAdhocListing();
 });
+
+function getAdhocListing(){
+    getFromWeb(true, 'resources/adhoc.json', function (successData) {
+        adhocDataSet = successData;
+    }, function (failedData) {
+        console.log(failedData)
+    })
+}
 
 function getLinksDisplay() {
     getFromWeb(true, 'resources/links.json', function (successData) {
@@ -64,7 +74,8 @@ let handleAnchorClick = function (key) {
     let url = leftMenu[key]["url"];
     let text = leftMenu[key]["text"];
     let uri = leftMenu[key]["uri"];
-    let pageHeader = '<h1 onclick="handleOverlayContent(\'' + text + '\')">' + text + '</h1>';
+    let overlayID = leftMenu[key]["overlayID"];
+    let pageHeader = '<h1 onclick="handleOverlayContent(\'' + text + '\',\'' + overlayID + '\')">' + text + '</h1>';
     let container = getById(rightPanelDiv);
     let xurls = [];
     for (let i in url) {
@@ -121,11 +132,17 @@ let getFromWeb = function (raw, uri, resolve, reject) {
 }
 
 
-function handleOverlayContent(text) {
+function handleOverlayContent(text,id) {
     let overlayDiv = getById(idOverlay);
     let xobj = {text: text};
     let headerLine = '<h1>' + xobj.text + '</h1>';
-    let contetnLine = '<div>' + 'this is content line' + '</div>';
+    let contetnLine = '<div>';
+    let ds=adhocDataSet[id];
+    for(let i in ds){
+        let line='<img class="dp" src="'+ds[i]+'"/>';
+        contetnLine+='<div class="box">'+line+'</div>';
+    }
+    contetnLine +='</div>';
     let overlayContentDiv = getById(idOverlayContent);
     overlayContentDiv.innerHTML = headerLine + contetnLine;
     openNav(overlayDiv.id);
