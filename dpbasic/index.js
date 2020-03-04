@@ -1,10 +1,20 @@
 let leftMenu = {
-    "About": {url: ['images/dp.png'], text: "Who I Am...", uri: "resources/summary.json",overlayID:"Summary"},
-    "Education": {url: [], text: "Education Details", uri: "resources/education.json",overlayID:"Education"},
-    "Certification": {url: [], text: "Certification Details", uri: "resources/certifications.json",overlayID:"Certification"},
-    "Experience": {url: [], text: "Experience Summary", uri: "resources/prof_expr.json",overlayID:"Experience"},
-    "Projects": {url: [], text: "Projects I have Undertaken most recently", uri: "resources/projects.json",overlayID:"Projects"},
-    "WhatElse": {url: [], text: "What else I know", uri: "resources/skills.json",overlayID:"whatElse"}
+    "About": {url: ['images/dp.png'], text: "Who I Am...", uri: "resources/summary.json", overlayID: "Summary"},
+    "Education": {url: [], text: "Education Details", uri: "resources/education.json", overlayID: "Education"},
+    "Certification": {
+        url: [],
+        text: "Certification Details",
+        uri: "resources/certifications.json",
+        overlayID: "Certification"
+    },
+    "Experience": {url: [], text: "Experience Summary", uri: "resources/prof_expr.json", overlayID: "Experience"},
+    "Projects": {
+        url: [],
+        text: "Projects I have Undertaken most recently",
+        uri: "resources/projects.json",
+        overlayID: "Projects"
+    },
+    "WhatElse": {url: [], text: "What else I know", uri: "resources/skills.json", overlayID: "whatElse"}
 };
 let menuLKeys = Object.keys(leftMenu);
 let idLeftMenu = 'leftMenu';
@@ -13,8 +23,10 @@ let br = '<br>';
 let br2 = '<br><br>';
 let idOverlay = 'idOverlay';
 let idOverlayContent = 'idOverlayContent';
-let beforeLI='<span>&#10004;</span>';
-let adhocDataSet={};
+let beforeLI = '<span>&#10004;</span>';
+let adhocDataSet = {};
+var width = 1;
+var bar = document.getElementById("barStatus");
 
 let getById = function (id) {
     return document.getElementById(id);
@@ -25,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     getAdhocListing();
 });
 
-function getAdhocListing(){
+function getAdhocListing() {
     getFromWeb(true, 'resources/adhoc.json', function (successData) {
         adhocDataSet = successData;
     }, function (failedData) {
@@ -64,6 +76,7 @@ let toggleLeftPanel = function (e) {
     panel.style.display = (panel.style.display == 'none' ? 'block' : 'none');
 }
 let handleAnchorClick = function (key) {
+    moveProgress();
     let rightContainer = getById(rightPanelDiv);
     rightContainer.style.backgroundColor = "white";
     let allLeftLI = document.querySelectorAll('.content-left ul li');
@@ -96,6 +109,7 @@ let handleAnchorClick = function (key) {
 }
 //older js callbacks way, similar to return new Promise(resolve,reject)
 let getFromWeb = function (raw, uri, resolve, reject) {
+    moveProgress();
     that = this;
     let req = new XMLHttpRequest();
     req.onload = function () {
@@ -103,21 +117,21 @@ let getFromWeb = function (raw, uri, resolve, reject) {
         if (req.status >= 200 && req.status < 400) {
             let vals2display = raw ? data : '<ul class="noHover">';
             if (!raw) {
-                let cbox='<div class="box">';
+                let cbox = '<div class="box">';
                 for (let x in data) {
                     if (data[x] instanceof Object) {
-                        vals2display += (x === 'data' ? cbox : cbox+'<h1>' +x.replace('data', '').toUpperCase()+ '</h1>');
+                        vals2display += (x === 'data' ? cbox : cbox + '<h1>' + x.replace('data', '').toUpperCase() + '</h1>');
                     }
                     for (let i in data[x]) {
                         let el = data[x][i];
                         if (isNaN(i)) {
-                            vals2display += '<b>' + i.toUpperCase() + ': </b>'+br+beforeLI + (Array.isArray(el) ? el.join(br+beforeLI) : el)+br;
+                            vals2display += '<b>' + i.toUpperCase() + ': </b>' + br + beforeLI + (Array.isArray(el) ? el.join(br + beforeLI) : el) + br;
                         } else
-                            vals2display += '<li>'+beforeLI+el+'</li>';
+                            vals2display += '<li>' + beforeLI + el + '</li>';
                     }
-                    vals2display+='</div>';
+                    vals2display += '</div>';
                 }
-                vals2display+='</ul>';
+                vals2display += '</ul>';
             }
             resolve(vals2display);
         } else {
@@ -132,17 +146,18 @@ let getFromWeb = function (raw, uri, resolve, reject) {
 }
 
 
-function handleOverlayContent(text,id) {
+function handleOverlayContent(text, id) {
+    moveProgress();
     let overlayDiv = getById(idOverlay);
     let xobj = {text: text};
     let headerLine = '<h1>' + xobj.text + '</h1>';
     let contetnLine = '<div>';
-    let ds=adhocDataSet[id];
-    for(let i in ds){
-        let line='<img class="dp" src="'+ds[i]+'"/>';
-        contetnLine+='<div class="box">'+line+'</div>';
+    let ds = adhocDataSet[id];
+    for (let i in ds) {
+        let line = '<img class="dp" src="' + ds[i] + '"/>';
+        contetnLine += '<div class="box">' + line + '</div>';
     }
-    contetnLine +='</div>';
+    contetnLine += '</div>';
     let overlayContentDiv = getById(idOverlayContent);
     overlayContentDiv.innerHTML = headerLine + contetnLine;
     openNav(overlayDiv.id);
@@ -160,5 +175,19 @@ function closeNav(divid) {
     x.style.display = "none";
 }
 
-// (app)();
-
+//for progress bar
+function moveProgress() {
+    bar.style.display='block';
+    bar.style.width=width+'%';
+    var id = setInterval(frame, 30);
+    function frame() {
+        if (width >= 100) {
+            width = 1;
+            clearInterval(id);
+            bar.style.display='none';
+        } else {
+            width++;
+            bar.style.width = width + '%';
+        }
+    }
+}
