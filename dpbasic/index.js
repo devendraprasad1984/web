@@ -73,7 +73,7 @@ let handleAnchorClick = function (key) {
         if (e.indexOf("https:") !== -1) {
             x = '<a href="' + e + '" target="_blank">' + e.substr(e.lastIndexOf('/') + 1) + '</a>';
         } else if (e.indexOf('images') !== -1) {
-            x = '<img src="' + e + '"/>';
+            x = '<div class="box"><img class="dp" src="' + e + '"/></div>';
         }
         xurls.push(x);
     }
