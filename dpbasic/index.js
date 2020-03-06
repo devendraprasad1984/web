@@ -176,12 +176,25 @@ function fnSubDivDisplay(ds) {
     let contRightSub = '';
     // let dataSub = [['images/mongo.png', 'images/dp_lead_nlg.png'], ['images/oracle_sql.png', 'images/open_edg.png'], ['images/js.png'], ['images/gitpy.png', 'images/linkedin.png', 'images/sdlc.png']];
     let dataSub = ds;
+    let mdiv='<div class="box column bg-white click">';
     for (let i in dataSub) {
         contRightSub += '<div  id="subxdiv" class="row" >';
         x = dataSub[i];
-        for (let j in x) {
-            let y = x[j].indexOf('.png') !== -1 ? '<img class="dp" src="' + x[j] + '" />' : x[j];
-            contRightSub += '<div class="box column bg-white click"><a href="' + x[j] + '" target="_blank">' + y + '</a></div>';
+        if(x[0].indexOf('.html')!==-1){
+            // contRightSub += '<div class="page"><object type="text/html" data="'+x[0]+'" ></object></div>';
+            getFromWeb(true,x[0],function(successData){
+                contRightSub=mdiv;
+                contRightSub += '<div class="page">'+successData+'</div>';
+                contRightSub+='</div>';
+                sub.innerHTML=contRightSub+sub.innerHTML;
+            },function(failData){console.log('sub div load error',failData);});
+        }else{
+            for (let j in x) {
+                let y = x[j].indexOf('.png') !== -1 ? '<img class="dp" src="' + x[j] + '" />' : x[j];
+                contRightSub+=mdiv;
+                contRightSub += '<a href="' + x[j] + '" target="_blank">' + y + '</a>';
+                contRightSub+='</div>';
+            }
         }
         contRightSub += '</div>';
     }
@@ -192,9 +205,10 @@ function fnSubDivDisplay(ds) {
 //older js callbacks way, similar to return new Promise(resolve,reject)
 let getFromWeb = function (raw, uri, resolve, reject) {
     that = this;
+    let ishtml=uri.indexOf('.html')!==-1?true:false;
     let req = new XMLHttpRequest();
     req.onload = function () {
-        var data = JSON.parse(this.response);
+        var data =ishtml ? this.response : JSON.parse(this.response);
         if (req.status >= 200 && req.status < 400) {
             let vals2display = raw ? data : '<ul class="noHover">';
             if (!raw) {
@@ -232,10 +246,12 @@ let getFromWeb = function (raw, uri, resolve, reject) {
             req.onerror = reject(req.statusText);
         }
     }
-    // xmlhttp.open("POST", url, true);
-    // xmlhttp.setRequestHeader("Content-Type", "application/json");
-    // xmlhttp.send(JSON.stringify(body));
+    // req.open("POST", url, true);
+    // req.setRequestHeader("Content-Type", "application/json");
     req.open('GET', uri, true);
+    // if(ishtml)
+    //     req.setRequestHeader('Content-type', 'text/html');
+    // req.send(JSON.stringify(body));
     req.send();
 }
 

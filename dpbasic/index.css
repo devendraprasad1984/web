@@ -27,6 +27,14 @@ pre {
     font-size: 1em; /* 2 */
 }
 
+.page {
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+    width: 100%;
+}
+
 @-ms-viewport {
     width: 100vw;
     height: 100vh;
@@ -358,17 +366,20 @@ li {
     height: 100%;
     width: 100%;
     object-fit: cover;
-    overflow:hidden;
+    overflow: hidden;
 }
-.portrait{
+
+.portrait {
     height: 100%;
     width: 40px;
 }
-.landscape{
+
+.landscape {
     height: 100%;
     width: 80px;
 }
-.square{
+
+.square {
     height: 100%;
     width: 100px;
 }
