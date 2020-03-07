@@ -22,6 +22,16 @@ body {
     font-weight: 400;
 }
 
+
+iframe {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background-color: white;
+    overflow: auto;
+    word-wrap: break-word;
+}
+
 pre {
     font-family: monospace, monospace; /* 1 */
     font-size: 1em; /* 2 */
@@ -33,6 +43,7 @@ pre {
     overflow-y: auto;
     height: 100%;
     width: 100%;
+    background-color: white;
 }
 
 @-ms-viewport {
@@ -45,7 +56,7 @@ article, aside, details, figcaption, figure, footer, header, section, hgroup, me
     display: block;
 }
 
-footer {
+footer, .bottom {
     background-color: #4285F4;
     padding: 4px;
     bottom: 0;
@@ -129,20 +140,15 @@ section {
     position: relative;
     background-color: #e9ecef;
 }
+.topdiv{
+    position: absolute;
+    background-color: #20c997;
+    color: white;
+    width: auto;
+    padding:5px;
+}
 
-/*#subxdiv:before {*/
-/*    content: counter(mega-step, upper-roman);*/
-/*    display: block;*/
-/*    !*padding: 5px;*!*/
-/*    !*margin: 5px;*!*/
-/*    background: #005cbf;*/
-/*    !*width: 20%;*!*/
-/*    text-align: center;*/
-/*    vertical-align: middle;*/
-/*    color: white;*/
-/*}*/
-
-header {
+header, .top {
     background-color: #4285F4;
     top: 0;
     left: 0;

@@ -83,10 +83,10 @@
   ],
   "About": [
     [
-      "images/mongo.png",
-      "images/dp_lead_nlg.png"
+      "https://dpresume.com/react-build"
     ],
     [
+      "images/dp_lead_nlg.png",
       "images/oracle_sql.png",
       "images/open_edg.png"
     ],
@@ -101,7 +101,7 @@
   ],
   "Projects": [
     [
-      "grid.html"
+      "htmlpage.html"
     ],
     [
       "images/mongo.png"
