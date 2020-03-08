@@ -83,9 +83,6 @@
   ],
   "About": [
     [
-      "https://dpresume.com/react-build"
-    ],
-    [
       "images/dp_lead_nlg.png",
       "images/oracle_sql.png",
       "images/open_edg.png"
@@ -100,6 +97,9 @@
     ]
   ],
   "Projects": [
+    [
+      "react-basic.html"
+    ],
     [
       "htmlpage.html"
     ],

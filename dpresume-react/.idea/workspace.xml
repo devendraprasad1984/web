@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="949ee7e7-3e94-45a3-af1c-2651a616cbd6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/4/0447d847d2969f626c83afa3b9293e793fd01db8" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" />
+    <list default="true" id="03a34360-981e-405b-b150-f458c51a873f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,10 +18,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="PackageJsonUpdateNotifier">
-    <dismissed value="$PROJECT_DIR$/package.json" />
-  </component>
-  <component name="ProjectId" id="1WqdbYUGAtvI0gzSrEDetqq4k6k" />
+  <component name="ProjectId" id="1YncMQV1pG9jgVdXTNi8sqzFy6c" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -37,58 +27,13 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="javascript.nodejs.core.library.configured.version" value="10.15.3" />
-    <property name="nodejs_interpreter_path" value="$PROJECT_DIR$/../../../softwares/node-v10.15.3-linux-x64/bin/node" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.editor" />
-  </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state width="1324" height="109" key="GridCell.Tab.0.bottom" timestamp="1579882681574">
-      <screen x="0" y="0" width="1366" height="739" />
-    </state>
-    <state width="1324" height="109" key="GridCell.Tab.0.bottom/0.0.1366.739@0.0.1366.739" timestamp="1579882681574" />
-    <state width="1324" height="109" key="GridCell.Tab.0.center" timestamp="1579882681574">
-      <screen x="0" y="0" width="1366" height="739" />
-    </state>
-    <state width="1324" height="109" key="GridCell.Tab.0.center/0.0.1366.739@0.0.1366.739" timestamp="1579882681574" />
-    <state width="1324" height="109" key="GridCell.Tab.0.left" timestamp="1579882681573">
-      <screen x="0" y="0" width="1366" height="739" />
-    </state>
-    <state width="1324" height="109" key="GridCell.Tab.0.left/0.0.1366.739@0.0.1366.739" timestamp="1579882681573" />
-    <state width="1324" height="109" key="GridCell.Tab.0.right" timestamp="1579882681574">
-      <screen x="0" y="0" width="1366" height="739" />
-    </state>
-    <state width="1324" height="109" key="GridCell.Tab.0.right/0.0.1366.739@0.0.1366.739" timestamp="1579882681574" />
-    <state x="187" y="4" key="SettingsEditor" timestamp="1579882378372">
-      <screen x="0" y="0" width="1366" height="739" />
-    </state>
-    <state x="187" y="4" key="SettingsEditor/0.0.1366.739@0.0.1366.739" timestamp="1579882378372" />
-    <state x="359" y="106" width="647" height="526" key="find.popup" timestamp="1579881575460">
-      <screen x="0" y="0" width="1366" height="739" />
-    </state>
-    <state x="359" y="106" width="647" height="526" key="find.popup/0.0.1366.739@0.0.1366.739" timestamp="1579881575460" />
-    <state x="346" y="60" width="672" height="678" key="search.everywhere.popup" timestamp="1579881581332">
-      <screen x="0" y="0" width="1366" height="739" />
-    </state>
-    <state x="346" y="60" width="672" height="678" key="search.everywhere.popup/0.0.1366.739@0.0.1366.739" timestamp="1579881581332" />
   </component>
 </project>

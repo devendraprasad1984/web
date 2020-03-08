@@ -2,16 +2,17 @@
 
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="css/index.css">
 </head>
-<body>
-<h1>External Html Test</h1>
-<div id="mygrid"></div>
+<body class="bg-white">
+<h1 class="bg-danger" style="padding: 5px; margin:3px;">External Html Test</h1>
+<div id="mygrid" class="bg-white content-right"></div>
 
-<script src='index.js'></script>
+<script src='js/index.js'></script>
 <script>
     getById('mygrid').innerHTML='hello world';
     getFromWeb(true,'resources/adhoc.json',function(res){
-        getById('mygrid').innerHTML=JSON.stringify(res);
+        getById('mygrid').innerHTML=customFormat(res);
     },function(fail){console.log(fail)})
 </script>
 </body>
