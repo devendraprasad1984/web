@@ -62,6 +62,8 @@ let mobile = false;
 let getById = function (id) {
     return document.getElementById(id);
 };
+let loadID = getById('idLoad');
+
 document.addEventListener('DOMContentLoaded', function (event) {
     app(); //run when document is initialised and contents are ready to be displayed
     getLinksDisplay();
@@ -80,22 +82,24 @@ function getAdhocListing(key, what2run) {
 
 function getLinksDisplay() {
     getFromWeb(true, 'resources/links.json', function (successData) {
+        let linksDiv = getById('idLinks');
+        if (linksDiv === null) return;
+
         let header = successData.header;
         let links = []
         for (let x in header) {
             links.push('<a href="' + header[x] + '" target="_blank">' + x + '</a>')
         }
-        let linksDiv = getById('idLinks');
         linksDiv.innerHTML += links.join(' | ');
     }, function (failedData) {
         console.log(failedData)
     })
 }
 
-
 //init function
 function app() {
     left = getById('leftPanel');
+    if (left === null) return;
     window.mobilecheck = function () {
         var check = false;
         (function (a) {
@@ -108,7 +112,7 @@ function app() {
     for (let ex in leftMenu) {
         elm.push('<li id=' + ('id' + ex) + ' onclick="handleLeftButtonClick(\'' + ex + '\')"><span>' + ex + '</span></li>');
     }
-    getById(idLeftMenu).innerHTML = elm.join('');
+    left.innerHTML = elm.join('');
     handleLeftButtonClick(menuKeys[0]);
 }
 
@@ -130,6 +134,7 @@ let toggleLeftPanel = function (e) {
     left.style.display = (left.style.display == 'none' ? 'block' : 'none');
 }
 let handleLeftButtonClick = function (key) {
+    show(loadID);
     // moveProgress();
     let rightContainer = getById(rightPanelDiv);
     rightContainer.style.backgroundColor = "white";
@@ -150,14 +155,26 @@ let handleLeftButtonClick = function (key) {
     let container = getById(rightPanelDiv);
     getFromWeb(isHtmlHttpTextTrue(uri), uri, function (successData) {
         container.innerHTML = pageHeader + successData;
-        if (subDisplay) getAdhocListing(key, fnSubDivDisplay);
+        if (subDisplay)
+            getAdhocListing(key, fnSubDivDisplay);
+        else
+            hide(loadID);
     }, function (failedData) {
         console.log(failedData)
     });
     if (mobile) left.style.display = 'none';
 }
 
-function isHtmlHttpTextTrue(x){
+function show(id2show) {
+    id2show.style.display = 'block';
+}
+function hide(id2hide) {
+    setTimeout(function () {
+        id2hide.style.display = 'none';
+    }, 300);
+}
+
+function isHtmlHttpTextTrue(x) {
     let ishtml = (x.indexOf('.html') !== -1) ? true : false;
     let ishttp = (x.indexOf('http') !== -1) ? true : false;
     let istxt = (x.indexOf('.txt') !== -1) ? true : false;
@@ -187,6 +204,7 @@ function fnSubDivDisplay(ds) {
     }
     sub.innerHTML = contRightSub;
     sub.style.display = 'block';
+    hide(loadID);
 }
 
 //older js callbacks way, similar to return new Promise(resolve,reject)
@@ -200,6 +218,7 @@ let getFromWeb = function (raw, uri, resolve, reject) {
             if (!raw) vals2display += '<ul class="noHover">' + customFormat(data) + '</ul>';
             resolve(vals2display);
         } else {
+            hide(loadID);
             req.onerror = reject(req.statusText);
         }
     }
@@ -251,6 +270,7 @@ function getStar(n) {
 
 
 function handleOverlayContent(text, id) {
+    loadID.style.display = 'block';
     // moveProgress();
     let overlayDiv = getById(idOverlay);
     let xobj = {text: text};
@@ -265,6 +285,7 @@ function handleOverlayContent(text, id) {
     let overlayContentDiv = getById(idOverlayContent);
     overlayContentDiv.innerHTML = headerLine + contetnLine;
     openNav(overlayDiv.id);
+    loadID.style.display = 'none';
 }
 
 function openNav(divid, param) {

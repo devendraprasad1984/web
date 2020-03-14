@@ -44,11 +44,12 @@ class ReactDiv1Component extends React.Component {
         if (this.state.liked) {
             return 'You liked this.';
         }
+        let disp=(this.props.cat=='true'?'block':'none');
         return (
             <div>
-                <h1>First Container</h1>
+                <h1  style={{display:disp}}>First Container</h1>
                 <h2 className="bg-danger text-white">{this.state.name}</h2>
-                <Cat name='tommy' color='brown'></Cat>
+                <div style={{display:disp}}><Cat name='tommy' color='brown'></Cat></div>
                 <button className="btn bg-primary text-white"onClick={() => this.displayName()}>Click {this.state.name.split(' ')[0]}</button>
             </div>
         );
@@ -60,12 +61,14 @@ class ReactDiv2Component extends React.Component {
         super(props);
     }
     render(){
-        let icomp=<ReactDiv1Component name='Kumar Gaurav'/>;
+        let icomp=<ReactDiv1Component name='Kumar Gaurav' cat="false"/>;
+        let icomp1=EnhanceComponent(ReactDiv1Component);
         return (
             <div>
                 <h1>Second Container</h1>
                 <h2>old age is {this.props.age}</h2>
                 {icomp}
+                <icomp1 name='testing by dp' age='34'/>
         </div>
         );
     }
@@ -82,7 +85,7 @@ class ReactDiv3Component extends React.Component {
 
 
 // ReactDOM.render(e(ReactDiv1Component), document.querySelector('#reactDiv1'));
-ReactDOM.render(<ReactDiv1Component name="Devendra Prasad"/>, document.getElementById('reactDiv1'));
+ReactDOM.render(<ReactDiv1Component name="Devendra Prasad" cat="true"/>, document.getElementById('reactDiv1'));
 let icomp1=<ReactDiv2Component age='20'/>;
 ReactDOM.render(icomp1, document.getElementById('reactDiv2'));
 ReactDOM.render(<ReactDiv3Component/>, document.getElementById('reactDiv3'));

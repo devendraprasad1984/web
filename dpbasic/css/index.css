@@ -11,6 +11,12 @@ html {
     -webkit-tap-highlight-color: transparent;
 }
 
+div::after {
+    content: '';
+    display: block;
+    clear: both
+}
+
 body {
     background-color: black;
     color: white;
@@ -78,15 +84,24 @@ section {
     padding-top: 50px;
 }
 
+.load {
+    /*z-index: 2;*/
+    left: 50%;
+    top: 5px;
+    position: absolute;
+    padding: 5px;
+}
+
 .content-left li {
     padding: 5px;
 }
 
-.text-black{
-    color:black;
+.text-black {
+    color: black;
 }
-.text-white{
-    color:white;
+
+.text-white {
+    color: white;
 }
 
 
@@ -148,12 +163,13 @@ section {
     position: relative;
     background-color: #e9ecef;
 }
-.topdiv{
+
+.topdiv {
     position: absolute;
     background-color: #20c997;
     color: white;
     width: auto;
-    padding:5px;
+    padding: 5px;
 }
 
 header, .top {
@@ -254,11 +270,11 @@ pre {
     font-size: 14px;
     margin-top: 0;
     -ms-overflow-style: scrollbar;
-    white-space: pre-wrap;       /* css-3 */
-    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-    white-space: -pre-wrap;      /* Opera 4-6 */
-    white-space: -o-pre-wrap;    /* Opera 7 */
-    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    white-space: pre-wrap; /* css-3 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
 
 
