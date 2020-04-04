@@ -3,7 +3,7 @@ let leftMenu = {
         text: "Who I Am...",
         uri: "resources/summary.json",
         overlayID: "Summary",
-        displaySubDiv: true
+        displaySubDiv: false
     },
     "Education": {
         text: "Education Details",
@@ -27,7 +27,7 @@ let leftMenu = {
         text: "Projects I have Undertaken most recently",
         uri: "resources/projects.json",
         overlayID: "Projects",
-        displaySubDiv: true
+        displaySubDiv: false
     },
     "Skills": {
         text: "What else I know",
