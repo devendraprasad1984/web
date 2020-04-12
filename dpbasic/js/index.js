@@ -90,7 +90,7 @@ function getLinksDisplay() {
         for (let x in header) {
             links.push('<a href="' + header[x] + '" target="_blank">' + x + '</a>')
         }
-        linksDiv.innerHTML += links.join(' | ');
+        linksDiv.innerHTML += links.join(' ');
     }, function (failedData) {
         console.log(failedData)
     })

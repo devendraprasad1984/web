@@ -59,7 +59,6 @@ pre {
     width: 100%;
     background-color: white;
 }
-
 @-ms-viewport {
     width: 100vw;
     height: 100vh;
@@ -284,7 +283,7 @@ a {
 }
 
 a:hover {
-    color: #495057;
+    color: black;
     text-decoration: underline
 }
 
@@ -424,6 +423,15 @@ li {
     display: none;
 }
 
+#idLinks a{
+    font-size: 10px;
+    padding:4px;
+    margin:1px;
+    background-color: #6f42c1;
+    border-radius: 5px;
+}
+
+
 @media screen and (max-width: 600px) {
     body, .parent div {
         font-size: 9px;
@@ -450,8 +458,8 @@ li {
         font-size: 12px;
     }
 
-    footer {
-        font-size: 10px;
+    footer{
+        font-size: 8px;
     }
 
     .btn {
