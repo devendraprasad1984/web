@@ -1,11 +1,12 @@
 *, ::after, ::before {
     box-sizing: border-box;
-    font-size: 12px;
     line-height: 1.5rem;
-    font-family: -apple-system, BlinkMacSystemFont,sans-serif, "Noto Color Emoji";
+    /*font-family: -apple-system, BlinkMacSystemFont,sans-serif, "Noto Color Emoji";*/
+    font-family: sans-serif;
 }
 
 html {
+    font-size: 80%;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
     -ms-overflow-style: scrollbar;
@@ -100,6 +101,12 @@ section {
 
 .content-left li {
     padding: 5px;
+    font-weight: bolder;
+    color:#6f42c1;
+}
+.content-left li span{
+    font-weight: bolder;
+    color:#6f42c1;
 }
 
 .text-black {
@@ -151,7 +158,7 @@ section {
 
 .content-left {
     float: left;
-    background-color: #686868;
+    background-color: #80bdff;
 }
 
 .content-right {
@@ -225,6 +232,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: .5rem;
     cursor: pointer;
     text-decoration: none;
+    color:#6f42c1;
 }
 
 p {

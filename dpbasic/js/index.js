@@ -138,7 +138,7 @@ let handleLeftButtonClick = function (key) {
     // moveProgress();
     let rightContainer = getById(rightPanelDiv);
     rightContainer.style.backgroundColor = "white";
-    let allLeftLI = document.querySelectorAll('.content-left ul li');
+    let allLeftLI = document.querySelectorAll('div.content-left li');
     for (let i in allLeftLI) {
         let x = allLeftLI[i];
         x.className = (x.id == 'id' + key ? 'cursel' : '');
