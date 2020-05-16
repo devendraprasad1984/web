@@ -62,7 +62,17 @@ let mobile = false;
 let getById = function (id) {
     return document.getElementById(id);
 };
+
+const loader=(svgName)=>{
+    icon='loading, plz wait...'
+    if(svgName==='loader1'){
+        icon='<img src="./js/bar.svg" width="40" alt="loading...">';
+    }
+    return icon;
+}
+
 let loadID = getById('idLoad');
+loadID.innerHTML=loader('loader1');
 
 document.addEventListener('DOMContentLoaded', function (event) {
     app(); //run when document is initialised and contents are ready to be displayed
