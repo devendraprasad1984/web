@@ -181,7 +181,7 @@ function show(id2show) {
 function hide(id2hide) {
     setTimeout(function () {
         id2hide.style.display = 'none';
-    }, 300);
+    }, 1000);
 }
 
 function isHtmlHttpTextTrue(x) {
