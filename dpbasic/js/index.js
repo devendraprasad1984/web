@@ -61,18 +61,18 @@ let mobile = false;
 
 let getById = function (id) {
     return document.getElementById(id);
-};
-
-const loader=(svgName)=>{
-    icon='loading, plz wait...'
-    if(svgName==='loader1'){
-        icon='<img src="./js/bar.svg" width="40" alt="loading...">';
-    }
-    return icon;
 }
 
+// const loader=(svgName)=>{
+//     icon='loading, plz wait...'
+//     if(svgName==='loader1'){
+//         icon='<img class="imgsvg" src="./js/bar.svg" width="40" alt="loading..."/>';
+//     }
+//     return icon;
+// }
+
 let loadID = getById('idLoad');
-loadID.innerHTML=loader('loader1');
+// loadID.innerHTML=loader('loader1');
 
 document.addEventListener('DOMContentLoaded', function (event) {
     app(); //run when document is initialised and contents are ready to be displayed
@@ -144,7 +144,7 @@ let toggleLeftPanel = function (e) {
     left.style.display = (left.style.display == 'none' ? 'block' : 'none');
 }
 let handleLeftButtonClick = function (key) {
-    show(loadID);
+    // show(loadID);
     // moveProgress();
     let rightContainer = getById(rightPanelDiv);
     rightContainer.style.backgroundColor = "white";
@@ -167,8 +167,8 @@ let handleLeftButtonClick = function (key) {
         container.innerHTML = pageHeader + successData;
         if (subDisplay)
             getAdhocListing(key, fnSubDivDisplay);
-        else
-            hide(loadID);
+        // else
+        //     hide(loadID);
     }, function (failedData) {
         console.log(failedData)
     });
@@ -179,9 +179,11 @@ function show(id2show) {
     id2show.style.display = 'block';
 }
 function hide(id2hide) {
-    setTimeout(function () {
-        id2hide.style.display = 'none';
-    }, 1000);
+    id2hide.style.display = 'none';
+
+    // setTimeout(function () {
+    //     id2hide.style.display = 'none';
+    // }, 800);
 }
 
 function isHtmlHttpTextTrue(x) {
@@ -214,7 +216,7 @@ function fnSubDivDisplay(ds) {
     }
     sub.innerHTML = contRightSub;
     sub.style.display = 'block';
-    hide(loadID);
+    // hide(loadID);
 }
 
 //older js callbacks way, similar to return new Promise(resolve,reject)
@@ -228,7 +230,7 @@ let getFromWeb = function (raw, uri, resolve, reject) {
             if (!raw) vals2display += '<ul class="noHover">' + customFormat(data) + '</ul>';
             resolve(vals2display);
         } else {
-            hide(loadID);
+            // hide(loadID);
             req.onerror = reject(req.statusText);
         }
     }
