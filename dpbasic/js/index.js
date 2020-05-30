@@ -40,6 +40,12 @@ let leftMenu = {
         uri: "resources/my_notes.txt",
         overlayID: "",
         displaySubDiv: false
+    },
+    "Code": {
+        text: "Html/Javascript/Python/Sql Code Blocks that I practice",
+        uri: "code.html",
+        displaySubDiv: false,
+        loadLocal: true
     }
 };
 let subDiv = 'rightPanelDivSub';
@@ -158,11 +164,19 @@ let handleLeftButtonClick = function (key) {
     let uri = current["uri"];
     let overlayID = current["overlayID"];
     let subDisplay = current["displaySubDiv"];
-
+    let loadLocal = current["loadLocal"];
+    console.log(text, uri, loadLocal);
     let sub = getById(subDiv);
     sub.style.display = 'none';
     let pageHeader = '<h1 onclick="handleOverlayContent(\'' + text + '\',\'' + overlayID + '\')">' + text + '</h1>';
     let container = getById(rightPanelDiv);
+
+    if (loadLocal === true) {
+        let iframeContent = '<iframe id="codeBlock" src="' + uri + '"></iframe>';
+        container.innerHTML = iframeContent;
+        return;
+    }
+
     getFromWeb(isHtmlHttpTextTrue(uri), uri, function (successData) {
         container.innerHTML = pageHeader + successData;
         if (subDisplay)
@@ -178,6 +192,7 @@ let handleLeftButtonClick = function (key) {
 function show(id2show) {
     id2show.style.display = 'block';
 }
+
 function hide(id2hide) {
     id2hide.style.display = 'none';
 

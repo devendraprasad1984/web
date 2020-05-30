@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./css/index.css"/>
+</head>
+<body>
+<h3>JS Code I practice</h3>
+<div>
+    <select id="jsSelect"></select>
+    <button class="btn" onclick="callFunc('nodes','jsSelect')">View</button>
+</div>
+<div id="jsEditor"></div>
+
+<h3>Python Code I practice</h3>
+<select id="pySelect"></select>
+<button class="btn" onclick="callFunc('python','pySelect')">View</button>
+<div id="pythonEditor"></div>
+
+<!--<h3>Sql Code I practice</h3>-->
+<!--<select id="sqlSelect"></select>-->
+<!--<div id="sqlEditor"></div>-->
+
+
+<!--<script src="js/ace.js"></script>-->
+<script src="https://ajaxorg.github.io/ace-builds/src/ace.js" charset="utf-8"></script>
+<script>
+    let site = window.location.href.indexOf('localhost') !== -1 ? 'http://localhost:8000' : 'https://dpresume.com';
+    let api = '/API/getCode.php?';
+    let dropDownApi = '/API/getFilesDropDown.php?';
+
+    let selJs, selPy, selSql;
+    selJs = document.getElementById('jsSelect');
+    selPy = document.getElementById('pySelect');
+    selSql = document.getElementById('sqlSelect');
+
+    window.fetch(site + dropDownApi + 'dir=Node').then(r => r.json()).then(data => setDropDown(selJs, data))
+    window.fetch(site + dropDownApi + 'dir=Python').then(r => r.json()).then(data => setDropDown(selPy, data))
+
+    let callFunc = (apiCall, selId) => {
+        let val = document.getElementById(selId).value;
+        window.fetch(site + api + apiCall + '=' + val).then(res => res.json()).then(data => setCodeData(apiCall, data));
+    }
+    let setDropDown = (selObj, data) => {
+        // console.log(type,data);
+        // selObj.onchange = (e) => {
+        //     if (type === 'js') callFunc('nodes',selObj.id);
+        //     if (type === 'py') callFunc('pys',selObj.id);
+        //     e.preventDefault();
+        // }
+        for (let i in data) {
+            let opt = document.createElement('option');
+            if (i.toString() === "0") {
+                opt.text = '';
+                opt.value = '';
+                selObj.add(opt);
+            }
+            let txt = data[i];
+            opt.text = txt;
+            opt.value = txt;
+            selObj.add(opt);
+        }
+    }
+    let setCodeData = (type, data) => {
+        let editor;
+        if (type === 'nodes') {
+            editor = window.ace.edit('jsEditor');
+            editor.session.setMode("ace/mode/javascript");
+        } else if (type === 'python') {
+            editor = window.ace.edit('pythonEditor');
+            editor.session.setMode("ace/mode/python");
+        }
+
+        editor.setTheme("ace/theme/chrome");
+        editor.setReadOnly(true);
+
+        let contentToDisplay = ''
+        for (let d in data) {
+            contentToDisplay += data[d];
+        }
+        editor.setValue(contentToDisplay);
+        editor.clearSelection();
+    }
+
+</script>
+</body>
+</html>
