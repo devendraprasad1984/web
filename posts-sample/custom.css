@@ -1,0 +1,23 @@
+.user {
+    font-weight: bold;
+    color: black;
+    margin-top: 10px;
+}
+
+.time {
+    color: gray;
+}
+
+.userComment {
+    color: purple;
+    font-weight: lighter;
+    margin-left: 5px;
+}
+
+.replies {
+    margin-left: 20px;
+}
+
+#registerModal input, #loginModal input {
+    margin-top: 10px;
+}
