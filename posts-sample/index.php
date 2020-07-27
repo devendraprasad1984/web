@@ -1,7 +1,7 @@
 <?php
 session_save_path('/tmp');
 session_start();
-require_once './handlerPostsComments.php';
+require_once './handlerPosts.php';
 ?>
 
 <!doctype html>
@@ -16,7 +16,7 @@ require_once './handlerPostsComments.php';
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>IBDN Messaging platform in association with Natwest Group</title>
 <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>-->
-    <link rel="stylesheet" href="libs/bootstrap.min.css"/>
+    <link rel="stylesheet" href="./libs/bootstrap.min.css"/>
     <link rel="stylesheet" href="./custom.css"/>
 </head>
 
@@ -117,8 +117,8 @@ require_once './handlerPostsComments.php';
 <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"-->
 <!--        integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd"-->
 <!--        crossorigin="anonymous"></script>-->
-<script src="libs/jquery.min.js"></script>
-<script src="libs/bootstrap.bundle.min.js"></script>
+<script src="./libs/jquery.min.js"></script>
+<script src="./libs/bootstrap.bundle.min.js"></script>
 <script>
     let max = <?php echo fetchpostsCount() ?>;
 </script>

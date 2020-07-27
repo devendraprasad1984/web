@@ -1,5 +1,5 @@
-body{
-    font-size: 12pt;
+body {
+    font-size: 11pt;
     font-family: "Courier 10 Pitch";
 }
 
@@ -9,18 +9,18 @@ body{
     margin-top: 10px;
 }
 
-.welcomeMsg span, .welcomeMsg .btn{
+.welcomeMsg span, .welcomeMsg .btn {
     font-weight: bolder;
-    font-size: 14pt;
+    font-size: 12pt;
     opacity: 0.70;
 }
 
-.topHeading{
-    background-image:linear-gradient(to right, #c729b8, #5829c7,#e570d9);
+.topHeading {
+    background-image: linear-gradient(to right, #c729b8, #5829c7, #e570d9);
     color: white;
-    padding:5px;
-    top:0;
-    left:0;
+    padding: 5px;
+    top: 0;
+    left: 0;
     margin-top: 2px;
     font-weight: bolder;
     position: fixed;
@@ -38,28 +38,28 @@ body{
     color: purple;
     font-weight: lighter;
 }
-.userCommentTitle{
-    padding:3px;
+
+.userCommentTitle {
+    padding: 3px;
     margin-top: 20px;
     font-weight: bolder;
     color: white;
     /*background-color: #7f63ea;*/
-    background-image:linear-gradient(to right, #369a51, #81c7e3,#e570d9);
+    background-image: linear-gradient(to right, #369a51, #81c7e3, #e570d9);
 }
 
-.userReplyTitle{
+.userReplyTitle {
     font-weight: bold;
     font-size: 10pt;
 }
 
-.comment-replies{
+.comment-replies {
     margin-left: 20px;
 }
 
 #registerModal input, #loginModal input {
     margin-top: 10px;
 }
-
 
 
 .red {
@@ -83,7 +83,6 @@ body{
 }
 
 
-
 .bgorange {
     background-color: #f1960e;
     color: white;
@@ -98,6 +97,20 @@ body{
     background-color: #4a3a9e;
     color: white;
 }
+
+.bgred {
+    background-color: #e87373;
+    color: white;
+}
+
+.customInput {
+    width: 80%;
+    padding: 2px 2px;
+    margin: 2px 0;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
 
 .bggreen {
     background-color: #45ac25;
@@ -120,13 +133,33 @@ body{
     font-size: 14px;
 }
 
-h1,h2,h3,h4,h5{
+h1, h2, h3, h4, h5 {
     font-weight: bolder;
 }
 
 .sidenav div {
     color: #a981ef;
     font-weight: bold;
+}
+
+#rightContents {
+    font-size: 12px;
+}
+
+.adminDashboard {
+    margin-top: 20px;
+}
+
+.adminDashboard span b{
+    font-size: 22pt;
+}
+.adminDashboard span {
+    padding: 10px;
+    margin: 20px;
+    font-size: 20pt;
+    background-image: linear-gradient(to left top, #aceccf, #a297bd, #99dcdc);
+    color: purple;
+    cursor: pointer;
 }
 
 .sidenav {
@@ -142,8 +175,14 @@ h1,h2,h3,h4,h5{
     padding: 5px;
 }
 
+.sidenav a:hover {
+    background-image: linear-gradient(to right, #8350c6, #e471f8);
+    color: white;
+    font-weight: bolder;
+}
+
 .sidenav a {
-    padding: 5px;
+    padding: 0 0 0 10px;
     color: #c778ef;
     text-decoration: none;
     display: block;
@@ -158,4 +197,33 @@ h1,h2,h3,h4,h5{
 }
 
 
+.line span.btn {
+    font-size: 11px;
+    cursor: pointer;
+    width: 70px;
+    font-weight: bolder;
+    opacity: 0.70;
+    margin: 2px;
+    line-height: 7px;
+}
 
+.line {
+    overflow-x: hidden;
+    width: 100%;
+    border-bottom: 1px solid #8a8a8a;
+}
+
+.line-header {
+    font-weight: bolder;
+    font-size: 14px;
+    background-color: #f7f7f7;
+}
+
+.line span {
+    display: inline-block;
+    width: 150px;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-x: hidden;
+}

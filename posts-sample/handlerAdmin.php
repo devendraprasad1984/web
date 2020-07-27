@@ -8,21 +8,27 @@ if (isset($_SESSION['loggedIn']) && isset($_SESSION['name'])) {
 }
 global $conn;
 
-if (isset($_POST['getData']) && $_POST['type']=='users') {
-    $data=array('user1','user2','user3');
-    $response=json_encode($data, JSON_PRETTY_PRINT);
-    exit($response);
+
+if (isset($_POST['getData']) && $_POST['type'] == 'home') {
+    $data=getAdminHome();
+    exit($data);
+}
+
+if (isset($_POST['getData']) && $_POST['type'] == 'users') {
+    $query="select id,email,name,createdOn from users order by id desc";
+    $data=getAllFromTable($query);
+    exit($data);
 }
 
 
-if (isset($_POST['getData']) && $_POST['type']=='posts') {
-    $data=array('Post1','post2','post3');
-    $response=json_encode($data, JSON_PRETTY_PRINT);
-    exit($response);
+if (isset($_POST['getData']) && $_POST['type'] == 'posts') {
+    $query="select a.id as postid,a.userid,b.name,b.email,b.createdOn,a.comment from posts a inner join users b ON a.userId=b.id order by a.id desc";
+    $data=getAllFromTable($query);
+    exit($data);
 }
 
-if (isset($_POST['getData']) && $_POST['type']=='replies') {
-    $data=array('reply1','reply2','reply3');
-    $response=json_encode($data, JSON_PRETTY_PRINT);
-    exit($response);
+if (isset($_POST['getData']) && $_POST['type'] == 'replies') {
+    $query="select a.id as replyid,a.userid,b.email,b.createdOn,a.comment from replies a inner join users b ON a.userId=b.id order by a.id desc";
+    $data=getAllFromTable($query);
+    exit($data);
 }
