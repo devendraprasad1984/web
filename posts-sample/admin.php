@@ -52,8 +52,8 @@ require_once './handlerAdmin.php';
             <div class="right">
                 <div class="row">
                     <div class="col-md-12">
-                        <input class="customInput purple" type="text" placeholder="search contents"/>
-                        <a href="javascript:void(0)" class="btn bgblue" onclick="search(this)">Search</a>
+                        <input id="searchBox" class="customInput purple" type="text" placeholder="search contents"/>
+                        <a href="javascript:void(0)" class="btn bgblue" onclick="clickSearch(this)">Search</a>
                     </div>
                 </div>
 

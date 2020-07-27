@@ -61,7 +61,7 @@ if (isset($_POST['login'])) {
     $email = $conn->real_escape_string($_POST['email']);
     $password = $conn->real_escape_string($_POST['password']);
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $sql = $conn->query("select id,password,name from users where email='$email'");
+        $sql = $conn->query("select id,password,name,role from users where email='$email'");
         if ($sql->num_rows == 0) {
             exit('failed');
         } else {
@@ -72,6 +72,7 @@ if (isset($_POST['login'])) {
                 $_SESSION['name'] = $data['name'];
                 $_SESSION['email'] = $email;
                 $_SESSION['userId'] = $data['id'];
+                $_SESSION['role'] = $data['role'];
                 exit('success');
             } else {
                 exit('failed');

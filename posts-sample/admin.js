@@ -1,11 +1,22 @@
 const rightContents = $('#rightContents');
+const searchBox = $('#searchBox');
+let currentType = 'users';
+let currentClickElem = undefined;
 
 $(document).ready(function () {
     clickHandler(undefined, 'home');
 })
 
 function displayRightHeading(caller) {
-    rightContents.prev().html('<h3>' + caller.innerText + ' Listing</h3>');
+    currentType = caller.innerText;
+    currentClickElem = caller;
+    rightContents.prev().html('<h3>' + currentType + ' Listing</h3>');
+}
+
+function clickSearch(caller) {
+    let ipos = currentClickElem.innerText.indexOf('(');
+    currentType = ipos !== -1 ? currentClickElem.innerText.substring(0, ipos) : currentClickElem.innerText;
+    clickHandler(undefined, currentType.toLowerCase());
 }
 
 function clickHandler(caller, type) {
@@ -17,6 +28,7 @@ function clickHandler(caller, type) {
         dataType: 'json',
         data: {
             getData: 1,
+            searchText: searchBox.val(),
             type
         },
         success: function (data) {

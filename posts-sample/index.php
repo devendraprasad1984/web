@@ -15,7 +15,7 @@ require_once './handlerPosts.php';
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>IBDN Messaging platform in association with Natwest Group</title>
-<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>-->
+    <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>-->
     <link rel="stylesheet" href="./libs/bootstrap.min.css"/>
     <link rel="stylesheet" href="./custom.css"/>
 </head>
@@ -35,7 +35,7 @@ require_once './handlerPosts.php';
             <div class="modal-body">
                 <input type="text" id="userName" class="form-control" placeholder="your name">
                 <input type="text" id="userEmail" class="form-control" placeholder="your email">
-                <input type="text" id="userPassword" class="form-control" placeholder="your password">
+                <input type="password" id="userPassword" class="form-control" placeholder="your password">
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" data-dismiss="modal">Close</button>
@@ -54,7 +54,7 @@ require_once './handlerPosts.php';
             </div>
             <div class="modal-body">
                 <input type="text" id="userLEmail" class="form-control" placeholder="your email">
-                <input type="text" id="userLPassword" class="form-control" placeholder="your password">
+                <input type="password" id="userLPassword" class="form-control" placeholder="your password">
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" data-dismiss="modal">Close</button>
@@ -67,7 +67,7 @@ require_once './handlerPosts.php';
 
 <div class="container" style="margin-top: 50px;margin-bottom: 30px;">
 
-    <div class="row"style="margin-top: 50px;margin-bottom: 30px;">
+    <div class="row" style="margin-top: 50px;margin-bottom: 30px;">
         <div class="col-md-12  welcomeMsg" align="right">
             <?php
             if (!$loggedIn) {
@@ -76,9 +76,9 @@ require_once './handlerPosts.php';
             <button class="btn btn-success" data-toggle="modal" data-target="#loginModal">Login</button>
         ';
             } else {
-                echo '        
-            <span class="badge badge-secondary">Welcome, ' . $_SESSION["name"] . '</span>
-            <a href="logout.php" class="btn bg-warning">logout</a>
+                echo '<span class="badge badge-secondary">Welcome, ' . $_SESSION["name"] . '</span>'
+                    . ($_SESSION["role"] == 'admin' ? '<a href="./admin.php" class="btn bgpurple">Admin Console</a>' : '')
+                    . '<a href="./logout.php" class="btn bg-warning">logout</a>
         ';
             }
             ?>
