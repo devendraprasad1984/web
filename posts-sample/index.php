@@ -14,16 +14,20 @@ require_once './handlerPostsComments.php';
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
+    <title>IBDN Messaging platform in association with Natwest Group</title>
+<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>-->
+    <link rel="stylesheet" href="libs/bootstrap.min.css"/>
     <link rel="stylesheet" href="./custom.css"/>
 </head>
 
 
-<body>
+<body class="container-fluid">
+<h3 class="topHeading">
+    <span>IBDN Messaging Platform</span>
+    <span style="float: right">@Natwest Group</span>
+</h3>
 <div class="modal" id="registerModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Registration Form</h5>
@@ -34,8 +38,8 @@ require_once './handlerPostsComments.php';
                 <input type="text" id="userPassword" class="form-control" placeholder="your password">
             </div>
             <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">Close</button>
                 <button class="btn btn-primary" id="registerBtn">Register</button>
-                <button class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -53,18 +57,18 @@ require_once './handlerPostsComments.php';
                 <input type="text" id="userLPassword" class="form-control" placeholder="your password">
             </div>
             <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">Close</button>
                 <button class="btn btn-primary" id="loginBtn">Login</button>
-                <button class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
 
 
-<div class="container" style="margin-top: 50px;">
+<div class="container" style="margin-top: 50px;margin-bottom: 30px;">
 
-    <div class="row">
-        <div class="col-md-12" align="right">
+    <div class="row"style="margin-top: 50px;margin-bottom: 30px;">
+        <div class="col-md-12  welcomeMsg" align="right">
             <?php
             if (!$loggedIn) {
                 echo '
@@ -73,8 +77,8 @@ require_once './handlerPostsComments.php';
         ';
             } else {
                 echo '        
-            <span class="badge bg-warning">Welcome, ' . $_SESSION["name"] . '</span>
-            <a href="logout.php" class="badge bg-warning">logout</a>
+            <span class="badge badge-secondary">Welcome, ' . $_SESSION["name"] . '</span>
+            <a href="logout.php" class="btn bg-warning">logout</a>
         ';
             }
             ?>
@@ -107,16 +111,18 @@ require_once './handlerPostsComments.php';
 </div>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
-        integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd"
-        crossorigin="anonymous"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"-->
+<!--        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="-->
+<!--        crossorigin="anonymous"></script>-->
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"-->
+<!--        integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd"-->
+<!--        crossorigin="anonymous"></script>-->
+<script src="libs/jquery.min.js"></script>
+<script src="libs/bootstrap.bundle.min.js"></script>
 <script>
     let max = <?php echo fetchpostsCount() ?>;
 </script>
-<script type="text/javascript" src="./custom.js"></script>
+<script type="text/javascript" src="postsComments.js"></script>
 
 </body>
 </html>

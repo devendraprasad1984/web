@@ -9,6 +9,25 @@ body{
     margin-top: 10px;
 }
 
+.welcomeMsg span, .welcomeMsg .btn{
+    font-weight: bolder;
+    font-size: 14pt;
+    opacity: 0.70;
+}
+
+.topHeading{
+    background-image:linear-gradient(to right, #c729b8, #5829c7,#e570d9);
+    color: white;
+    padding:5px;
+    top:0;
+    left:0;
+    margin-top: 2px;
+    font-weight: bolder;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
 .time {
     color: white;
     float: right;
@@ -24,7 +43,8 @@ body{
     margin-top: 20px;
     font-weight: bolder;
     color: white;
-    background-color: #7f63ea;
+    /*background-color: #7f63ea;*/
+    background-image:linear-gradient(to right, #369a51, #81c7e3,#e570d9);
 }
 
 .userReplyTitle{
@@ -39,3 +59,103 @@ body{
 #registerModal input, #loginModal input {
     margin-top: 10px;
 }
+
+
+
+.red {
+    color: #ec5d5d;
+}
+
+.orange {
+    color: #f1960e;
+}
+
+.green {
+    color: #3bc713;
+}
+
+.blue {
+    color: #4cb0f6;
+}
+
+.purple {
+    color: #935ff3;
+}
+
+
+
+.bgorange {
+    background-color: #f1960e;
+    color: white;
+}
+
+.bgpurple {
+    background-color: #935ff3;
+    color: white;
+}
+
+.bgprimary {
+    background-color: #4a3a9e;
+    color: white;
+}
+
+.bggreen {
+    background-color: #45ac25;
+    color: white;
+}
+
+.bgblue {
+    background-color: #4cb0f6;
+    color: white;
+}
+
+.badge {
+    border: 1px solid gray;
+    border-radius: 1%;
+}
+
+
+.left div, .left span {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+h1,h2,h3,h4,h5{
+    font-weight: bolder;
+}
+
+.sidenav div {
+    color: #a981ef;
+    font-weight: bold;
+}
+
+.sidenav {
+    height: 100vh;
+    width: 180px;
+    position: fixed;
+    z-index: 1;
+    top: 150px;
+    left: 0;
+    background-color: #44423f;
+    color: white;
+    overflow-x: hidden;
+    padding: 5px;
+}
+
+.sidenav a {
+    padding: 5px;
+    color: #c778ef;
+    text-decoration: none;
+    display: block;
+    font-weight: bolder;
+    font-size: 14pt;
+}
+
+.right {
+    margin-left: 180px; /* Same as the width of the sidenav */
+    font-size: 28px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+}
+
+
+
