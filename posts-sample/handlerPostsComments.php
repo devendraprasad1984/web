@@ -8,19 +8,30 @@ if (isset($_SESSION['loggedIn']) && isset($_SESSION['name'])) {
 }
 //print_r($_SESSION);
 //print_r($_POST);
+global $conn;
+
+if (isset($_POST['getAllposts'])) {
+    $start = $conn->real_escape_string($_POST['start']);
+    exit(pullAllposts($start, false, false));
+}
+
+
 if (isset($_POST['addComment'])) {
     if (!$loggedIn) exit('notLoggedIn');
     $commentId = $conn->real_escape_string($_POST['commentId']);
     $comment = $conn->real_escape_string($_POST['comment']);
-    $isReply = $conn->real_escape_string($_POST['isReply']);
-    if ($isReply) {
+    $isReply = filter_var($conn->real_escape_string($_POST['isReply']),FILTER_VALIDATE_BOOLEAN);
+    if ($isReply==true || $isReply==1) {
         $conn->query("insert into replies(userid,comment,commentid,createdOn) values('" . $_SESSION['userId'] . "','$comment','$commentId',now())");
-        exit(pullAllComments($conn, 0, true, $isReply));
+//        exit('reply is been added');
+        exit(pullAllposts(0, true, $isReply));
     } else {
-        $conn->query("insert into comments(userid,comment,createdOn) values('" . $_SESSION['userId'] . "','$comment',now())");
-        exit(pullAllComments($conn, 0, true, $isReply));
+        $conn->query("insert into posts(userid,comment,createdOn) values('" . $_SESSION['userId'] . "','$comment',now())");
+//        exit('comments is been added');
+        exit(pullAllposts(0, true, $isReply));
     }
 }
+
 if (isset($_POST['register'])) {
     $name = $conn->real_escape_string($_POST['name']);
     $email = $conn->real_escape_string($_POST['email']);
@@ -44,6 +55,8 @@ if (isset($_POST['register'])) {
         exit('failedEmail');
     }
 }
+
+
 if (isset($_POST['login'])) {
     $email = $conn->real_escape_string($_POST['email']);
     $password = $conn->real_escape_string($_POST['password']);

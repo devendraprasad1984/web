@@ -86,12 +86,12 @@ require_once './handlerPostsComments.php';
         <div class="col-md-12" align="right">
             <textarea class="form-control" id="mainComment" placeholder="add new post" cols="30"
                       rows="2"></textarea><br>
-            <button class="btn btn-primary" id="addComment" onclick="isReply=false">Submit</button>
+            <button class="btn btn-primary" id="addComment" onclick="fnAddComments(this,false)">Submit</button>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <h2><b id="idNumComments"><?php echo fetchCommentsCount() ?> posts</b></h2>
+            <h2><b id="idNumComments"><?php echo fetchpostsCount() ?> posts</b></h2>
             <div class="userComments"></div>
         </div>
     </div>
@@ -101,7 +101,7 @@ require_once './handlerPostsComments.php';
 <div class="row replyRow" style="display: none">
     <div class="col-md-12" align="right">
         <textarea class="form-control" id="replyComment" placeholder="add reply" cols="30" rows="1"></textarea><br>
-        <button class="btn btn-warning" id="addReply" onclick="isReply=true">Submit</button>
+        <button class="btn btn-warning" id="addReply" onclick="fnAddComments(this,true)">Submit</button>
         <button class="btn btn-dark" onclick="$('.replyRow').hide()">Close</button>
     </div>
 </div>
@@ -113,6 +113,9 @@ require_once './handlerPostsComments.php';
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
         integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd"
         crossorigin="anonymous"></script>
+<script>
+    let max = <?php echo fetchpostsCount() ?>;
+</script>
 <script type="text/javascript" src="./custom.js"></script>
 
 </body>

@@ -1,3 +1,8 @@
+body{
+    font-size: 12pt;
+    font-family: "Courier 10 Pitch";
+}
+
 .user {
     font-weight: bold;
     color: black;
@@ -5,16 +10,29 @@
 }
 
 .time {
-    color: gray;
+    color: white;
+    float: right;
 }
 
 .userComment {
+    margin-left: 5px;
     color: purple;
     font-weight: lighter;
-    margin-left: 5px;
+}
+.userCommentTitle{
+    padding:3px;
+    margin-top: 20px;
+    font-weight: bolder;
+    color: white;
+    background-color: #7f63ea;
 }
 
-.replies {
+.userReplyTitle{
+    font-weight: bold;
+    font-size: 10pt;
+}
+
+.comment-replies{
     margin-left: 20px;
 }
 

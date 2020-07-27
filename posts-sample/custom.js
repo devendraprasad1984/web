@@ -1,30 +1,28 @@
-let isReply = false;
 let commentId = 0;
-let max = 0;
 $(document).ready(function () {
     // $('#idNumComments').text(max + ' Comments');
     $('#registerBtn').on('click', fnRegister);
     $('#loginBtn').on('click', fnLogin);
-    $('#addComment, #addReply').on('click', fnAddComments);
+    // $('#addComment, #addReply').on('click', fnAddComments);
     getCommentsFromDB(0, max);
 })
 
 function getCommentsFromDB(start, max) {
-    console.log('start', start, 'max', max);
+    // console.log('start', start, 'max', max);
     if (parseInt(start) > parseInt(max)) {
         return;
     }
 
     $.ajax({
-        url: 'index.php',
+        url: './index.php',
         method: 'post',
         dataType: 'text',
         data: {
-            getAllComments: 1,
+            getAllposts: 1,
             start: parseInt(start)
         },
         success: function (response) {
-            console.log(response);
+            // console.log(response);
             $('.userComments').append(response);
             getCommentsFromDB(parseInt(start) + 20, parseInt(max));
         },
@@ -34,21 +32,13 @@ function getCommentsFromDB(start, max) {
     });
 }
 
-function reply(caller) {
-    // console.log('reply from', caller);
-    commentId = $(caller).attr('data-commentID');
-    $(".replyRow").insertAfter(caller);
-    $(".replyRow").show();
-}
-
-
 function fnRegister() {
     let name = $('#userName').val();
     let email = $('#userEmail').val();
     let password = $('#userPassword').val();
     if (name !== '' && email !== '' && password !== '') {
         $.ajax({
-            url: 'index.php',
+            url: './index.php',
             method: 'post',
             dataType: 'text',
             data: {
@@ -79,7 +69,7 @@ function fnLogin() {
     let password = $('#userLPassword').val();
     if (email !== '' && password !== '') {
         $.ajax({
-            url: 'index.php',
+            url: './index.php',
             method: 'post',
             dataType: 'text',
             data: {
@@ -87,7 +77,7 @@ function fnLogin() {
                 email, password
             },
             success: function (response) {
-                console.log(response);
+                // console.log(response);
                 if (response === 'failed') {
                     alert('plz check your login details');
                 } else {
@@ -104,11 +94,11 @@ function fnLogin() {
 }
 
 
-function fnAddComments() {
+function fnAddComments(caller,isReply) {
     let comment = isReply ? $('#replyComment').val() : $('#mainComment').val();
     if (comment.length > 5) {
         $.ajax({
-            url: 'index.php',
+            url: './index.php',
             method: 'post',
             dataType: 'text',
             data: {
@@ -118,7 +108,7 @@ function fnAddComments() {
                 commentId
             },
             success: function (response) {
-                // console.log(response);
+                // console.log(caller,isReply,response);
                 if (response === 'notLoggedIn') {
                     alert('you are not logged in');
                     return;
@@ -143,4 +133,11 @@ function fnAddComments() {
     } else {
         alert('plz enter values');
     }
+}
+
+function reply(caller) {
+    // console.log('reply from', caller);
+    commentId = $(caller).attr('data-commentID');
+    $(".replyRow").insertAfter(caller);
+    $(".replyRow").show();
 }
