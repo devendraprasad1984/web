@@ -1,6 +1,4 @@
 <?php
-session_save_path('/tmp');
-session_start();
 require_once './handlerAdmin.php';
 ?>
 
