@@ -7,7 +7,9 @@ $(document).ready(function () {
     $('#loginBtn').on('click', fnLogin);
     // $('#addComment, #addReply').on('click', fnAddComments);
     // getPosts(0, max);
-    getPosts(0);
+    // getPosts(0);
+    handlePostsAndReplies();
+
 })
 
 function getPosts(start, max) {
@@ -17,7 +19,7 @@ function getPosts(start, max) {
     }
 
     $.ajax({
-        url: './backend/api.php',
+        url: 'index.php',
         method: 'post',
         dataType: 'text',
         data: {
@@ -25,7 +27,7 @@ function getPosts(start, max) {
             start: parseInt(start)
         },
         success: function (data) {
-            console.log(data);
+            // console.log(data);
             userComments.html(data);
             // handlePostsAndReplies(false, data);
             // getPosts(parseInt(start) + 20, parseInt(max));
@@ -37,34 +39,47 @@ function getPosts(start, max) {
     });
 }
 
-async function handlePostsAndReplies(isreply, data) {
-    if (JSON.parse(data).length === 0) return;
-    data = JSON.parse(data);
-    let res = '';
-    for (let row of data) {
-        // console.log('post:', row);
-        res += (isreply === false ? '<div class="comment">' : '<div class="comment-replies">');
-        res += (isreply === false ? '<div class="userCommentTitle">Posted By: ' + row.name + ' <span class="time">' + row.createdOn + '</span></div>' : '<div class="userReplyTitle"> ' + row.name + ' replied on ' + row.createdOn + '</div>');
-        res += '<div class="userComment">' + row.comment + ' <a class="badge" href=javascript:void(0)" data-commentID="' + row.id + '" onclick="reply(this)">REPLY</a></div>';
-        let params={
-            method:'post',
-            mode: 'cors',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                getReplies: 1,
-                commentId: parseInt(row.id)
-            })
+async function handlePostsAndReplies() {
+    $.ajax({
+        url: './backend/api.php',
+        method: 'post',
+        dataType: 'json',
+        data: {
+            getPosts: 1,
+            start: 0
+        },
+        success: function (posts) {
+            $.ajax({
+                url: './backend/api.php',
+                method: 'post',
+                dataType: 'json',
+                data: {
+                    getAllReplies: 1,
+                },
+                success: function (replies) {
+                    console.log('posts:',posts,'replies:',replies);
+                    let res='';
+                    for (let row of posts) {
+                        // console.log('post:', row);
+                        res += '<div class="comment">';
+                        res += '<div class="userCommentTitle">Posted By: ' + row.name + ' <span class="time">' + row.createdOn + '</span></div>';
+                        res += '<div class="userComment">' + row.comment + ' <a class="badge" href=javascript:void(0)" data-commentID="' + row.id + '" onclick="reply(this)">REPLY</a></div>';
+                        res += '<div class="replies">';
+                        res += replies.filter(x=>x.postid===row.id.toString()).map(x=>'<div>replied by: '+x.name+' ('+x.createdOn+')=>'+x.comment+'----><a class="badge" href=javascript:void(0)" data-commentID="' + x.id + '" onclick="reply(this)">REPLY</a></div>'+'</div>').join('');
+                        res += '</div>';
+                        res += '</div>';
+                    }
+                    userComments.append(res);
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        },
+        error: function (err) {
+            console.log(err);
         }
-        let call1=await fetch('./backend/api.php', params);
-        let call2=await call1.text();
-        console.log(call1,call2);
-        //console.log(replies);
-        res += '</div></div>';
-    }
-    userComments.append(res);
+    });
 }
 
 function fnRegister() {
@@ -73,7 +88,7 @@ function fnRegister() {
     let password = $('#userPassword').val();
     if (name !== '' && email !== '' && password !== '') {
         $.ajax({
-            url: './index.php',
+            url: 'index.php',
             method: 'post',
             dataType: 'text',
             data: {
@@ -81,7 +96,7 @@ function fnRegister() {
                 name, email, password
             },
             success: function (response) {
-                console.log(response);
+                // console.log(response);
                 if (response === 'failedEmail') {
                     alert('plz insert valid email');
                 } else if (response === 'failedUserExists') {
@@ -107,7 +122,7 @@ function fnLogin() {
     let password = $('#userLPassword').val();
     if (email !== '' && password !== '') {
         $.ajax({
-            url: './index.php',
+            url: 'index.php',
             method: 'post',
             dataType: 'text',
             data: {
@@ -119,6 +134,7 @@ function fnLogin() {
                 if (response === 'failed') {
                     alert('plz check your login details');
                 } else {
+                    alert(response);
                     window.location = window.location;
                 }
             },
@@ -137,7 +153,7 @@ function fnAddComments(caller, isReply) {
     let comment = isReply ? $('#replyComment').val() : $('#mainComment').val();
     if (comment.length > 5) {
         $.ajax({
-            url: './index.php',
+            url: 'index.php',
             method: 'post',
             dataType: 'text',
             data: {
@@ -156,7 +172,7 @@ function fnAddComments(caller, isReply) {
                 // max++;
                 // $('#idNumComments').text(max + ' Comments');
                 if (!isReply) {
-                    userComments.prepend(response);
+                    // userComments.prepend(response);
                     $('#mainComment').val("");
                 } else {
                     commentId = 0;

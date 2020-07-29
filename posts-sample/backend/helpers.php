@@ -1,6 +1,4 @@
 <?php
-//require_once 'init.php';
-
 function createCommentRows($data, $isReply)
 {
     try {
@@ -19,6 +17,7 @@ function createCommentRows($data, $isReply)
 
         return $response;
     } catch (Exception $ex) {
+        print_r($ex);
         return $ex->getTraceAsString();
     }
 }
@@ -41,6 +40,7 @@ function pullAllposts($start, $latestOnly, $isReply)
             $res .= createCommentRows($data, $isReply);
         return $res;
     } catch (Exception $ex) {
+        print_r($ex);
         return $ex->getTraceAsString();
     }
 }
@@ -51,9 +51,7 @@ function pullPosts($start)
         global $conn;
         $queryStr = "select a.id,name,comment,date_format(a.createdOn,'%Y-%m%-%d') as createdOn from posts a inner join users b ON a.userId=b.id order by a.id desc";
         $sql = $conn->query($queryStr);
-        $rows = array();
-        while ($row = $sql->fetch_assoc())
-            $rows[] = $row;
+        $rows = $sql->fetch_all(MYSQLI_ASSOC);
         return json_encode($rows);
     } catch (Exception $ex) {
         return $ex->getTraceAsString();
@@ -65,9 +63,19 @@ function pullReplies($commentId)
         global $conn;
         $queryStr = "select a.id,name,comment,date_format(a.createdOn,'%Y-%m%-%d') as createdOn from replies a inner join users b ON a.userId=b.id where a.commentId=" . filter_var($commentId,FILTER_SANITIZE_NUMBER_INT ). " order by a.id desc";
         $sql = $conn->query($queryStr);
-        $rows = array();
-        while ($row = $sql->fetch_assoc())
-            $rows[] = $row;
+        $rows = $sql->fetch_all(MYSQLI_ASSOC);
+        return json_encode($rows);
+    } catch (Exception $ex) {
+        return $ex->getTraceAsString();
+    }
+}
+function pullAllReplies()
+{
+    try {
+        global $conn;
+        $queryStr = "select a.id,commentId as postid,name,comment,date_format(a.createdOn,'%Y-%m%-%d') as createdOn from replies a inner join users b ON a.userId=b.id order by a.id desc";
+        $sql = $conn->query($queryStr);
+        $rows = $sql->fetch_all(MYSQLI_ASSOC);
         return json_encode($rows);
     } catch (Exception $ex) {
         return $ex->getTraceAsString();

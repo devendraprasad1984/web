@@ -1,7 +1,5 @@
 <?php
-session_start();
-require_once './backend/postsHandle.php';
-
+require './backend/postsHandle.php';
 ?>
 
 <!doctype html>
@@ -70,7 +68,7 @@ require_once './backend/postsHandle.php';
     <div class="row" style="margin-top: 50px;margin-bottom: 30px;">
         <div class="col-md-12  welcomeMsg" align="right">
             <?php
-            echo('checking: '.implode('->',$_SESSION));
+            print_r($_SESSION);
             if (!$loggedIn) {
                 echo '
             <button class="btn btn-primary" data-toggle="modal" data-target="#registerModal">Register</button>
@@ -97,7 +95,7 @@ require_once './backend/postsHandle.php';
     </div>
     <div class="row">
         <div class="col-md-12">
-<!--            <h2><b id="idNumComments">--><?php //echo fetchpostsCount() ?><!-- posts</b></h2>-->
+            <h2><b id="idNumComments"><?php echo fetchpostsCount() ?> posts</b></h2>
             <div class="userComments"></div>
         </div>
     </div>
