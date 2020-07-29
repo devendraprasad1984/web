@@ -1,11 +1,12 @@
 <?php
 try {
-    $curdir=dirname(dirname(__FILE__));
-    session_save_path($curdir);
-    session_start();
+//    $curdir=dirname(dirname(__FILE__));
+//    session_save_path($curdir);
+//    session_start();
 
     $server = $_SERVER['REMOTE_ADDR'];
-    if ($server == 'localhost' or $server == '127.0.0.1') {
+//    echo $server;
+    if ($server == '::1' or $server == 'localhost' or $server == '127.0.0.1') {
         define('host', 'localhost:3306');
         define('user', 'root');
         define('pwd', '');

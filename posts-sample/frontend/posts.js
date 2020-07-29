@@ -21,13 +21,13 @@ function getPosts(start, max) {
         method: 'post',
         dataType: 'text',
         data: {
-            getPosts: 1,
+            getPostsAndReplies: 1,
             start: parseInt(start)
         },
         success: function (data) {
             console.log(data);
-            // userComments.html(data);
-            handlePostsAndReplies(false, data);
+            userComments.html(data);
+            // handlePostsAndReplies(false, data);
             // getPosts(parseInt(start) + 20, parseInt(max));
         },
         error: function (err) {
