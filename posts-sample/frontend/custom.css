@@ -123,12 +123,6 @@ body {
     color: white;
 }
 
-.badge {
-    border: 1px solid gray;
-    border-radius: 1%;
-}
-
-
 .left div, .left span {
     font-weight: bold;
     font-size: 14px;

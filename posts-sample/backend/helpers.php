@@ -1,4 +1,5 @@
 <?php
+global $loggedIn;
 function createCommentRows($data, $isReply)
 {
     try {

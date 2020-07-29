@@ -1,5 +1,5 @@
 <?php
-require_once './handlerPosts.php';
+require_once './backend/init.php';
 ?>
 
 <!doctype html>
@@ -15,7 +15,7 @@ require_once './handlerPosts.php';
     <title>IBDN Messaging platform in association with Natwest Group</title>
     <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>-->
     <link rel="stylesheet" href="./libs/bootstrap.min.css"/>
-    <link rel="stylesheet" href="./custom.css"/>
+    <link rel="stylesheet" href="frontend/custom.css"/>
 </head>
 
 
@@ -68,15 +68,17 @@ require_once './handlerPosts.php';
     <div class="row" style="margin-top: 50px;margin-bottom: 30px;">
         <div class="col-md-12  welcomeMsg" align="right">
             <?php
+            echo('checking: '.implode('->',$_SESSION));
             if (!$loggedIn) {
                 echo '
             <button class="btn btn-primary" data-toggle="modal" data-target="#registerModal">Register</button>
             <button class="btn btn-success" data-toggle="modal" data-target="#loginModal">Login</button>
         ';
             } else {
-                echo '<span class="badge badge-secondary">Welcome, ' . $_SESSION["name"] . '</span>'
+                echo '
+                <span class="badge badge-secondary">Welcome, ' . $_SESSION["name"] . '</span>'
                     . ($_SESSION["role"] == 'admin' ? '<a href="./admin.php" class="btn bgpurple">Admin Console</a>' : '')
-                    . '<a href="./logout.php" class="btn bg-warning">logout</a>
+                    . '<a href="logout.php" class="btn bg-warning">logout</a>
         ';
             }
             ?>
@@ -119,8 +121,11 @@ require_once './handlerPosts.php';
 <script src="./libs/bootstrap.bundle.min.js"></script>
 <script>
     let max = <?php echo fetchpostsCount() ?>;
+    //let op =<?php //echo $loggedIn ?>//;
+    //console.log('is logged in', op);
 </script>
-<script type="text/javascript" src="postsComments.js"></script>
+<script type="text/javascript" src="frontend/common.js"></script>
+<script type="text/javascript" src="frontend/posts.js"></script>
 
 </body>
 </html>

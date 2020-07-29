@@ -1,4 +1,6 @@
 let commentId = 0;
+let userComments=$('.userComments');
+
 $(document).ready(function () {
     // $('#idNumComments').text(max + ' Comments');
     $('#registerBtn').on('click', fnRegister);
@@ -23,11 +25,12 @@ function getCommentsFromDB(start, max) {
         },
         success: function (response) {
             // console.log(response);
-            $('.userComments').append(response);
+            userComments.append(response);
             getCommentsFromDB(parseInt(start) + 20, parseInt(max));
         },
         error: function (response) {
-            console.log(response)
+            console.log(response);
+            userComments.html(response);
         }
     });
 }
@@ -46,16 +49,19 @@ function fnRegister() {
                 name, email, password
             },
             success: function (response) {
+                console.log(response);
                 if (response === 'failedEmail') {
                     alert('plz insert valid email');
                 } else if (response === 'failedUserExists') {
                     alert('user already exist');
                 } else {
-                    window.location = window.location;
+                    alert('you have been registered, once approved, you will be notified');
+                    //window.location = window.location;
                 }
             },
             error: function (response) {
-                console.log(response)
+                console.log(response);
+                userComments.html(response);
             }
         });
     } else {
@@ -77,7 +83,7 @@ function fnLogin() {
                 email, password
             },
             success: function (response) {
-                // console.log(response);
+                console.log(response);
                 if (response === 'failed') {
                     alert('plz check your login details');
                 } else {
@@ -85,7 +91,8 @@ function fnLogin() {
                 }
             },
             error: function (response) {
-                console.log(response)
+                console.log(response);
+                userComments.html(response);
             }
         });
     } else {
@@ -114,10 +121,10 @@ function fnAddComments(caller,isReply) {
                     return;
                 }
 
-                max++;
-                $('#idNumComments').text(max + ' Comments');
+                // max++;
+                // $('#idNumComments').text(max + ' Comments');
                 if (!isReply) {
-                    $('.userComments').prepend(response);
+                    userComments.prepend(response);
                     $('#mainComment').val("");
                 } else {
                     commentId = 0;
@@ -127,7 +134,8 @@ function fnAddComments(caller,isReply) {
                 }
             },
             error: function (response) {
-                console.log(response)
+                console.log(response);
+                userComments.html(response);
             }
         });
     } else {

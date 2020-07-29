@@ -1,23 +1,19 @@
 <?php
-require_once './init.php';
-require_once './helpers.php';
-
-try{
-    $loggedIn = false;
+global $loggedIn;
+try {
     if (isset($_SESSION['loggedIn']) && isset($_SESSION['name'])) {
         $loggedIn = true;
     }
     global $conn;
-
     if (isset($_POST['getAllposts'])) {
         $start = $conn->real_escape_string($_POST['start']);
         exit(pullAllposts($start, false, false));
-    }elseif (isset($_POST['addComment'])) {
+    } elseif (isset($_POST['addComment'])) {
         if (!$loggedIn) exit('notLoggedIn');
         $commentId = $conn->real_escape_string($_POST['commentId']);
         $comment = $conn->real_escape_string($_POST['comment']);
-        $isReply = filter_var($conn->real_escape_string($_POST['isReply']),FILTER_VALIDATE_BOOLEAN);
-        if ($isReply==true || $isReply==1) {
+        $isReply = filter_var($conn->real_escape_string($_POST['isReply']), FILTER_VALIDATE_BOOLEAN);
+        if ($isReply == true || $isReply == 1) {
             $conn->query("insert into replies(userid,comment,commentid,createdOn) values('" . $_SESSION['userId'] . "','$comment','$commentId',now())");
 //        exit('reply is been added');
             exit(pullAllposts(0, true, $isReply));
@@ -26,7 +22,7 @@ try{
 //        exit('comments is been added');
             exit(pullAllposts(0, true, $isReply));
         }
-    }elseif (isset($_POST['register'])) {
+    } elseif (isset($_POST['register'])) {
         $name = $conn->real_escape_string($_POST['name']);
         $email = $conn->real_escape_string($_POST['email']);
         $password = $conn->real_escape_string($_POST['password']);
@@ -39,16 +35,12 @@ try{
                 $conn->query("insert into users (name,email,password,createdOn) values('$name','$email','$ePassword',now())");
                 $sql = $conn->query("select id from users order by id desc limit 1");
                 $data = $sql->fetch_assoc();
-                $_SESSION['loggedIn'] = 1;
-                $_SESSION['name'] = $name;
-                $_SESSION['email'] = $email;
-                $_SESSION['userId'] = $data['id'];
                 exit('success');
             }
         } else {
             exit('failedEmail');
         }
-    }elseif (isset($_POST['login'])) {
+    } elseif (isset($_POST['login'])) {
         $email = $conn->real_escape_string($_POST['email']);
         $password = $conn->real_escape_string($_POST['password']);
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -60,11 +52,12 @@ try{
                 $password_hash = $data['password'];
                 if (password_verify($password, $password_hash)) {
                     $_SESSION['loggedIn'] = 1;
+                    $_SESSION['timeit'] = time();
                     $_SESSION['name'] = $data['name'];
                     $_SESSION['email'] = $email;
                     $_SESSION['userId'] = $data['id'];
                     $_SESSION['role'] = $data['role'];
-                    exit('success');
+                    exit('success'.implode(', ',$_SESSION));
                 } else {
                     exit('failed');
                 }
@@ -72,10 +65,7 @@ try{
         } else {
             exit('failed');
         }
-    }else{
-        exit('no match found');
     }
-}catch (Exception $ex){
+} catch (Exception $ex) {
     exit($ex->getTraceAsString());
 }
-

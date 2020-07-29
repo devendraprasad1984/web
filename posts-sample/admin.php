@@ -1,5 +1,5 @@
 <?php
-require_once './handlerAdmin.php';
+require_once './backend/init.php';
 ?>
 
 <!doctype html>
@@ -12,7 +12,7 @@ require_once './handlerAdmin.php';
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>IBDN Admin</title>
     <link rel="stylesheet" href="./libs/bootstrap.min.css"/>
-    <link rel="stylesheet" href="./custom.css"/>
+    <link rel="stylesheet" href="frontend/custom.css"/>
 </head>
 
 
@@ -78,7 +78,8 @@ require_once './handlerAdmin.php';
 
 <script src="./libs/jquery.min.js"></script>
 <script src="./libs/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="./admin.js"></script>
+<script type="text/javascript" src="frontend/common.js"></script>
+<script type="text/javascript" src="frontend/admin.js"></script>
 
 </body>
 </html>
