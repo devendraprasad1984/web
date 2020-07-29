@@ -1,5 +1,6 @@
 <?php
-require_once './backend/init.php';
+require_once './backend/postsHandle.php';
+
 ?>
 
 <!doctype html>
@@ -95,7 +96,7 @@ require_once './backend/init.php';
     </div>
     <div class="row">
         <div class="col-md-12">
-            <h2><b id="idNumComments"><?php echo fetchpostsCount() ?> posts</b></h2>
+<!--            <h2><b id="idNumComments">--><?php //echo fetchpostsCount() ?><!-- posts</b></h2>-->
             <div class="userComments"></div>
         </div>
     </div>
@@ -103,10 +104,10 @@ require_once './backend/init.php';
 </div>
 
 <div class="row replyRow" style="display: none">
-    <div class="col-md-12" align="right">
-        <textarea class="form-control" id="replyComment" placeholder="add reply" cols="30" rows="1"></textarea><br>
-        <button class="btn btn-warning" id="addReply" onclick="fnAddComments(this,true)">Submit</button>
-        <button class="btn btn-dark" onclick="$('.replyRow').hide()">Close</button>
+    <div class="col-md-12" align="left">
+        <input type="text" id="replyComment" placeholder="add reply" style="width: 80%"/>
+        <a class="bgpurple" href="javascript:void()" id="addReply" onclick="fnAddComments(this,true)">Submit</a>
+        <a class="bgred"  href="javascript:void()" onclick="$('.replyRow').hide()">Close</a>
     </div>
 </div>
 
@@ -120,9 +121,7 @@ require_once './backend/init.php';
 <script src="./libs/jquery.min.js"></script>
 <script src="./libs/bootstrap.bundle.min.js"></script>
 <script>
-    let max = <?php echo fetchpostsCount() ?>;
-    //let op =<?php //echo $loggedIn ?>//;
-    //console.log('is logged in', op);
+    //let max = <?php //echo fetchpostsCount() ?>//;
 </script>
 <script type="text/javascript" src="frontend/common.js"></script>
 <script type="text/javascript" src="frontend/posts.js"></script>

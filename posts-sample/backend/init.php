@@ -2,9 +2,7 @@
 try {
     $curdir=dirname(dirname(__FILE__));
     session_save_path($curdir);
-    session_start([
-        'cookie_lifetime' => 86400,
-    ]);
+    session_start();
 
     $server = $_SERVER['REMOTE_ADDR'];
     if ($server == 'localhost' or $server == '127.0.0.1') {
@@ -25,9 +23,6 @@ try {
     {
         header("Location:./logout.php");
     }
-    require_once './backend/helpers.php';
-    require_once './backend/postsHandle.php';
-    require_once './backend/adminHandle.php';
 } catch (Exception $ex) {
     exit($ex->getTraceAsString());
 }

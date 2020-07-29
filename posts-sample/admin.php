@@ -1,5 +1,5 @@
 <?php
-require_once './backend/init.php';
+require_once './backend/adminHandle.php';
 ?>
 
 <!doctype html>

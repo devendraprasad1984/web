@@ -1,25 +1,23 @@
 <?php
+require_once './backend/init.php';
+require_once './backend/helpers.php';
+
 global $loggedIn;
 try {
     if (isset($_SESSION['loggedIn']) && isset($_SESSION['name'])) {
         $loggedIn = true;
     }
     global $conn;
-    if (isset($_POST['getAllposts'])) {
-        $start = $conn->real_escape_string($_POST['start']);
-        exit(pullAllposts($start, false, false));
-    } elseif (isset($_POST['addComment'])) {
+    if (isset($_POST['addComment'])) {
         if (!$loggedIn) exit('notLoggedIn');
         $commentId = $conn->real_escape_string($_POST['commentId']);
         $comment = $conn->real_escape_string($_POST['comment']);
         $isReply = filter_var($conn->real_escape_string($_POST['isReply']), FILTER_VALIDATE_BOOLEAN);
         if ($isReply == true || $isReply == 1) {
             $conn->query("insert into replies(userid,comment,commentid,createdOn) values('" . $_SESSION['userId'] . "','$comment','$commentId',now())");
-//        exit('reply is been added');
             exit(pullAllposts(0, true, $isReply));
         } else {
             $conn->query("insert into posts(userid,comment,createdOn) values('" . $_SESSION['userId'] . "','$comment',now())");
-//        exit('comments is been added');
             exit(pullAllposts(0, true, $isReply));
         }
     } elseif (isset($_POST['register'])) {
@@ -57,7 +55,7 @@ try {
                     $_SESSION['email'] = $email;
                     $_SESSION['userId'] = $data['id'];
                     $_SESSION['role'] = $data['role'];
-                    exit('success'.implode(', ',$_SESSION));
+                    exit('success');
                 } else {
                     exit('failed');
                 }

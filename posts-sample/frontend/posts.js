@@ -1,38 +1,70 @@
 let commentId = 0;
-let userComments=$('.userComments');
+let userComments = $('.userComments');
 
 $(document).ready(function () {
     // $('#idNumComments').text(max + ' Comments');
     $('#registerBtn').on('click', fnRegister);
     $('#loginBtn').on('click', fnLogin);
     // $('#addComment, #addReply').on('click', fnAddComments);
-    getCommentsFromDB(0, max);
+    // getPosts(0, max);
+    getPosts(0);
 })
 
-function getCommentsFromDB(start, max) {
+function getPosts(start, max) {
     // console.log('start', start, 'max', max);
     if (parseInt(start) > parseInt(max)) {
         return;
     }
 
     $.ajax({
-        url: './index.php',
+        url: './backend/api.php',
         method: 'post',
         dataType: 'text',
         data: {
-            getAllposts: 1,
+            getPosts: 1,
             start: parseInt(start)
         },
-        success: function (response) {
-            // console.log(response);
-            userComments.append(response);
-            getCommentsFromDB(parseInt(start) + 20, parseInt(max));
+        success: function (data) {
+            console.log(data);
+            // userComments.html(data);
+            handlePostsAndReplies(false, data);
+            // getPosts(parseInt(start) + 20, parseInt(max));
         },
-        error: function (response) {
-            console.log(response);
-            userComments.html(response);
+        error: function (err) {
+            console.log(err);
+            userComments.html(err);
         }
     });
+}
+
+async function handlePostsAndReplies(isreply, data) {
+    if (JSON.parse(data).length === 0) return;
+    data = JSON.parse(data);
+    let res = '';
+    for (let row of data) {
+        // console.log('post:', row);
+        res += (isreply === false ? '<div class="comment">' : '<div class="comment-replies">');
+        res += (isreply === false ? '<div class="userCommentTitle">Posted By: ' + row.name + ' <span class="time">' + row.createdOn + '</span></div>' : '<div class="userReplyTitle"> ' + row.name + ' replied on ' + row.createdOn + '</div>');
+        res += '<div class="userComment">' + row.comment + ' <a class="badge" href=javascript:void(0)" data-commentID="' + row.id + '" onclick="reply(this)">REPLY</a></div>';
+        let params={
+            method:'post',
+            mode: 'cors',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                getReplies: 1,
+                commentId: parseInt(row.id)
+            })
+        }
+        let call1=await fetch('./backend/api.php', params);
+        let call2=await call1.text();
+        console.log(call1,call2);
+        //console.log(replies);
+        res += '</div></div>';
+    }
+    userComments.append(res);
 }
 
 function fnRegister() {
@@ -101,7 +133,7 @@ function fnLogin() {
 }
 
 
-function fnAddComments(caller,isReply) {
+function fnAddComments(caller, isReply) {
     let comment = isReply ? $('#replyComment').val() : $('#mainComment').val();
     if (comment.length > 5) {
         $.ajax({

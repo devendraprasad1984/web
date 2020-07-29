@@ -7,7 +7,7 @@
 window.addEventListener("beforeunload", function (e) {
     $.ajax({
         type: "POST",
-        url: './backend/logout.php',
+        url: './logout.php',
         dataType: 'text',
         data: {
             unload: 1,

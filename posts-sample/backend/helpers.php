@@ -1,5 +1,6 @@
 <?php
-global $loggedIn;
+//require_once 'init.php';
+
 function createCommentRows($data, $isReply)
 {
     try {
@@ -32,7 +33,7 @@ function pullAllposts($start, $latestOnly, $isReply)
             else
                 $queryStr = "select a.id,name,comment,date_format(a.createdOn,'%Y-%m%-%d') as createdOn from posts a inner join users b ON a.userId=b.id order by a.id desc limit 1";
         else
-            $queryStr = "select a.id,name,comment,date_format(a.createdOn,'%Y-%m%-%d') as createdOn from posts a inner join users b ON a.userId=b.id order by a.id desc limit $start,20";
+            $queryStr = "select a.id,name,comment,date_format(a.createdOn,'%Y-%m%-%d') as createdOn from posts a inner join users b ON a.userId=b.id order by a.id desc";
 
         $sql = $conn->query($queryStr);
         $res = '';
@@ -44,6 +45,34 @@ function pullAllposts($start, $latestOnly, $isReply)
     }
 }
 
+function pullPosts($start)
+{
+    try {
+        global $conn;
+        $queryStr = "select a.id,name,comment,date_format(a.createdOn,'%Y-%m%-%d') as createdOn from posts a inner join users b ON a.userId=b.id order by a.id desc";
+        $sql = $conn->query($queryStr);
+        $rows = array();
+        while ($row = $sql->fetch_assoc())
+            $rows[] = $row;
+        return json_encode($rows);
+    } catch (Exception $ex) {
+        return $ex->getTraceAsString();
+    }
+}
+function pullReplies($commentId)
+{
+    try {
+        global $conn;
+        $queryStr = "select a.id,name,comment,date_format(a.createdOn,'%Y-%m%-%d') as createdOn from replies a inner join users b ON a.userId=b.id where a.commentId=" . filter_var($commentId,FILTER_SANITIZE_NUMBER_INT ). " order by a.id desc";
+        $sql = $conn->query($queryStr);
+        $rows = array();
+        while ($row = $sql->fetch_assoc())
+            $rows[] = $row;
+        return json_encode($rows);
+    } catch (Exception $ex) {
+        return $ex->getTraceAsString();
+    }
+}
 function fetchpostsCount()
 {
     try {

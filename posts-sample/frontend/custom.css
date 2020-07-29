@@ -176,6 +176,17 @@ h1, h2, h3, h4, h5 {
     font-weight: bolder;
 }
 
+a{
+    padding: 5px;
+    margin-top:2px;
+    cursor: pointer;
+    text-decoration: none;
+    text-underline: none;
+}
+a:hover{
+    background-color: #0b2e13;
+    color: white;
+}
 .sidenav a {
     padding: 0 0 0 10px;
     color: #c778ef;

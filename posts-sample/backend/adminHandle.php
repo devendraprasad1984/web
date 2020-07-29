@@ -1,4 +1,7 @@
 <?php
+require_once './backend/init.php';
+require_once './backend/helpers.php';
+
 global $loggedIn;
 try {
     if (isset($_SESSION['loggedIn']) && isset($_SESSION['name'])) {
