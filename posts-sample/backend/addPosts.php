@@ -2,7 +2,6 @@
 require_once 'init.php';
 
 global $conn;
-
 $commentId = isset($_POST['comment_id']) ? $_POST['comment_id'] : "";
 $comment = isset($_POST['comment']) ? $_POST['comment'] : "";
 $userid = isset($_POST['userid']) ? $_POST['userid'] : "";
@@ -19,4 +18,5 @@ if ($commentId == "" || $comment == "" || $userid == "") {
     mysqli_close($conn);
     echo 'success';
 }
+
 ?>

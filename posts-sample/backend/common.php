@@ -2,12 +2,7 @@
 require 'init.php';
 require 'helpers.php';
 
-$loggedIn = false;
-if (isset($_POST['loggedIn']) && $_POST['loggedIn'] == 1) {
-    $loggedIn = true;
-}
 global $conn;
-
 if (isset($_POST['register'])) {
     $name = $conn->real_escape_string($_POST['name']);
     $email = $conn->real_escape_string($_POST['email']);
@@ -52,10 +47,6 @@ if (isset($_POST['register'])) {
     } else {
         exit('failed');
     }
-}
-try {
-} catch (Exception $ex) {
-    die($ex->getTraceAsString());
 }
 
 

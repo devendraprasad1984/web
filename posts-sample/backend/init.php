@@ -5,6 +5,10 @@
 //spl_autoload_register(function($className){
 //    require_once 'libraries/' . $className . '.php';
 //});
+$loggedIn = false;
+if ((isset($_POST['loggedIn']) && $_POST['loggedIn'] == 1)) {
+    $loggedIn = true;
+}
 
 $server = $_SERVER['REMOTE_ADDR'];
 //    echo $server;

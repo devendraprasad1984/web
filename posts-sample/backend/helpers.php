@@ -1,94 +1,15 @@
 <?php
-function createCommentRows($data, $isReply)
-{
-    try {
-        global $conn;
-        $response = !$isReply ? '<div class="comment">' : '<div class="comment-replies">';
-        $response .= !$isReply ? '<div class="userCommentTitle"> ' . 'Posted By: ' . $data['name'] . '<span class="time">' . $data['createdOn'] . '</span>' . '</div>' : '<div class="userReplyTitle"> ' . $data['name'] . ' replied on ' . $data['createdOn'] . '</div>';
-        $response .= '<div class="userComment">' . $data['comment'] . ' <a class="badge" href=javascript:void(0)" data-commentID="' . $data['id'] . '" onclick="reply(this)">REPLY</a></div>';
-        $response .= '<div class="replies">';
-
-        $queryStr = "select a.id,name,comment,date_format(a.createdOn,'%d-%m-%Y, %h:%i:%s') as createdOn from replies a inner join users b ON a.userId=b.id where a.commentId='" . $data['id'] . "' order by a.id";
-        $sql = $conn->query($queryStr);
-        while ($dataR = $sql->fetch_assoc())
-            $response .= createCommentRows($dataR, true);
-
-        $response .= '</div></div>';
-        return $response;
-    } catch (Exception $ex) {
-        print_r($ex);
-        return $ex->getTraceAsString();
-    }
-}
-
-function pullAllposts($start, $latestOnly, $isReply)
-{
-    try {
-        global $conn;
-        if ($latestOnly)
-            if ($isReply == true || $isReply == 1)
-                $queryStr = "select a.id,name,comment,date_format(a.createdOn,'%d-%m-%Y, %h:%i:%s') as createdOn from replies a inner join users b ON a.userId=b.id order by a.id desc limit 1";
-            else
-                $queryStr = "select a.id,name,comment,date_format(a.createdOn,'%d-%m-%Y, %h:%i:%s') as createdOn from posts a inner join users b ON a.userId=b.id order by a.id desc limit 1";
-        else
-            $queryStr = "select a.id,name,comment,date_format(a.createdOn,'%d-%m-%Y, %h:%i:%s') as createdOn from posts a inner join users b ON a.userId=b.id order by a.id desc";
-
-        $sql = $conn->query($queryStr);
-        $res = '';
-        while ($data = $sql->fetch_assoc())
-            $res .= createCommentRows($data, $isReply);
-        return $res;
-    } catch (Exception $ex) {
-        print_r($ex);
-        return $ex->getTraceAsString();
-    }
-}
-
-function pullPosts($start, $latestOnly)
-{
-    try {
-        global $conn;
-        $queryStr = "select a.id,name,comment,date_format(a.createdOn,'%d-%m-%Y, %h:%i:%s') as createdOn from posts a inner join users b ON a.userId=b.id order by a.id desc " . ($latestOnly == true ? " limit 1" : "");
-        $sql = $conn->query($queryStr);
-        $rows = $sql->fetch_all(MYSQLI_ASSOC);
-        return json_encode($rows);
-    } catch (Exception $ex) {
-        return $ex->getTraceAsString();
-    }
-}
-
-function pullReplies($commentId, $latestOnly)
-{
-    try {
-        global $conn;
-        $where = (($commentId=='*' || $latestOnly == true) ? '' : "where a.commentId=" . filter_var($commentId, FILTER_SANITIZE_NUMBER_INT));
-        $queryStr = "select a.id,a.commentid as postid,name,comment,date_format(a.createdOn,'%d-%m-%Y, %h:%i:%s') as createdOn from replies a inner join users b ON a.userId=b.id $where order by a.id desc" . ($latestOnly == true ? " limit 1" : "");
-        $sql = $conn->query($queryStr);
-        $rows = $sql->fetch_all(MYSQLI_ASSOC);
-        return json_encode($rows);
-    } catch (Exception $ex) {
-        return $ex->getTraceAsString();
-    }
-}
-
-function fetchpostsCount()
-{
-    try {
-        global $conn;
-        $sql = $conn->query("select count(id) as num from posts");
-        return $sql->fetch_assoc()['num'];
-    } catch (Exception $ex) {
-        return $ex->getTraceAsString();
-    }
-}
-
 
 function getAllFromTable($query)
 {
     try {
         global $conn;
         $sql = $conn->query($query);
-        $rows = $sql->fetch_all(MYSQLI_ASSOC);
+        $rows=array();
+        if($sql)
+            $rows = $sql->fetch_all(MYSQLI_ASSOC);
+        else
+            $rows[]='no data found';
         return $rows;
     } catch (Exception $ex) {
         return $ex->getTraceAsString();

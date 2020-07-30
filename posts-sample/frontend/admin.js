@@ -11,18 +11,19 @@ $(document).ready(function () {
 })
 
 function displayRightHeading(caller) {
-    currentType = caller.innerText||'';
+    // currentType = caller.innerText||'';
     currentClickElem = caller;
-    rightContents.prev().html('<h3>' + currentType + ' Listing</h3>');
+    rightContents.prev().html('<h3>' + currentType.toUpperCase() + ' Listing</h3>');
 }
 
 function clickSearch(caller) {
-    let ipos = currentClickElem.innerText.indexOf('(');
-    currentType = ipos !== -1 ? currentClickElem.innerText.substring(0, ipos) : currentClickElem.innerText;
-    clickHandler(caller, currentType.toLowerCase());
+    // let ipos = currentClickElem.innerText.indexOf('(');
+    // currentType = ipos !== -1 ? currentClickElem.innerText.substring(0, ipos) : currentClickElem.innerText;
+    clickHandler(caller, currentType);
 }
 
 function clickHandler(caller, type) {
+    currentType = type;
     if (typeof caller !== 'undefined') displayRightHeading(caller);
 
     $.ajax({
@@ -33,7 +34,7 @@ function clickHandler(caller, type) {
             getData: 1,
             loggedIn: sessionData.loggedIn,
             userid: sessionData.userid,
-            searchText: searchBox.val(),
+            searchText: searchBox.val().toLowerCase(),
             type
         },
         success: function (data) {
@@ -46,6 +47,27 @@ function clickHandler(caller, type) {
             let text = err.responseText;
             console.error(text);
             rightContents.html(text);
+        }
+    });
+}
+
+function deletePost(caller,postid) {
+    $.ajax({
+        url: "./backend/delPosts.php",
+        data: {
+            postid,
+            loggedIn: sessionData.loggedIn,
+            userid: sessionData.userid
+        },
+        type: 'post',
+        success: function (response) {
+            if (response === 'success') {
+                // window.location = window.location;
+                console.log($(caller).parent());
+            } else {
+                alert("Failed to delete, check logs!");
+                return false;
+            }
         }
     });
 }
@@ -74,7 +96,7 @@ function handlePosts(data) {
         '<span>' + x.email + '</span>' +
         '<span>' + x.comment + '</span>' +
         '<span>' + x.createdOn + '</span>' +
-        (i !== 0 ? '<span class="btn bgred" data-userid="' + x.userid + '" data-postid="' + x.postid + '">Delete</span>' : '') +
+        (i !== 0 ? '<span href="javascript:void(0)" class="btn red" onclick="deletePost(this,'+x.postid+')">Delete</span>' : '') +
         '</div>'));
 }
 
