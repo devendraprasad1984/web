@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 require_once '../backend/init.php';
 require_once '../backend/helpers.php';
 
