@@ -39,3 +39,13 @@ create table replies
 			on update cascade on delete cascade
 );
 
+
+
+
+CREATE TABLE `xposts` (
+  `comment_id` int(11) NOT NULL,
+  `parent_comment_id` int(11) DEFAULT NULL,
+  `comment` varchar(200) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

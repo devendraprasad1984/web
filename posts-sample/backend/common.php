@@ -1,31 +1,14 @@
 <?php
-require './backend/init.php';
-require './backend/helpers.php';
+require 'init.php';
+require 'helpers.php';
 
 $loggedIn = false;
-if ( isset($_POST['loggedIn']) && $_POST['loggedIn']==1 ){
+if (isset($_POST['loggedIn']) && $_POST['loggedIn'] == 1) {
     $loggedIn = true;
 }
 global $conn;
 
-try{
-if (isset($_POST['getPostsAndReplies'])) {
-    $start = $conn->real_escape_string($_POST['start']);
-    exit(pullAllposts($start, false, false)); //this function caused issue on server as memory out of stack
-} else if (isset($_POST['addComment'])) {
-    if (!$loggedIn) exit('notLoggedIn');
-    $userid=$conn->real_escape_string($_POST['userid']); // $_SESSION['userId']
-    $commentId = $conn->real_escape_string($_POST['commentId']);
-    $comment = $conn->real_escape_string($_POST['comment']);
-    $isReply = filter_var($conn->real_escape_string($_POST['isReply']), FILTER_VALIDATE_BOOLEAN);
-    if ($isReply == true || $isReply == 1) {
-        $conn->query("insert into replies(userid,comment,commentid,createdOn) values('" . $userid . "','$comment','$commentId',now())");
-        exit(pullReplies(0, true));
-    } else {
-        $conn->query("insert into posts(userid,comment,createdOn) values('" . $userid . "','$comment',now())");
-        exit(pullPosts(0, true));
-    }
-}else if (isset($_POST['register'])) {
+if (isset($_POST['register'])) {
     $name = $conn->real_escape_string($_POST['name']);
     $email = $conn->real_escape_string($_POST['email']);
     $password = $conn->real_escape_string($_POST['password']);
@@ -43,7 +26,7 @@ if (isset($_POST['getPostsAndReplies'])) {
     } else {
         exit('failedEmail');
     }
-}else if (isset($_POST['login'])) {
+} else if (isset($_POST['login'])) {
     $email = $conn->real_escape_string($_POST['email']);
     $password = $conn->real_escape_string($_POST['password']);
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -54,7 +37,7 @@ if (isset($_POST['getPostsAndReplies'])) {
             $data = $sql->fetch_assoc();
             $password_hash = $data['password'];
             if (password_verify($password, $password_hash)) {
-                $rows=array();
+                $rows = array();
                 $rows['timeit'] = time();
                 $rows['loggedIn'] = 1;
                 $rows['userid'] = $data['id'];
@@ -70,6 +53,7 @@ if (isset($_POST['getPostsAndReplies'])) {
         exit('failed');
     }
 }
+try {
 } catch (Exception $ex) {
     die($ex->getTraceAsString());
 }

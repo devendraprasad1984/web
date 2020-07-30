@@ -3,7 +3,7 @@ sessionData = JSON.parse(localStorage.getItem('session'));
 
 function clearSession() {
     localStorage.removeItem('session');
-    window.location = './index.php';
+    window.location = '../index.php';
     $.ajax({
         type: "POST",
         url: './logout.php',
@@ -32,7 +32,7 @@ function handleWelcomeBar() {
             output += sessionData.role === 'admin' ? '<a href="./admin.php" class="btn bgpurple">Admin Console</a>' : '';
             output += '<a href="#" onclick="clearSession()" class="btn bgred">Logout</a>';
         } else {
-            window.location='./index.php'
+            window.location='../index.php'
         }
     } else {
         output = '<button class="btn btn-primary" data-toggle="modal" data-target="#registerModal">Register</button>';

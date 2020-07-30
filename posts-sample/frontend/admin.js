@@ -41,7 +41,6 @@ function clickHandler(caller, type) {
             if (type === 'home') handleHome(data);
             if (type === 'users') handleUsers(data);
             if (type === 'posts') handlePosts(data);
-            if (type === 'replies') handleReplies(data);
         },
         error: function (err) {
             let text = err.responseText;
@@ -55,7 +54,6 @@ function handleHome(data) {
     rightContents.html('<div>' +
         '<div class="adminDashboard card" onclick="clickHandler(this,\'users\')"><div class="card-header blue" >USERS</div><div class="card-body blue">' + data.users + '</div></div>' +
         '<div class="adminDashboard card" onclick="clickHandler(this,\'posts\')"><div class="card-header red">POSTS</div><div class="card-body red">' + data.posts + '</div></div>' +
-        '<div class="adminDashboard card" onclick="clickHandler(this,\'replies\')"><div class="card-header purple">REPLIES</div><div class="card-body purple">' + data.replies + '</div></div>' +
         '</div>');
 }
 
@@ -80,12 +78,3 @@ function handlePosts(data) {
         '</div>'));
 }
 
-function handleReplies(data) {
-    data.unshift({email: 'Replied By', comment: 'Reply', createdOn: 'Created On'});
-    rightContents.html(data.map((x, i) => '<div class="' + (i === 0 ? 'line-header line' : 'line') + '">' +
-        '<span>' + x.email + '</span>' +
-        '<span>' + x.comment + '</span>' +
-        '<span>' + x.createdOn + '</span>' +
-        (i !== 0 ? '<span class="btn bgred" data-userid="' + x.userid + '" data-replyid="' + x.replyid + '">Delete</span>' : '') +
-        '</div>'));
-}

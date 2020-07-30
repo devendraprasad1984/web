@@ -32,12 +32,13 @@ body {
 }
 
 .time {
-    color: white;
+    /*color: white;*/
     float: right;
 }
 .time-reply {
     float: right;
     color: gray;
+    font-weight: bolder;
 }
 
 .userComment {
@@ -53,9 +54,9 @@ body {
     padding: 3px;
     margin-top: 20px;
     font-weight: bolder;
-    color: white;
-    /*background-color: #7f63ea;*/
-    background-image: linear-gradient(to right, #369a51, #81c7e3, #e570d9);
+    /*color: gray;*/
+    background-color: #d9d4ee;
+    /*background-image: linear-gradient(to right, #369a51, #81c7e3, #e570d9);*/
 }
 
 .userReplyTitle {
@@ -266,3 +267,10 @@ a{
     white-space: nowrap;
     overflow-x: hidden;
 }
+li{
+    list-style: none;
+}
+
+
+
+

@@ -1,97 +1,12 @@
 let commentId = 0;
 let userComments = $('.userComments');
-sessionData = JSON.parse(localStorage.getItem('session'));
+let sessionData = JSON.parse(localStorage.getItem('session'));
 
 $(document).ready(function () {
-    // $('#idNumComments').text(max + ' Comments');
     $('#registerBtn').on('click', fnRegister);
     $('#loginBtn').on('click', fnLogin);
-    // $('#addComment, #addReply').on('click', fnAddComments);
-    // getPosts(0, undefined);
-    handlePostsAndReplies();
+    listComment();
 })
-
-function getPosts(start, max) {
-    // console.log('start', start, 'max', max);
-    if (parseInt(start) > parseInt(max)) {
-        return;
-    }
-
-    $.ajax({
-        url: 'index.php',
-        method: 'post',
-        dataType: 'text',
-        data: {
-            getPostsAndReplies: 1,
-            start: parseInt(start)
-        },
-        success: function (data) {
-            // console.log(data);
-            userComments.html(data);
-            // handlePostsAndReplies(false, data);
-            // getPosts(parseInt(start) + 20, parseInt(max));
-        },
-        error: function (err) {
-            console.log(err);
-            userComments.html(err);
-        }
-    });
-}
-
-function handleReplies(posts, replies, latest) {
-    console.log('posts:', posts, 'replies:', replies);
-    let res = '';
-    for (let row of posts) {
-        // console.log('post:', row);
-        res += '<div class="comment">';
-        res += '<div class="userCommentTitle">Posted By: ' + row.name + ' <span class="time">' + row.createdOn + '</span></div>';
-        res += '<div class="userComment">' + row.comment + ' <a class="badge" href=javascript:void(0)" data-commentID="' + row.id + '" onclick="reply(this)">REPLY</a></div>';
-        res += replies.filter(x => x.postid === row.id.toString()).map(x => ''
-            + '<div class="comment-replies">'
-            + '<div class="userComment-reply">' + x.comment
-            + '<a class="badge" href=javascript:void(0)" data-commentID="' + x.id + '" onclick="reply(this)">REPLY</a>'
-            + '<span class="time-reply">' + x.name + ' replied on ' + x.createdOn + '</span>'
-            + '</div>'
-            + '</div>'
-        ).join('');
-        res += '</div>';
-        res += '</div>';
-    }
-    if (latest)
-        userComments.prepend(res);
-    else
-        userComments.append(res);
-}
-
-function handlePosts(posts, params) {
-    $.ajax({
-        url: './backend/api.php',
-        method: 'post',
-        dataType: 'json',
-        data: params,
-        success: (replies) => handleReplies(posts, replies, params.latest),
-        error: function (err) {
-            console.log(err);
-        }
-    });
-}
-
-async function handlePostsAndReplies() {
-    $.ajax({
-        url: './backend/api.php',
-        method: 'post',
-        dataType: 'json',
-        data: {
-            getPosts: 1,
-            start: 0,
-            latest: false
-        },
-        success: (posts) => handlePosts(posts, {getReplies: 1, latest: false, commentId: '*'}),
-        error: function (err) {
-            console.log(err);
-        }
-    });
-}
 
 function fnRegister() {
     let name = $('#userName').val();
@@ -161,54 +76,87 @@ function fnLogin() {
     }
 }
 
-
-function fnAddComments(caller, isReply) {
-    let comment = isReply ? $('#replyComment').val() : $('#mainComment').val();
-    if (comment.length > 5) {
-        $.ajax({
-            url: 'index.php',
-            method: 'post',
-            dataType: 'text',
-            data: {
-                addComment: 1,
-                userid: sessionData.userid || 0,
-                comment,
-                isReply,
-                commentId
-            },
-            success: function (posts) {
-                // console.log(caller,isReply,response);
-                if (posts === 'notLoggedIn') {
-                    alert('you are not logged in');
-                    return;
-                }
-
-                // max++;
-                // $('#idNumComments').text(max + ' Comments');
-                if (!isReply) {
-                    // userComments.prepend(response);
-                    handlePosts(posts, {getReplies: 1, latest: true, commentId})
-                    $('#mainComment').val("");
-                } else {
-                    commentId = 0;
-                    $('#replyComment').val("");
-                    $(".replyRow").hide();
-                    $(".replyRow").parent().next().append(posts);
-                }
-            },
-            error: function (response) {
-                console.log(response);
-                userComments.html(response);
-            }
-        });
-    } else {
-        alert('plz enter values');
-    }
-}
-
-function reply(caller) {
-    // console.log('reply from', caller);
-    commentId = $(caller).attr('data-commentID');
+function postReply(caller,id) {
+    commentId = id;
     $(".replyRow").insertAfter(caller);
     $(".replyRow").show();
+}
+
+function fnAddComments(caller, isReply) {
+    if (typeof sessionData === "undefined" || sessionData === null) {
+        alert('you are not logged in');
+        return;
+    }
+    $("#comment-message").css('display', 'none');
+    let comment = isReply ? $('#replyComment').val() : $('#mainComment').val();
+
+    $.ajax({
+        url: "./backend/addPosts.php",
+        data: {
+            comment_id: commentId,
+            comment,
+            loggedIn: sessionData.loggedIn,
+            userid: sessionData.userid
+        },
+        type: 'post',
+        success: function (response) {
+            let result = eval('(' + response + ')');
+            if (response) {
+                $("#comment-message").css('display', 'inline-block');
+                $("#name").val("");
+                $("#comment").val("");
+                $("#commentId").val("");
+                listComment();
+            } else {
+                alert("Failed to add comments !");
+                return false;
+            }
+        }
+    });
+};
+
+function listComment() {
+    $.post("./backend/fetchPosts.php",
+        function (data) {
+            data = JSON.parse(data);
+            $("#idNumComments").html(data.length+' Messages Found.');
+            let comments = "";
+            let replies = "";
+            let parent = -1;
+            let list = $("<ul class='outer-comment'>");
+            let item = $("<li>").html(comments);
+            for (let i = 0; (i < data.length); i++) {
+                let commentId = data[i]['comment_id'];
+                parent = data[i]['parent_comment_id'];
+                if (parent == "0") {
+                    comments = "<div class='comment'>" +
+                        "<div class='userCommentTitle'><span>" + data[i]['name'] + " </span> <span class='time'>" + data[i]['date'] + "</span></div>" +
+                        "<div class='userComment'>" + data[i]['comment'] + " <a class='purple' onClick='postReply(this," + commentId + ")'>Reply</a></div>" +
+                        "</div>";
+
+                    let item = $("<li>").html(comments);
+                    list.append(item);
+                    let reply_list = $('<ul>');
+                    item.append(reply_list);
+                    listReplies(commentId, data, reply_list);
+                }
+            }
+            $("#userComments").html(list);
+        });
+}
+
+function listReplies(commentId, data, list) {
+    for (let i = 0; (i < data.length); i++) {
+        if (commentId == data[i].parent_comment_id) {
+            let comments = "<div class='comment'>" +
+                "<div class='userReplyTitle'><span class='time-reply'>" + data[i]['name'] + ' replied on ' + data[i]['date'] + "</span></div>" +
+                "<div class='userComment-reply'><span>" + data[i]['comment'] + "</span> <a class='purple' onClick='postReply(this," + data[i]['comment_id'] + ")'>Reply</a></div>" +
+                "</div>";
+            let item = $("<li>").html(comments);
+            let reply_list = $('<ul>');
+            list.append(item);
+            item.append(reply_list);
+            listReplies(data[i].comment_id, data, reply_list);
+        }
+    }
 }

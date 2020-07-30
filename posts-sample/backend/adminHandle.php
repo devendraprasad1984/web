@@ -1,6 +1,6 @@
 <?php
-require './backend/init.php';
-require './backend/helpers.php';
+require 'init.php';
+require 'helpers.php';
 
 $loggedIn = false;
 try {
@@ -8,29 +8,25 @@ try {
         $loggedIn = true;
     }
     global $conn;
-    if (isset($_POST['getData']) && $_POST['type'] == 'home' && $loggedIn==true) {
+    if (isset($_POST['getData']) && $_POST['type'] == 'home' && $loggedIn == true) {
         $data = getAdminHome();
         exit($data);
-    } else if (isset($_POST['getData']) && $_POST['type'] == 'users' && $loggedIn==true) {
+    } else if (isset($_POST['getData']) && $_POST['type'] == 'users' && $loggedIn == true) {
         $searchText = $conn->real_escape_string($_POST['searchText']);
         $query = "select id,email,name,createdOn from users where (name like '%$searchText%' or email like '%$searchText%') order by id desc";
         $data = getAllFromTable($query);
-        exit($data);
-    } else if (isset($_POST['getData']) && $_POST['type'] == 'posts' && $loggedIn==true) {
+        exit(json_encode($data));
+    } else if (isset($_POST['getData']) && $_POST['type'] == 'posts' && $loggedIn == true) {
         $searchText = $conn->real_escape_string($_POST['searchText']);
-        $query = "select a.id as postid,a.userid,b.name,b.email,b.createdOn,a.comment from posts a inner join users b ON a.userId=b.id
+        $query = "select a.comment_id as postid,a.userid,b.name,b.email,b.createdOn,a.comment from xposts a inner join users b ON a.userid=b.id
     where (name like '%$searchText%' or email like '%$searchText%'  or comment like '%$searchText%')
     order by a.id desc";
         $data = getAllFromTable($query);
-        exit($data);
-    } else if (isset($_POST['getData']) && $_POST['type'] == 'replies' && $loggedIn==true) {
-        $searchText = $conn->real_escape_string($_POST['searchText']);
-        $query = "select a.id as replyid,a.userid,b.email,b.createdOn,a.comment from replies a inner join users b ON a.userId=b.id 
-    where (email like '%$searchText%'  or comment like '%$searchText%')
-    order by a.id desc";
-        $data = getAllFromTable($query);
-        exit($data);
+        exit(json_encode($data));
     }
+
+    mysqli_close($conn);
+
 } catch (Exception $ex) {
     die($ex->getTraceAsString());
 }

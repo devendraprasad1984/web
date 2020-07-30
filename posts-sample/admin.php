@@ -31,7 +31,6 @@ require_once './backend/adminHandle.php';
                 <a id="navHome" href="javascript:void(0)" onclick="clickHandler(this,'home')">Home</a>
                 <a id="navUsers" href="javascript:void(0)" onclick="clickHandler(this,'users')">Users</a>
                 <a id="navPosts" href="javascript:void(0)" onclick="clickHandler(this,'posts')">Posts</a>
-                <a id="navReplies" href="javascript:void(0)" onclick="clickHandler(this,'replies')">Replies</a>
             </div>
             <div class="container-fluid">
                 <div class="row">
