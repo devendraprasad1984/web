@@ -74,8 +74,8 @@
 <div class="row replyRow" style="display: none">
     <div class="col-md-12" align="left">
         <input type="text" id="replyComment" placeholder="add reply" style="width: 80%"/>
-        <a class="bgpurple" href="javascript:void()" id="addReply" onclick="fnAddComments(this,true)">Submit</a>
-        <a class="bgred" href="javascript:void()" onclick="$('.replyRow').hide()">Close</a>
+        <a class="purple" href="javascript:void()" id="addReply" onclick="fnAddComments(this,true)">Save</a>
+        <a class="red" href="javascript:void()" onclick="$('.replyRow').hide()">Close</a>
     </div>
 </div>
 

@@ -43,7 +43,7 @@ create table replies
 
 
 CREATE TABLE `xposts` (
-  `comment_id` int(11) NOT NULL,
+  `comment_id` int auto_increment primary key ,
   `parent_comment_id` int(11) DEFAULT NULL,
   `comment` varchar(200) NOT NULL,
   `userid` int(11) NOT NULL,

@@ -87,9 +87,8 @@ function fnAddComments(caller, isReply) {
         alert('you are not logged in');
         return;
     }
-    $("#comment-message").css('display', 'none');
+    // $("#comment-message").css('display', 'none');
     let comment = isReply ? $('#replyComment').val() : $('#mainComment').val();
-
     $.ajax({
         url: "./backend/addPosts.php",
         data: {
@@ -100,13 +99,20 @@ function fnAddComments(caller, isReply) {
         },
         type: 'post',
         success: function (response) {
-            let result = eval('(' + response + ')');
-            if (response) {
-                $("#comment-message").css('display', 'inline-block');
-                $("#name").val("");
-                $("#comment").val("");
-                $("#commentId").val("");
-                listComment();
+            commentId=0;
+            if (response==='success') {
+                // $("#comment-message").css('display', 'inline-block');
+                commentId=0
+                if (!isReply) {
+                    // $('#userComments').prepend(response);
+                    $('#mainComment').val("");
+                } else {
+                    $('#replyComment').val("");
+                    $(".replyRow").hide();
+                    // $(".replyRow").parent().next().append(response);
+                }
+                // listComment();
+                window.location=window.location;
             } else {
                 alert("Failed to add comments !");
                 return false;
@@ -121,17 +127,17 @@ function listComment() {
             data = JSON.parse(data);
             $("#idNumComments").html(data.length+' Messages Found.');
             let comments = "";
-            let replies = "";
             let parent = -1;
-            let list = $("<ul class='outer-comment'>");
+            var list = $("<ul>");
             let item = $("<li>").html(comments);
             for (let i = 0; (i < data.length); i++) {
+                // console.log('posts',data[i]);
                 let commentId = data[i]['comment_id'];
                 parent = data[i]['parent_comment_id'];
                 if (parent == "0") {
                     comments = "<div class='comment'>" +
                         "<div class='userCommentTitle'><span>" + data[i]['name'] + " </span> <span class='time'>" + data[i]['date'] + "</span></div>" +
-                        "<div class='userComment'>" + data[i]['comment'] + " <a class='purple' onClick='postReply(this," + commentId + ")'>Reply</a></div>" +
+                        "<div class='userComment'>" + data[i]['comment'] + " <a href='javascript:void(0)' class='blue' onClick='postReply(this," + commentId + ")'>Reply</a></div>" +
                         "</div>";
 
                     let item = $("<li>").html(comments);
@@ -147,10 +153,11 @@ function listComment() {
 
 function listReplies(commentId, data, list) {
     for (let i = 0; (i < data.length); i++) {
+        // console.log('replies',data[i]);
         if (commentId == data[i].parent_comment_id) {
             let comments = "<div class='comment'>" +
                 "<div class='userReplyTitle'><span class='time-reply'>" + data[i]['name'] + ' replied on ' + data[i]['date'] + "</span></div>" +
-                "<div class='userComment-reply'><span>" + data[i]['comment'] + "</span> <a class='purple' onClick='postReply(this," + data[i]['comment_id'] + ")'>Reply</a></div>" +
+                "<div class='userComment-reply'><span>" + data[i]['comment'] + "</span> <a href='javascript:void(0)' class='purple' onClick='postReply(this," + data[i]['comment_id'] + ")'>Reply</a></div>" +
                 "</div>";
             let item = $("<li>").html(comments);
             let reply_list = $('<ul>');

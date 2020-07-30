@@ -16,8 +16,7 @@ if ($commentId == "" || $comment == "" || $userid == "") {
     if (!$result) {
         $result = mysqli_error($conn);
     }
-    mysqli_free_result($result);
     mysqli_close($conn);
-    echo $result;
+    echo 'success';
 }
 ?>
