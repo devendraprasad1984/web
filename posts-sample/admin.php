@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once './backend/adminHandle.php';
 ?>
 
@@ -12,42 +13,27 @@ require_once './backend/adminHandle.php';
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>IBDN Admin</title>
     <link rel="stylesheet" href="./libs/bootstrap.min.css"/>
-    <link rel="stylesheet" href="frontend/custom.css"/>
+    <link rel="stylesheet" href="./frontend/custom.css"/>
 </head>
 
 
-<body class="container-fluid">
+<body class="">
 <h3 class="topHeading">
     <span>IBDN Messaging Platform</span>
     <span style="float: right">@Natwest Group</span>
 </h3>
 
 <div class="container-fluid" style="margin-top: 50px;margin-bottom: 30px;">
-    <div class="row" style="margin-top: 50px;margin-bottom: 30px;">
-        <div class="col-md-12  welcomeMsg" align="right">
-            <?php
-            if ($loggedIn) {
-                echo '
-            <span class="badge badge-secondary">Welcome Admin, ' . $_SESSION["name"] . '</span>
-            <a href="logout.php" class="btn bg-warning">logout</a>
-        ';
-            } else {
-                echo '<h2 class="userCommentTitle" style="text-align: left; width:100%">You are not logged in. plz login to proceed</h2>';
-            }
-            ?>
-        </div>
-    </div>
-
+    <div id="welcomeBar" class="col-md-12  welcomeMsg" align="right"></div>
     <div class="row">
         <div class="col-md-12">
-            <div class="sidenav">
-                <div>Admin Dashboard</div>
-                <a href="javascript:void(0)" onclick="clickHandler(this,'home')">Home</a>
-                <a href="javascript:void(0)" onclick="clickHandler(this,'users')">Users</a>
-                <a href="javascript:void(0)" onclick="clickHandler(this,'posts')">Posts</a>
-                <a href="javascript:void(0)" onclick="clickHandler(this,'replies')">Replies</a>
+            <div class="">
+                <a id="navHome" href="javascript:void(0)" onclick="clickHandler(this,'home')">Home</a>
+                <a id="navUsers" href="javascript:void(0)" onclick="clickHandler(this,'users')">Users</a>
+                <a id="navPosts" href="javascript:void(0)" onclick="clickHandler(this,'posts')">Posts</a>
+                <a id="navReplies" href="javascript:void(0)" onclick="clickHandler(this,'replies')">Replies</a>
             </div>
-            <div class="right">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
                         <input id="searchBox" class="customInput purple" type="text" placeholder="search contents"/>
@@ -59,13 +45,7 @@ require_once './backend/adminHandle.php';
                     <div class="col-md-12">
                         <div></div>
                         <div id="rightContents">
-                            <div id="adminDashboardHome">
-                                <div>
-                                    <span>USERS: </span>
-                                    <span>POSTS: </span>
-                                    <span>Replies: </span>
-                                </div>
-                            </div>
+                            <div id="adminDashboardHome"></div>
                         </div>
                     </div>
                 </div>
@@ -78,8 +58,8 @@ require_once './backend/adminHandle.php';
 
 <script src="./libs/jquery.min.js"></script>
 <script src="./libs/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="frontend/common.js"></script>
-<script type="text/javascript" src="frontend/admin.js"></script>
+<script type="text/javascript" src="./frontend/common.js"></script>
+<script type="text/javascript" src="./frontend/admin.js"></script>
 
 </body>
 </html>

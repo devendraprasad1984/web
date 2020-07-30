@@ -3,7 +3,7 @@ function createCommentRows($data, $isReply)
 {
     try {
         global $conn;
-        $queryStr = "select a.id,name,comment,date_format(a.createdOn,'%Y-%m%-%d') as createdOn from replies a inner join users b ON a.userId=b.id where a.commentId='" . $data['id'] . "' order by a.id";
+        $queryStr = "select a.id,name,comment,date_format(a.createdOn,'%d-%m-%Y, %h:%i:%s') as createdOn from replies a inner join users b ON a.userId=b.id where a.commentId='" . $data['id'] . "' order by a.id";
 
         $response = !$isReply ? '<div class="comment">' : '<div class="comment-replies">';
         $response .= !$isReply ? '<div class="userCommentTitle"> ' . 'Posted By: ' . $data['name'] . '<span class="time">' . $data['createdOn'] . '</span>' . '</div>' : '<div class="userReplyTitle"> ' . $data['name'] . ' replied on ' . $data['createdOn'] . '</div>';
@@ -28,11 +28,11 @@ function pullAllposts($start, $latestOnly, $isReply)
         global $conn;
         if ($latestOnly)
             if ($isReply == true || $isReply == 1)
-                $queryStr = "select a.id,name,comment,date_format(a.createdOn,'%Y-%m%-%d') as createdOn from replies a inner join users b ON a.userId=b.id order by a.id desc limit 1";
+                $queryStr = "select a.id,name,comment,date_format(a.createdOn,'%d-%m-%Y, %h:%i:%s') as createdOn from replies a inner join users b ON a.userId=b.id order by a.id desc limit 1";
             else
-                $queryStr = "select a.id,name,comment,date_format(a.createdOn,'%Y-%m%-%d') as createdOn from posts a inner join users b ON a.userId=b.id order by a.id desc limit 1";
+                $queryStr = "select a.id,name,comment,date_format(a.createdOn,'%d-%m-%Y, %h:%i:%s') as createdOn from posts a inner join users b ON a.userId=b.id order by a.id desc limit 1";
         else
-            $queryStr = "select a.id,name,comment,date_format(a.createdOn,'%Y-%m%-%d') as createdOn from posts a inner join users b ON a.userId=b.id order by a.id desc";
+            $queryStr = "select a.id,name,comment,date_format(a.createdOn,'%d-%m-%Y, %h:%i:%s') as createdOn from posts a inner join users b ON a.userId=b.id order by a.id desc";
 
         $sql = $conn->query($queryStr);
         $res = '';
@@ -45,11 +45,11 @@ function pullAllposts($start, $latestOnly, $isReply)
     }
 }
 
-function pullPosts($start)
+function pullPosts($start, $latestOnly)
 {
     try {
         global $conn;
-        $queryStr = "select a.id,name,comment,date_format(a.createdOn,'%Y-%m%-%d') as createdOn from posts a inner join users b ON a.userId=b.id order by a.id desc";
+        $queryStr = "select a.id,name,comment,date_format(a.createdOn,'%d-%m-%Y, %h:%i:%s') as createdOn from posts a inner join users b ON a.userId=b.id order by a.id desc " . ($latestOnly == true ? " limit 1" : "");
         $sql = $conn->query($queryStr);
         $rows = $sql->fetch_all(MYSQLI_ASSOC);
         return json_encode($rows);
@@ -57,11 +57,13 @@ function pullPosts($start)
         return $ex->getTraceAsString();
     }
 }
-function pullReplies($commentId)
+
+function pullReplies($commentId, $latestOnly)
 {
     try {
         global $conn;
-        $queryStr = "select a.id,name,comment,date_format(a.createdOn,'%Y-%m%-%d') as createdOn from replies a inner join users b ON a.userId=b.id where a.commentId=" . filter_var($commentId,FILTER_SANITIZE_NUMBER_INT ). " order by a.id desc";
+        $where = (($commentId=='*' || $latestOnly == true) ? '' : "where a.commentId=" . filter_var($commentId, FILTER_SANITIZE_NUMBER_INT));
+        $queryStr = "select a.id,a.commentid as postid,name,comment,date_format(a.createdOn,'%d-%m-%Y, %h:%i:%s') as createdOn from replies a inner join users b ON a.userId=b.id $where order by a.id desc" . ($latestOnly == true ? " limit 1" : "");
         $sql = $conn->query($queryStr);
         $rows = $sql->fetch_all(MYSQLI_ASSOC);
         return json_encode($rows);
@@ -69,18 +71,7 @@ function pullReplies($commentId)
         return $ex->getTraceAsString();
     }
 }
-function pullAllReplies()
-{
-    try {
-        global $conn;
-        $queryStr = "select a.id,commentId as postid,name,comment,date_format(a.createdOn,'%Y-%m%-%d') as createdOn from replies a inner join users b ON a.userId=b.id order by a.id desc";
-        $sql = $conn->query($queryStr);
-        $rows = $sql->fetch_all(MYSQLI_ASSOC);
-        return json_encode($rows);
-    } catch (Exception $ex) {
-        return $ex->getTraceAsString();
-    }
-}
+
 function fetchpostsCount()
 {
     try {
@@ -123,4 +114,9 @@ function getAdminHome()
     } catch (Exception $ex) {
         return $ex->getTraceAsString();
     }
+}
+
+function getSessionData(){
+    $_SESSION['started']=1;
+    return json_encode($_SESSION);
 }

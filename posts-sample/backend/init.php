@@ -1,6 +1,6 @@
 <?php
-if(!isset($_SESSION))
-    die('sessions issue on server, check with admin');
+//if(!isset($_SESSION))
+//    die('sessions issue on server, check with admin');
 
 //spl_autoload_register(function($className){
 //    require_once 'libraries/' . $className . '.php';

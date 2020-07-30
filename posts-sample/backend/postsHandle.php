@@ -1,39 +1,31 @@
 <?php
-session_start();
 require './backend/init.php';
 require './backend/helpers.php';
 
-//$_SESSION['loggedIn']=1;
-//$_SESSION['name']='devendra';
-//$_SESSION['role']='admin';
-
 $loggedIn = false;
-if (isset($_SESSION['loggedIn']) && isset($_SESSION['name'])) {
+if ( isset($_POST['loggedIn']) && $_POST['loggedIn']==1 ){
     $loggedIn = true;
 }
 global $conn;
 
-
+try{
 if (isset($_POST['getPostsAndReplies'])) {
     $start = $conn->real_escape_string($_POST['start']);
-    exit(pullAllposts($start, false, false));
-}
-
-if (isset($_POST['addComment'])) {
+    exit(pullAllposts($start, false, false)); //this function caused issue on server as memory out of stack
+} else if (isset($_POST['addComment'])) {
     if (!$loggedIn) exit('notLoggedIn');
+    $userid=$conn->real_escape_string($_POST['userid']); // $_SESSION['userId']
     $commentId = $conn->real_escape_string($_POST['commentId']);
     $comment = $conn->real_escape_string($_POST['comment']);
     $isReply = filter_var($conn->real_escape_string($_POST['isReply']), FILTER_VALIDATE_BOOLEAN);
     if ($isReply == true || $isReply == 1) {
-        $conn->query("insert into replies(userid,comment,commentid,createdOn) values('" . $_SESSION['userId'] . "','$comment','$commentId',now())");
-        exit(pullAllposts(0, true, $isReply));
+        $conn->query("insert into replies(userid,comment,commentid,createdOn) values('" . $userid . "','$comment','$commentId',now())");
+        exit(pullReplies(0, true));
     } else {
-        $conn->query("insert into posts(userid,comment,createdOn) values('" . $_SESSION['userId'] . "','$comment',now())");
-        exit(pullAllposts(0, true, $isReply));
+        $conn->query("insert into posts(userid,comment,createdOn) values('" . $userid . "','$comment',now())");
+        exit(pullPosts(0, true));
     }
-}
-
-if (isset($_POST['register'])) {
+}else if (isset($_POST['register'])) {
     $name = $conn->real_escape_string($_POST['name']);
     $email = $conn->real_escape_string($_POST['email']);
     $password = $conn->real_escape_string($_POST['password']);
@@ -51,9 +43,7 @@ if (isset($_POST['register'])) {
     } else {
         exit('failedEmail');
     }
-}
-
-if (isset($_POST['login'])) {
+}else if (isset($_POST['login'])) {
     $email = $conn->real_escape_string($_POST['email']);
     $password = $conn->real_escape_string($_POST['password']);
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -64,17 +54,14 @@ if (isset($_POST['login'])) {
             $data = $sql->fetch_assoc();
             $password_hash = $data['password'];
             if (password_verify($password, $password_hash)) {
-                $_SESSION['timeit'] = time();
-                $_SESSION['loggedIn'] = 1;
-                $_SESSION['userId'] = $data['id'];
-                $_SESSION['name'] = $data['name'];
-                $_SESSION['email'] = $email;
-                $_SESSION['role'] = $data['role'];
-                $res=$_SESSION;
-                echo('success');
-//                exit('success');
-//                exit(implode(',',$_SESSION));
-//                exit(json_encode($res));
+                $rows=array();
+                $rows['timeit'] = time();
+                $rows['loggedIn'] = 1;
+                $rows['userid'] = $data['id'];
+                $rows['name'] = $data['name'];
+                $rows['email'] = $email;
+                $rows['role'] = $data['role'];
+                exit(json_encode($rows));
             } else {
                 exit('failed');
             }
@@ -82,6 +69,9 @@ if (isset($_POST['login'])) {
     } else {
         exit('failed');
     }
+}
+} catch (Exception $ex) {
+    die($ex->getTraceAsString());
 }
 
 

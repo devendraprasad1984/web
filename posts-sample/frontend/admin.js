@@ -2,13 +2,16 @@ const rightContents = $('#rightContents');
 const searchBox = $('#searchBox');
 let currentType = 'users';
 let currentClickElem = undefined;
+sessionData = JSON.parse(localStorage.getItem('session'));
+// console.log(sessionData, sessionData.timeit, sessionData.userid, sessionData.name);
+
 
 $(document).ready(function () {
-    clickHandler(undefined, 'home');
+    clickHandler($('#navHome'), 'home');
 })
 
 function displayRightHeading(caller) {
-    currentType = caller.innerText;
+    currentType = caller.innerText||'';
     currentClickElem = caller;
     rightContents.prev().html('<h3>' + currentType + ' Listing</h3>');
 }
@@ -16,7 +19,7 @@ function displayRightHeading(caller) {
 function clickSearch(caller) {
     let ipos = currentClickElem.innerText.indexOf('(');
     currentType = ipos !== -1 ? currentClickElem.innerText.substring(0, ipos) : currentClickElem.innerText;
-    clickHandler(undefined, currentType.toLowerCase());
+    clickHandler(caller, currentType.toLowerCase());
 }
 
 function clickHandler(caller, type) {
@@ -28,6 +31,8 @@ function clickHandler(caller, type) {
         dataType: 'json',
         data: {
             getData: 1,
+            loggedIn: sessionData.loggedIn,
+            userid: sessionData.userid,
             searchText: searchBox.val(),
             type
         },
@@ -47,10 +52,10 @@ function clickHandler(caller, type) {
 }
 
 function handleHome(data) {
-    rightContents.html('<div class="adminDashboard">' +
-        '<span onclick="clickHandler(this,\'users\')">USERS(' + '<b>' + data.users + '</b>' + ')</span>' +
-        '<span onclick="clickHandler(this,\'posts\')">POSTS(' + '<b>' + data.posts + '</b>' + ')</span>' +
-        '<span onclick="clickHandler(this,\'replies\')">REPLIES(' + '<b>' + data.replies + '</b>' + ')</span>' +
+    rightContents.html('<div>' +
+        '<div class="adminDashboard card" onclick="clickHandler(this,\'users\')"><div class="card-header blue" >USERS</div><div class="card-body blue">' + data.users + '</div></div>' +
+        '<div class="adminDashboard card" onclick="clickHandler(this,\'posts\')"><div class="card-header red">POSTS</div><div class="card-body red">' + data.posts + '</div></div>' +
+        '<div class="adminDashboard card" onclick="clickHandler(this,\'replies\')"><div class="card-header purple">REPLIES</div><div class="card-body purple">' + data.replies + '</div></div>' +
         '</div>');
 }
 

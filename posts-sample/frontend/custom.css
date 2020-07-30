@@ -1,5 +1,6 @@
 body {
-    font-size: 11pt;
+    opacity: 0.90;
+    /*font-size: 70%;*/
     font-family: "Courier 10 Pitch";
 }
 
@@ -12,7 +13,7 @@ body {
 .welcomeMsg span, .welcomeMsg .btn {
     font-weight: bolder;
     font-size: 12pt;
-    opacity: 0.70;
+    /*opacity: 0.70;*/
     margin: 5px;
 }
 
@@ -27,22 +28,25 @@ body {
     position: fixed;
     width: 100%;
     z-index: 1000;
+    font-size: 100%;
 }
 
 .time {
     color: white;
     float: right;
 }
+.time-reply {
+    float: right;
+    color: gray;
+}
 
 .userComment {
     margin-left: 5px;
     color: purple;
-    font-weight: lighter;
 }
 .userComment-reply{
     margin-left: 5px;
     color: #e566a6;
-    font-weight: lighter;
 }
 
 .userCommentTitle {
@@ -55,12 +59,13 @@ body {
 }
 
 .userReplyTitle {
+    color: gray;
     font-weight: bold;
     font-size: 10pt;
 }
 
 .comment-replies {
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
 #registerModal input, #loginModal input {
@@ -118,6 +123,42 @@ body {
 }
 
 
+.overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow-x: hidden;
+    display: none;
+    /*transition: 0.5s;*/
+}
+
+.overlay-content {
+    position: relative;
+    /*top: 1%;*/
+    width: calc(100% - 150px);
+    padding: 30px;
+    margin-top: 5px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.click {
+    cursor: pointer;
+    /*background-color: white;*/
+}
+
+.overlay .closebtn {
+    position: fixed;
+    right: 45px;
+    float: right;
+    margin-right: 50px;
+}
+
+
 .bggreen {
     background-color: #45ac25;
     color: white;
@@ -148,26 +189,18 @@ h1, h2, h3, h4, h5 {
 
 .adminDashboard {
     margin-top: 20px;
-}
-
-.adminDashboard span b{
-    font-size: 22pt;
-}
-.adminDashboard span {
-    padding: 10px;
-    margin: 20px;
-    font-size: 20pt;
-    background-image: linear-gradient(to left top, #aceccf, #a297bd, #99dcdc);
-    color: purple;
     cursor: pointer;
 }
-
+.adminDashboard div.card-header, .adminDashboard div.card-body {
+    font-weight: bolder;
+    font-size: 20pt;
+}
 .sidenav {
     height: 100vh;
-    width: 180px;
+    width: 20%;
     position: fixed;
     z-index: 1;
-    top: 150px;
+    /*top: 150px;*/
     left: 0;
     background-color: #44423f;
     color: white;
@@ -188,10 +221,6 @@ a{
     text-decoration: none;
     text-underline: none;
 }
-a:hover{
-    background-color: #0b2e13;
-    color: white;
-}
 .sidenav a {
     padding: 0 0 0 10px;
     color: #c778ef;
@@ -202,9 +231,8 @@ a:hover{
 }
 
 .right {
-    margin-left: 180px; /* Same as the width of the sidenav */
-    font-size: 28px; /* Increased text to enable scrolling */
-    padding: 0px 10px;
+    margin-left: 20%; /* Same as the width of the sidenav */
+    padding: 0px 5px;
 }
 
 

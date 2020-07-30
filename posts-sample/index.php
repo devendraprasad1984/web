@@ -1,4 +1,5 @@
 <?php
+session_start();
 require './backend/postsHandle.php';
 ?>
 
@@ -24,7 +25,7 @@ require './backend/postsHandle.php';
     <span>IBDN Messaging Platform</span>
     <span style="float: right">@Natwest Group</span>
 </h3>
-<div class="modal" id="registerModal">
+<div class="modal fade" id="registerModal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -44,7 +45,7 @@ require './backend/postsHandle.php';
 </div>
 
 
-<div class="modal" id="loginModal">
+<div class="modal fade" id="loginModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -66,23 +67,7 @@ require './backend/postsHandle.php';
 <div class="container" style="margin-top: 50px;margin-bottom: 30px;">
 
     <div class="row" style="margin-top: 50px;margin-bottom: 30px;">
-        <div class="col-md-12  welcomeMsg" align="right">
-            <?php
-            print_r($_SESSION);
-            if (!$loggedIn) {
-                echo '
-            <button class="btn btn-primary" data-toggle="modal" data-target="#registerModal">Register</button>
-            <button class="btn btn-success" data-toggle="modal" data-target="#loginModal">Login</button>
-        ';
-            } else {
-                echo '
-                <span class="badge badge-secondary">Welcome, ' . $_SESSION["name"] . '</span>'
-                    . ($_SESSION["role"] == 'admin' ? '<a href="./admin.php" class="btn bgpurple">Admin Console</a>' : '')
-                    . '<a href="logout.php" class="btn bg-warning">logout</a>
-        ';
-            }
-            ?>
-        </div>
+        <div id="welcomeBar" class="col-md-12  welcomeMsg" align="right"></div>
     </div>
 
 
@@ -106,7 +91,7 @@ require './backend/postsHandle.php';
     <div class="col-md-12" align="left">
         <input type="text" id="replyComment" placeholder="add reply" style="width: 80%"/>
         <a class="bgpurple" href="javascript:void()" id="addReply" onclick="fnAddComments(this,true)">Submit</a>
-        <a class="bgred"  href="javascript:void()" onclick="$('.replyRow').hide()">Close</a>
+        <a class="bgred" href="javascript:void()" onclick="$('.replyRow').hide()">Close</a>
     </div>
 </div>
 
@@ -119,11 +104,8 @@ require './backend/postsHandle.php';
 <!--        crossorigin="anonymous"></script>-->
 <script src="./libs/jquery.min.js"></script>
 <script src="./libs/bootstrap.bundle.min.js"></script>
-<script>
-    //let max = <?php //echo fetchpostsCount() ?>//;
-</script>
-<script type="text/javascript" src="frontend/common.js"></script>
-<script type="text/javascript" src="frontend/posts.js"></script>
+<script type="text/javascript" src="./frontend/common.js"></script>
+<script type="text/javascript" src="./frontend/posts.js"></script>
 
 </body>
 </html>

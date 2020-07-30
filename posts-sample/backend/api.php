@@ -5,11 +5,10 @@ require_once '../backend/helpers.php';
 
 if (isset($_POST['getPosts'])) {
     $start = $conn->real_escape_string($_POST['start']);
-    exit(pullPosts($start));
+    $latest = filter_var($_POST['latest'], FILTER_VALIDATE_BOOLEAN);
+    exit(pullPosts($start, $latest));
 } else if (isset($_POST['getReplies'])) {
     $commentId = $conn->real_escape_string($_POST['commentId']);
-    exit(pullReplies($commentId));
-} else if (isset($_POST['getAllReplies'])) {
-    exit(pullAllReplies());
+    $latest = filter_var($_POST['latest'], FILTER_VALIDATE_BOOLEAN);
+    exit(pullReplies($commentId, $latest));
 }
-
