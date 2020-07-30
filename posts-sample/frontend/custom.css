@@ -39,6 +39,11 @@ body {
     color: purple;
     font-weight: lighter;
 }
+.userComment-reply{
+    margin-left: 5px;
+    color: #e566a6;
+    font-weight: lighter;
+}
 
 .userCommentTitle {
     padding: 3px;

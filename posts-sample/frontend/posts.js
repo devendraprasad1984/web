@@ -6,8 +6,7 @@ $(document).ready(function () {
     $('#registerBtn').on('click', fnRegister);
     $('#loginBtn').on('click', fnLogin);
     // $('#addComment, #addReply').on('click', fnAddComments);
-    // getPosts(0, max);
-    // getPosts(0);
+    // getPosts(0, undefined);
     handlePostsAndReplies();
 
 })
@@ -64,8 +63,13 @@ async function handlePostsAndReplies() {
                         res += '<div class="comment">';
                         res += '<div class="userCommentTitle">Posted By: ' + row.name + ' <span class="time">' + row.createdOn + '</span></div>';
                         res += '<div class="userComment">' + row.comment + ' <a class="badge" href=javascript:void(0)" data-commentID="' + row.id + '" onclick="reply(this)">REPLY</a></div>';
-                        res += '<div class="replies">';
-                        res += replies.filter(x=>x.postid===row.id.toString()).map(x=>'<div>replied by: '+x.name+' ('+x.createdOn+')=>'+x.comment+'----><a class="badge" href=javascript:void(0)" data-commentID="' + x.id + '" onclick="reply(this)">REPLY</a></div>'+'</div>').join('');
+                        res += replies.filter(x=>x.postid===row.id.toString()).map(x=>''
+                            +'<div class="comment-replies">'
+                            +'<div class="userReplyTitle">replied by: '+x.name+' ('+x.createdOn+')</div>'
+                            +'<div class="userComment-reply"><span>'+x.comment+'</span>'
+                            +'<a class="badge" href=javascript:void(0)" data-commentID="' + x.id + '" onclick="reply(this)">REPLY</a>'
+                            +'</div>'
+                        ).join('');
                         res += '</div>';
                         res += '</div>';
                     }
