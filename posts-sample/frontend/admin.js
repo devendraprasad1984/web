@@ -51,10 +51,41 @@ function clickHandler(caller, type) {
     });
 }
 
-function deletePost(caller,postid) {
+function styleDeleteCaller(caller) {
+    let styling = {
+        pointerEvents: 'none'
+        , color: 'white'
+        , backgroundColor: 'gray'
+    };
+    $(caller).parent().css(styling);
+}
+
+function deleteUser(caller, userid) {
     $.ajax({
-        url: "./backend/delPosts.php",
+        url: "./backend/delApi.php",
         data: {
+            deleteUser:1,
+            userid,
+            loggedIn: sessionData.loggedIn,
+        },
+        type: 'post',
+        success: function (response) {
+            if (response === 'success') {
+                // window.location = window.location;
+                styleDeleteCaller(caller);
+            } else {
+                alert("Failed to delete, check logs!");
+                return false;
+            }
+        }
+    });
+}
+
+function deletePost(caller, postid) {
+    $.ajax({
+        url: "./backend/delApi.php",
+        data: {
+            deletePost:1,
             postid,
             loggedIn: sessionData.loggedIn,
             userid: sessionData.userid
@@ -63,7 +94,7 @@ function deletePost(caller,postid) {
         success: function (response) {
             if (response === 'success') {
                 // window.location = window.location;
-                console.log($(caller).parent());
+                styleDeleteCaller(caller);
             } else {
                 alert("Failed to delete, check logs!");
                 return false;
@@ -85,7 +116,7 @@ function handleUsers(data) {
         '<span>' + x.name + '</span>' +
         '<span>' + x.email + '</span>' +
         '<span>' + x.createdOn + '</span>' +
-        (i !== 0 ? '<span class="btn bgred" data-userid="' + x.id + '">Delete</span>' : '') +
+        (i !== 0 ? '<span class="btn bgred" onclick="deleteUser(this,' + x.id + ')">Delete</span>' : '') +
         '</div>'));
 }
 
@@ -96,7 +127,7 @@ function handlePosts(data) {
         '<span>' + x.email + '</span>' +
         '<span>' + x.comment + '</span>' +
         '<span>' + x.createdOn + '</span>' +
-        (i !== 0 ? '<span href="javascript:void(0)" class="btn red" onclick="deletePost(this,'+x.postid+')">Delete</span>' : '') +
+        (i !== 0 ? '<span class="btn bgred" onclick="deletePost(this,' + x.postid + ')">Delete</span>' : '') +
         '</div>'));
 }
 
