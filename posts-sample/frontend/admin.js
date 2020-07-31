@@ -23,6 +23,13 @@ function clickSearch(caller) {
 }
 
 function clickHandler(caller, type) {
+    if (typeof sessionData === 'undefined' && sessionData === null) return
+
+    if(sessionData.role!=='admin'){
+        alert('plz login as admin user');
+        return;
+    }
+
     currentType = type;
     if (typeof caller !== 'undefined') displayRightHeading(caller);
 

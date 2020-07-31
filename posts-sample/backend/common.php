@@ -1,4 +1,5 @@
 <?php
+session_start();
 require 'init.php';
 require 'helpers.php';
 
@@ -33,12 +34,13 @@ if (isset($_POST['register'])) {
             $password_hash = $data['password'];
             if (password_verify($password, $password_hash)) {
                 $rows = array();
-                $rows['timeit'] = time();
-                $rows['loggedIn'] = 1;
-                $rows['userid'] = $data['id'];
-                $rows['name'] = $data['name'];
-                $rows['email'] = $email;
-                $rows['role'] = $data['role'];
+                $_SESSION['timeit'] = time();
+                $_SESSION['loggedIn'] = 1;
+                $_SESSION['userid'] = $data['id'];
+                $_SESSION['name'] = $data['name'];
+                $_SESSION['email'] = $email;
+                $_SESSION['role'] = $data['role'];
+                $rows=$_SESSION;
                 exit(json_encode($rows));
             } else {
                 exit('failed');

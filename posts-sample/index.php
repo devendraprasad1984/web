@@ -1,4 +1,6 @@
-<?php require_once './backend/common.php'?>
+<?php
+require_once './backend/common.php'
+?>
 
 <html>
 
@@ -52,11 +54,13 @@
     </div>
 </div>
 
+
 <div class="row" style="margin-top: 50px;margin-bottom: 30px;">
     <div id="welcomeBar" class="col-md-12  welcomeMsg" align="right"></div>
 </div>
 
 <div class="row">
+<!--    --><?php //print_r($_SESSION)?>
     <div class="col-md-12" align="right">
             <textarea class="form-control" id="mainComment" placeholder="add new post" cols="30"
                       rows="2"></textarea><br>

@@ -1,6 +1,9 @@
 <?php
-require 'init.php';
-require 'helpers.php';
+session_start();
+require_once 'init.php';
+require_once 'helpers.php';
+
+$loggedIn=checkIfLoggedIn();
 
 if (isset($_POST['getData']) && $_POST['type'] == 'home' && $loggedIn == true) {
     $data = getAdminHome();

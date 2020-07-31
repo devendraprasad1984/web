@@ -36,3 +36,12 @@ function getSessionData(){
     $_SESSION['started']=1;
     return json_encode($_SESSION);
 }
+
+
+function checkIfLoggedIn(){
+    $loggedIn=false;
+    if(isset($_SESSION['loggedIn']) && isset($_SESSION['name']) && $_SESSION['loggedIn']==1){
+        $loggedIn=true;
+    }
+    return $loggedIn;
+}
