@@ -1,6 +1,6 @@
 let commentId = 0;
 let userComments = $('.userComments');
-let sessionData = JSON.parse(localStorage.getItem('session'));
+sessionData = localStorage.getItem('session') !== null ? JSON.parse(localStorage.getItem('session')) : undefined;
 
 $(document).ready(function () {
     $('#registerBtn').on('click', fnRegister);
@@ -57,8 +57,8 @@ function fnLogin() {
             },
             success: function (response) {
                 console.log(response);
-                if (response === 'failed') {
-                    alert('plz check your login details');
+                if (response.indexOf('failed') !== -1) {
+                    alert('plz check your login details or contact admin for approval');
                 } else {
                     sessionData = response;
                     // localStorage.setItem(session, sessionData);
@@ -76,7 +76,7 @@ function fnLogin() {
     }
 }
 
-function postReply(caller,id) {
+function postReply(caller, id) {
     commentId = id;
     $(".replyRow").insertAfter(caller);
     $(".replyRow").show();
@@ -99,10 +99,10 @@ function fnAddComments(caller, isReply) {
         },
         type: 'post',
         success: function (response) {
-            commentId=0;
-            if (response==='success') {
+            commentId = 0;
+            if (response === 'success') {
                 // $("#comment-message").css('display', 'inline-block');
-                commentId=0
+                commentId = 0
                 if (!isReply) {
                     // $('#userComments').prepend(response);
                     $('#mainComment').val("");
@@ -112,7 +112,7 @@ function fnAddComments(caller, isReply) {
                     // $(".replyRow").parent().next().append(response);
                 }
                 // listComment();
-                window.location=window.location;
+                window.location = window.location;
             } else {
                 alert("Failed to add comments !");
                 return false;
@@ -124,8 +124,12 @@ function fnAddComments(caller, isReply) {
 function listComment() {
     $.post("./backend/fetchPosts.php",
         function (data) {
+            if (data.length === 0) {
+                $("#idNumComments").html('Login to view Posts');
+                return;
+            }
             data = JSON.parse(data);
-            $("#idNumComments").html(data.length+' Messages Found.');
+            $("#idNumComments").html(data.length.toString() + ' Messages Found');
             let comments = "";
             let parent = -1;
             var list = $("<ul>");

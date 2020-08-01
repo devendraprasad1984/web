@@ -2,7 +2,7 @@ const rightContents = $('#rightContents');
 const searchBox = $('#searchBox');
 let currentType = 'users';
 let currentClickElem = undefined;
-sessionData = JSON.parse(localStorage.getItem('session'));
+sessionData = localStorage.getItem('session') !== null ? JSON.parse(localStorage.getItem('session')) : undefined;
 // console.log(sessionData, sessionData.timeit, sessionData.userid, sessionData.name);
 
 
@@ -23,9 +23,12 @@ function clickSearch(caller) {
 }
 
 function clickHandler(caller, type) {
-    if (typeof sessionData === 'undefined' && sessionData === null) return
+    if (typeof sessionData === 'undefined' || sessionData === null) {
+        alert('you are not logged in');
+        return;
+    }
 
-    if(sessionData.role!=='admin'){
+    if (sessionData.role !== 'admin') {
         alert('plz login as admin user');
         return;
     }
@@ -71,7 +74,7 @@ function deleteUser(caller, userid) {
     $.ajax({
         url: "./backend/delApi.php",
         data: {
-            deleteUser:1,
+            deleteUser: 1,
             userid,
             loggedIn: sessionData.loggedIn,
         },
@@ -92,7 +95,7 @@ function deletePost(caller, postid) {
     $.ajax({
         url: "./backend/delApi.php",
         data: {
-            deletePost:1,
+            deletePost: 1,
             postid,
             loggedIn: sessionData.loggedIn,
             userid: sessionData.userid
@@ -106,6 +109,18 @@ function deletePost(caller, postid) {
                 alert("Failed to delete, check logs!");
                 return false;
             }
+        }
+    });
+}
+
+function approveRevoke(caller, userid, guid, type) {
+    console.log(caller, userid, guid, type);
+    let xurl = type === 'approve' ? 'api/approve/' + userid : 'api/revoke/' + userid;
+    $.ajax({
+        url: xurl,
+        type: 'get',
+        success: function (response) {
+            alert(response)
         }
     });
 }
@@ -124,6 +139,8 @@ function handleUsers(data) {
         '<span>' + x.email + '</span>' +
         '<span>' + x.createdOn + '</span>' +
         (i !== 0 ? '<span class="btn bgred" onclick="deleteUser(this,' + x.id + ')">Delete</span>' : '') +
+        (i !== 0 && parseInt(x.isapproved) === 0 ? '<span class="btn bggreen" onclick="approveRevoke(this,' + x.id + ',\'' + x.guid + '\',\'approve\')">Approve</span>' : '') +
+        (i !== 0 && parseInt(x.isapproved) === 1 ? '<span class="btn bgpurple" onclick="approveRevoke(this,' + x.id + ',\'' + x.guid + '\',\'revoke\')">Revoke</span>' : '') +
         '</div>'));
 }
 

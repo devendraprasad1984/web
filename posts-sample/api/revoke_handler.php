@@ -9,7 +9,7 @@ try {
     if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         if (isset($_GET['id'])) {
             $id = $conn->real_escape_string($_GET['id']);
-            $where = "where id=$id and isapproved=1 and role<>'admin'";
+            $where = "where id='$id' and isapproved=1 and role<>'admin'";
             $conn->query("update users set isapproved=0 $where");
             exit($success);
         }else if (isset($_GET['org'])) {

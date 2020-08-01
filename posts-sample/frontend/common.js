@@ -1,9 +1,11 @@
 let welcomeBar = $('#welcomeBar');
-sessionData = JSON.parse(localStorage.getItem('session'));
+sessionData = localStorage.getItem('session') !== null ? JSON.parse(localStorage.getItem('session')) : undefined;
+let isOnAdminPage = location.href.indexOf('/admin') !== -1 ? true : false;
 
 function clearSession() {
     localStorage.removeItem('session');
     window.location = '../index.php';
+    sessionData = undefined;
     $.ajax({
         type: "POST",
         url: './logout.php',
@@ -32,12 +34,16 @@ function handleWelcomeBar() {
             output += sessionData.role === 'admin' ? '<a href="./admin.php" class="btn bgpurple">Admin Console</a>' : '';
             output += '<a href="#" onclick="clearSession()" class="btn bgred">Logout</a>';
         } else {
-            window.location='./index.php'
+            window.location = './index.php'
         }
     } else {
-        output = '<button class="btn btn-primary" data-toggle="modal" data-target="#registerModal">Register</button>';
-        output += '<button class="btn btn-success" data-toggle="modal" data-target="#loginModal">Login</button>';
+        output = isOnAdminPage ? '<a href="../index.php" class="btn orange">Home</a>' : '';
+        if (!isOnAdminPage) {
+            output = '<button class="btn btn-primary" data-toggle="modal" data-target="#registerModal">Register</button>';
+            output += '<button class="btn btn-success" data-toggle="modal" data-target="#loginModal">Login</button>';
+        }
     }
-    console.log(sessionData);
+
+// console.log(sessionData);
     welcomeBar.html(output);
 }
