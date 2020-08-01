@@ -1,5 +1,7 @@
 <?php
 require_once '../backend/init.php';
+require_once '../backend/helpers.php';
+
 $where = '';
 global $conn;
 global $success;
@@ -15,10 +17,11 @@ try {
         exit(json_encode($data));
     } else if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['id']) == false) {
         if (isset($_POST['name']) && isset($_POST['email'])) {
-            $name = $conn->real_escape_string($_GET['name']);
-            $email = $conn->real_escape_string($_GET['email']);
+            $name = $conn->real_escape_string($_POST['name']);
+            $email = $conn->real_escape_string($_POST['email']);
+            $guid=returnGuid($email);
             $pwd = password_hash('password123', PASSWORD_BCRYPT);
-            $sql = $conn->query("insert into users(name,email,password,createdon,role,isapproved) values('$name','$email','$pwd',now(),'admin',1)");
+            $sql = $conn->query("insert into users(name,email,password,createdon,role,isapproved,guid) values('$name','$email','$pwd',now(),'admin',1,'$guid')");
             exit($success);
         } else {
             exit($failed);

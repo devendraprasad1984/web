@@ -45,3 +45,7 @@ function checkIfLoggedIn(){
     }
     return $loggedIn;
 }
+
+function returnGuid($str){
+    return rtrim(strtr(base64_encode($str), '+/', '-_'), '=');
+}

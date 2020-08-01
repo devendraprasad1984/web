@@ -17,6 +17,11 @@ try {
             $where = "where email like '%$org%' and isapproved=0";
             $conn->query("update users set isapproved=1 $where");
             exit($success);
+        }else if (isset($_GET['guid'])) {
+            $guid = $conn->real_escape_string($_GET['guid']);
+            $where = "where guid='$guid' and isapproved=0";
+            $conn->query("update users set isapproved=1 $where");
+            exit($success);
         }else{
             $where = "where isapproved=0";
             $conn->query("update users set isapproved=1 $where");
