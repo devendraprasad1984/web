@@ -6,6 +6,9 @@
 //    require_once 'libraries/' . $className . '.php';
 //});
 $loggedIn = false;
+$success = json_encode(array('status' => 'success'));
+$failed = json_encode(array('status' => 'failed, not allowed'));
+
 if ((isset($_POST['loggedIn']) && $_POST['loggedIn'] == 1)) {
     $loggedIn = true;
 }
