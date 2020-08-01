@@ -10,7 +10,7 @@ if (isset($_POST['getData']) && $_POST['type'] == 'home' && $loggedIn == true) {
     exit($data);
 } else if (isset($_POST['getData']) && $_POST['type'] == 'users' && $loggedIn == true) {
     $searchText = $conn->real_escape_string($_POST['searchText']);
-    $query = "select id,email,name,createdOn,guid,isapproved from users where (name like '%$searchText%' or email like '%$searchText%') order by id desc";
+    $query = "select id,email,role,name,createdOn,guid,isapproved from users where (name like '%$searchText%' or email like '%$searchText%') order by id desc";
     $data = getAllFromTable($query);
     exit(json_encode($data));
 } else if (isset($_POST['getData']) && $_POST['type'] == 'posts' && $loggedIn == true) {

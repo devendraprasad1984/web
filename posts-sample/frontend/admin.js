@@ -120,7 +120,10 @@ function approveRevoke(caller, userid, guid, type) {
         url: xurl,
         type: 'get',
         success: function (response) {
-            alert(response)
+            if (JSON.parse(response).status === 'success') {
+                //reload data
+                clickHandler(caller, currentType);
+            }
         }
     });
 }
@@ -134,13 +137,19 @@ function handleHome(data) {
 
 function handleUsers(data) {
     data.unshift({name: 'Username', email: 'Email', createdOn: 'Created On'});
-    rightContents.html(data.map((x, i) => '<div class="' + (i === 0 ? 'line-header line' : 'line') + '">' +
+    rightContents.html(data.filter(x=>x.role!=='admin').map((x, i) => '<div class="' + (i === 0 ? 'line-header line' : 'line') + '">' +
         '<span>' + x.name + '</span>' +
         '<span>' + x.email + '</span>' +
         '<span>' + x.createdOn + '</span>' +
         (i !== 0 ? '<span class="btn bgred" onclick="deleteUser(this,' + x.id + ')">Delete</span>' : '') +
         (i !== 0 && parseInt(x.isapproved) === 0 ? '<span class="btn bggreen" onclick="approveRevoke(this,' + x.id + ',\'' + x.guid + '\',\'approve\')">Approve</span>' : '') +
         (i !== 0 && parseInt(x.isapproved) === 1 ? '<span class="btn bgpurple" onclick="approveRevoke(this,' + x.id + ',\'' + x.guid + '\',\'revoke\')">Revoke</span>' : '') +
+        '</div>'));
+    rightContents.append(data.filter(x=>x.role==='admin').map((x, i) => '<div class="line">' +
+        '<span>' + x.name + '</span>' +
+        '<span>' + x.email + '</span>' +
+        '<span>' + x.createdOn + '</span>' +
+        '<span>' + x.role.toUpperCase() + '</span>' +
         '</div>'));
 }
 

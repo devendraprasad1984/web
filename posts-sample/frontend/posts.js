@@ -56,7 +56,7 @@ function fnLogin() {
                 email, password
             },
             success: function (response) {
-                console.log(response);
+                // console.log(response);
                 if (response.indexOf('failed') !== -1) {
                     alert('plz check your login details or contact admin for approval');
                 } else {
