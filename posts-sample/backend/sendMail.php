@@ -25,8 +25,8 @@ if (isset($_POST['sendmail']) && isset($_POST['name']) && isset($_POST['email'])
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
-    $mail->Username = 'devendraprasad1984@gmail.com';
-    $mail->Password = 'Rbs6200#';
+    $mail->Username = 'dpribdn@gmail.com';
+    $mail->Password = 'ibdn2020#';
     $mail->Port = 465; //for tls 587
     $mail->SMTPSecure = 'ssl'; //tls
 
