@@ -31,7 +31,7 @@ require_once './backend/common.php'
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" data-dismiss="modal">Close</button>
-                <button class="btn btn-primary" id="registerBtn">Register</button>
+                <button class="btn btn-primary" id="registerBtn" onclick="fnRegister(this)">Register</button>
             </div>
         </div>
     </div>
@@ -48,7 +48,7 @@ require_once './backend/common.php'
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" data-dismiss="modal">Close</button>
-                <button class="btn btn-primary" id="loginBtn">Login</button>
+                <button class="btn btn-primary" id="loginBtn" onclick="fnLogin(this)">Login</button>
             </div>
         </div>
     </div>

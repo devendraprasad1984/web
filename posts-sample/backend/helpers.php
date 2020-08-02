@@ -49,3 +49,10 @@ function checkIfLoggedIn(){
 function returnGuid($str){
     return rtrim(strtr(base64_encode($str), '+/', '-_'), '=');
 }
+
+
+function returnURI(){
+    $fullURL = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+    return substr($fullURL,0,strlen($fullURL)- strpos(strrev($fullURL),'/'));
+
+}

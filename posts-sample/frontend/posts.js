@@ -3,8 +3,8 @@ let userComments = $('.userComments');
 sessionData = localStorage.getItem('session') !== null ? JSON.parse(localStorage.getItem('session')) : undefined;
 
 $(document).ready(function () {
-    $('#registerBtn').on('click', fnRegister);
-    $('#loginBtn').on('click', fnLogin);
+    // $('#registerBtn').on('click', fnRegister);
+    // $('#loginBtn').on('click', fnLogin);
     listComment();
 })
 
@@ -19,11 +19,14 @@ function validateEmptyVal(caller) {
 }
 
 
-function fnRegister() {
+function fnRegister(caller) {
+    console.log(caller);
     let name = $('#userName');
     let email = $('#userEmail');
     let password = $('#userPassword');
     if (validateEmptyVal(name) && validateEmptyVal(email) && validateEmptyVal(password)) {
+        let oldVal=$(caller).html();
+        $(caller).html('please wait...');
         $.ajax({
             url: 'index.php',
             method: 'post',
@@ -37,11 +40,26 @@ function fnRegister() {
             success: function (response) {
                 // console.log(response);
                 if (response === 'failedEmail') {
+                    $(caller).html(oldVal);
                     alert('plz insert valid email');
                 } else if (response === 'failedUserExists') {
+                    $(caller).html(oldVal);
                     alert('user already exist');
                 } else {
-                    alert('you have been registered, once approved, you will be notified');
+                    $.ajax({
+                        url: './backend/sendMail.php',
+                        method: 'post',
+                        datatype: 'json',
+                        data: {
+                            sendmail: 1
+                            , name: name.val()
+                            , email: email.val()
+                        }, success: function (response) {
+                            $(caller).html(oldVal);
+                            alert(JSON.parse(response).status);
+                        }
+                    });//send welcome email
+                    // alert('you have been registered, once approved, you will be notified');
                     //window.location = window.location;
                 }
             },
@@ -54,10 +72,12 @@ function fnRegister() {
 }
 
 
-function fnLogin() {
+function fnLogin(caller) {
     let email = $('#userLEmail');
     let password = $('#userLPassword');
     if (validateEmptyVal(email) && validateEmptyVal(password)) {
+        let oldVal=$(caller).html();
+        $(caller).html('please wait...');
         $.ajax({
             url: 'index.php',
             method: 'post',
@@ -75,6 +95,7 @@ function fnLogin() {
                     sessionData = response;
                     // localStorage.setItem(session, sessionData);
                     localStorage.setItem('session', sessionData);
+                    $(caller).html(oldVal);
                     window.location = window.location;
                 }
             },
