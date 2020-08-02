@@ -8,18 +8,31 @@ $(document).ready(function () {
     listComment();
 })
 
+function validateEmptyVal(caller) {
+    if (caller.val() === "") {
+        caller.css('border', '1px solid purple');
+        return false;
+    } else {
+        caller.css('border', '');
+    }
+    return true;
+}
+
+
 function fnRegister() {
-    let name = $('#userName').val();
-    let email = $('#userEmail').val();
-    let password = $('#userPassword').val();
-    if (name !== '' && email !== '' && password !== '') {
+    let name = $('#userName');
+    let email = $('#userEmail');
+    let password = $('#userPassword');
+    if (validateEmptyVal(name) && validateEmptyVal(email) && validateEmptyVal(password)) {
         $.ajax({
             url: 'index.php',
             method: 'post',
             dataType: 'text',
             data: {
                 register: 1,
-                name, email, password
+                name: name.val()
+                , email: email.val()
+                , password: password.val()
             },
             success: function (response) {
                 // console.log(response);
@@ -37,23 +50,22 @@ function fnRegister() {
                 userComments.html(response);
             }
         });
-    } else {
-        alert('plz enter values');
     }
 }
 
 
 function fnLogin() {
-    let email = $('#userLEmail').val();
-    let password = $('#userLPassword').val();
-    if (email !== '' && password !== '') {
+    let email = $('#userLEmail');
+    let password = $('#userLPassword');
+    if (validateEmptyVal(email) && validateEmptyVal(password)) {
         $.ajax({
             url: 'index.php',
             method: 'post',
             dataType: 'text',
             data: {
                 login: 1,
-                email, password
+                email: email.val()
+                , password: password.val()
             },
             success: function (response) {
                 // console.log(response);
@@ -71,8 +83,6 @@ function fnLogin() {
                 userComments.html(response);
             }
         });
-    } else {
-        alert('plz enter values');
     }
 }
 
@@ -160,7 +170,7 @@ function listReplies(commentId, data, list) {
         // console.log('replies',data[i]);
         if (commentId == data[i].parent_comment_id) {
             let comments = "<div class='comment'>" +
-                "<div class='userReplyTitle'><span class='time-reply'>" + data[i]['name'] + ' replied on ' + data[i]['date'] + "</span></div>" +
+                "<div class='userReplyTitle'><span class='time-reply'>" + data[i]['pname'] + ', ' + data[i]['date'] + "</span></div>" +
                 "<div class='userComment-reply'><span>" + data[i]['comment'] + "</span> <a href='javascript:void(0)' class='purple' onClick='postReply(this," + data[i]['comment_id'] + ")'>Reply</a></div>" +
                 "</div>";
             let item = $("<li>").html(comments);

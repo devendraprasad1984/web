@@ -25,9 +25,9 @@ require_once './backend/common.php'
                 <h5 class="modal-title">Registration Form</h5>
             </div>
             <div class="modal-body">
-                <input type="text" id="userName" class="form-control" placeholder="your name">
-                <input type="text" id="userEmail" class="form-control" placeholder="your email">
-                <input type="password" id="userPassword" class="form-control" placeholder="your password">
+                <input type="text" id="userName" class="form-control" placeholder="enter your name">
+                <input type="text" id="userEmail" class="form-control" placeholder="enter your email">
+                <input type="password" id="userPassword" class="form-control" placeholder="enter your password">
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" data-dismiss="modal">Close</button>
@@ -76,10 +76,10 @@ require_once './backend/common.php'
 
 
 <div class="row replyRow" style="display: none">
-    <div class="col-md-12" align="left">
-        <input type="text" id="replyComment" placeholder="add reply" style="width: 80%"/>
-        <a class="purple" href="javascript:void()" id="addReply" onclick="fnAddComments(this,true)">Save</a>
-        <a class="red" href="javascript:void()" onclick="$('.replyRow').hide()">Close</a>
+    <div class="col-md-12" align="right">
+        <input type="text" class="customInput" id="replyComment" placeholder="add reply"/>
+        <a class="click green" href="javascript:void()" id="addReply" onclick="fnAddComments(this,true)">Save</a>
+        <a class="click red" href="javascript:void()" onclick="$('.replyRow').hide()">Close</a>
     </div>
 </div>
 
