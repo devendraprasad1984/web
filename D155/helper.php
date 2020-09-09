@@ -1,35 +1,51 @@
 <?php
 
-$res=[];
+$res = [];
 
-function cors() {
+//define('APP_ROOT','http://localhost/web/posts-sample/');
 
-    // Allow from any origin
-    if (isset($_SERVER['HTTP_ORIGIN'])) {
-        // Decide if the origin in $_SERVER['HTTP_ORIGIN'] is one
-        // you want to allow, and if so:
-        header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
-        header('Access-Control-Allow-Credentials: true');
-        header('Access-Control-Max-Age: 86400');    // cache for 1 day
-    }
+//$loggedIn = false;
+$success = json_encode(array('status' => 'success'));
+$failed = json_encode(array('status' => 'failed, not allowed'));
 
-    // Access-Control headers are received during OPTIONS requests
-    if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-
-        if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
-            // may also be using PUT, PATCH, HEAD etc
-            header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-
-        if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
-            header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
-
-        exit(0);
-    }
-
-    echo "You have CORS!";
+$server = $_SERVER['REMOTE_ADDR'];
+if ($server == '::1' or $server == 'localhost' or $server == '127.0.0.1') {
+    define('host', 'localhost:3306');
+    define('user', 'root');
+    define('pwd', 'dpadmin');
+    define('db', 'd155');
+} else {
+    define('host', 'localhost:3306');
+    define('user', 'wp_p9ii9');
+    define('pwd', 'rbs1984#');
+    define('db', 'wp_8oy2w');
 }
 
-function handleSave($data){
-    $res['status']='Saved';
-    echo json_encode($res);
+$conn = new mysqli(host, user, pwd, db);
+
+
+function handleSave($data)
+{
+    global $success, $conn;
+    $name = $conn->real_escape_string($data['name']);
+    $time = $conn->real_escape_string($data['time']);
+    $amount = $conn->real_escape_string($data['amount']);
+    $remarks = $conn->real_escape_string($data['remarks']);
+    $ip = 'ip & location';
+
+    $sql = "INSERT INTO expenses(name,date,amount,remarks,iploc) values('$name','$time','$amount','$remarks','$ip')";
+    $result = $conn->query($sql);
+    echo $success;
+    mysqli_close($conn);
+}
+
+function handleExpensesReport($data)
+{
+    global  $conn;
+    $qur = "select a.* from expenses a order by a.when desc";
+    $sql = $conn->query($qur);
+    $rows = $sql->fetch_all(MYSQLI_ASSOC);
+    mysqli_free_result($sql);
+    mysqli_close($conn);
+    echo(json_encode($rows));
 }

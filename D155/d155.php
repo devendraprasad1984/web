@@ -2,16 +2,14 @@
 require_once './ChromePHP.php';
 require_once './helper.php';
 
+global $success, $failed;
 try{
-    $res=[];
-//    cors();
-    if(isset($_POST['save'])){
-        handleSave($_POST);
-    }
+    if(isset($_POST['save'])) handleSave($_POST);
+    if(isset($_GET['expenses'])) handleExpensesReport($_GET);
+
 }catch (Exception $ex){
-    $res=[];
-    $res['err']=$ex->getMessage();
-    echo json_encode($res);
+    ChromePhp::error($ex->getMessage());
+    echo $failed;
 }
 
 ?>
