@@ -26,7 +26,7 @@ function getData(url = '', success, error) {
 
 function success (res){
     let isaved = res.status === 'success' ? true : false;
-    if(!false) {
+    if(!isaved) {
         console.log(res);
         return res;
     }
