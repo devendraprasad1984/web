@@ -45,19 +45,19 @@ let success = {
             total += parseFloat(x.amount);
             let isnegative = x.amount < 0 ? true : false;
             return '<div class="xrow">' +
-                '<span class="xcell"><img src="' + imgObj[x.name] + '" class="imgdrop"/></span>' +
-                '<span class="xcell">' + x.when + '</span>' +
-                '<span class="xcell">' + x.date + '</span>' +
-                '<span class="xcell '+(isnegative?'red textwhite':'')+' right">' + x.amount + '</span>' +
-                '<span class="xcell">' + x.remarks + '</span>' +
+                '<span class="xcell" style="width: 50px"><img src="' + imgObj[x.name] + '" class="imgdrop"/></span>' +
+                '<span class="xcell" style="width: 150px">' + x.when + '</span>' +
+                '<span class="xcell" style="width: 100px">' + x.date + '</span>' +
+                '<span class="xcell '+(isnegative?'red textwhite':'')+' right" style="width: 150px">' + x.amount + '</span>' +
+                '<span class="xcell" style="width: 300px">' + x.remarks + '</span>' +
                 '</div>'
         });
         result.splice(0, 0, '<div class="xhead">' +
-            '<span class="xcell">Name</span>' +
-            '<span class="xcell">When</span>' +
-            '<span class="xcell">Month</span>' +
-            '<span class="xcell right">Amount: ' + total + '</span>' +
-            '<span class="xcell">Remarks</span>' +
+            '<span class="xcell" style="width: 50px">Name</span>' +
+            '<span class="xcell" style="width: 150px">When</span>' +
+            '<span class="xcell" style="width: 100px">Month</span>' +
+            '<span class="xcell right" style="width: 150px">Amount: ' + total + '</span>' +
+            '<span class="xcell" style="width: 300px">Remarks</span>' +
             '</div>');
         report1.innerHTML = result.join('');
     }

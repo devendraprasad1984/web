@@ -134,7 +134,6 @@
 .xcell{
     margin-right: 5px;
     display: inline-block;
-    width: 150px;
     word-break: break-all;
     text-overflow: ellipsis;
     white-space: nowrap;
