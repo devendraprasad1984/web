@@ -42,7 +42,11 @@ function handleSave($data)
 function handleExpensesReport($data)
 {
     global  $conn;
-    $qur = "select a.* from expenses a order by a.when desc";
+    $search=$data['by'];
+    $qur = "select a.* from expenses a
+            where (concat('@',name) like '%$search%' or date like '%$search%' or amount like '%$search%' or remarks like '%$search%')
+            order by a.when desc";
+//    ChromePhp::log($qur);
     $sql = $conn->query($qur);
     $rows = $sql->fetch_all(MYSQLI_ASSOC);
     mysqli_free_result($sql);

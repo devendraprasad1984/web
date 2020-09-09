@@ -3,37 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <title>D155 Expenses</title>
+    <link rel="icon" type="image/png" href="images/icon.png">
     <link rel="stylesheet" href="index.css">
 </head>
-<body>
-<h1>D155 Expenses Manager</h1>
+<body class="container">
 
-<button id="btnUnlock" class="btn blue" onclick="handleUnlock()">Unlock by DP</button>
+<div class="header">
+    <img src="images/icon.png" class="logo">
+    <h1>D155 Expenses Manager</h1>
+    <div class="myIcons">
+        <img src="images/anish.png" class="icon" alt=""/>
+        <img src="images/dp.png" class="icon" alt=""/>
+        <img src="images/dev.png" class="icon" alt=""/>
+        <img src="images/ajay.png" class="icon" alt=""/>
+    </div>
+</div>
+
+<div>
+    <button id="btnUnlock" class="btn blue" onclick="handleUnlock()">Unlock by DP</button>
+</div>
+
 <div id="formInputs" class="input-inline purple">
     <select id="names" name="names">
-        <option value="Anish Ji" selected >Anish Ji</option>
-        <option value="Devendra Ji" >Devendra Ji</option>
-        <option value="Devdatt Ji" >Devdatt Ji</option>
-        <option value="Ajay Ji" >Ajay Ji</option>
+        <option value="anish" selected></option>
+        <option value="dp"></option>
+        <option value="dev"></option>
+        <option value="ajay"></option>
     </select>
     <select id="time">
         <option value="Oct2020">Oct2020</option>
         <option value="Oct2020">Oct2020</option>
         <option value="Oct2020">Oct2020</option>
     </select>
-    <input id="amount" type="text" value="1000" class="input-right" placeholder="enter your amount, if expenses place negative number" width="50px">
+    <input id="amount" type="text" value="1000" class="input-right"
+           placeholder="enter your amount, if expenses place negative number" width="50px">
     <input id="remarks" type="text" placeholder="eg regular maintenance" width="150px">
     <button id="btnSubmit" class="btn red" onclick="handleSubmit()"> Submit</button>
 </div>
 
+
 <div>
-    <button id="btnRefresh" class="btn green" onclick="handleRefresh()">Refresh</button>
-    <div>report</div>
+    <div id="search1">
+        <input id="idSearchBox" class="searchText" type="text" onkeypress="searchByKeyword(event)" placeholder="enter search keyword by name,remarks,amount,month/years etc">
+        <button class="btn green">Search</button>
+    </div>
+    <div id="report1" class="divx"></div>
 </div>
 
+
 <script src="./libs/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css" integrity="sha512-f8gN/IhfI+0E9Fc/LKtjVq4ywfhYAVeMGKsECzDUHcFJ5teVwvKTqizm+5a84FINhfrgdvjX8hEJbem2io1iTA==" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css"
+      integrity="sha512-f8gN/IhfI+0E9Fc/LKtjVq4ywfhYAVeMGKsECzDUHcFJ5teVwvKTqizm+5a84FINhfrgdvjX8hEJbem2io1iTA=="
+      crossorigin="anonymous"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
+        integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+        crossorigin="anonymous"></script>
 <script src="index.js"></script>
 
 </body>

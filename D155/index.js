@@ -1,6 +1,12 @@
+let imgObj = {
+    anish: 'images/anish.png'
+    , dp: 'images/dp.png'
+    , dev: 'images/dev.png'
+    , ajay: 'images/ajay.png'
+}
+
 function handleUnlock() {
     swal({title: "Unlocked"});
-
 }
 
 function postData(url = '', data = {}, success, error) {
@@ -31,9 +37,29 @@ let success = {
             title: isaved ? "Your Entry is saved" : "Not Saved, contact admin",
             icon: isaved ? "success" : "error",
             button: 'Ok',
-        }).then(flag=>handleRefresh());
+        }).then(flag => handleRefresh());
     }, refresh: function (res) {
-        console.log(res);
+        let result = [];
+        let total = 0;
+        result = res.map(x => {
+            total += parseFloat(x.amount);
+            let isnegative = x.amount < 0 ? true : false;
+            return '<div class="xrow">' +
+                '<span class="xcell"><img src="' + imgObj[x.name] + '" class="imgdrop"/></span>' +
+                '<span class="xcell">' + x.when + '</span>' +
+                '<span class="xcell">' + x.date + '</span>' +
+                '<span class="xcell '+(isnegative?'red textwhite':'')+' right">' + x.amount + '</span>' +
+                '<span class="xcell">' + x.remarks + '</span>' +
+                '</div>'
+        });
+        result.splice(0, 0, '<div class="xhead">' +
+            '<span class="xcell">Name</span>' +
+            '<span class="xcell">When</span>' +
+            '<span class="xcell">Month</span>' +
+            '<span class="xcell right">Amount: ' + total + '</span>' +
+            '<span class="xcell">Remarks</span>' +
+            '</div>');
+        report1.innerHTML = result.join('');
     }
 }
 
@@ -68,5 +94,28 @@ function handleSubmit() {
 }
 
 function handleRefresh() {
-    getData('./d155.php?expenses=1', success.refresh, error);
+    let txt=idSearchBox.value.toLowerCase();
+    getData('./d155.php?expenses=1&by='+txt, success.refresh, error);
 }
+
+function preparePeriod() {
+    let years = [];
+    let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    for (let i = 2020; i < 2025; i++) {
+        years.push(months.map(x => '<option value="' + x + ' ' + i + '">' + x + ' ' + i + '</option>').join(''));
+        // years.push('<option value="'+i+'">'+i+'</option>');
+    }
+    time.innerHTML = years.join('');
+}
+function searchByKeyword(e){
+    if(e.keyCode===13){
+        handleRefresh();
+        e.preventDefault();
+    }
+}
+
+
+(function () {
+    preparePeriod();
+    handleRefresh();
+})();
