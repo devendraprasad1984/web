@@ -4,11 +4,6 @@
 }
 
 
-select#names option[value="anish"]   { background-image:url(images/anish.png);   }
-select#names option[value="dp"]   { background-image:url(images/dp.png);   }
-select#names option[value="dev"]   { background-image:url(images/dev.png);   }
-select#names option[value="ajay"]   { background-image:url(images/ajay.png);   }
-
 .container div{
     margin: 5px;
 }
