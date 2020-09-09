@@ -53,7 +53,7 @@ let success = {
                 '</div>'
         });
         result.splice(0, 0, '<div class="xhead">' +
-            '<span class="xcell" style="width: 50px">Name</span>' +
+            '<span class="xcell" style="width: 50px"></span>' +
             '<span class="xcell" style="width: 150px">When</span>' +
             '<span class="xcell" style="width: 100px">Month</span>' +
             '<span class="xcell right" style="width: 150px">Amount: ' + total + '</span>' +
