@@ -39,6 +39,17 @@ function handleSave($data)
     mysqli_close($conn);
 }
 
+function handleDelete($data)
+{
+    global $success, $conn;
+    $id = $conn->real_escape_string($data['id']);
+
+    $sql = "delete from expenses where id=$id";
+    $result = $conn->query($sql);
+    echo $success;
+    mysqli_close($conn);
+}
+
 function handleExpensesReport($data)
 {
     global  $conn;

@@ -120,6 +120,15 @@
     color: white;
 }
 
+.hide{
+    display: none;
+}
+
+.show{
+    display: inline-block;
+}
+
+
 .xrow{
     overflow-x:hidden;
     width: 100%;
@@ -139,6 +148,10 @@
     white-space: nowrap;
     overflow-x: hidden;
     justify-content: center;
+}
+.xcell .btn{
+    margin-right: 3px;
+    font-size: 10px;
 }
 
 

@@ -6,7 +6,9 @@ let imgObj = {
 }
 
 function handleUnlock() {
-    swal({title: "Unlocked"});
+    let pass=prompt('enter passphrase');
+    if(pass!=='6200') return;
+    formInputs.classList.remove('hide');
 }
 
 function postData(url = '', data = {}, success, error) {
@@ -34,7 +36,7 @@ let success = {
     alert: function (res) {
         let isaved = res.status === 'success' ? true : false;
         swal({
-            title: isaved ? "Your Entry is saved" : "Not Saved, contact admin",
+            title: isaved ? "Action Processed" : "Not Processed",
             icon: isaved ? "success" : "error",
             button: 'Ok',
         }).then(flag => handleRefresh());
@@ -50,6 +52,9 @@ let success = {
                 '<span class="xcell" style="width: 100px">' + x.date + '</span>' +
                 '<span class="xcell '+(isnegative?'red textwhite':'')+' right" style="width: 150px">' + x.amount + '</span>' +
                 '<span class="xcell" style="width: 300px">' + x.remarks + '</span>' +
+                '<span class="xcell" style="width: 300px; text-align: right;">' +
+                    '<button class="btn red" onclick="handleDelete('+x.id.trim()+')">Delete</button>' +
+                '</span>' +
                 '</div>'
         });
         result.splice(0, 0, '<div class="xhead">' +
@@ -58,6 +63,7 @@ let success = {
             '<span class="xcell" style="width: 100px">Month</span>' +
             '<span class="xcell right" style="width: 150px">Amount: ' + total + '</span>' +
             '<span class="xcell" style="width: 300px">Remarks</span>' +
+            '<span class="xcell" style="width: 300px; text-align: right;">Actions</span>' +
             '</div>');
         report1.innerHTML = result.join('');
     }
@@ -69,6 +75,25 @@ function error(err) {
         button: 'Ok',
     });
     console.log(err);
+}
+
+function handleDelete(id){
+    data={};
+    data['delete']=1;
+    data['id']=id;
+    swal(
+        {
+            title: "Are you sure to delete.",
+            icon:'error',
+            text:'please review entry before deleting',
+            buttons: ['No', 'Yes'],
+        }
+    ).then((flag) => {
+        if (flag === true) {
+            postData('./d155.php', data, success.alert, error);
+        }
+    });
+
 }
 
 
