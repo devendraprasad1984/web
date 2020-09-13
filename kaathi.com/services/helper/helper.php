@@ -3,13 +3,17 @@
 $res = [];
 $conn = new mysqli(host, user, pwd, db);
 
-function getArrayAsString($arr)
+function getArrayAsString($delim, $arr)
 {
-    $str = '';
-    foreach ($arr as $v) {
-        $str .= $v . ', ';
-    }
-    return $str;
+//    $output = implode($delim, array_map(
+//        function ($v, $k) {
+//            return sprintf("%s='%s'", $k, $v);
+//        },
+//        $arr,
+//        array_keys($arr)
+//    ));
+    $output = implode($delim, $arr);
+    return $output;
 }
 
 //function handleSave($data)
@@ -57,12 +61,15 @@ function getArrayAsString($arr)
 
 function handleContactUs($data)
 {
-    global $success;
-    ChromePhp::log('from handler',$data);
-//    $data['name'] = $rejectedUser->username;
-//    $data['email'] = $rejectedUser->email;
-//    $data['emailtype'] = "userRejectEmail";
-//    sendEmail($data);
-    $success['msg'] = 'email sent';
+    global $success, $conn;
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $xdata = getArrayAsString(', ', $data);
+    $sql = "INSERT INTO queries(iploc, data) values('$ip','$xdata')";
+    $result = $conn->query($sql);
+    mysqli_close($conn);
+//    ChromePhp::log('from handler',$data);
+    $data['emailtype'] = "contact-email";
+    sendEmail($data);
+    $success['msg'] = 'response recorded, check your email, we will get back to you';
     echo json_encode($success);
 }

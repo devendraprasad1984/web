@@ -24,16 +24,15 @@
 
                 //Recipients
                 $mail->setFrom('delhi.kaathi@gmail.com');
-                $mail->addAddress($mailDetails['email']);     // Add a recipient
+                $mail->addAddress('delhi.kaathi@gmail.com');     // Add a recipient
+//                $mail->addAddress('devendraprasad1984@gmail.com');     // Add a recipient
+                $mail->addReplyTo($mailDetails['email']);     // Add a recipient
 
                 // Content
                 $mail->isHTML(true);                                  // Set email format to HTML
                 $mail->Subject = $mailDetails['subject'];
                 $mail->Body    = $mailDetails['message'];
-
-
                 $mail->send();
-                
             } catch (Exception $e) {
                 echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
             }

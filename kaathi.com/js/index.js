@@ -88,12 +88,13 @@ let v_contact_page = {
     line2: ['Bagdola'],
     line3: ['new delhi - 110077'],
     line4: ['near dwarka sector 8 metro station'],
-    line6: '<div id="idContactForm">' +
+    line6: '<div id="idContactForm" class="formx">' +
         '<textarea placeholder="Message" class="form-control" type="textarea" id="message" name="message" maxlength="6000" rows="7"></textarea>' +
         '<input type="text" placeholder="Name" class="form-control" id="name" name="name" required>' +
         '<input type="email" placeholder="Email" class="form-control" id="email" name="email">' +
         '<input type="text" placeholder="contact number" class="form-control" id="contact" name="contact" required>' +
-        '<button type="submit" class="btn pull-right" onClick="sendMessage()" >Send</button>' +
+        '<button class="btn pull-right" onClick="sendMessage()" >Send</button>' +
+        '<button class="btn pull-right">Reset</button>' +
         '</div>',
     line5: '<div>' +
         '<span class="btn" onclick="addressOnMap(51.508742,-0.120850)">View on Map</span>' +
@@ -468,7 +469,7 @@ let sendMessage = () => {
     let contactFormData = {
         contactus: 1
         , message: $(id + ' #message').val()
-        , name: $(id + ' #name').val
+        , name: $(id + ' #name').val()
         , email: $(id + ' #email').val()
         , contact: $(id + ' #contact').val()
     };
@@ -486,12 +487,9 @@ let failHandle = (res) => {
 }
 
 let emailSuccess = (res) => {
-    // res = JSON.parse(res);
-    // console.log(res, res.status, res.msg);
     if (res.status === constObj.success) {
-        console.log('from email response', res.msg);
         swal({
-            text: 'Processing Successful'
+            text: 'Processing Successful, '+res.msg
             , icon: 'success'
         })
     }

@@ -9,7 +9,6 @@ require_once 'helper/emailer.php';
 global $success, $failed;
 try {
     $data = $_SERVER["REQUEST_METHOD"] == 'POST' ? $_POST : $_GET;
-//    ChromePhp::log($data);
     if (isset($_POST['contactus'])) handleContactUs($data);
 
 } catch (Exception $ex) {

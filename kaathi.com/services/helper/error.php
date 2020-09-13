@@ -2,6 +2,7 @@
 
 function writeErrorLog($e)
 {
+    global $conn;
     $arr=[];
     $arr['message'] = $e->getMessage();
     $arr['file'] = $e->getFile();
@@ -9,11 +10,12 @@ function writeErrorLog($e)
     $arr['trace'] = $e->getTraceAsString();
     // Check message
     if ($arr['message'] != '') {
-        $db = new Database;
         try {
-            $db->query('INSERT INTO errorlog (desc) VALUES (:message)');
-            $db->bind(':message', json_encode($arr));
-            if ($db->execute()) {
+            $xdata=getArrayAsString(', ',$arr);
+            $sql = "INSERT INTO errorlog (desc) VALUES ('$xdata')";
+            $result = $conn->query($sql);
+            mysqli_close($conn);
+            if ($result) {
                 return true;
             } else {
                 return false;
