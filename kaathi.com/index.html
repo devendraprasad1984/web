@@ -11,32 +11,35 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/mycss.css">
-    <link rel="stylesheet" href="js/toastr.min.css">
+    <link rel="stylesheet" href="css/toastr.min.css">
+    <link rel="stylesheet" href="css/sweetalert.css">
 </head>
 
 <body>
-<header class="header_format fixed-top">
-    <h2 title="GST: 07ATIPP0720B1Z6">
-        <span>com</span>
-        <span><i class="fa fa-whatsapp"></i>+91 958 279 7772</span>
+<header class="topbar fixed-top">
+    <div title="GST: 07ATIPP0720B1Z6">
         <span id="menubtn" class="btn" onclick="prepareLeftPage()">...</span>
-    </h2>
+        <span>kaathi.com</span>
+        <a href="https://wa.me/919582797772/?text=welcome to kaathi.com, callme:+91-9582797772" target="_blank"><i
+                class="fa fa-whatsapp"></i>+91 958 279 7772</a>
+        <a href="#" title="facebook page" target="_blank"><i class="fa fa-lg fa-facebook"></i></a>
+        <a href="#" title="twitter page" target="_blank"><i class="fa fa-lg fa-twitter"></i></a>
+        <a target="_blank" title="chat with us"><i class="fa fa-lg fa-comment"></i></a>
+    </div>
 </header>
 
-<section class="row">
-    <div id="id_div_left_container" class="col-lg-2 col-xs-2 card pull-left"></div>
-    <div id="id_div_container" class="col-lg-7 col-xs-7"></div>
-    <div id="id_div_right_container" class="col-lg-3 col-xs-5 card cart_bg pull-right"></div>
-</section>
+<div style="display: flex; flex-direction: column">
+    <input id="searchText" class="searchBox" type="text" placeholder="search products..."/>
+    <section class="row" class="container">
+        <div id="id_div_left_container" class="col-lg-2 col-xs-2 card pull-left"></div>
+        <div id="id_div_container" class="col-lg-7 col-xs-7"></div>
+        <div id="id_div_right_container" class="col-lg-3 col-xs-5 card cart_bg pull-right"></div>
+    </section>
+</div>
 
 <footer class="container">
-    <div class="">
-        <a href="#"><i class="fa fa-lg fa-facebook"></i></a>
-        <a href="#"><i class="fa fa-lg fa-twitter"></i></a>
-        <a href="#"><i class="fa fa-lg fa-whatsapp"></i></a>
-    </div>
-    <div class="move2top btn btn-light" onclick="move2top();" title="move to top"><i class="fa fa-arrow-up"></i></div>
-    <div id="id_bottom_cart_icon" class="bottom_cart btn btn-light" onclick="clickCartBadge();" title="cart"><i
+    <div class="move2top btn" onclick="move2top();" title="move to top"><i class="fa fa-arrow-up"></i></div>
+    <div id="id_bottom_cart_icon" class="bottom_cart btn" onclick="clickCartBadge();" title="cart"><i
             class="fa fa-opencart"></i><span class="badge badge-danger" style="top:-10px; ">0</span></div>
 </footer>
 
@@ -44,6 +47,7 @@
 <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/toastr.min.js"></script>
+<script type="text/javascript" src="js/sweetalert.min.js"></script>
 
 <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
 <script type="deb9e86e30198f498985e7a7-text/javascript">

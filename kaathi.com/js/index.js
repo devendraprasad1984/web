@@ -70,9 +70,9 @@ let onSuccess = () => {
 let onFailure = () => {
 }
 let v_left_page = [
-    ['<span class="btn btn-light" onClick="makeCart()">Cart</span>']
-    , ['<span class = "btn btn-light" onClick = "makeProductPage();"> Products </span>']
-    , ['<span class="btn btn-light" onClick="makeContactPage();">Contact Us</span>']
+    ['<span class="btn" onClick="makeCart()">Cart</span>']
+    , ['<span class = "btn" onClick = "makeProductPage();"> Products </span>']
+    , ['<span class="btn" onClick="makeContactPage();">Contact Us</span>']
 ]
 let emailer = 'services/email.php';
 let v_contact_page = {
@@ -520,10 +520,6 @@ function validateContact() {
             email.css(bg);
             valid = false;
         }
-        // if (!$(id+' email').val().match(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/)) {
-        //     $(id+' email').css(bg);
-        //     valid = false;
-        // }
         if (!message.val()) {
             message.css(bg);
             valid = false;
