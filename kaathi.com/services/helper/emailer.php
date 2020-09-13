@@ -1,5 +1,5 @@
 <?php
-require_once '../libs/email.php';
+require_once 'libs/email.php';
 
     function sendEmail($data){
         $send = new Email();

@@ -57,5 +57,12 @@ function getArrayAsString($arr)
 
 function handleContactUs($data)
 {
-    ChromePhp::log($data);
+    global $success;
+    ChromePhp::log('from handler',$data);
+//    $data['name'] = $rejectedUser->username;
+//    $data['email'] = $rejectedUser->email;
+//    $data['emailtype'] = "userRejectEmail";
+//    sendEmail($data);
+    $success['msg'] = 'email sent';
+    echo json_encode($success);
 }

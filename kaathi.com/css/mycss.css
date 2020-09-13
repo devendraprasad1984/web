@@ -315,6 +315,10 @@ div .link_logo > a > img {
 
 }
 
+.logo{
+    height: 30px;
+    width: 30px;
+}
 
 .topbar {
     width: 100%;

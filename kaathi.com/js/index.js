@@ -63,8 +63,16 @@ let v_products = {
     }
 }
 let globalVars = {}
-let constObj={cart:'cart',product:'product',contact:'contact',blank:'{"msg":"blank"}',send:'plz wait...',close:'Close'}
-let curRightPanelObject=constObj.cart;
+let constObj = {
+    cart: 'cart',
+    success: 'success',
+    failed: 'failed',
+    product: 'product',
+    contact: 'contact',
+    send: 'plz wait...',
+    close: 'Close'
+}
+let curRightPanelObject = constObj.cart;
 let onSuccess = () => {
 }
 let onFailure = () => {
@@ -74,13 +82,14 @@ let v_left_page = [
     , ['<span class = "btn" onClick = "makeProductPage();"> Products </span>']
     , ['<span class="btn" onClick="makeContactPage();">Contact Us</span>']
 ]
-let emailer = 'services/email.php';
+let main = './services/main.php';
 let v_contact_page = {
     line1: ['D155 sector8'],
     line2: ['Bagdola'],
     line3: ['new delhi - 110077'],
     line4: ['near dwarka sector 8 metro station'],
-    line6: '<div id="idContactForm"><textarea placeholder="Message" class="form-control" type="textarea" id="message" name="message" maxlength="6000" rows="7"></textarea>' +
+    line6: '<div id="idContactForm">' +
+        '<textarea placeholder="Message" class="form-control" type="textarea" id="message" name="message" maxlength="6000" rows="7"></textarea>' +
         '<input type="text" placeholder="Name" class="form-control" id="name" name="name" required>' +
         '<input type="email" placeholder="Email" class="form-control" id="email" name="email">' +
         '<input type="text" placeholder="contact number" class="form-control" id="contact" name="contact" required>' +
@@ -152,7 +161,7 @@ let displayProducts = (category) => {
         let images = v_product.images;
         let price = v_product.price;
         let amzLink = v_product.amzlink;
-        if(v_product["qty"]===undefined)
+        if (v_product["qty"] === undefined)
             v_product["qty"] = 0;
 
         let elm1 = '<div style="padding: 2px;">' +
@@ -217,7 +226,7 @@ let display_product_images = (pid, imgs) => {
 }
 
 let makeContactPage = () => {
-    curRightPanelObject=constObj.contact;
+    curRightPanelObject = constObj.contact;
     let elm1 = '<div id="id_contact_page"><h2>Contact Us</h2>';
     let shtml = elm1;
     for (let i in v_contact_page) {
@@ -232,7 +241,7 @@ let makeContactPage = () => {
 }
 
 let makeProductPage = () => {
-    curRightPanelObject=constObj.product;
+    curRightPanelObject = constObj.product;
     let elm1 = '<div id="id_product_page"><h2>Our Products</h2>';
     let shtml = elm1;
     for (let i in v_product_categories) {
@@ -332,7 +341,7 @@ var displayCart = () => {
 }
 
 let makeCart = () => {
-    curRightPanelObject=constObj.cart;
+    curRightPanelObject = constObj.cart;
     displayCart();
     move2top();
 }
@@ -360,14 +369,14 @@ let closeLeftPanel = () => {
     $(leftContainer).css({display: 'none'});
 }
 let closeRightPanel = () => {
-    let txt=$(v_right_close_button).html()||'';
-    if(txt.toLowerCase()==='close')
+    let txt = $(v_right_close_button).html() || '';
+    if (txt.toLowerCase() === 'close')
         $(rightContainer).css({display: 'none'});
 }
 
 let clickCartBadge = () => {
     move2top();
-    if (!$(rightContainer).is(":visible") || curRightPanelObject!=constObj.cart) {
+    if (!$(rightContainer).is(":visible") || curRightPanelObject != constObj.cart) {
         displayCart();
     }
 }
@@ -449,11 +458,6 @@ let move2top = () => {
 }
 
 let addressOnMap = (lat, lang) => {
-    // var mapProp= {
-    //     center:new google.maps.LatLng(lat,lang),
-    //     zoom:5,
-    // };
-    // var map = new google.maps.Map(document.getElementById('addressMap'),mapProp);
     toastr.info("in progress");
 }
 
@@ -462,73 +466,93 @@ let sendMessage = () => {
     // let contactFormData=$('#idContactForm').html();
     let id = '#idContactForm';
     let contactFormData = {
-        message: $(id + ' #message').val()||''
-        , name: $(id + ' #name').val()||''
-        , email: $(id + ' #email').val()||''
-        , contact: $(id + ' #contact').val()||''
+        contactus: 1
+        , message: $(id + ' #message').val()
+        , name: $(id + ' #name').val
+        , email: $(id + ' #email').val()
+        , contact: $(id + ' #contact').val()
     };
     onSuccess = emailSuccess;
     onFailure = failHandle;
-    getFromServer(emailer, contactFormData);
+    POSTMeesage(main, contactFormData);
 }
 let failHandle = (res) => {
-    toastr.error(res);
-    console.error(res);
+    console.log('failed response from server', res['status'], res);
+    swal({
+        text: 'Processing failed, contact helpdesk, delhi.kaathi@gmail.com, +919582797772'
+        , icon: 'error'
+    })
     $(v_right_close_button).html(constObj.close);
 }
 
 let emailSuccess = (res) => {
-    // console.log(res);
-    res=res||constObj.blank;
-    if(res!==constObj.blank){
-        let msg = JSON.parse(res).msg || '';
-        toastr.success(msg);
-        // console.log(msg)
+    // res = JSON.parse(res);
+    // console.log(res, res.status, res.msg);
+    if (res.status === constObj.success) {
+        console.log('from email response', res.msg);
+        swal({
+            text: 'Processing Successful'
+            , icon: 'success'
+        })
     }
     $(v_right_close_button).html(constObj.close);
 }
-let getFromServer = (url, xval) => {
+let POSTMeesage = (url, xval) => {
     // beforeSend:textreplace(description),
     $.ajax({
         url: url,
-        type: 'post',
+        type: 'POST',
         data: xval,
-        complete: (res) => {
-            onSuccess(res.responseText);
+        dataType: 'json',
+        success: (res) => {
+            onSuccess(res);
         },
         error: (res) => {
-            onFailure('error, check with admin '+res.responseText);
+            onFailure('error, check with admin ' + res);
         }
     });
     return false;
 }
 
+function getData(url = '', success, error) {
+    $.ajax({
+        type: "GET",
+        url: url,
+        dataType: 'json',
+        success,
+        error
+    });
+}
+
 
 function validateContact() {
     let valid = true;
-        let id = '#idContactForm';
-        let name = $(id + ' #name');
-        let email = $(id + ' #email');
-        let message = $(id + ' #message');
-        let contact = $(id + ' #contact');
-        name.css(clearbg); email.css(clearbg); message.css(clearbg); contact.css(clearbg);
-        if (!name.val()) {
-            $(name).css(bg);
-            valid = false;
-        }
-        if (!email.val()) {
-            email.css(bg);
-            valid = false;
-        }
-        if (!message.val()) {
-            message.css(bg);
-            valid = false;
-        }
-        if (!contact.val()) {
-            contact.css(bg);
-            valid = false;
-        }
-        return valid;
+    let id = '#idContactForm';
+    let name = $(id + ' #name');
+    let email = $(id + ' #email');
+    let message = $(id + ' #message');
+    let contact = $(id + ' #contact');
+    name.css(clearbg);
+    email.css(clearbg);
+    message.css(clearbg);
+    contact.css(clearbg);
+    if (!name.val()) {
+        $(name).css(bg);
+        valid = false;
+    }
+    if (!email.val()) {
+        email.css(bg);
+        valid = false;
+    }
+    if (!message.val()) {
+        message.css(bg);
+        valid = false;
+    }
+    if (!contact.val()) {
+        contact.css(bg);
+        valid = false;
+    }
+    return valid;
 }
 
 

@@ -1,7 +1,7 @@
 <?php
 
-$success = json_encode(array('status' => 'success'));
-$failed = json_encode(array('status' => 'failed, not allowed'));
+$success = array('status' => 'success');
+$failed = array('status' => 'failed');
 
 $server = $_SERVER['REMOTE_ADDR'];
 if ($server == '::1' or $server == 'localhost' or $server == '127.0.0.1') {
