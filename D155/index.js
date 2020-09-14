@@ -78,6 +78,9 @@ function error(err) {
 }
 
 function handleDelete(id){
+    let pass=prompt('enter passphrase');
+    if(pass!=='6200') return;
+
     data={};
     data['delete']=1;
     data['id']=id;
@@ -119,6 +122,7 @@ function handleSubmit() {
 }
 
 function handleRefresh() {
+    report1.innerHTML = '<h1>please wait, loading...</h1>';
     let txt=idSearchBox.value.toLowerCase();
     getData('./d155.php?expenses=1&by='+txt, success.refresh, error);
 }

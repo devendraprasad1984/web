@@ -56,7 +56,7 @@ function handleExpensesReport($data)
     $search=$data['by'];
     $qur = "select a.* from expenses a
             where (concat('@',name) like '%$search%' or date like '%$search%' or amount like '%$search%' or remarks like '%$search%')
-            order by a.when desc";
+            order by  str_to_date(concat('01 ',a.date),'%d %M %Y') desc ,a.when desc";
 //    ChromePhp::log($qur);
     $sql = $conn->query($qur);
     $rows = $sql->fetch_all(MYSQLI_ASSOC);
