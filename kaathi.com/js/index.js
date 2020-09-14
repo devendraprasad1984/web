@@ -178,7 +178,7 @@ let displayProducts = (category) => {
         let elm5 = '<div class="link_logo">' +
             ' <a target="_blank" id="id_amazon_"' + pname + ' href="' + amzLink + '">amazon</a>' +
             '</div>';
-        let shtml = '<div class="col-lg-12 cenAlign product_box">' + elm1 + elm4 + elm2 + elm3 + elm5 + '</div><br/>';
+        let shtml = '<div class="cenAlign product_box">' + elm1 + elm4 + elm2 + elm3 + elm5 + '</div><br/>';
         $(mainContainer).append(shtml);
         closePanelIfMobile();
     }
@@ -265,7 +265,7 @@ let prepareLeftPage = () => {
     }
     shtml += '</div>';
     $(leftContainer).html(shtml);
-    showLeftPanel();
+    // showLeftPanel();
     move2top();
     if (globalVars.isMobile) {
         //set right+left container display mode like a mobile
@@ -311,8 +311,8 @@ let initApp = () => {
 }
 let closePanelIfMobile = () => {
     if (globalVars['isMobile']) {
-        closeLeftPanel();
-        closeRightPanel();
+        // closeLeftPanel();
+        // closeRightPanel();
     }
 }
 
@@ -338,7 +338,7 @@ var displayCart = () => {
     manage_bottom_cart_icon_count();
     $(".cart_bg div span.btn").remove();
     checkOutPayment = Amount; //checkout amount that we may want to charge
-    showRightPanel();
+    // showRightPanel();
 }
 
 let makeCart = () => {
@@ -347,33 +347,35 @@ let makeCart = () => {
     move2top();
 }
 
-let getCloseButtonOnRightPanel = () => {
-    return '<span id="rightPanelCloseButton" class="btn btn-danger" onclick="closeRightPanel();">Close</span>';
-}
-let getCloseButtonOnLeftPanel = () => {
-    return '<span class="btn btn-danger" onclick="closeLeftPanel();">Close</span>';
-}
+// let getCloseButtonOnRightPanel = () => {
+//     return '<span id="rightPanelCloseButton" class="btn btn-danger" onclick="closeRightPanel();">Close</span>';
+// }
+// let getCloseButtonOnLeftPanel = () => {
+//     return '<span class="btn btn-danger" onclick="closeLeftPanel();">Close</span>';
+// }
 
-let showRightPanel = () => {
-    $(rightContainer).prepend(getCloseButtonOnRightPanel());
-    if (!$(rightContainer).is(":visible")) {
-        $(rightContainer).css({display: 'block'});
-    }
-}
-let showLeftPanel = () => {
-    $(leftContainer).prepend(getCloseButtonOnLeftPanel());
-    if (!$(leftContainer).is(":visible")) {
-        $(leftContainer).css({display: 'block'});
-    }
-}
-let closeLeftPanel = () => {
-    $(leftContainer).css({display: 'none'});
-}
-let closeRightPanel = () => {
-    let txt = $(v_right_close_button).html() || '';
-    if (txt.toLowerCase() === 'close')
-        $(rightContainer).css({display: 'none'});
-}
+// let showRightPanel = () => {
+//     $(rightContainer).prepend(getCloseButtonOnRightPanel());
+//     if (!$(rightContainer).is(":visible")) {
+//         $(rightContainer).css({display: 'block'});
+//     }
+// }
+// let showLeftPanel = () => {
+//     $(leftContainer).prepend(getCloseButtonOnLeftPanel());
+//     if (!$(leftContainer).is(":visible")) {
+//         $(leftContainer).css({display: 'block'});
+//     }else{
+//         $(leftContainer).css({display: 'none'});
+//     }
+// }
+// let closeLeftPanel = () => {
+//     $(leftContainer).css({display: 'none'});
+// }
+// let closeRightPanel = () => {
+//     let txt = $(v_right_close_button).html() || '';
+//     if (txt.toLowerCase() === 'close')
+//         $(rightContainer).css({display: 'none'});
+// }
 
 let clickCartBadge = () => {
     move2top();
