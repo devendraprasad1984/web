@@ -20,7 +20,7 @@
 </div>
 
 <div>
-    <button id="btnUnlock" class="btn blue" onclick="handleUnlock()">Unlock</button>
+    <button id="btnUnlock" class="btn blue" onclick="handleUnlock(this.id)">Unlock</button>
 </div>
 
 <div id="formInputs" class="input-inline purple hide">
@@ -32,20 +32,18 @@
     </select>
     <select id="time">
         <option value="Oct2020">Oct2020</option>
-        <option value="Oct2020">Oct2020</option>
-        <option value="Oct2020">Oct2020</option>
     </select>
     <input id="amount" type="text" value="1000" class="input-right"
            placeholder="enter your amount, if expenses place negative number" width="50px">
     <input id="remarks" type="text" placeholder="eg regular maintenance" width="150px">
-    <button id="btnSubmit" class="btn red" onclick="handleSubmit()"> Submit</button>
+    <button id="btnSubmit" class="btn red" onclick="handleSubmit(this.id)"> Submit</button>
 </div>
 
 
 <div>
     <div id="search1">
         <input id="idSearchBox" class="searchText" type="text" onkeypress="searchByKeyword(event)" placeholder="enter search keyword by name,remarks,amount,month/years etc">
-        <button class="btn green">Search</button>
+        <button id="idSearchBtn" class="btn green" onclick="handleRefresh()">Search</button>
     </div>
     <div id="report1" class="divx"></div>
 </div>

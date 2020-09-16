@@ -4,11 +4,20 @@ let imgObj = {
     , dev: 'images/dev.png'
     , ajay: 'images/ajay.png'
 }
+let curObj={}
+let searchBtn = $('#idSearchBtn');
 
-function handleUnlock() {
+function handleUnlock(id) {
+    let oldval=$('#'+id).html();
+    $('#'+id).html('Please Wait...');
     let pass=prompt('enter passphrase');
-    if(pass!=='6200') return;
-    formInputs.classList.remove('hide');
+    if(pass!=='6200') {
+        $('#'+id).html(oldval);
+        return;
+    }else{
+        formInputs.classList.remove('hide');
+        $('#'+id).html(oldval);
+    }
 }
 
 function postData(url = '', data = {}, success, error) {
@@ -100,7 +109,10 @@ function handleDelete(id){
 }
 
 
-function handleSubmit() {
+function handleSubmit(id) {
+    let cur=$('#'+id);
+    let oldval=cur.html();
+    cur.html('please wait...');
     data = {};
     data['save'] = 1;
     data['name'] = names.value;
@@ -116,15 +128,26 @@ function handleSubmit() {
         }
     ).then((flag) => {
         if (flag === true) {
+            curObj.submit=cur;
+            curObj.submitText=oldval;
             postData('./d155.php', data, success.alert, error);
+        }else{
+            cur.html(oldval);
         }
     });
 }
 
 function handleRefresh() {
+    let oldval=searchBtn.html();
+    searchBtn.html('Please Wait...');
     report1.innerHTML = '<h1>please wait, loading...</h1>';
     let txt=idSearchBox.value.toLowerCase();
     getData('./d155.php?expenses=1&by='+txt, success.refresh, error);
+    searchBtn.html(oldval);
+    if(typeof curObj.submit !=="undefined"){
+        curObj.submit.html(curObj.submitText);
+        curObj.submit=undefined;
+    }
 }
 
 function preparePeriod() {

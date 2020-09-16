@@ -1075,7 +1075,7 @@
                 'textformats': ['indent', 'outdent', 'block_quote', 'ol', 'ul'],
                 'fonteffects': ['fonts', 'styles', 'font_size'],
                 'actions': ['undo', 'redo'],
-                'insertoptions': ['insert_link', 'unlink', 'insert_img', 'insert_table'],
+                'insertoptions': ['insert_link', 'unlink', 'insert_table'],
                 'extraeffects': ['strikeout', 'hr_line', 'splchars'],
                 'advancedoptions': ['print', 'rm_format', 'select_all', 'source'],
                 'screeneffects': ['togglescreen']
