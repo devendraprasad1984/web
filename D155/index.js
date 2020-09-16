@@ -153,8 +153,14 @@ function handleRefresh() {
 function preparePeriod() {
     let years = [];
     let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    let curDate=new Date();
+    let curPeriod=months[curDate.getMonth()]+' '+curDate.getFullYear();
     for (let i = 2020; i < 2025; i++) {
-        years.push(months.map(x => '<option value="' + x + ' ' + i + '">' + x + ' ' + i + '</option>').join(''));
+        years.push(months.map(x => {
+            let cval=x + ' ' + i;
+            let xelem= cval===curPeriod ? '<option value="' + cval + '" selected>' + cval + '</option>' : '<option value="' + cval + '">' + cval + '</option>';
+            return xelem
+        }).join(''));
         // years.push('<option value="'+i+'">'+i+'</option>');
     }
     time.innerHTML = years.join('');
