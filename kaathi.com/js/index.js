@@ -8,60 +8,16 @@ let cart_final_qty = 'cart_final_qty';
 let leftContainer = '#id_div_left_container';
 let v_products = {
     1: {
-        category: 'category1',
+        category: 'wooden educational toys',
         code: 'prod1',
-        desc: 'desc1desc1desc1desc1desc1desc1desc1desc1desc1desc1desc1desc1desc1desc1desc1desc1desc1desc1desc1desc1desc1',
+        desc: 'this is a test of product 1 category 1',
         images: ['1.jpeg'],
         price: 10,
         discount: 0,
         amzlink: 'https://www.amazon.in/Mammon-Womens-Leather-Handbag-3L-bib-Cream/dp/B07XKNS6FF/ref=lp_19079038031_1_1?s=shoes&ie=UTF8&qid=1574514565&sr=1-1'
-    },
-    2: {
-        category: 'category1',
-        code: 'prod2',
-        desc: 'desc2',
-        images: ['1.jpeg'],
-        price: 20,
-        discount: 10,
-        amzlink: 'https://www.amazon.in/Mammon-Womens-Leather-Handbag-3L-bib-Cream/dp/B07XKNS6FF/ref=lp_19079038031_1_1?s=shoes&ie=UTF8&qid=1574514565&sr=1-1'
-    },
-    3: {
-        category: 'category2',
-        code: 'prod3',
-        desc: 'desc3',
-        images: ['1.jpeg'],
-        price: 30,
-        discount: 0,
-        amzlink: 'https://www.amazon.in/Mammon-Womens-Leather-Handbag-3L-bib-Cream/dp/B07XKNS6FF/ref=lp_19079038031_1_1?s=shoes&ie=UTF8&qid=1574514565&sr=1-1'
-    },
-    4: {
-        category: 'category4',
-        code: 'prod4',
-        desc: 'desc4',
-        images: ['1.jpeg'],
-        price: 40,
-        discount: 20,
-        amzlink: 'https://www.amazon.in/Mammon-Womens-Leather-Handbag-3L-bib-Cream/dp/B07XKNS6FF/ref=lp_19079038031_1_1?s=shoes&ie=UTF8&qid=1574514565&sr=1-1'
-    },
-    5: {
-        category: 'category2',
-        code: 'prod5',
-        desc: 'desc5',
-        images: ['1.jpeg'],
-        price: 50,
-        discount: 0,
-        amzlink: 'https://www.amazon.in/Mammon-Womens-Leather-Handbag-3L-bib-Cream/dp/B07XKNS6FF/ref=lp_19079038031_1_1?s=shoes&ie=UTF8&qid=1574514565&sr=1-1'
-    },
-    6: {
-        category: 'category4',
-        code: 'prod6',
-        desc: 'desc6',
-        images: ['1.jpeg'],
-        price: 60,
-        discount: 30,
-        amzlink: 'https://www.amazon.in/Mammon-Womens-Leather-Handbag-3L-bib-Cream/dp/B07XKNS6FF/ref=lp_19079038031_1_1?s=shoes&ie=UTF8&qid=1574514565&sr=1-1'
     }
 }
+let configObj={};
 let globalVars = {}
 let constObj = {
     cart: 'cart',
@@ -70,7 +26,8 @@ let constObj = {
     product: 'product',
     contact: 'contact',
     send: 'plz wait...',
-    close: 'Close'
+    close: 'Close',
+    errmsg:'some error, contact admin'
 }
 let curRightPanelObject = constObj.cart;
 let onSuccess = () => {
@@ -79,13 +36,13 @@ let onFailure = () => {
 }
 let v_left_page = [
     ['<span class="btn" onClick="makeCart()">Cart</span>']
-    , ['<span class = "btn" onClick = "makeProductPage();"> Products </span>']
+    , ['<span class = "btn" onClick = "makeProductPage();">Products</span>']
     , ['<span class="btn" onClick="makeContactPage();">Contact Us</span>']
 ]
 let main = './services/main.php';
 let v_contact_page = {
-    line1: ['D155 sector8'],
-    line2: ['Bagdola'],
+    line1: ['Plot 155'],
+    line2: ['Block D, Bagdola'],
     line3: ['new delhi - 110077'],
     line4: ['near dwarka sector 8 metro station'],
     line6: '<div id="idContactForm" class="formx">' +
@@ -93,7 +50,7 @@ let v_contact_page = {
         '<input type="text" placeholder="Name" class="form-control" id="name" name="name" required>' +
         '<input type="email" placeholder="Email" class="form-control" id="email" name="email">' +
         '<input type="text" placeholder="contact number" class="form-control" id="contact" name="contact" required>' +
-        '<button class="btn pull-right" onClick="sendMessage()" >Send</button>' +
+        '<button class="btn pull-right" onClick="sendMessage()">Send</button>' +
         '<button class="btn pull-right">Reset</button>' +
         '</div>',
     line5: '<div>' +
@@ -101,24 +58,18 @@ let v_contact_page = {
         '<div id="addressMap"></div>' +
         '</div>'
 }
-let v_product_categories = {
-    category1: {name: 'category1', type: 'type1', details: 'detail1'},
-    category2: {name: 'category2', type: 'type1', details: 'detail1'},
-    category3: {name: 'category3', type: 'type1', details: 'detail1'},
-    category4: {name: 'category4', type: 'type1', details: 'detail1'},
-    category5: {name: 'category5', type: 'type1', details: 'detail1'},
-    category6: {name: 'category6', type: 'type1', details: 'detail1'},
-    category7: {name: 'category7', type: 'type1', details: 'detail1'},
-    category8: {name: 'category8', type: 'type1', details: 'detail1'},
-    category9: {name: 'category9', type: 'type1', details: 'detail1'},
-    category10: {name: 'category10', type: 'type1', details: 'detail1'}
-}
+let v_product_categories = [{name: 'category1', type: 'type1', details: 'detail1'}];
+
 let mainContainer = '#id_div_container';
 let selectedProduct = {}
 let rightContainer = '#id_div_right_container';
 let cartObj = {}
 let checkOutPayment = 0;
 
+function onServerError(){
+    console.error(constObj.errmsg);
+    alert(constObj.errmsg);
+}
 $(document).ready(function () {
     prepareViewMobileReady();
     toastr.options = {
@@ -138,7 +89,7 @@ $(document).ready(function () {
         "hideMethod": "hide"
     };
     initApp();
-    displayProducts('category1');
+    // displayProducts('category1');
 });
 
 let prepareViewMobileReady = () => {
@@ -157,26 +108,29 @@ let displayProducts = (category) => {
         let v_product = v_products[x];
         if (v_product.category !== category) continue;
         found += 1;
-        let pname = v_product.code;
+        let pid =parseInt(v_product.id);
+        let pname = v_product.name;
         let desc = v_product.desc;
         let images = v_product.images;
-        let price = v_product.price;
-        let amzLink = v_product.amzlink;
+        let amzLink = v_product.amazonLink||'';
+        let folderRef = v_product.folderRef;
+        let qrid = v_product.qrid;
+        let flipkarLink = v_product.flipkartLink||'';
         if (v_product["qty"] === undefined)
             v_product["qty"] = 0;
 
         let elm1 = '<div style="padding: 2px;">' +
-            '<h2>' + pname + ' ' +
-            '<span class="btn btn-light pull-right" onclick="handleProductClick(\'' + pname + '\',-1)"><i class="fa fa-lg fa-minus"></i></span>' +
-            '<span class="btn btn-light pull-right" onclick="handleProductClick(\'' + pname + '\',1)"><i class="fa fa-lg fa-plus"></i></span>' +
-            '</h2>' +
+            '<h1>' + pname + ' ' +
+            '<span class="btn btn-light pull-right" onclick="handleProductClick(\'' + pid + '\',-1)"><i class="fa fa-lg fa-minus"></i></span>' +
+            '<span class="btn btn-light pull-right" onclick="handleProductClick(\'' + pid + '\',1)"><i class="fa fa-lg fa-plus"></i></span>' +
+            '</h1>' +
             '</div>';
-        let elm2 = '<div><b id="id_prod_desc_' + pname + '">' + desc + '</b></div>';
-        let elm3 = '<div><span id="id_img_desc_' + pname + '" class="productImages">' + display_product_images(x, images) + '</span></div>';
-        // elm3_1 = '<div><span id="id_basePrice_"' + x + ' >Base Price: ' +rs+price + '</span></div>';
-        let elm4 = '<div id="priceTag_' + pname + '" class="priceline color1">' + getPriceLine(v_product, v_product["qty"]) + '</div>';
+        let elm2 = '<div><b id="id_prod_desc_' + pid + '">' + desc + '</b></div>';
+        let elm3 = '<div><span id="id_img_desc_' + pid + '" class="productImages">' + display_product_images(folderRef, images) + '</span></div>';
+        let elm4 = '<div id="priceTag_' + pid + '" class="priceline color1">' + getPriceLine(v_product, v_product["qty"]) + '</div>';
         let elm5 = '<div class="link_logo">' +
-            ' <a target="_blank" id="id_amazon_"' + pname + ' href="' + amzLink + '">amazon</a>' +
+            (amzLink!=="" ?'<a target="_blank" id="id_amazon_"' + pid + ' href="' + amzLink + '">amazon</a>':'')
+            + (flipkarLink!=="" ?' | <a target="_blank" id="id_flipkart_"' + pid + ' href="' + flipkarLink + '">flipkart</a>':'') +
             '</div>';
         let shtml = '<div class="cenAlign product_box">' + elm1 + elm4 + elm2 + elm3 + elm5 + '</div><br/>';
         $(mainContainer).append(shtml);
@@ -193,15 +147,15 @@ let getErrorDetails = () => {
 
 let getCategoryDetails = (category) => {
     for (x in v_product_categories) {
-        if (x == category) {
+        if (v_product_categories[x].name == category) {
             return v_product_categories[x];
         }
     }
 }
 
 let getCalci = (prod, qty) => {
-    let discount = prod.discount;
-    let price = prod.price * qty;
+    let discount =parseFloat(prod.discount);
+    let price =parseFloat(prod.price) * parseInt(qty);
     let finalAmount = Math.round(price - price * discount / 100, 0);
     let savedAmount = price - finalAmount;
     let objCalc = {price, discount, finalAmount, savedAmount, qty};
@@ -210,17 +164,22 @@ let getCalci = (prod, qty) => {
 }
 let getPriceLine = (prod, qty) => {
     let x = getCalci(prod, qty);
-    let shtml = '<div><span>' + rs + prod.price + '*' + qty + '</span> ' +
+    let shtml = '<h2>' +
+        '<span>' + rs + prod.price + '*' + qty + '</span> ' +
         '<span> - ' + rs + x.savedAmount + '(' + x.discount + '%)</span> ' +
         '<span> = ' + rs + x.finalAmount + '</span> ' +
-        '<span class="btn btn-light pull-right" title="' + x.qty + ' qty selected" onclick="add2cart(\'' + prod.code + '\');"><i class="fa fa-lg fa-check-square" ></i> </span></div>';
+        '<span class="btn btn-light pull-right" title="' + x.qty + ' qty selected" onclick="add2cart(\'' + prod.code + '\');">' +
+        '<i class="fa fa-lg fa-check-square" ></i> </span>' +
+        '</h2>';
     return shtml;
 }
 
-let display_product_images = (pid, imgs) => {
-    var sImages = '<div class="row">';
-    for (i in imgs) {
-        sImages += '<img class="col-lg-4" src="' + product_img_base + pid + '/' + imgs[i] + '" alt="' + imgs[i] + '" />';
+let display_product_images = (folderRef, imgs) => {
+    if(imgs===''|| typeof imgs==="undefined") return;
+    let sImages = '<div class="row">';
+    let arrImg=imgs.split(',');
+    for (let i in arrImg) {
+        sImages += '<img class="col-lg-4" src="' + product_img_base + folderRef + arrImg[i] + '" alt="' + arrImg[i] + '" />';
     }
     sImages += '</div>';
     return sImages
@@ -237,7 +196,6 @@ let makeContactPage = () => {
     }
     shtml += '</div>';
     $(rightContainer).html(shtml);
-    showRightPanel();
     move2top();
 }
 
@@ -251,7 +209,6 @@ let makeProductPage = () => {
     }
     shtml += '</div>';
     $(rightContainer).html(shtml);
-    showRightPanel();
     move2top();
 }
 
@@ -275,11 +232,7 @@ let prepareLeftPage = () => {
 }
 
 let clickOnProductCategory = (category) => {
-    // toastr.info(category + " is clicked");
     displayProducts(category);
-    if (globalVars['isMobile']) {
-        closeRightPanel();
-    }
 }
 
 
@@ -304,10 +257,22 @@ let add2cart = (xid) => {
 }
 
 let initApp = () => {
-    if (!globalVars['isMobile']) {
-        prepareLeftPage();
-        displayCart();
+    //get home load data from server
+    prepareLeftPage();
+    displayCart();
+    onSuccess = (res) => {
+        if(res.status.status==='success'){
+            console.log(res);
+            configObj=res.config;
+            v_product_categories=res.categories;
+            v_products=res.products;
+            displayProducts(v_product_categories[0].name);
+        }else{
+            onServerError();
+        }
     }
+    onFailure = failHandle
+    POSTMeesage(main, {loadhome: 1})
 }
 let closePanelIfMobile = () => {
     if (globalVars['isMobile']) {
@@ -346,36 +311,6 @@ let makeCart = () => {
     displayCart();
     move2top();
 }
-
-// let getCloseButtonOnRightPanel = () => {
-//     return '<span id="rightPanelCloseButton" class="btn btn-danger" onclick="closeRightPanel();">Close</span>';
-// }
-// let getCloseButtonOnLeftPanel = () => {
-//     return '<span class="btn btn-danger" onclick="closeLeftPanel();">Close</span>';
-// }
-
-// let showRightPanel = () => {
-//     $(rightContainer).prepend(getCloseButtonOnRightPanel());
-//     if (!$(rightContainer).is(":visible")) {
-//         $(rightContainer).css({display: 'block'});
-//     }
-// }
-// let showLeftPanel = () => {
-//     $(leftContainer).prepend(getCloseButtonOnLeftPanel());
-//     if (!$(leftContainer).is(":visible")) {
-//         $(leftContainer).css({display: 'block'});
-//     }else{
-//         $(leftContainer).css({display: 'none'});
-//     }
-// }
-// let closeLeftPanel = () => {
-//     $(leftContainer).css({display: 'none'});
-// }
-// let closeRightPanel = () => {
-//     let txt = $(v_right_close_button).html() || '';
-//     if (txt.toLowerCase() === 'close')
-//         $(rightContainer).css({display: 'none'});
-// }
 
 let clickCartBadge = () => {
     move2top();
@@ -421,7 +356,7 @@ let clearAll = () => {
     cartObj = {};
     $(rightContainer).empty();
     displayProducts(Object.keys(v_product_categories)[0]);
-    if (globalVars.isMobile) closeRightPanel();
+    // if (globalVars.isMobile) closeRightPanel();
     manage_bottom_cart_icon_count();
 }
 
@@ -431,10 +366,10 @@ function isMobileDevice() {
 };
 
 
-let getProductByCode = (code) => {
+let getProductByCode = (pid) => {
     let pr = {}
     for (i in v_products) {
-        if (v_products[i].code == code) {
+        if (v_products[i].id == pid) {
             pr = v_products[i];
             break;
         }
@@ -442,15 +377,15 @@ let getProductByCode = (code) => {
     return pr;
 }
 
-let handleProductClick = (pname, qty) => {
-    selectedProduct = getProductByCode(pname);
+let handleProductClick = (pid, qty) => {
+    selectedProduct = getProductByCode(pid);
     if (selectedProduct.qty == undefined) selectedProduct.qty = 0;
-    selectedProduct.qty += qty;
+    selectedProduct.qty = parseInt(selectedProduct.qty)+ qty;
     if (selectedProduct.qty <= 0) selectedProduct.qty = 0;
     // console.log(selectedProduct)
     let sUpdatedPrice = getPriceLine(selectedProduct, selectedProduct.qty);
     selectedProduct.calci = sUpdatedPrice;
-    $(priceTag + '_' + pname).html(sUpdatedPrice);
+    $(priceTag + '_' + pid).html(sUpdatedPrice);
 }
 
 let move2top = () => {
@@ -491,7 +426,7 @@ let failHandle = (res) => {
 let emailSuccess = (res) => {
     if (res.status === constObj.success) {
         swal({
-            text: 'Processing Successful, '+res.msg
+            text: 'Processing Successful, ' + res.msg
             , icon: 'success'
         })
     }

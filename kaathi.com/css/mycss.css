@@ -11,12 +11,9 @@ html, body {
 footer i:hover {
     color: tomato;
 }
-.color1 {
-    color: #008ECC;
-}
 
 h1 {
-    font-size: 14px;
+    font-size: 16px;
 }
 
 h2 {

@@ -73,3 +73,28 @@ function handleContactUs($data)
     $success['msg'] = 'response recorded, check your email, we will get back to you';
     echo json_encode($success);
 }
+
+
+function handleLoadHome($data){
+    global $success, $conn;
+    $homeObj=[];
+    //get config object
+    $qur="select * from config";
+    $sql = $conn->query($qur);
+    $config = $sql->fetch_all(MYSQLI_ASSOC);
+    //get categories
+    $qur="select * from categories order by id";
+    $sql = $conn->query($qur);
+    $categories = $sql->fetch_all(MYSQLI_ASSOC);
+    //get products
+    $qur="select a.*,c.name as category,c.type from products a inner join categories c on a.cat_id = c.id order by a.cat_id, c.name";
+    $sql = $conn->query($qur);
+    $products = $sql->fetch_all(MYSQLI_ASSOC);
+    mysqli_free_result($sql);
+    mysqli_close($conn);
+    $homeObj['status']=$success;
+    $homeObj['config']=$config;
+    $homeObj['categories']=$categories;
+    $homeObj['products']=$products;
+    echo json_encode($homeObj);
+}
