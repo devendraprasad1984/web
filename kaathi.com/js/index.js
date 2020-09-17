@@ -3,6 +3,7 @@ let product_img_base = 'imgs/products/';
 let priceTag = '#priceTag';
 let v_bottom_cart_icon = '#id_bottom_cart_icon';
 let v_right_close_button = '#rightPanelCloseButton';
+let topContainer = '#id_div_top_container';
 let cart_final_amt = 'cart_final_amt';
 let cart_final_qty = 'cart_final_qty';
 let leftContainer = '#id_div_left_container';
@@ -17,7 +18,7 @@ let v_products = {
         amzlink: 'https://www.amazon.in/Mammon-Womens-Leather-Handbag-3L-bib-Cream/dp/B07XKNS6FF/ref=lp_19079038031_1_1?s=shoes&ie=UTF8&qid=1574514565&sr=1-1'
     }
 }
-let configObj={};
+let configObj = {};
 let globalVars = {}
 let constObj = {
     cart: 'cart',
@@ -27,7 +28,7 @@ let constObj = {
     contact: 'contact',
     send: 'plz wait...',
     close: 'Close',
-    errmsg:'some error, contact admin'
+    errmsg: 'some error, contact admin'
 }
 let curRightPanelObject = constObj.cart;
 let onSuccess = () => {
@@ -35,7 +36,6 @@ let onSuccess = () => {
 let onFailure = () => {
 }
 let v_left_page = [
-    ['<span class="btn" onClick="makeCart()">Cart</span>']
     , ['<span class = "btn" onClick = "makeProductPage();">Products</span>']
     , ['<span class="btn" onClick="makeContactPage();">Contact Us</span>']
 ]
@@ -66,10 +66,11 @@ let rightContainer = '#id_div_right_container';
 let cartObj = {}
 let checkOutPayment = 0;
 
-function onServerError(){
+function onServerError() {
     console.error(constObj.errmsg);
     alert(constObj.errmsg);
 }
+
 $(document).ready(function () {
     prepareViewMobileReady();
     toastr.options = {
@@ -108,15 +109,15 @@ let displayProducts = (category) => {
         let v_product = v_products[x];
         if (v_product.category !== category) continue;
         found += 1;
-        let pid =parseInt(v_product.id);
+        let pid = parseInt(v_product.id);
         let pname = v_product.name;
         let desc = v_product.desc;
-        let qty = parseInt(v_product.qty)||0;
+        let qty = parseInt(v_product.qty) || 0;
         let images = v_product.images;
-        let amzLink = v_product.amazonLink||'';
+        let amzLink = v_product.amazonLink || '';
         let folderRef = v_product.folderRef;
         let qrid = v_product.qrid;
-        let flipkarLink = v_product.flipkartLink||'';
+        let flipkarLink = v_product.flipkartLink || '';
 
         let elm1 = '<div style="padding: 2px;">' +
             '<h1>' + pname + ' ' +
@@ -124,12 +125,12 @@ let displayProducts = (category) => {
             '<span class="btn btn-light pull-right" onclick="handleProductClick(\'' + pid + '\',1)"><i class="fa fa-lg fa-plus"></i></span>' +
             '</h1>' +
             '</div>';
-        let elm2 = '<div><b id="id_prod_desc_' + pid + '">' + desc + '</b></div>';
-        let elm3 = '<div><span id="id_img_desc_' + pid + '" class="productImages">' + display_product_images(folderRef, images) + '</span></div>';
+        let elm2 = '<div><b id="id_prod_desc_' + pid + '">' + desc.substr(0,100) + '...<a href="javascript:void(0)" onclick="showMoreText(\''+pname+'\',\''+desc+'\')">more</a></b></div>';
+        let elm3 = '<div><span id="id_img_desc_' + pid + '" class="productImages">' + display_product_images(pid,folderRef, images) + '</span></div>';
         let elm4 = '<div id="priceTag_' + pid + '" class="priceline color1">' + getPriceLine(v_product, qty) + '</div>';
         let elm5 = '<div class="link_logo">' +
-            (amzLink!=="" ?'<a target="_blank" id="id_amazon_"' + pid + ' href="' + amzLink + '">amazon</a>':'')
-            + (flipkarLink!=="" ?' | <a target="_blank" id="id_flipkart_"' + pid + ' href="' + flipkarLink + '">flipkart</a>':'') +
+            (amzLink !== "" ? '<a target="_blank" id="id_amazon_"' + pid + ' href="' + amzLink + '">amazon</a>' : '')
+            + (flipkarLink !== "" ? ' | <a target="_blank" id="id_flipkart_"' + pid + ' href="' + flipkarLink + '">flipkart</a>' : '') +
             '</div>';
         let shtml = '<div class="cenAlign product_box">' + elm1 + elm4 + elm2 + elm3 + elm5 + '</div><br/>';
         $(mainContainer).append(shtml);
@@ -153,8 +154,8 @@ let getCategoryDetails = (category) => {
 }
 
 let getCalci = (prod, qty) => {
-    let discount =parseFloat(prod.discount);
-    let price =parseFloat(prod.price) * parseInt(qty);
+    let discount = parseFloat(prod.discount);
+    let price = parseFloat(prod.price) * parseInt(qty);
     let finalAmount = Math.round(price - price * discount / 100, 0);
     let savedAmount = price - finalAmount;
     let objCalc = {price, discount, finalAmount, savedAmount, qty};
@@ -168,18 +169,31 @@ let getPriceLine = (prod, qty) => {
         '<span> - ' + rs + x.savedAmount + '(' + x.discount + '%)</span> ' +
         '<span> = ' + rs + x.finalAmount + '</span> ' +
         '<span class="btn btn-light pull-right" title="' + x.qty + ' qty selected" onclick="add2cart(\'' + prod.id + '\');">' +
-        '<i class="fa fa-lg fa-check-square" ></i> </span>' +
+        'Add to Cart </span>' +
         '</h2>';
     return shtml;
 }
 
-let display_product_images = (folderRef, imgs) => {
-    if(imgs===''|| typeof imgs==="undefined") return;
-    let sImages = '<div class="row">';
-    let arrImg=imgs.split(',');
+let display_product_images = (id,folderRef, imgs) => {
+    let pid='prod_img_'+id;
+    if (imgs === '' || typeof imgs === "undefined") return;
+    let sImages = '<div id="'+pid+'"  class="carousel slide" data-ride="carousel">';
+    sImages+='<div class="carousel-inner">';
+    let arrImg = imgs.split(',');
     for (let i in arrImg) {
-        sImages += '<img class="col-lg-4" src="' + product_img_base + folderRef + arrImg[i] + '" alt="' + arrImg[i] + '" />';
+        sImages += '<div class="carousel-item '+(i==="0"?'active':'')+'" style="background-color: lightgray">';
+        sImages += '<img src="' + product_img_base + folderRef + arrImg[i] + '" alt="' + arrImg[i] + '" />';
+        sImages += '</div>';
     }
+    sImages+='</div>';
+    sImages+='<a class="carousel-control-prev" href="#'+pid+'" role="button" data-slide="prev">';
+    sImages+='<span class="carousel-control-prev-icon" aria-hidden="true"></span>';
+    sImages+='<span class="sr-only">Previous</span>';
+    sImages+='</a>';
+    sImages+='<a class="carousel-control-next" href="#'+pid+'" role="button" data-slide="next">';
+    sImages+='<span class="carousel-control-next-icon" aria-hidden="true"></span>';
+    sImages+='<span class="sr-only">Next</span>';
+    sImages+='</a>';
     sImages += '</div>';
     return sImages
 }
@@ -201,13 +215,13 @@ let makeContactPage = () => {
 let makeProductPage = () => {
     curRightPanelObject = constObj.product;
     let elm1 = '<div id="id_product_page"><h2>Our Products</h2>';
-    let shtml = elm1;
+    let shtml = '';
     for (let i in v_product_categories) {
-        let line = v_product_categories[i];
-        shtml += '<div id="id_product_page_' + i + '"><span class="btn" title="' + line.type + ' - ' + line.details + '" onclick="clickOnProductCategory(\'' + line.name + '\')">' + line.name + '</span></div>'
+        let category = v_product_categories[i];
+        shtml += '<div id="id_product_page_' + i + '"><span class="btn" title="' + category.type + ' - ' + category.details + '" onclick="clickOnProductCategory(\'' + category.name + '\')">' + category.name + '</span></div>'
     }
     shtml += '</div>';
-    $(rightContainer).html(shtml);
+    $(topContainer).html(shtml);
     move2top();
 }
 
@@ -258,15 +272,16 @@ let add2cart = (xid) => {
 let initApp = () => {
     //get home load data from server
     prepareLeftPage();
-    displayCart();
     onSuccess = (res) => {
-        if(res.status.status==='success'){
+        if (res.status.status === 'success') {
             console.log(res);
-            configObj=res.config;
-            v_product_categories=res.categories;
-            v_products=res.products;
+            configObj = res.config;
+            v_product_categories = res.categories;
+            v_products = res.products;
+            displayCart();
+            makeProductPage();
             displayProducts(v_product_categories[0].name);
-        }else{
+        } else {
             onServerError();
         }
     }
@@ -280,27 +295,31 @@ let closePanelIfMobile = () => {
     }
 }
 
-var displayCart = () => {
+function showMoreText(title,text) {
+    swal({text, title:title||''});
+}
+
+let displayCart = () => {
     $(rightContainer).empty();
     let count = 0;
     let Amount = 0;
     for (let o in cartObj) {
         let prod = cartObj[o];
         let elm1 = '<div class="xcard" id="id_cart_' + prod.id + '">';
-        let elm3 = '<h3>' + prod.name + ' <a href="#" class="btn pull-right" onclick="removeFromCart(\'' + prod.id + '\')"><i class="fa fa-lg fa-minus"/></a></h3>';
-        let elm4 = '<span>' + prod.desc + prod.calci + '</span>';
+        let elm3 = '<h3><a class="orange" href="javascript:void(0)" onclick="">' + prod.name + '</a> <a href="javascript:void(0);" class="btn pull-right" onclick="removeFromCart(\'' + prod.id + '\')"><i class="fa fa-lg fa-minus"/></a></h3>';
+        let elm4 = '<div><span>' + prod.desc.substr(0, 30) + '...<a href="javascript:void(0);" onclick="showMoreText(\'' + prod.name + '\',\''+prod.desc+'\')">more</a></span><span>' + prod.calci + '</span></div>';
         let elm5 = '</div>';
         $(rightContainer).append(elm1 + elm3 + elm4);
         count += 1;
         Amount += prod.finalAmount;
     }
     let elm0 = "<h4>Cart has <span id='" + cart_final_qty + "'>" + count + "</span> item of " + rs + "<span id='" + cart_final_amt + "' class='badge badge-light text-danger'>" + Amount + "</span></h4>";
-    let elm0_1 = "<div><a target='_blank' href='#' class='btn'>Pay</a>";
-    let elm0_2 = " <a href='#' class='btn' onclick='clearAll()'>Clear</a></div>";
+    let elm0_1 = "<div><a target='_blank' href='javascript:void(0);' class='btn'>Pay</a>";
+    let elm0_2 = " <a href='javascript:void(0);' class='btn' onclick='clearAll()'>Clear</a></div>";
     let elm0_4 = "<h4>Thanks for using kaathi.com</h4>";
     $(rightContainer).prepend(elm0 + elm0_1 + elm0_2 + elm0_4);
     manage_bottom_cart_icon_count();
-    $(".cart_bg div span.btn").remove();
+    $(".xcard span h2 span.btn").remove();
     checkOutPayment = Amount; //checkout amount that we may want to charge
     // showRightPanel();
 }
@@ -379,7 +398,7 @@ let getProductByCode = (pid) => {
 let handleProductClick = (pid, qty) => {
     selectedProduct = getProductByCode(pid);
     if (selectedProduct.qty == undefined) selectedProduct.qty = 0;
-    selectedProduct.qty = parseInt(selectedProduct.qty)+ qty;
+    selectedProduct.qty = parseInt(selectedProduct.qty) + qty;
     if (selectedProduct.qty <= 0) selectedProduct.qty = 0;
     // console.log(selectedProduct)
     let sUpdatedPrice = getPriceLine(selectedProduct, selectedProduct.qty);

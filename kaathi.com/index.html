@@ -29,13 +29,20 @@
 </header>
 
 <div style="display: flex; flex-direction: column">
-    <div>
-        <input id="searchText" style="width: 90%" class="searchBox" type="text" placeholder="search products..."/>
-        <button class="btn">Search</button>
-    </div>
+    <div id="id_div_top_container" class="xcontainer"></div>
     <section class="xcontainer">
         <div id="id_div_left_container"></div>
-        <div id="id_div_container"></div>
+        <div id="id_div_container-parent">
+            <div>
+                <input id="searchText" style="width: 90%" class="searchBox" type="text"
+                       placeholder="search products..."/>
+                <button class="btn">Search</button>
+            </div>
+            <div>
+                <span class="btn" onClick="makeCart()">Show Cart</span>
+            </div>
+            <div id="id_div_container"></div>
+        </div>
         <div id="id_div_right_container"></div>
     </section>
 </div>
