@@ -111,13 +111,12 @@ let displayProducts = (category) => {
         let pid =parseInt(v_product.id);
         let pname = v_product.name;
         let desc = v_product.desc;
+        let qty = parseInt(v_product.qty)||0;
         let images = v_product.images;
         let amzLink = v_product.amazonLink||'';
         let folderRef = v_product.folderRef;
         let qrid = v_product.qrid;
         let flipkarLink = v_product.flipkartLink||'';
-        if (v_product["qty"] === undefined)
-            v_product["qty"] = 0;
 
         let elm1 = '<div style="padding: 2px;">' +
             '<h1>' + pname + ' ' +
@@ -127,7 +126,7 @@ let displayProducts = (category) => {
             '</div>';
         let elm2 = '<div><b id="id_prod_desc_' + pid + '">' + desc + '</b></div>';
         let elm3 = '<div><span id="id_img_desc_' + pid + '" class="productImages">' + display_product_images(folderRef, images) + '</span></div>';
-        let elm4 = '<div id="priceTag_' + pid + '" class="priceline color1">' + getPriceLine(v_product, v_product["qty"]) + '</div>';
+        let elm4 = '<div id="priceTag_' + pid + '" class="priceline color1">' + getPriceLine(v_product, qty) + '</div>';
         let elm5 = '<div class="link_logo">' +
             (amzLink!=="" ?'<a target="_blank" id="id_amazon_"' + pid + ' href="' + amzLink + '">amazon</a>':'')
             + (flipkarLink!=="" ?' | <a target="_blank" id="id_flipkart_"' + pid + ' href="' + flipkarLink + '">flipkart</a>':'') +
@@ -168,7 +167,7 @@ let getPriceLine = (prod, qty) => {
         '<span>' + rs + prod.price + '*' + qty + '</span> ' +
         '<span> - ' + rs + x.savedAmount + '(' + x.discount + '%)</span> ' +
         '<span> = ' + rs + x.finalAmount + '</span> ' +
-        '<span class="btn btn-light pull-right" title="' + x.qty + ' qty selected" onclick="add2cart(\'' + prod.code + '\');">' +
+        '<span class="btn btn-light pull-right" title="' + x.qty + ' qty selected" onclick="add2cart(\'' + prod.id + '\');">' +
         '<i class="fa fa-lg fa-check-square" ></i> </span>' +
         '</h2>';
     return shtml;
@@ -243,8 +242,8 @@ let add2cart = (xid) => {
         return;
     }
     if (cartObj.hasOwnProperty(xid)) {
-        if (cartObj[xid].qty == prods.qty) {
-            toastr.error(xid + " is already present. no qty changed");
+        if (cartObj[xid].qty === prods.qty) {
+            toastr.error(prods.name + " is already present. no qty changed");
             return;
         }
     }
@@ -285,10 +284,10 @@ var displayCart = () => {
     $(rightContainer).empty();
     let count = 0;
     let Amount = 0;
-    for (o in cartObj) {
+    for (let o in cartObj) {
         let prod = cartObj[o];
-        let elm1 = '<div class="xcard" id="id_cart_' + prod.code + '">';
-        let elm3 = '<h3>' + prod.code + ' <a href="#" class="btn pull-right" onclick="removeFromCart(\'' + prod.code + '\')">Remove</a></h3>';
+        let elm1 = '<div class="xcard" id="id_cart_' + prod.id + '">';
+        let elm3 = '<h3>' + prod.name + ' <a href="#" class="btn pull-right" onclick="removeFromCart(\'' + prod.id + '\')"><i class="fa fa-lg fa-minus"/></a></h3>';
         let elm4 = '<span>' + prod.desc + prod.calci + '</span>';
         let elm5 = '</div>';
         $(rightContainer).append(elm1 + elm3 + elm4);
@@ -368,8 +367,8 @@ function isMobileDevice() {
 
 let getProductByCode = (pid) => {
     let pr = {}
-    for (i in v_products) {
-        if (v_products[i].id == pid) {
+    for (let i in v_products) {
+        if (v_products[i].id === pid) {
             pr = v_products[i];
             break;
         }
