@@ -172,6 +172,17 @@ function searchByKeyword(e){
     }
 }
 
+function sendMsg(){
+    let data={};
+    data['whatsapp']=1;
+    data['msg']='this is a test message';
+    postData('./d155.php', data, (res)=>{
+        console.log('from server',res)
+    }, (err)=>{
+        console.error(err);
+    });
+}
+
 
 (function () {
     preparePeriod();

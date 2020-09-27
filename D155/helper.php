@@ -52,8 +52,8 @@ function handleDelete($data)
 
 function handleExpensesReport($data)
 {
-    global  $conn;
-    $search=$data['by'];
+    global $conn;
+    $search = $data['by'];
     $qur = "select a.* from expenses a
             where (concat('@',name) like '%$search%' or date like '%$search%' or amount like '%$search%' or remarks like '%$search%')
             order by  str_to_date(concat('01 ',a.date),'%d %M %Y') desc ,a.when desc";
@@ -63,4 +63,23 @@ function handleExpensesReport($data)
     mysqli_free_result($sql);
     mysqli_close($conn);
     echo(json_encode($rows));
+}
+
+function sendWhatsApp($data)
+{
+    ChromePhp::log('whatsapp data', $data);
+    $username = "919582797772";
+    $password = "";
+    $wa = new WhatsProt($username, "WhatsApp", true);
+    $wa->connect();
+    //$wa->loginWithPassword($password);
+    $no = "919582797772";
+    $msg = "hello test automate message";
+    try {
+        $wa->sendMessage($no, $msg);
+        echo 'Text Message Sent';
+    } catch (Exception $e) {
+        ChromePhp::log($e->getTrace());
+        echo "ERROR : Text Message Sending Failed";
+    }
 }
