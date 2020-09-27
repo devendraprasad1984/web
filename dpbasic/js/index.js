@@ -153,6 +153,9 @@ let handleLeftButtonClick = function (key) {
     // show(loadID);
     // moveProgress();
     let rightContainer = getById(rightPanelDiv);
+    let pageHeader=undefined;
+    pageHeader='<h1>Loading...</h1>';
+    rightContainer.innerHTML=pageHeader;
     rightContainer.style.backgroundColor = "white";
     let allLeftLI = document.querySelectorAll('div.content-left li');
     for (let i in allLeftLI) {
@@ -165,26 +168,24 @@ let handleLeftButtonClick = function (key) {
     let overlayID = current["overlayID"];
     let subDisplay = current["displaySubDiv"];
     let loadLocal = current["loadLocal"];
-    console.log(text, uri, loadLocal);
+    // console.log(text, uri, loadLocal);
     let sub = getById(subDiv);
     sub.style.display = 'none';
-    let pageHeader = '<h1 onclick="handleOverlayContent(\'' + text + '\',\'' + overlayID + '\')">' + text + '</h1>';
-    let container = getById(rightPanelDiv);
+    pageHeader = '<h1 onclick="handleOverlayContent(\'' + text + '\',\'' + overlayID + '\')">' + text + '</h1>';
+    // let container = getById(rightPanelDiv);
 
     if (loadLocal === true) {
         let iframeContent = '<iframe id="codeBlock" src="' + uri + '"></iframe>';
-        container.innerHTML = iframeContent;
+        rightContainer.innerHTML = iframeContent;
         return;
     }
 
     getFromWeb(isHtmlHttpTextTrue(uri), uri, function (successData) {
-        container.innerHTML = pageHeader + successData;
+        rightContainer.innerHTML = pageHeader + successData;
         if (subDisplay)
             getAdhocListing(key, fnSubDivDisplay);
-        // else
-        //     hide(loadID);
     }, function (failedData) {
-        console.log(failedData)
+        console.error(failedData)
     });
     if (mobile) left.style.display = 'none';
 }
