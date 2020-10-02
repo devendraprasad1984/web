@@ -1,5 +1,6 @@
 let dataObject={};
 let summaryObject1={};
+let colors=['pink','green','gray','goldenrod','navy','blue','magenta']
 let imgObj = {
     anish: 'images/anish.png'
     , dp: 'images/dp.png'
@@ -43,6 +44,14 @@ function getData(url = '', success, error) {
     });
 }
 
+function getRandomBorderColor(){
+    let ln=colors.length;
+    let num=Math.round(Math.random()*ln,0);
+    // console.log(ln,num,colors[num]);
+    return colors[num];
+}
+
+
 let success = {
     alert: function (res) {
         let isaved = res.status === 'success' ? true : false;
@@ -63,13 +72,12 @@ let success = {
                 '<button class="btn red" onclick="handleDelete('+x.id.trim()+')">Delete</button>' +
                 '</span>' +
                 '<span><img src="' + imgObj[x.name] + '" class="imgdrop"/></span><br>' +
-                '<span style="font-weight: bold">' + x.when+' '+x.date + '</span><br>' +
+                '<span style="font-weight: bold">' + x.when+', for '+x.date + '</span><br>' +
                 '<span class=" '+(isnegative?'red':'')+' right amt">'+'₹' + x.amount + ' = </span>' +
                 '<span class=" '+(isnegative?'red':'')+'">' + x.remarks + '</span>' +
                 '</div>';
         });
         result.splice(0, 0, '<div class="column card" style="font-weight: bolder; font-size: 20px;">Current Fund Value: '+'₹' + total + '</div>' );
-        console.log(summaryObject1);
         let rowx='<div class="row card" style="font-size: 20px;">' +
             '<div style="font-weight: bolder">Deposits & Payments Summary</div>'+
             summaryObject1.map(x=> {
@@ -77,6 +85,8 @@ let success = {
             }).join('')+
             '</div>';
         report1.innerHTML =rowx+'<div class="flexbox">'+ result.join('')+'</div>';
+        //change randonw broderTop color
+        Array.from($('.card')).map((x,i)=>x.style.borderTop='3px solid '+getRandomBorderColor());
     }
 }
 

@@ -1,10 +1,11 @@
 
+
 * {
     color: #4f0ea0;
 }
 
 
-.container div{
+.container div {
     margin: 5px;
 }
 
@@ -53,38 +54,41 @@
     cursor: pointer;
 }
 
-.header{
+.header {
     display: flex;
     align-content: space-around;
     vertical-align: top;
     width: 100%;
 }
 
-.myIcons{
+.myIcons {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-content: space-between;
 }
-.myIcons img{
+
+.myIcons img {
     margin: 5px;
     padding: 5px;
 }
-.imgdrop{
+
+.imgdrop {
     height: 30px;
     width: 30px;
 }
 
-.logo{
+.logo {
     height: 50px;
     width: 50px;
 }
-.icon{
+
+.icon {
     height: 100px;
     width: 100px;
 }
 
-.right{
+.right {
     text-align: right;
     padding-right: 5px;
 }
@@ -108,32 +112,36 @@
 /*    display: table;*/
 /*    clear: both;*/
 /*}*/
-.card span{
+.card span {
     padding: 5px;
 }
-.card .btn{
+
+.card .btn {
     font-size: 80%;
 }
+
 .flexbox {
-    grid-template-columns: repeat(auto-fill,minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     /*display: flex;*/
     display: grid;
     /*flex-wrap: wrap;*/
     /*flex-direction: row;*/
 }
-.box>* {
+
+.box > * {
     flex: 1 1 150px;
 }
 
 .card {
-    box-shadow: 0 4px 4px 0 ;
+    border-top: 3px solid #0c5460;
+    /*box-shadow: 0 4px 4px 0;*/
     /*max-width: 200px;*/
     /*height: 100px;*/
     padding: 10px;
-    margin:10px;
+    margin: 10px;
 }
 
-.flex{
+.flex {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -143,13 +151,15 @@
 }
 
 .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
-.amt{
+.amt {
     font-weight: bold;
+    font-size: 16px;
 }
-.divx{
+
+.divx {
     height: auto;
     width: 100%;
     /*overflow-y: auto;*/
@@ -173,31 +183,33 @@
     margin-bottom: 28px;
 }
 
-.textwhite{
+.textwhite {
     color: white;
 }
 
-.hide{
+.hide {
     display: none;
 }
 
-.show{
+.show {
     display: inline-block;
 }
 
 
-.xrow{
-    overflow-x:hidden;
+.xrow {
+    overflow-x: hidden;
     width: 100%;
     border-bottom: 1px solid #8a8a8a;
     align-items: center;
 }
-.xhead{
+
+.xhead {
     font-weight: bolder;
     font-size: 14px;
     background-color: #f7f7f7;
 }
-.xcell{
+
+.xcell {
     margin-right: 5px;
     display: inline-block;
     word-break: break-all;
@@ -206,15 +218,24 @@
     overflow-x: hidden;
     justify-content: center;
 }
-.xcell .btn{
+
+.xcell .btn {
     margin-right: 3px;
     font-size: 10px;
 }
 
 
-.searchText{
+.searchText {
     width: 70%;
     padding: 5px;
     font-size: 12px;
 }
 
+
+
+/*@media (min-width:300px) and (max-width:750px) {*/
+/*    .flexbox {*/
+/*        display: grid;*/
+/*        grid-template-columns: none;*/
+/*    }*/
+/*}*/
