@@ -1,3 +1,5 @@
+let dataObject={};
+let summaryObject1={};
 let imgObj = {
     anish: 'images/anish.png'
     , dp: 'images/dp.png'
@@ -48,33 +50,33 @@ let success = {
             title: isaved ? "Action Processed" : "Not Processed",
             icon: isaved ? "success" : "error",
             button: 'Ok',
-        }).then(flag => handleRefresh());
+        }).then(flag => getSummaryAndRefresh());
     }, refresh: function (res) {
+        dataObject=res;
         let result = [];
         let total = 0;
         result = res.map(x => {
             total += parseFloat(x.amount);
             let isnegative = x.amount < 0 ? true : false;
-            return '<div class="xrow">' +
-                '<span class="xcell" style="width: 50px"><img src="' + imgObj[x.name] + '" class="imgdrop"/></span>' +
-                '<span class="xcell" style="width: 150px">' + x.when + '</span>' +
-                '<span class="xcell" style="width: 100px">' + x.date + '</span>' +
-                '<span class="xcell '+(isnegative?'red textwhite':'')+' right" style="width: 150px">' + x.amount + '</span>' +
-                '<span class="xcell" style="width: 300px">' + x.remarks + '</span>' +
-                '<span class="xcell" style="width: 300px; text-align: right;">' +
-                    '<button class="btn red" onclick="handleDelete('+x.id.trim()+')">Delete</button>' +
+            return '<div class="card">' +
+                '<span style="float: right">' +
+                '<button class="btn red" onclick="handleDelete('+x.id.trim()+')">Delete</button>' +
                 '</span>' +
-                '</div>'
+                '<span><img src="' + imgObj[x.name] + '" class="imgdrop"/></span><br>' +
+                '<span style="font-weight: bold">' + x.when+' '+x.date + '</span><br>' +
+                '<span class=" '+(isnegative?'red':'')+' right amt">'+'₹' + x.amount + ' = </span>' +
+                '<span class=" '+(isnegative?'red':'')+'">' + x.remarks + '</span>' +
+                '</div>';
         });
-        result.splice(0, 0, '<div class="xhead">' +
-            '<span class="xcell" style="width: 50px"></span>' +
-            '<span class="xcell" style="width: 150px">When</span>' +
-            '<span class="xcell" style="width: 100px">Month</span>' +
-            '<span class="xcell right" style="width: 150px">Amount: ' + total + '</span>' +
-            '<span class="xcell" style="width: 300px">Remarks</span>' +
-            '<span class="xcell" style="width: 300px; text-align: right;">Actions</span>' +
-            '</div>');
-        report1.innerHTML = result.join('');
+        result.splice(0, 0, '<div class="column card" style="font-weight: bolder; font-size: 20px;">Current Fund Value: '+'₹' + total + '</div>' );
+        console.log(summaryObject1);
+        let rowx='<div class="row card" style="font-size: 20px;">' +
+            '<div style="font-weight: bolder">Deposits & Payments Summary</div>'+
+            summaryObject1.map(x=> {
+                return '<span>' + x.name + '<span style="color: #0f6674"> ₹' + x.amt + '</span></span>';
+            }).join('')+
+            '</div>';
+        report1.innerHTML =rowx+'<div class="flexbox">'+ result.join('')+'</div>';
     }
 }
 
@@ -137,13 +139,20 @@ function handleSubmit(id) {
     });
 }
 
+function getSummaryAndRefresh(){
+    getData('./d155.php?summary1=1',(res)=>{
+        summaryObject1=res;
+        handleRefresh();
+    });
+}
+
 function handleRefresh() {
+    // searchBtn.html('Please Wait...');
     let oldval=searchBtn.html();
-    searchBtn.html('Please Wait...');
     report1.innerHTML = '<h1>please wait, loading...</h1>';
     let txt=idSearchBox.value.toLowerCase();
     getData('./d155.php?expenses=1&by='+txt, success.refresh, error);
-    searchBtn.html(oldval);
+    // searchBtn.html(oldval);
     if(typeof curObj.submit !=="undefined"){
         curObj.submit.html(curObj.submitText);
         curObj.submit=undefined;
@@ -167,7 +176,7 @@ function preparePeriod() {
 }
 function searchByKeyword(e){
     if(e.keyCode===13){
-        handleRefresh();
+        getSummaryAndRefresh();
         e.preventDefault();
     }
 }
@@ -186,5 +195,5 @@ function sendMsg(){
 
 (function () {
     preparePeriod();
-    handleRefresh();
+    getSummaryAndRefresh();
 })();

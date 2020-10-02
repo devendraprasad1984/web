@@ -65,6 +65,20 @@ function handleExpensesReport($data)
     echo(json_encode($rows));
 }
 
+function handleSummary1($data)
+{
+    global $conn;
+    $qur = "select concat(upper(name),' Ji') as name,sum(amount) as amt from expenses where amount>0 group by name union all
+            select 'Paid outs',sum(amount) as amt from expenses where amount<0
+            ";
+    $sql = $conn->query($qur);
+    $rows = $sql->fetch_all(MYSQLI_ASSOC);
+    mysqli_free_result($sql);
+    mysqli_close($conn);
+    echo(json_encode($rows));
+}
+
+
 function sendWhatsApp($data)
 {
     ChromePhp::log('whatsapp data', $data);

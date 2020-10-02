@@ -7,6 +7,7 @@ global $success, $failed;
 try{
     if(isset($_POST['save'])) handleSave($_POST);
     if(isset($_GET['expenses'])) handleExpensesReport($_GET);
+    if(isset($_GET['summary1'])) handleSummary1($_GET);
     if(isset($_POST['delete'])) handleDelete($_POST);
     if(isset($_POST['whatsapp'])) sendWhatsApp($_POST);
 
