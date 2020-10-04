@@ -10,6 +10,18 @@ let imgObj = {
 let curObj = {}
 let searchBtn = $('#idSearchBtn');
 
+function changeView(type){
+    let divx=$('#divLines');
+    if(type==='grid'){
+        divx.removeClass('flexbox');
+        divx.addClass('flexgrid');
+    }else if(type==='card'){
+        divx.removeClass('flexgrid');
+        divx.addClass('flexbox');
+    }
+}
+
+
 function handleUnlock(id) {
     let oldval = $('#' + id).html();
     $('#' + id).html('Please Wait...');
@@ -53,12 +65,17 @@ function getRandomBorderColor() {
 
 function cardClick(cur) {
     let cardid = cur.id;
+    if(typeof cur==='string'){
+        cardid=cur;
+    }
     let xdiv = document.createElement('div');
     xdiv.id='openCardId';
-    xdiv.innerHTML = cur.innerHTML;
+    xdiv.innerHTML = document.getElementById(cardid).innerHTML;
     xdiv.style.fontSize = '30px';
     xdiv.style.opacity='0.85';
     xdiv.style.textAlign='left';
+    xdiv.style.display='flex';
+    xdiv.style.flexDirection='column';
     Array.from(xdiv.children).map(a=>a.classList.remove('amt'));
     swal({
         content: xdiv,
@@ -85,21 +102,20 @@ let success = {
                 '<span style="float: right">' +
                 '<button class="btn red" onclick="handleDelete(' + x.id.trim() + ')">Delete</button>' +
                 '</span>' +
-                '<span><img src="' + imgObj[x.name] + '" class="imgdrop"/></span><br>' +
-                '<span style="font-weight: bold">' + x.when + ', for ' + x.date + '</span><br>' +
-                '<span class=" ' + (isnegative ? 'red' : '') + ' right amt">' + '₹' + x.amount + ' = </span>' +
+                '<span><img src="' + imgObj[x.name] + '" class="imgdrop"/></span>' +
+                '<span>' + x.when + ', for ' + x.date + '</span>' +
                 '<span class=" ' + (isnegative ? 'red' : '') + '">' + x.remarks + '</span>' +
                 '</div>';
         });
         result.splice(0, 0, '<div  id="summaryFundCard"  onclick="cardClick(this)" class="column card" style="font-weight: bolder; font-size: 20px;">Current Fund Value: ' + '₹' + total + '</div>');
-        let rowx = '<div id="summaryCard"  onclick="cardClick(this)" class="row card" style="font-size: 20px;">' +
+        let rowx = '<div id="summaryCard"  onclick="cardClick(this)" class="row card summarycard" style="font-size: 20px;">' +
             '<div style="font-weight: bolder">Contribution Summary</div>' +
             summaryObject1.map(x => {
                 // console.log(typeof imgObj[x.name],typeof imgObj[x.name]==='undefined',x.name);
-                return '<span style="font-size: 40px">' + (typeof imgObj[x.name]==='undefined'?x.name:'<img class="imgdropx" src="'+imgObj[x.name]+'"/>')+'<span class="amt" style="font-size: 40px">₹'+x.amt+'</span></span>';
+                return '<span style="font-size: 40px" class="column">' + (typeof imgObj[x.name]==='undefined'?x.name:'<img class="imgdropx" src="'+imgObj[x.name]+'"/>')+'<span class="amt" style="font-size: 40px">₹'+x.amt+'</span></span>';
             }).join('') +
             '</div>';
-        report1.innerHTML = rowx + '<div class="flexbox">' + result.join('') + '</div>';
+        report1.innerHTML = rowx + '<div id="divLines" class="flexgrid">' + result.join('') + '</div>';
         //change randonw broderTop color
         Array.from($('.card')).map((x, i) => x.style.borderTop = '3px solid ' + getRandomBorderColor());
     }
