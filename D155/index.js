@@ -104,7 +104,7 @@ let success = {
                 '</span>' +
                 '<span><img src="' + imgObj[x.name] + '" class="imgdrop"/></span>' +
                 '<span>' + x.when + ', for ' + x.date + '</span>' +
-                '<span class=" ' + (isnegative ? 'red' : '') + '">' + x.remarks + '</span>' +
+                '<span class=" ' + (isnegative ? 'red' : '') + '">₹' + x.amount+' ( '+ x.remarks + ')</span>' +
                 '</div>';
         });
         result.splice(0, 0, '<div  id="summaryFundCard"  onclick="cardClick(this)" class="column card" style="font-weight: bolder; font-size: 20px;">Current Fund Value: ' + '₹' + total + '</div>');
