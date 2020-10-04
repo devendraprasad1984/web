@@ -12,7 +12,7 @@ try{
     if(isset($_POST['whatsapp'])) sendWhatsApp($_POST);
 
 }catch (Exception $ex){
-    ChromePhp::error($ex->getMessage());
+//    ChromePhp::error($ex->getMessage());
     echo $failed;
 }
 

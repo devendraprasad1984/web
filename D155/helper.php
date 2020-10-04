@@ -54,10 +54,13 @@ function handleExpensesReport($data)
 {
     global $conn;
     $search = $data['by'];
-    $qur = "select a.* from expenses a
-            where (concat('@',name) like '%$search%' or date like '%$search%' or amount like '%$search%' or remarks like '%$search%')
-            order by  str_to_date(concat('01 ',a.date),'%d %M %Y') desc ,a.when desc";
-//    ChromePhp::log($qur);
+    $qur = "select * from expenses";
+    if ($search == '>0' || $search == '<0')
+        $qur .= " where amount".$search;
+    else
+        $qur .= " where (concat('@',name) like '%$search%' or date like '%$search%' or amount like '%$search%' or remarks like '%$search%')";
+    $qur .= " order by  str_to_date(concat('01 ', `date`), '%d %M %Y') desc ,`when` desc";
+    ChromePhp::log($qur);
     $sql = $conn->query($qur);
     $rows = $sql->fetch_all(MYSQLI_ASSOC);
     mysqli_free_result($sql);
@@ -68,8 +71,8 @@ function handleExpensesReport($data)
 function handleSummary1($data)
 {
     global $conn;
-    $qur = "select concat(upper(name),' Ji') as name,sum(amount) as amt from expenses where amount>0 group by name union all
-            select 'Paid outs',sum(amount) as amt from expenses where amount<0
+    $qur = "select name,sum(amount) as amt from expenses where amount > 0 group by name union all
+            select 'Paid outs',sum(amount) as amt from expenses where amount < 0
             ";
     $sql = $conn->query($qur);
     $rows = $sql->fetch_all(MYSQLI_ASSOC);
