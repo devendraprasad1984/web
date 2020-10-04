@@ -91,11 +91,11 @@ let success = {
                 '<span class=" ' + (isnegative ? 'red' : '') + '">' + x.remarks + '</span>' +
                 '</div>';
         });
-        result.splice(0, 0, '<div class="column card" style="font-weight: bolder; font-size: 20px;">Current Fund Value: ' + '₹' + total + '</div>');
-        let rowx = '<div class="row card" style="font-size: 20px;">' +
+        result.splice(0, 0, '<div  id="summaryFundCard"  onclick="cardClick(this)" class="column card" style="font-weight: bolder; font-size: 20px;">Current Fund Value: ' + '₹' + total + '</div>');
+        let rowx = '<div id="summaryCard"  onclick="cardClick(this)" class="row card" style="font-size: 20px;">' +
             '<div style="font-weight: bolder">Contribution Summary</div>' +
             summaryObject1.map(x => {
-                console.log(typeof imgObj[x.name],typeof imgObj[x.name]==='undefined',x.name);
+                // console.log(typeof imgObj[x.name],typeof imgObj[x.name]==='undefined',x.name);
                 return '<span style="font-size: 40px">' + (typeof imgObj[x.name]==='undefined'?x.name:'<img class="imgdropx" src="'+imgObj[x.name]+'"/>')+'<span class="amt" style="font-size: 40px">₹'+x.amt+'</span></span>';
             }).join('') +
             '</div>';
