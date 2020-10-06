@@ -7,9 +7,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JupyterTrust" id="11a58065-08e4-4314-b68b-c688b0760486" />
   <component name="ProjectId" id="1g07Oa3gWsq604kfoFsGlOZzwIo" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
