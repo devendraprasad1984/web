@@ -9,6 +9,7 @@ let imgObj = {
 }
 let curObj = {}
 let searchBtn = $('#idSearchBtn');
+let colorx='#428bdb';
 
 function changeView(type){
     let divx=$('#divLines');
@@ -71,16 +72,28 @@ function cardClick(cur) {
     let xdiv = document.createElement('div');
     xdiv.id='openCardId';
     xdiv.innerHTML = document.getElementById(cardid).innerHTML;
-    xdiv.style.fontSize = '30px';
-    xdiv.style.opacity='0.85';
-    xdiv.style.textAlign='left';
-    xdiv.style.display='flex';
-    xdiv.style.flexDirection='column';
+    xdiv.className='carddiv';
     Array.from(xdiv.children).map(a=>a.classList.remove('amt'));
     swal({
         content: xdiv,
         button: 'Close'
-    }).then(flag=>xdiv.remove());
+    }).then(flag=> {
+        xdiv.remove();
+        let overlayContainer=Array.from(document.getElementsByClassName('swal-overlay'));
+        overlayContainer.map(x=>x.remove());
+    });
+
+    // let xdivmain = document.getElementsByClassName('swal-modal');
+    // xdivmain.style.width='80%';
+    // xdivmain.style.height='80%';
+
+}
+
+let partDateTime=(strDateTime)=>{
+    let sdateArr=strDateTime.split(' ');
+    let sDate=sdateArr[0];
+    let sTime=sdateArr[1];
+    return '<span><span style="color: '+colorx+'">'+sDate+'</span><span class="time">'+sTime+'</span></span>';
 }
 
 let success = {
@@ -98,26 +111,30 @@ let success = {
         result = res.map((x, i) => {
             total += parseFloat(x.amount);
             let isnegative = x.amount < 0 ? true : false;
-            return '<div id="card' + i + '" class="card" onclick="cardClick(this)">' +
+            return '<div id="card' + i + '" class="card" onclick="cardClick(this)" xtype="'+(isnegative?'-':'+')+'">' +
                 '<span style="float: right">' +
                 '<button class="btn red" onclick="handleDelete(' + x.id.trim() + ')">Delete</button>' +
                 '</span>' +
                 '<span><img src="' + imgObj[x.name] + '" class="imgdrop"/></span>' +
-                '<span>' + x.when + ', for ' + x.date + '</span>' +
+                '<span>' + partDateTime(x.when) + ' <span style="color:'+colorx+'">' + x.date + '</span></span>' +
                 '<span class=" ' + (isnegative ? 'red' : '') + '">₹' + x.amount+' ( '+ x.remarks + ')</span>' +
                 '</div>';
         });
-        result.splice(0, 0, '<div  id="summaryFundCard"  onclick="cardClick(this)" class="column card" style="font-weight: bolder; font-size: 20px;">Current Fund Value: ' + '₹' + total + '</div>');
+        result.splice(0, 0, '<div  id="summaryFundCard"  xtype="+" onclick="cardClick(this)" class="column card" style="font-weight: bolder; font-size: 20px;">Current Fund Value: ' + '₹' + total + '<br><span style="font-size: 10px; color: gray">red: DEBITS, green: CREDIT</span></div>');
         let rowx = '<div id="summaryCard"  onclick="cardClick(this)" class="row card summarycard" style="font-size: 20px;">' +
             '<div style="font-weight: bolder">Contribution Summary</div>' +
             summaryObject1.map(x => {
-                // console.log(typeof imgObj[x.name],typeof imgObj[x.name]==='undefined',x.name);
-                return '<span style="font-size: 40px" class="column">' + (typeof imgObj[x.name]==='undefined'?x.name:'<img class="imgdropx" src="'+imgObj[x.name]+'"/>')+'<span class="amt" style="font-size: 40px">₹'+x.amt+'</span></span>';
+                return '<span style="font-size: 40px" class="column">'
+                    + (typeof imgObj[x.name]==='undefined'
+                    ? x.name
+                    : '<img class="imgdropx" src="'+imgObj[x.name]+'"/>')
+                    +'<span class="amt" style="font-size: 40px"> ₹'+x.amt+'</span>' +
+                    '</span>';
             }).join('') +
             '</div>';
         report1.innerHTML = rowx + '<div id="divLines" class="flexgrid">' + result.join('') + '</div>';
         //change randonw broderTop color
-        Array.from($('.card')).map((x, i) => x.style.borderTop = '3px solid ' + getRandomBorderColor());
+        Array.from($('.card')).map((x, i) => x.style.borderTop = '3px solid ' + (x.getAttribute('xtype')==='+'?'green':'red'));
     }
 }
 

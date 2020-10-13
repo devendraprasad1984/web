@@ -1,5 +1,4 @@
 
-
 * {
     color: #4f0ea0;
 }
@@ -123,11 +122,18 @@
 /*    font-size: 80%;*/
 /*}*/
 
-.summarycard{
+.summarycard {
     /*display: flex;*/
     /*flex-direction: column;*/
     box-sizing: border-box;
     display: none;
+}
+
+.time {
+    color: gray;
+    position: absolute;
+    left: 106px;
+    margin-top: -10px;
 }
 
 .flexbox {
@@ -139,7 +145,7 @@
     display: grid;
 }
 
-.flexbox span, .flexgrid span{
+.flexbox span, .flexgrid span {
     font-size: 20px;
 }
 
@@ -248,10 +254,32 @@
 }
 
 
-
 /*@media (min-width:300px) and (max-width:750px) {*/
 /*    .flexbox {*/
 /*        display: grid;*/
 /*        grid-template-columns: none;*/
 /*    }*/
 /*}*/
+
+.carddiv {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    width: 100%;
+    overflow: auto;
+    position: relative;
+}
+.carddiv > span {
+    padding: 5px;
+    font-size: 35px;
+}
+.carddiv > span > img {
+    height: 200px;
+    width: 200px;
+}
+
+.swal-modal {
+    height: 80%;
+    width: 80%;
+}
