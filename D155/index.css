@@ -131,9 +131,7 @@
 
 .time {
     color: gray;
-    position: absolute;
-    left: 106px;
-    margin-top: -10px;
+    /*font-size: 12px;*/
 }
 
 .flexbox {

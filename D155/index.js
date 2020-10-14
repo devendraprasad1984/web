@@ -117,7 +117,7 @@ let success = {
                 '</span>' +
                 '<span><img src="' + imgObj[x.name] + '" class="imgdrop"/></span>' +
                 '<span>' + partDateTime(x.when) + ' <span style="color:'+colorx+'">' + x.date + '</span></span>' +
-                '<span class=" ' + (isnegative ? 'red' : '') + '">₹' + x.amount+' ( '+ x.remarks + ')</span>' +
+                '<span class=" ' + (isnegative ? 'red' : '') + '">₹' + Math.abs(x.amount)+' ('+ x.remarks + ')</span>' +
                 '</div>';
         });
         result.splice(0, 0, '<div  id="summaryFundCard"  xtype="+" onclick="cardClick(this)" class="column card" style="font-weight: bolder; font-size: 20px;">Current Fund Value: ' + '₹' + total + '<br><span style="font-size: 10px; color: gray">red: DEBITS, green: CREDIT</span></div>');
@@ -128,7 +128,7 @@ let success = {
                     + (typeof imgObj[x.name]==='undefined'
                     ? x.name
                     : '<img class="imgdropx" src="'+imgObj[x.name]+'"/>')
-                    +'<span class="amt" style="font-size: 40px"> ₹'+x.amt+'</span>' +
+                    +'<span class="amt" style="font-size: 40px"> ₹'+Math.abs(x.amt)+'</span>' +
                     '</span>';
             }).join('') +
             '</div>';
