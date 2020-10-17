@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/index.css"/>
 </head>
 <body>
-<header>
+<header class="bg">
     <div>
         <div id="idLoad" class="load text-black">Loading....</div>
         <span onclick="toggleLeftPanel(this)" class="btn bg-secondary">&#9776;</span>
@@ -22,10 +22,20 @@
 <section class="content">
     <!--    <a href="">&#9776;</a>-->
     <div class="row" id="idParent">
-        <div id="leftPanel" class="content-left">
+        <div id="leftPanel" class="content-left bg">
             <ul id="leftMenu" style="font-weight: bold; list-style: none;"></ul>
         </div>
-        <div class="content-right column" id="rightPanelDiv"></div>
+        <div style="display: flex; flex-direction: row; ">
+            <div class="content-right column" id="rightPanelDiv" style="width: calc(90vw - 300px); "></div>
+            <div id="imgPic" style="width: 300px;">
+                <div style="display: flex; flex-direction: column;">
+                    <img src="images/dp.png" style="width: 300px; height: 300px;" />
+                    <div>devendraprasad1984@gmail.com</div>
+                    <div>+91 9582797772</div>
+                    <div><a href="http://linkedin.com/in/devendraprasd" target="_blank">linkedin</a></div>
+                </div>
+            </div>
+        </div>
         <div class="content-right-subdiv column" id="rightPanelDivSub"></div>
     </div>
 </section>
@@ -38,7 +48,7 @@
     </div>
 </section>
 
-<footer>
+<footer class="bg">
     <div>
         <span id="idLinks" style="float: right;"></span>
         <div id="barStatus"></div>

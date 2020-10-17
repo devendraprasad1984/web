@@ -1,7 +1,20 @@
 *, ::after, ::before {
     box-sizing: border-box;
-    /*line-height: 1.3rem;*/
-    /*font-family: -apple-system, BlinkMacSystemFont,sans-serif, "Noto Color Emoji";*/
+    color: #8416ab
+}
+
+.bg {
+    background-color: #790de5;
+}
+
+.cursel{
+    background-color: #ceadf5;
+    font-weight: bolder;
+}
+.bg > li {
+    color: white;
+    font-weight: bolder;
+    cursor: pointer;
 }
 
 html {
@@ -25,10 +38,7 @@ div::after {
 }
 
 body {
-    /*background-color: black;*/
-    color: white;
     margin: 0;
-    font-weight: 300;
 }
 
 
@@ -75,7 +85,7 @@ article, aside, details, figcaption, figure, footer, header, section, hgroup, me
 }
 
 footer, .bottom {
-    background-color: #4285F4;
+
     padding: 4px;
     bottom: 0;
     left: 0;
@@ -99,7 +109,7 @@ section {
 .content-left li {
     padding: 5px;
     font-weight: bolder;
-    color: #6f42c1;
+
 }
 
 .load {
@@ -109,15 +119,13 @@ section {
     top: 5px;
     position: absolute;
     padding: 4px;
-    display: block;
-    background-color: #6610f2;
-    opacity: .70;
     display: none;
+    opacity: .70;
 }
 
 .content-left li span {
     font-weight: bolder;
-    color: #6f42c1;
+
 }
 
 .text-black {
@@ -162,14 +170,13 @@ section {
 }
 
 .content-right, .content-left, .content-right-subdiv {
-    height: calc(100vh - 100px);
-    /*padding-top: 5px;*/
+    height: 100vh;
     padding-left: 5px;
 }
 
 .content-left {
     float: left;
-    background-color: #80bdff;
+
 }
 
 .content-right {
@@ -197,7 +204,7 @@ section {
 }
 
 header, .top {
-    background-color: #4285F4;
+
     top: 0;
     left: 0;
     position: fixed;
@@ -206,7 +213,8 @@ header, .top {
     font-size: 14px;
 }
 
-header div {
+header div, header span, header a {
+    color: white;
     margin: 2px;
     padding: 3px;
 }
@@ -243,7 +251,6 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: .5rem;
     cursor: pointer;
     text-decoration: none;
-    color: #6f42c1;
 }
 
 p {
@@ -277,22 +284,12 @@ p {
     cursor: pointer;
 }
 
-li:hover {
-    color: #4285F4;
-    background-color: white;
-}
-
-li > span {
-    cursor: pointer;
-}
-
 code, kbd, samp {
     font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     font-size: 1em
 }
 
 a {
-    color: white;
     cursor: pointer;
     font-weight: bold;
     text-decoration: none;
@@ -316,10 +313,6 @@ a:hover {
     pointer-events: none;
 }
 
-.cursel {
-    background-color: white;
-    color: #4285F4;
-}
 
 li {
     list-style-type: none;
@@ -370,44 +363,46 @@ li {
 }
 
 
-.bg-primary {
+.primary {
     background-color: #007bff !important
 }
+.white {
+    background-color: white !important
+}
 
-
-.bg-secondary {
+.secondary {
     background-color: #6c757d !important
 }
 
 
-.bg-success {
+.success {
     background-color: #28a745 !important
 }
 
 
-.bg-info {
+.info {
     background-color: #17a2b8 !important
 }
 
-.bg-warning {
+.warning {
     background-color: #ffc107 !important
 }
 
-.bg-white {
+.white {
     background-color: white !important
 }
 
-.bg-danger {
+.danger {
     background-color: #dc3545 !important
 }
 
 
-.bg-light {
+.light {
     background-color: #f8f9fa !important
 }
 
 
-.bg-dark {
+.dark {
     background-color: #343a40 !important
 }
 
@@ -437,21 +432,27 @@ li {
     position: absolute;
     width: 1%;
     height: 20px;
-    background-color: #1c7430;
     display: none;
 }
 
-#idLinks a {
-    /*font-size: 10px;*/
-    padding: 2px;
-    margin: 1px;
-    background-color: #6f42c1;
-    border-radius: 2px;
+.badge{
     display: inline-block;
+    padding: .25em .4em;
+    font-size: 55%;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
 }
 
 
 @media screen and (max-width: 600px) {
+
+    #imgPic {
+        display: none;
+    }
+
     body, .parent div {
         font-size: 9px;
         padding: 2px;
@@ -537,9 +538,9 @@ li {
     width: 0 !important
 }
 
-select{
-    margin:2px;
-    padding:2px;
+select {
+    margin: 2px;
+    padding: 2px;
     background-color: white;
     border: 1px solid #6610f2;
 }

@@ -104,7 +104,7 @@ function getLinksDisplay() {
         let header = successData.header;
         let links = []
         for (let x in header) {
-            links.push('<a href="' + header[x] + '" target="_blank">' + x + '</a>')
+            links.push('<a class="badge white" href="' + header[x] + '" target="_blank">' + x + '</a>')
         }
         linksDiv.innerHTML += links.join(' ');
     }, function (failedData) {
@@ -126,7 +126,7 @@ function app() {
     mobile = mobilecheck();
     let elm = [];
     for (let ex in leftMenu) {
-        elm.push('<li id=' + ('id' + ex) + ' onclick="handleLeftButtonClick(\'' + ex + '\')"><span>' + ex + '</span></li>');
+        elm.push('<li id=' + ('id' + ex) + ' onclick="handleLeftButtonClick(\'' + ex + '\')">' + ex + '</li>');
     }
     left.innerHTML = elm.join('');
     handleLeftButtonClick(menuKeys[0]);
