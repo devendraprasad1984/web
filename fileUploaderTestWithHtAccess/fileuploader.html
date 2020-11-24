@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="libs/jquery.min.js"></script>
+    <style>
+        .container > div{margin-bottom: 20px;}
+    </style>
+</head>
+<body>
+<h1>File Uploader Test</h1>
+<div class="container">
+    <div>
+        <input type="file" id="imageInput" accept="image/*"/>
+        <button onclick="uploadHandler('imageInput')">Upload Image</button>
+    </div>
+    <div>
+        <input type="file" id="videoInput" accept="video/*"/>
+        <button onclick="uploadHandler('videoInput')">Upload Video</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function uploadHandler(typeOfUpload) {
+        let formdata = new FormData();
+        let files = $(`#${typeOfUpload}`)[0].files;
+        if (files.length > 0) {
+            formdata.append('file', files[0]);
+            console.log('file to upload is', files[0]);
+            $.ajax({
+                url: './upload.php'
+                , type: 'post'
+                , contentType: false
+                , processData: false
+                , data: formdata
+                , success: (res) => {
+                    console.log(res);
+                    // alert('uploaded');
+                }
+                , error: (err) => {
+                    console.error(err);
+                    alert('error');
+                }
+            });
+        } else {
+            alert('please choose an image/video to upload');
+        }
+    }
+</script>
+
+</body>
+</html>

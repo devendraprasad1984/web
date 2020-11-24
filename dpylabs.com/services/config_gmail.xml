@@ -1,0 +1,14 @@
+<root>
+    <SMTPDebug>1</SMTPDebug>
+    <Mailer>smtp</Mailer>
+    <Host>smtp.gmail.com</Host>
+    <Port>465</Port>
+    <SMTPAuth>true</SMTPAuth>
+    <Username>genericmailsender2019@gmail.com</Username>
+    <SMTPSecure>ssl</SMTPSecure>
+    <ToAddress>dpylabs@gmail.com</ToAddress>
+    <ReplyAddress></ReplyAddress>
+    <Plugdir></Plugdir>
+    <Wordwrap>150</Wordwrap>
+    <Subject>no-reply mailer</Subject>
+</root>

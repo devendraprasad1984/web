@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col-lg-4">
+        <div id="contactID"></div>
+    </div>
+    <div id="contact" class="col-lg-8">
+        <div style="overflow-x: hidden; overflow-y: auto; position: relative; height: 100%;">
+            <div><h3 id="message">Tell me, I will contact</h3></div>
+            <form id="contactform">
+                <div class="row col-lg-12">
+                    <input type="text" placeholder="Full Name" name="name" id="name"/>
+                    <input type="text" placeholder="Email" name="email" id="email"/>
+                    <input type="text" placeholder="Mobile 10 digits" name="mobile" id="mobile"/>
+                    <textarea rows="12" placeholder="Message" name="comments" id="comments"></textarea>
+                </div>
+            </form>
+            <div class="row col-lg-12" style="padding: 5px; margin: 5px;">
+                <span class="btn btn-success" onclick="getContactEmailQueryURI('contactform','message')">Submit</span>
+                <span class="btn btn-danger" onclick="clearForm('contactform')">Reset</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,4 @@
+<div style="font-weight: bolder; color: white">
+    <span class='pull-left fa fa-flask text-danger' style="font-size: 30pt;"></span><span style="font-size: 25pt;">dPyLabs IT Services</span></span>
+    <span class="pull-right"><i class="fa fa-phone"></i>+91 9582797772 <i class="fa fa-envelope-o"></i>dpylabs@gmail.com</span>
+</div>

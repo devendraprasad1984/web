@@ -1,0 +1,397 @@
+body {
+    font-family: "Open Sans", sans-serif;
+    margin: 10px;
+    white-space: normal !important;
+    word-wrap: break-word;
+    font-size: 12pt;
+    color: black;
+    /*zoom: 90%;*/
+}
+
+#idCompanyName {
+    font-size: 30pt;
+    /*color: white;*/
+}
+
+h1, h2, h3, h4, h5 {
+    white-space: normal !important;
+    word-wrap: break-word;
+}
+
+fieldset {
+    display: block;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-top: 0.35em;
+    padding-bottom: 0.625em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+}
+
+header, footer, section {
+    margin-top: 2px;
+    padding: 2px 2px;
+}
+
+#mainContentSection {
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%
+}
+
+.sticky + .content {
+    padding-top: 102px;
+}
+
+.ltqt {
+    border-left: 5px solid #117a8b;
+    border-radius: 2px;
+    padding: 5px 5px;
+}
+
+div, pre {
+    /*font-size: 10pt;*/
+    white-space: normal !important;
+    word-wrap: break-word;
+    color: black;
+    vertical-align: top;
+}
+
+.log {
+    /*font-size: 10pt;*/
+    word-wrap: break-word;
+    white-space: pre;
+}
+
+.img {
+    text-align: center;
+    vertical-align: middle;
+    width: 100px;
+    height: 100px;
+    min-width: 100px;
+    min-height: 100px;
+    border-radius: 5px;
+    /*border: 2px solid black;*/
+    padding: 5px;
+    display: inline-block;
+}
+
+.imgEdit {
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+    height: 400px;
+    border-radius: 5px;
+    /*border: 2px solid black;*/
+    padding: 5px;
+    display: inline-block;
+}
+
+.box {
+    background: white;
+    opacity: 0.9;
+    border-radius: 5px;
+    position: relative;
+    padding: 2px 2px;
+    margin-top: 2px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.13);
+    transition: all 0.3s ease-in-out;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+/*#divFooter, footer {*/
+/*position: relative;*/
+/*bottom: 0;*/
+/*margin-top: 1em;*/
+/*!*height:60px;*!*/
+/*}*/
+
+#top1 .btn {
+    font-size: 8pt;
+}
+
+.btn {
+    font-weight: bolder;
+}
+
+li span, i span {
+    white-space: normal !important;
+    word-wrap: break-word;
+}
+
+span {
+    padding: 2px 2px;
+    margin: 2px;
+    white-space: normal !important;
+    word-wrap: break-word;
+}
+
+span a {
+    width: auto;
+    height: 30px;
+}
+
+#divHeaderLine1 span {
+    color: black;
+    /*background: #343a40!important;*/
+    /*background: white !important;*/
+    padding: 2px;
+    margin: 2px;
+    font-size: 10pt;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px white;
+    border-radius: 2rem;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    /*background: #28a745;*/
+    background-color: black;
+    border-radius: 2rem;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: black;
+}
+
+.inside:hover {
+    z-index: 100;
+    background: white;
+    transform: scale(1, 1);
+}
+
+input[type=text], input[type=file], input[type=password], textarea {
+    /*white-space: pre;*/
+    width: 100%;
+    padding: 10px 10px;
+    margin: 2px 0;
+    display: inline;
+    border-radius: 2px;
+    /*box-sizing: border-box;*/
+}
+
+input[type=text]:focus, textarea:focus {
+    border-color: #dc3545;
+}
+
+input[type=text]:hover, textarea:hover {
+    border-color: #dc3545;
+}
+
+select {
+    width: 100%;
+    font-size: 14pt;
+    cursor: pointer;
+    display: inline-block;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    /*height: 300px;*/
+    overflow: auto;
+    padding: 10px 10px;
+    margin: 2px 0;
+    opacity: 0.8;
+}
+
+option {
+    padding: 10px 10px;
+    margin: 2px 0;
+}
+
+a.btn {
+    padding: 5px;
+    margin: 2px;
+    /*font-size: 9pt;*/
+    /*width: 100%;*/
+    white-space: normal !important;
+    word-wrap: break-word;
+}
+
+td {
+    vert-align: top;
+    /*padding: 10px;*/
+    border: 1px solid #0c5460;
+    white-space: normal !important;
+    word-wrap: break-word;
+}
+
+a.btn-info {
+    width: 100px;
+    padding: 5px;
+    white-space: normal !important;
+    word-wrap: break-word;
+}
+
+.sliderImg {
+    height: 400px;
+    width: 100%;
+    /*padding: 3px 3px;*/
+    /*margin: 2px;*/
+    box-shadow: 0 0 20px lightblue;
+    /*border-radius: 10px;*/
+    /*-webkit-transition: width 2s, height 4s; !* Safari *!*/
+    /*transition: width 2s, height 4s;*/
+    /*transition-timing-function: ease-in-out;*/
+}
+
+.mySlides {
+    display: none;
+}
+
+#idTopMenuSelect {
+    display: none;
+}
+
+#sliderLine span {
+    display: inline;
+}
+#divHeaderLine1 {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+.overlay {
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 1); /* Black background with opacity */
+    z-index: 1; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+    overflow: auto;
+    padding: 10px;
+}
+
+iframe {
+    height: 60px;
+    width: 100%;
+    border: 0;
+}
+
+.fa {
+    background-color: inherit;
+    /*font-size: 14pt;*/
+    padding: 5px 5px;
+    margin: 2px;
+    color: inherit;
+}
+
+#topMenu > .fa {
+    font-size: 20pt;
+}
+
+#sliderLine span.btn {
+    font-size: 20pt;
+}
+
+.pdfView {
+    height: inherit;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.imgInDiv {
+    height: 220px;
+    width: 100%;
+}
+
+.anim-bkg {
+    background: teal url(../images/anim.png);
+    width: 100%;
+    height: 343px;
+    margin: 0;
+    /*text-align: center;*/
+    box-sizing: border-box;
+    -webkit-animation: slide 50s linear infinite;
+    /*opacity: 1;*/
+}
+@-webkit-keyframes slide {  from {
+    background-position: 0 0;
+}
+    to { background-position: -2000px 500px; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 600px) {
+    #topMenu {
+        display: none;
+    }
+
+    #idTopMenuSelect {
+        display: block;
+    }
+
+    .sliderImg {
+        height: 100px;
+        width: 100%;
+    }
+
+    #idCompanyName {
+        font-size: 20pt;
+    }
+
+    .img {
+        width: 50px;
+        height: 50px;
+    }
+
+    #divHeaderLine1 span a {
+        font-size: 10pt;
+    }
+
+    #divHeaderLine1 {
+        /*position: relative;*/
+        width: 100%;
+        z-index: 2;
+    }
+
+    #sliderLine span.btn {
+        display: none;
+    }
+    .imgInDiv {
+        height: 100px;
+        width: 100%;
+    }
+}
