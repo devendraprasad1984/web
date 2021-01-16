@@ -1,0 +1,714 @@
+<div id="myLeftMenuBar">
+    <div id="aboutus" class="myLeftBox hide">
+        <table id="side1" cellspacing=4 cellpadding=4 width="100%">
+            <tr>
+                <td id="current" class="click" onclick="setThisSide(this);
+                        loadPageDiv('cb');">Background</td>
+            </tr>
+            <tr>
+                <td class="click" onclick="setThisSide(this);
+                        loadPageDiv('cp');">Portfolio</td>
+            </tr>
+            <tr>
+                <td class="click" onclick="setThisSide(this);
+                        loadPageDiv('cm');">Management Team</td>
+            </tr>
+            <tr>
+                <td class="click" onclick="setThisSide(this);
+                        loadPageDiv('me');">Why Us</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="services" class="myLeftBox hide">
+        <table id="side2" cellspacing=4 cellpadding=4 width="100%">
+            <tr>
+                <td id="current" class="click" onclick="loadPageDiv('prod');">Products</td>
+            </tr>
+            <tr>
+                <td class="click" onclick="setThisSide(this);
+                        loadPageDiv('wn');">Windows Application</td>
+            </tr>
+            <tr>
+                <td class="click" onclick="setThisSide(this);
+                        loadPageDiv('web');">Websites</td>
+            </tr>
+            <tr>
+                <td class="click" onclick="setThisSide(this);
+                        loadPageDiv('xl');">Excel+Access+VBA</td>
+            </tr>
+            <tr>
+                <td class="click" onclick="setThisSide(this);
+                        loadPageDiv('it');">IT Consulting</td>
+            </tr>
+            <tr>
+                <td class="click" onclick="setThisSide(this);
+                        loadPageDiv('db');">Databases</td>
+            </tr>
+            <tr>
+                <td class="click" onclick="setThisSide(this);
+                        loadPageDiv('iwl');">Internet Without Limit</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="contactus" class="myLeftBox hide">
+        <table id="side3" cellspacing=4 cellpadding=4 width="100%">
+            <tr>
+                <td id="current" class="click" onclick="setThisSide(this);
+                        loadPageDiv('ct');">Contact</td>
+            </tr>
+            <!--<tr><td class="click" onclick="setThisSide(this);
+                    loadPageDiv('em');">E-Mail</td></tr>-->
+        </table>
+    </div>
+</div>
+<!-- ===============================================-->
+
+
+<div id="myVideos">
+    <table id="demoTable">
+        <tr>
+            <td>
+                <iframe class="vidPixel" src="https://www.youtube.com/embed/n5NvwvT4y7s" frameborder="0" allowfullscreen></iframe>
+            </td>
+            <td>
+                <iframe class="vidPixel" src="https://www.youtube.com/embed/SAMvCwAcg1I" frameborder="0" allowfullscreen></iframe>
+            </td>
+            <td>
+                <iframe class="vidPixel" src="https://www.youtube.com/embed/6b5fvh5QkRw" frameborder="0" allowfullscreen></iframe>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+<div id="home">
+    <p class="subheading">Home</p>
+    <table cellspacing=0 cellpadding=0>
+        <tr style="height:20em;">
+            <td class="top" colspan=3>
+                We have got <span id="noYrs">?</span> years of IT software development experience. We have made almost all
+                sorts of software for big UK/US client. We have covered almost all the technologies including
+                <p class="subheading">Technical + Training Expertise</p>
+                <ul>
+                    <li><span onclick="loadPageDiv('corpTraining');" class="click subheading">Corporate Training Program</span></li>
+                    <li>PHP+MYSQL+HTML+JavaScript+JQuery+WebDesigning</li>
+                    <li>Content Management Websites with Live Admin Panel</li>
+                    <li>Search Engine Optimisation (SEO)</li>
+                    <li>C#.Net</li>
+                    <li><span onclick="loadDashboard();" class="click subheading">Excel+Access+VBA+SQL &nbsp;&nbsp;&nbsp;&nbsp;(view dashboard)</span></li>
+                    <li>Bulk file Processing & Management+ETL using SSIS(Extraction, Transformation, Loading)</li>
+                    <li>CoreJava+J2EE+JSP+Servlets+Struts+Spring</li>
+                    <li>SQL Server Development</li>
+                    <li>ITConsulting</li>
+                    <li>Simplified+Economized+Fastest Web browsing experience is our USP</li>
+                </ul>
+                <br/>
+            </td>
+        </tr>
+        <tr>
+            <td class="top" colspan="3">
+                <span class="success click" onclick="loadPageDiv('wn');">Windows Apps</span>
+                <span class="danger click" onclick="loadPageDiv('web');">Websites and Web Apps</span>
+                <span class="warning click" onclick="loadPageDiv('db');">Database Management</span>
+                <span class="info click" onclick="loadPageDiv('wn');">Content Management System</span>
+        </tr>
+    </table>
+
+    <p class="click la"><input type="checkbox" id="idVwTw" onClick="vwTw();" />View our Twitter Feeds...</p>
+
+    <div>
+        <!-- <p class="subheading click" onclick="loadPageDiv('web');">Sample Websites...</p> -->
+        <p class="subheading click" onclick="loadPageDiv('learnVBA');">Learn VBA(see our listing)...</p>
+        <ul class="vbaMainPageUL">
+            <li><img onclick="loadPageDiv('learnVBA');" src="img/VBA/slide1.png" class="imgVBA1" /></li>
+            <li><img onclick="loadPageDiv('learnVBA');" src="img/VBA/slide2.png" class="imgVBA1" /></li>
+            <li><img onclick="loadPageDiv('learnVBA');" src="img/VBA/slide3.png" class="imgVBA1" /></li>
+            <li><img onclick="loadPageDiv('learnVBA');" src="img/VBA/slide4.png" class="imgVBA1" /></li>
+        </ul>
+        <!--<p class="subheading click" onclick="loadPageDiv('iwl');">Internet Without Limit</p> -->
+        <div class="subheading click" onclick="LoadRatingFromServer();
+             ">*Rate Us</div>
+        <div id="idRating" class="clsRating"></div>
+    </div>
+</div>
+
+<div id="cb">
+    <p class="subheading">Background</p>
+    We provide end-to-end windows application solutions for all categories of Information Technology softwares We build softwares
+    on contract and freelancing. We came up with the simple idea of serving the indusry with our software development experience
+    and having lowest possible cost.
+</div>
+
+<div id="cp">
+    <p class="subheading">Portfolio</p>
+    Sonic Age India has the ability to add exceptional value to the windows+web applications it develops & supports by innovating
+    relevant strategies that not only add value but provide business solutions to the vendors and channel partners to enable
+    them to conduct their business seamlessly and with minimal hitches. We thrive in nurturing the relationship and working
+    closely with its business partners to meet, its own, the vendors.
+</div>
+
+<div id="cm">
+    <p class="subheading">Management</p>
+    <table>
+        <tr>
+            <td>
+                <span class="heading">Devendra Prasad</span>
+                <hr/> Software engineer by profession, has a +7yrs wide experience in IT. Over these many years I have developed
+                many windows and web applications and services and provided end to end customer support.
+                <a href="https://www.dropbox.com/s/eo3338jik3gmho2/Devendra_Prasad_CV.doc?dl=0">Resume</a>
+            </td>
+        <tr>
+    </table>
+</div>
+
+
+<div id="me">
+    <p class="subheading">Why Me...</p>
+    <ul>
+        <li>Innovative Software Design</li>
+        <li>Good Hands on experience websites and web application</li>
+        <li>Worked in Best companies in the industry(Visit my resume under management for list of projects I have done)</li>
+        <ol>
+            <li><a target="_blank" href="http://www.rbs.com">The Royal Bank of Scotland, Gurgaon, Haryana, India</a></li>
+            <li><a target="_blank" href="http://syntelinc.com">Syntel Inc, Pune, Maharashtra, India</a></li>
+            <li><a target="_blank" href="http://www.nineimensions.in">Nine Dimensions, Noida, Uttar Pradesh, India</a></li>
+        </ol>
+    </ul>
+</div>
+
+<div id="learnVBA">
+    <p class="subheading">I, build Trained Advance Excel & VBA professional programmers....</p>
+    <table>
+        <tr>
+            <td class="danger wid25">Hypothetical Knowledge</td>
+            <td class="info wid25">Join SAILite Advance Excel VBA</td>
+            <td class="warning wid25">Learn & Work on Projects</td>
+            <td class="success wid25">Working VBA Professional</td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td>
+                <br/>
+                <h1>Fast Track –VBA Macro Training Stuff</h1>
+                <br/>
+                <h2>Training Module (Level0)=INR 6000</h2>
+                <br/>
+                <h2>Training Module (Level1+Level2)=INR 11500</h2>
+                <br/>
+                <hr>
+                <br/>
+                <h2>Training Module Level 0 (INR 6000), Duration: Until Completion</h2>
+                <br/>1. Background of Excel + VBA, interpretation, compilation, OLE, COM, In process, out process execution
+                <br/>2. Protect sheet/workbook
+                <br/>3. calculation modes
+                <br/>4. Excel basic functions and formulas
+                <br/>a. Shortcuts
+                <br/>b. Excel objects
+                <br/>c. Formatting
+                <br/>d. Pivoting
+                <br/>e. Grouping
+                <br/>f. List & Validation
+                <br/>5. Formulas
+                <br/>a. Sum, max, if-else, count, counta, vlookup, hlookup, index, Sumif, sumifs, date, now, today, find, replace,
+                year, getPivotData, match, address, indirect, countif, counta
+                <br/>b. Formula debugging
+                <br/>6. HyperLinking
+                <br/>7. formatting & conditional formatting
+                <br/>8. filters & validations
+                <br/>9. Transposing & Data Import
+                <br/>10. Freeze Panes & grouping
+                <br/>11. Charting
+                <br/>
+                <br/>
+                <h2>Training Module Level 1 (INR 6000), Duration: Until Completion</h2>
+                <br/>1. Background of Excel + VBA, interpretation, compilation, OLE, COM, In process, out process execution
+                <br/>2. Excel Objects (Sheet, Ranges, Cells, rows, columns, application(screen, status, calculation, alerts))
+                <br/>3. Excel Functions via VBA
+                <br/>4. Variables, arrays, function, proc, byval, byref, structs, doevents, variants
+                <br/>5. control structures (if-else, loops (for, while))
+                <br/>6. Code debugging
+                <br/>7. error handling (on error resume next, on error trap)
+                <br/>8. VBA Built-in useful functions
+                <br/>a. Mid, instr, replace, Date, dateadd, format etc
+                <br/>9. file handling (reading, writing, renaming, copying, moving, files collection)
+                <br/>b. example of maintaining log and audits
+                <br/>c. exporting data to delimited files
+                <br/>d. read delimited files to excel sheets
+                <br/>e. snap dragon mode of data writing
+                <br/>10. running DOS Commands from Excel / invoking other programs via VBA
+                <br/>11. reading environment variable (username, computer name etc)
+                <br/>12. UI design at excel sheet + form design
+                <br/>13. adding win32 references(new + existing)
+                <br/>14. automating print, previews, saving and exporting
+                <br/>
+                <br/>
+                <h2>Training Module Level 2 (INR 7000), Duration: Until Completion</h2>
+                <br/>1. Background of Excel + VBA, interpretation, compilation, OLE, COM, In process, out process execution
+                <br/>2. Database handling (with DSN, without DSN) – select, insert, update, delete, procedures
+                <br/>f. Loading data from database to excel sheet
+                <br/>g. Loading data from database to delimited file
+                <br/>h. Writing data from excel to database
+                <br/>3. working with charts and objects
+                <br/>4. OLE with Excel (Outlook, Power point, access, word integration)
+                <br/>5. Calling excel macros from batch file
+                <br/>6. Export to PDF module via macros
+                <br/>7. Menu object programming normal + ribbon object
+                <br/>8. working with SOAP, XML & Web Services
+                <br/>9. working with Internet explorer
+                <br/>10. web scrapping or screen scrapping
+                <br/>11. Mapping a macro to VBS file
+                <br/>12. designing e-mailer via CDO and Outlook configuration
+            </td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="img/VBA/slide1.png" target="_blank"><img src="img/VBA/slide1.png" class="imgVBA" /></a>
+                    </li>
+                    <li>
+                        <a href="img/VBA/slide2.png" target="_blank"><img src="img/VBA/slide2.png" class="imgVBA" /></a>
+                    </li>
+                    <li>
+                        <a href="img/VBA/slide3.png" target="_blank"><img src="img/VBA/slide3.png" class="imgVBA" /></a>
+                    </li>
+                    <li>
+                        <a href="img/VBA/slide4.png" target="_blank"><img src="img/VBA/slide4.png" class="imgVBA" /></a>
+                    </li>
+                    <li>
+                        <a href="img/VBA/slide5.png" target="_blank"><img src="img/VBA/slide5.png" class="imgVBA" /></a>
+                    </li>
+                    <li>
+                        <a href="img/VBA/slide6.png" target="_blank"><img src="img/VBA/slide6.png" class="imgVBA" /></a>
+                    </li>
+                    <li>
+                        <a href="img/VBA/slide7.png" target="_blank"><img src="img/VBA/slide7.png" class="imgVBA" /></a>
+                    </li>
+                    <li>
+                        <a href="img/VBA/slide8.png" target="_blank"><img src="img/VBA/slide8.png" class="imgVBA" /></a>
+                    </li>
+                    <li>
+                        <a href="img/VBA/slide9.png" target="_blank"><img src="img/VBA/slide9.png" class="imgVBA" /></a>
+                    </li>
+                    <li>
+                        <a href="img/VBA/slide10.png" target="_blank"><img src="img/VBA/slide10.png" class="imgVBA" /></a>
+                    </li>
+                    <li>
+                        <a href="img/VBA/slide11.png" target="_blank"><img src="img/VBA/slide11.png" class="imgVBA" /></a>
+                    </li>
+                    <li>
+                        <a href="img/VBA/slide12.png" target="_blank"><img src="img/VBA/slide12.png" class="imgVBA" /></a>
+                    </li>
+                    <li>
+                        <a href="img/VBA/slide13.png" target="_blank"><img src="img/VBA/slide13.png" class="imgVBA" /></a>
+                    </li>
+                    <li>
+                        <a href="img/VBA/slide14.png" target="_blank"><img src="img/VBA/slide14.png" class="imgVBA" /></a>
+                    </li>
+                    <li>
+                        <a href="img/VBA/slide15.png" target="_blank"><img src="img/VBA/slide15.png" class="imgVBA" /></a>
+                    </li>
+                    <li>
+                        <a href="img/VBA/slide16.png" target="_blank"><img src="img/VBA/slide16.png" class="imgVBA" /></a>
+                    </li>
+                    <li>
+                        <a href="img/VBA/slide17.png" target="_blank"><img src="img/VBA/slide17.png" class="imgVBA" /></a>
+                    </li>
+                    <li>
+                        <a href="img/VBA/slide18.png" target="_blank"><img src="img/VBA/slide18.png" class="imgVBA" /></a>
+                    </li>
+                    <li>
+                        <a href="img/VBA/slide19.png" target="_blank"><img src="img/VBA/slide19.png" class="imgVBA" /></a>
+                    </li>
+                    <li>
+                        <a href="img/VBA/slide20.png" target="_blank"><img src="img/VBA/slide20.png" class="imgVBA" /></a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </table>>
+
+
+</div>
+
+<div id="prod">
+    <p class="subheading">Products & Services</p>
+    We have made some very simple yet powerful tools for simplifying the day to day business process. The list includes
+    <ul>
+        <li>Restaurant Point of Sale</li>
+        <li>Short Point of Sale - excel based</li>
+        <li>Excel based Data Extractor</li>
+        <li>Dynamic Chart Plotter</li>
+        <li>Various Websites - Html+Javascript+XML+PHP+MYSQL+CSS+Flash+Emailer</li>
+        <li>B2B Web Request Manager - for travel & tours lifecycle management</li>
+        <li>XML Based Question Bank - PHP+MYSQL+HTML+XML</li>
+        <li>Multiple excel+Access+VBA+SQL+PDF based dashboards and reports</li>
+    </ul>
+</div>
+
+
+
+<div id="wn">
+    <p class="subheading">Windows Applications</p>
+    We have got extensive knowledge and window applications and tools used in industry, our experience and projects are listed
+    below
+    <br/>
+    <br/><b>Languages:</b> C#(2.0+3.5+4.0)+Excel/Access(03/07/10)+VBA+SQL2.0/TSQL(DDL, DML, Proc, Loops, Triggers, Functions)+
+    HTML+SSIS+VSTO (Excel programming in C# +.Net UI components)+C# Windows Services & Exposure to WCF 4.0, PHP+MySQL
+    <br/><b>Tools:</b> SVN, DTS JIRA, Fisheye, FileDiff, XML Marker, Winmerge, WinScp, Apache 2.2, Xampp1.8
+    <ul>
+        <li>CNMS (Excel+Macros+WSS Web Services+ABN Services)</li>
+        <li>RTN (Access+VBA+SQL+Swift GatwayZ+XML+Linked Tables)</li>
+        <li>BloombergNotices (Access+VBA+SQL+ChaseFeed+Archiving)</li>
+        <li>Rainbow (Rec2+Rec3+AAS+Migration) (Excel+Access+Word+C#+SSIS+SQL/TSQL)</li>
+        <li>Argon Cash Flow Service (C# 2.0+SQL/TSQL+XML+Argon)</li>
+        <li>WSS Polling Service (C#+SQL/TSQL)</li>
+        <li>iPub(Excel+VBA+Unix+FTP+SQL)</li>
+        <li>Screen Scrapper(Excel+VBA+IBM PCOMM Type Lib+ Main frame Interface)</li>
+        <li>Biweekly MIS Template(Excel+VBA+Powerpoint APIs)</li>
+        <li>SR(Stationary Requisition) (Excel+VBA+email outlook interface automation)</li>
+        <li>AIR(Automatic Inventory Replenishment) (Excel+VBA+FTP API+DOS Bat +mail)</li>
+        <li>MDO(Mark Down Optimization) (Unix+FTP+SQL+Mainframe+VBA+Excel+eMail)</li>
+        <li>PRVit (Excel +SQL)</li>
+        <li>KPI (Excel+SQL)</li>
+        <li>COC Calci (Excel +SQL)</li>
+        <li>Data Mapping Tool (Excel+SQL)</li>
+        <li>Generic Data Comparison (C#+SQL)</li>
+    </ul>
+</div>
+
+<div id="web">
+    <p class="subheading">Websites</p>
+    Below are the websites developed and maintained by us
+    <br/>
+    <p class="subheading">Live</p>
+    <ul>
+        <li><a target="_blank" href="http://www.b2bhospitalityindia.com">B2BHospitalityIndia.Com (Travel & Medical Conferences)</a></li>
+        <li><a target="_blank" href="../excel-guru">Test Your Excel Skills...</a></li>
+    </ul>
+    <hr/>
+    <p class="subheading">Samples</p>
+    </hr>
+    <!--     <li><a target="_blank" href="../B2BTest">sonicageindia.co.in/Travel</a></li>
+        <li><a target="_blank" href="../softwave">sonicageindia.co.in/sw</a></li>
+        <li><a target="_blank" href="../rm">sonicageindia.co.in/rm</a></li>
+    -->
+    <div id="sample">
+        <script>
+            $("#sample").load('service.php?id=sample');
+        </script>
+    </div>
+</div>
+
+<div id="wa">
+    <p class="subheading">Web Applications</p>
+    We are capable of developing full fledged applications over internet for your business. We have got experience over multiple
+    domain and can use our expertise to simplify your business over web which will hellp you maintaining end to end workflow
+    management and feedback process.
+</div>
+
+<div id="xl">
+    <p class="subheading">Excel+Access+VBA</p>
+    All our experience in Excel+Access+VBA+SQL Stuff
+    <br/> we offer services as Freelance Excel+Access+VBA+SQL Programmer (Data Analyst).
+    <br/>
+    <p class="subheading">why hire me?</p>
+    if you work with lots of unmanageable data, I have better ways of managing it
+    <br/>if you work with management dashboard which are needed to be changed very frequently and
+    <br/>require you to put considerable efforts.
+    <br/>If you are in research industry and need to visit many sites and vendors to collect the data,
+    <br/>we are the one who can automate the tasks at your fingertips.
+    <br/>If you spend considerable time of your day to excel with data, functions and macros etc...
+    <br/>If you are in the data reconciliation industry and need to share reports to business and decision making.
+    <br/>(Can automate the entire tasks of reconciliation and reporting)
+    <br/>You have large amount of raw data, which you want to convert into neat and presentable reports
+    <br/>if you need sustainable software processes around your business for short/long term needs
+    <br/>If you answer YES for any of above, then your search ends here. I,
+    <ul>
+        <li>Deliver quality softwares</li>
+        <li>Delivery in shortest time</li>
+        <li>Lowest of cost</li>
+        <li>Do so at a reasonable cost</li>
+        <li>Easy deployment and installers</li>
+    </ul>
+    <p class="subheading">Services</p>
+    <ul>
+        <li>Excel / Access VBA Programming</li>
+        <li>Simple to Complex level of Dashboard designing and programming</li>
+        <li>Database Programming</li>
+        <li>Report Automation | Reporting</li>
+        <li>Data Manipulation and Conversion</li>
+        <li>Data Audit</li>
+        <li>Data Conversion</li>
+        <li>Data Cleansing</li>
+        <li>Data Mining and Forecasting</li>
+        <li>Data Integration</li>
+        <li>Data Reconciliation</li>
+        <li>Financial Modeling</li>
+        <li>Query Calculator and Tools</li>
+        <li>Customized Excel Functions</li>
+        <li>Spreadsheet and Database Design</li>
+        <li>Website & Web Application</li>
+    </ul>
+    <p class="subheading">Benefits of Hiring us:</p>
+    <ul>
+        <li>Get cost effective business solutions</li>
+        <li>Easy and Simple process</li>
+        <li>your code is safe with us</li>
+        <li>we can work across boundaries</li>
+        <li>Deliver on time with lowest cost possible</li>
+        <li>Flexible charges as per client</li>
+        <li>Fastest,Simplest,Cheapest Excel based software</li>
+    </ul>
+</div>
+
+<div id="it">
+    <p class="subheading">IT Consulting</p>
+    We are capable and fully equiped with the technical expertise to manage your small and medium sized business data. We can
+    automate your business through our windows and web based solution and can manager and transform all your manual books
+    to automatic one so that you can always be aware of your records online.
+</div>
+
+<div id="db">
+    <p class="subheading">Database Management</p>
+    We are equiped with following data management capabilities
+    <ul>
+        <li>Windows, Web, ETL Tools for data management</li>
+        <li>Excel + Access + Word Office applications</li>
+        <li>SQLServer</li>
+        <li>MySQL</li>
+        <li>Flat Files</li>
+    </ul>
+</div>
+
+<div id="iwl">
+    <p class="subheading">Internet Without Limit</p>
+    Internet Without Limit is our idea to serve the internet users for all their website and designing related needs. We are
+    capable of developing full fledged applications over internet for your business. We have got experience over multiple
+    domain and can use our expertise to simplify your business over web which will help you maintaining end to end workflow
+    management and feedback process. Please find below some of the works that we have done to serve the users in best possible
+    ways that we can
+    <ul>
+        <li>sample1</li>
+        <li>sample1</li>
+    </ul>
+</div>
+
+
+<div id="ct">
+    <p class="subheading">Contact Us</p>
+    <p>
+        <br/> Mob: +91 9582797772
+        <br/> email: sonicageindia@gmail.com
+        <br/> devendraprasad1984@gmail.com
+        <br/>
+    </p>
+
+    <!--<a target="_target" href="https://maps.google.com/maps?q=Khichripur, Kalyan Puri,New Delhi, Delhi, India&hl=en&ll=28.62284,77.315726&t=m&z=14">
+        <p class="subheading">Locate Me...</p>
+    </a>-->
+    <!--<div id="gContactForm" onclick="loadContactForm();">Loading..</div>-->
+
+    <!--<iframe src="https://docs.google.com/forms/d/1Tk7GNyQIb73iL7oKK4rEfmeSBkXRBqjZgSOIzlCaD64/viewform?embedded=false" width="100%"
+    height="1000" frameborder="0" marginheight="0" marginwidth="0" style='background-color: white;'>Loading...</iframe>-->
+    <div class="la vl">
+        <table cellspacing=4 cellpadding=4 border=0 style="width: 50%;">
+            <tr>
+                <td class="la warning">Fill the form and send to us</td>
+            </tr>
+            <tr>
+                <td>
+                    <input placeholder="Name" type=text name="tname" id="tName" value="test" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input placeholder="Email" type=text name="temail" id="tEmail" value="sonicageindia@gmail.com" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input placeholder="Mobile" type=text name="tmob" id="tMob" value="test" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input placeholder="Subject of Query" type=text name="tSub" id="tSub" value="test" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <textarea placeholder="Type your message" id="tMsg" name="tMsg" rows="20" style="height:150px;"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="la warning"><span class="click success" id="btnSave" onclick="saveContact(this);">Send</span></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<div id="adm">
+    <input placeholder="Filter On" type="text" id="tcontactFilter" style="width: 200px;" onkeypress="setAdminEnterKey();" /><span class="click subheading" id="btnCal" onclick="">...</span>
+    <br/>
+    <input placeholder="AdminView" type="text" id="tContactAdmin" style="width: 200px;" onkeypress="setAdminEnterKey();" />
+    <br/>
+    <span class="click subheading" id="btnContact" onclick="getContactFromServer();">get contacts</span>
+    <br/>
+    <br/>
+    <div id="tabContact"></div>
+</div>
+
+
+<div id="em">
+    <p class="subheading">e-Mail Notifier</p>
+    <!--<form name="frmEmail" id="frmEmail">
+        <table>
+            <tr><td>Name</td><td><input type=text name="tname" id="tname" /></td></tr>
+            <tr><td>Email</td><td><input type=text name="temail" id="temail" /></td></tr>
+            <tr><td>Mobile</td><td><input type=text name="tmob" id="tmob" /></td></tr>
+            <tr><td>Subject</td><td><input type=text name="tsub" id="tsub" /></td></tr>
+            <tr><td>Query</td><td><textarea id="tmsg" name="tmsg" rows="20" style="height:150px;"></textarea><td></tr>
+            <tr><td colspan=2><hr/></tr>
+            <tr><td colspan=2 class="ca"><a onclick="getContactEmailQueryURI('#frmEmail');">Send</a><td></tr>
+            <tr><td colspan=2 class="la"><div id="mail_1"></div></td></tr>
+        </table>
+    </form>-->
+
+</div>
+
+<div id="corpTraining">
+    <h1 class="subheading la" style="font-size: 18pt;">What do we cover in Excel VBA Corporate Training (2days - 6K-10k per head)</span></h1>
+    <p>
+        <a href="https://en.wikipedia.org/wiki/Visual_Basic_for_Applications" target="_blank">What is VBA??? Check Wiki...</a>
+        <br/> with the help of Excel VBA, we can automate various daily task(s) like: -
+    </p>
+
+    <ul>
+        <li>Automate Report Generation</li>
+        <li>Automate Chart creation</li>
+        <li>Creating Dashboards</li>
+        <li>Communicating with MS Access Databases</li>
+        <li>Analyzing Business Data</li>
+        <li>Reconciling Data</li>
+        <li>Timesavings</li>
+        <li>Create our Own Functions</li>
+    </ul>
+    <h5 class="warning la" style="font-size: 14pt;">Prerequisites for attending the corporate VBA training programme:</h5>
+    <ol>
+        <li> Good Knowledge of all features of Excel such as Advanced Filters, Pivot Tables, Text to Columns etc.</li>
+        <li> Good knowledge of Fundamental and advanced Formulae and Functions in Excel</li>
+        <li> Must have worked on applications using Excel for atleast 1 year</li>
+        <li> Good Analytical Skill and Numerical ability is an advantage</li>
+    </ol>
+
+    <table>
+        <tr>
+            <td>
+                <h2 class="warning la" style="font-size: 12pt;">Overview and Basics of VBA</h2>
+                <ul>
+                    <li>What is VBA? - Understand Object Model</li>
+                    <li>Quick Review of Macros</li>
+                    <li>Using the Visual Basic Editor</li>
+                    <li>Uses of Record Macro</li>
+                    <li>Understanding and creating Modules</li>
+                    <li>How do I define a Variables and Rules for defining a Variable Name and Type, MessageBox, InputBox</li>
+                    <li>Conditions (IF, AND, OR, Select Case etc.)</li>
+                    <li>Working with Loops(for, while, do-while, for each)</li>
+                    <li>using Procedure and Functions, Learn how to call from another procedure or function</li>
+                    <li>VBA Code Protection</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h2 class="warning la" style="font-size: 12pt;">Work with Workbook object</h2>
+                <ul>
+                    <li>Create or Add Single and Multiple Workbooks</li>
+                    <li>Workbooks Save and Save As with Password</li>
+                    <li>Open Single and Multiple Workbooks</li>
+                    <li>Close Specific and Multiple Workbooks</li>
+                    <li>Get Count of Workbooks</li>
+                    <li>To refer a particular Workbooks </li>
+                    <li>Activate from one Workbook to another Workbook</li>
+                    <li>Open Workbooks from Specific Path</li>
+                    <li>Get Workbooks Name and Path</li>
+                    <li>Hide and Unhide for Single and Multiple Workbooks</li>
+                    <li>Calculate entire Workbook</li>
+                    <li>Protect and Unprotect Worksheets</li>
+                    <li>Insert a Single and Multiple Worksheets</li>
+                    <li>Delete Specific and Multiple Worksheets</li>
+                    <li>Get Count of Worksheets</li>
+                    <li>Select a Specific and All Worksheets</li>
+                    <li>Get All Worksheets Name</li>
+                    <li>Hide and Unhide for Single and Multiple Worksheets</li>
+                    <li>Rename for Single and Multiple Worksheets</li>
+                    <li>Protect and Unprotect Worksheets</li>
+                    <li>Sort and Move Worksheets</li>
+                    <li>Calculate entire Worksheet</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h2 class="warning la" style="font-size: 12pt;">Change Perception - cell as object</h2>
+                <ul>
+                    <li>Insert single and multiple Row, Column and Cells</li>
+                    <li>Delete single and multiple Row, Column and Cells</li>
+                    <li>Get Range or Address of Cell and Selection</li>
+                    <li>Navigate from one Cell to another Cell</li>
+                    <li>Types of Selection and Offset method</li>
+                    <li>Paste Special Options</li>
+                    <li>How to update the Formulas</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h2 class="warning la" style="font-size: 12pt;">Some Useful Options</h2>
+                <ul>
+                    <li>Create New Pivot, Refersh and Other Pivot Opotions</li>
+                    <li>All the Filter and Advance Filter Options</li>
+                    <li>Data Sort Options</li>
+                    <li>All Text to Columns Options</li>
+                    <li>All Data Formatting Options</li>
+                    <li>Fill, Clear, Find and Replace Options</li>
+                    <li>Preparation of Chart and Dashboard</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h2 class="warning la" style="font-size: 12pt;">VBA in detail</h2>
+                <ul>
+                    <li>Files Automations real time scenarios</li>
+                    <li>Create a New Table and Database in MS Access</li>
+                    <li>Load the Data into Access Database</li>
+                    <li>Create a Query in Access Database</li>
+                    <li>Create Single and Multiple Mapping Tables</li>
+                    <li>Filter Single and Multiple criteria using Access Query</li>
+                    <li>Create Query for Data Grouping</li>
+                    <li>Create Query to Select required Columns</li>
+                    <li>Retrive specific data using Logical Access Query</li>
+                    <li>Create Access Query to Update, Change and Delete the Information in Access</li>
+                    <li>Retrive information through Excel from Access Database using VBA</li>
+                    <li class="success la" style="font-size: 10pt;">Discuss some real time stuff</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="getDataForTest">
+    <div>
+        <form id="testRes" action="test.php" method="post" enctype="multipart/form-data" target='upTarget'>
+            <input type="file" name="fTest" id="fileToUpload">
+            <input type="submit" value="OK" name="submit">
+        </form>
+    </div>
+    <iframe name="upTarget" id="upTarget" style="border:0; display: block; width:100%; overflow: auto;"></iframe>
+</div>

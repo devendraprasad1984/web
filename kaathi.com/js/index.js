@@ -3,22 +3,65 @@ let product_img_base = 'imgs/products/';
 let priceTag = '#priceTag';
 let v_bottom_cart_icon = '#id_bottom_cart_icon';
 let v_right_close_button = '#rightPanelCloseButton';
-let topContainer = '#id_div_top_container';
 let cart_final_amt = 'cart_final_amt';
 let cart_final_qty = 'cart_final_qty';
 let leftContainer = '#id_div_left_container';
 let v_products = {
     1: {
-        category: 'wooden educational toys',
+        category: 'category1',
         code: 'prod1',
-        desc: 'this is a test of product 1 category 1',
+        desc: 'desc1desc1desc1desc1desc1desc1desc1desc1desc1desc1desc1desc1desc1desc1desc1desc1desc1desc1desc1desc1desc1',
         images: ['1.jpeg'],
         price: 10,
         discount: 0,
         amzlink: 'https://www.amazon.in/Mammon-Womens-Leather-Handbag-3L-bib-Cream/dp/B07XKNS6FF/ref=lp_19079038031_1_1?s=shoes&ie=UTF8&qid=1574514565&sr=1-1'
+    },
+    2: {
+        category: 'category1',
+        code: 'prod2',
+        desc: 'desc2',
+        images: ['1.jpeg'],
+        price: 20,
+        discount: 10,
+        amzlink: 'https://www.amazon.in/Mammon-Womens-Leather-Handbag-3L-bib-Cream/dp/B07XKNS6FF/ref=lp_19079038031_1_1?s=shoes&ie=UTF8&qid=1574514565&sr=1-1'
+    },
+    3: {
+        category: 'category2',
+        code: 'prod3',
+        desc: 'desc3',
+        images: ['1.jpeg'],
+        price: 30,
+        discount: 0,
+        amzlink: 'https://www.amazon.in/Mammon-Womens-Leather-Handbag-3L-bib-Cream/dp/B07XKNS6FF/ref=lp_19079038031_1_1?s=shoes&ie=UTF8&qid=1574514565&sr=1-1'
+    },
+    4: {
+        category: 'category4',
+        code: 'prod4',
+        desc: 'desc4',
+        images: ['1.jpeg'],
+        price: 40,
+        discount: 20,
+        amzlink: 'https://www.amazon.in/Mammon-Womens-Leather-Handbag-3L-bib-Cream/dp/B07XKNS6FF/ref=lp_19079038031_1_1?s=shoes&ie=UTF8&qid=1574514565&sr=1-1'
+    },
+    5: {
+        category: 'category2',
+        code: 'prod5',
+        desc: 'desc5',
+        images: ['1.jpeg'],
+        price: 50,
+        discount: 0,
+        amzlink: 'https://www.amazon.in/Mammon-Womens-Leather-Handbag-3L-bib-Cream/dp/B07XKNS6FF/ref=lp_19079038031_1_1?s=shoes&ie=UTF8&qid=1574514565&sr=1-1'
+    },
+    6: {
+        category: 'category4',
+        code: 'prod6',
+        desc: 'desc6',
+        images: ['1.jpeg'],
+        price: 60,
+        discount: 30,
+        amzlink: 'https://www.amazon.in/Mammon-Womens-Leather-Handbag-3L-bib-Cream/dp/B07XKNS6FF/ref=lp_19079038031_1_1?s=shoes&ie=UTF8&qid=1574514565&sr=1-1'
     }
 }
-let configObj = {};
 let globalVars = {}
 let constObj = {
     cart: 'cart',
@@ -27,8 +70,7 @@ let constObj = {
     product: 'product',
     contact: 'contact',
     send: 'plz wait...',
-    close: 'Close',
-    errmsg: 'some error, contact admin'
+    close: 'Close'
 }
 let curRightPanelObject = constObj.cart;
 let onSuccess = () => {
@@ -36,13 +78,14 @@ let onSuccess = () => {
 let onFailure = () => {
 }
 let v_left_page = [
-    , ['<span class = "btn" onClick = "makeProductPage();">Products</span>']
+    ['<span class="btn" onClick="makeCart()">Cart</span>']
+    , ['<span class = "btn" onClick = "makeProductPage();"> Products </span>']
     , ['<span class="btn" onClick="makeContactPage();">Contact Us</span>']
 ]
 let main = './services/main.php';
 let v_contact_page = {
-    line1: ['Plot 155'],
-    line2: ['Block D, Bagdola'],
+    line1: ['D155 sector8'],
+    line2: ['Bagdola'],
     line3: ['new delhi - 110077'],
     line4: ['near dwarka sector 8 metro station'],
     line6: '<div id="idContactForm" class="formx">' +
@@ -50,7 +93,7 @@ let v_contact_page = {
         '<input type="text" placeholder="Name" class="form-control" id="name" name="name" required>' +
         '<input type="email" placeholder="Email" class="form-control" id="email" name="email">' +
         '<input type="text" placeholder="contact number" class="form-control" id="contact" name="contact" required>' +
-        '<button class="btn pull-right" onClick="sendMessage()">Send</button>' +
+        '<button class="btn pull-right" onClick="sendMessage()" >Send</button>' +
         '<button class="btn pull-right">Reset</button>' +
         '</div>',
     line5: '<div>' +
@@ -58,18 +101,23 @@ let v_contact_page = {
         '<div id="addressMap"></div>' +
         '</div>'
 }
-let v_product_categories = [{name: 'category1', type: 'type1', details: 'detail1'}];
-
+let v_product_categories = {
+    category1: {name: 'category1', type: 'type1', details: 'detail1'},
+    category2: {name: 'category2', type: 'type1', details: 'detail1'},
+    category3: {name: 'category3', type: 'type1', details: 'detail1'},
+    category4: {name: 'category4', type: 'type1', details: 'detail1'},
+    category5: {name: 'category5', type: 'type1', details: 'detail1'},
+    category6: {name: 'category6', type: 'type1', details: 'detail1'},
+    category7: {name: 'category7', type: 'type1', details: 'detail1'},
+    category8: {name: 'category8', type: 'type1', details: 'detail1'},
+    category9: {name: 'category9', type: 'type1', details: 'detail1'},
+    category10: {name: 'category10', type: 'type1', details: 'detail1'}
+}
 let mainContainer = '#id_div_container';
 let selectedProduct = {}
 let rightContainer = '#id_div_right_container';
 let cartObj = {}
 let checkOutPayment = 0;
-
-function onServerError() {
-    console.error(constObj.errmsg);
-    alert(constObj.errmsg);
-}
 
 $(document).ready(function () {
     prepareViewMobileReady();
@@ -90,7 +138,7 @@ $(document).ready(function () {
         "hideMethod": "hide"
     };
     initApp();
-    // displayProducts('category1');
+    displayProducts('category1');
 });
 
 let prepareViewMobileReady = () => {
@@ -109,28 +157,26 @@ let displayProducts = (category) => {
         let v_product = v_products[x];
         if (v_product.category !== category) continue;
         found += 1;
-        let pid = parseInt(v_product.id);
-        let pname = v_product.name;
+        let pname = v_product.code;
         let desc = v_product.desc;
-        let qty = parseInt(v_product.qty) || 0;
         let images = v_product.images;
-        let amzLink = v_product.amazonLink || '';
-        let folderRef = v_product.folderRef;
-        let qrid = v_product.qrid;
-        let flipkarLink = v_product.flipkartLink || '';
+        let price = v_product.price;
+        let amzLink = v_product.amzlink;
+        if (v_product["qty"] === undefined)
+            v_product["qty"] = 0;
 
         let elm1 = '<div style="padding: 2px;">' +
-            '<h1>' + pname + ' ' +
-            '<span class="btn btn-light pull-right" onclick="handleProductClick(\'' + pid + '\',-1)"><i class="fa fa-lg fa-minus"></i></span>' +
-            '<span class="btn btn-light pull-right" onclick="handleProductClick(\'' + pid + '\',1)"><i class="fa fa-lg fa-plus"></i></span>' +
-            '</h1>' +
+            '<h2>' + pname + ' ' +
+            '<span class="btn btn-light pull-right" onclick="handleProductClick(\'' + pname + '\',-1)"><i class="fa fa-lg fa-minus"></i></span>' +
+            '<span class="btn btn-light pull-right" onclick="handleProductClick(\'' + pname + '\',1)"><i class="fa fa-lg fa-plus"></i></span>' +
+            '</h2>' +
             '</div>';
-        let elm2 = '<div><b id="id_prod_desc_' + pid + '">' + desc.substr(0,100) + '...<a href="javascript:void(0)" onclick="showMoreText(\''+pname+'\',\''+desc+'\')">more</a></b></div>';
-        let elm3 = '<div><span id="id_img_desc_' + pid + '" class="productImages">' + display_product_images(pid,folderRef, images) + '</span></div>';
-        let elm4 = '<div id="priceTag_' + pid + '" class="priceline color1">' + getPriceLine(v_product, qty) + '</div>';
+        let elm2 = '<div><b id="id_prod_desc_' + pname + '">' + desc + '</b></div>';
+        let elm3 = '<div><span id="id_img_desc_' + pname + '" class="productImages">' + display_product_images(x, images) + '</span></div>';
+        // elm3_1 = '<div><span id="id_basePrice_"' + x + ' >Base Price: ' +rs+price + '</span></div>';
+        let elm4 = '<div id="priceTag_' + pname + '" class="priceline color1">' + getPriceLine(v_product, v_product["qty"]) + '</div>';
         let elm5 = '<div class="link_logo">' +
-            (amzLink !== "" ? '<a target="_blank" id="id_amazon_"' + pid + ' href="' + amzLink + '">amazon</a>' : '')
-            + (flipkarLink !== "" ? ' | <a target="_blank" id="id_flipkart_"' + pid + ' href="' + flipkarLink + '">flipkart</a>' : '') +
+            ' <a target="_blank" id="id_amazon_"' + pname + ' href="' + amzLink + '">amazon</a>' +
             '</div>';
         let shtml = '<div class="cenAlign product_box">' + elm1 + elm4 + elm2 + elm3 + elm5 + '</div><br/>';
         $(mainContainer).append(shtml);
@@ -147,15 +193,15 @@ let getErrorDetails = () => {
 
 let getCategoryDetails = (category) => {
     for (x in v_product_categories) {
-        if (v_product_categories[x].name == category) {
+        if (x == category) {
             return v_product_categories[x];
         }
     }
 }
 
 let getCalci = (prod, qty) => {
-    let discount = parseFloat(prod.discount);
-    let price = parseFloat(prod.price) * parseInt(qty);
+    let discount = prod.discount;
+    let price = prod.price * qty;
     let finalAmount = Math.round(price - price * discount / 100, 0);
     let savedAmount = price - finalAmount;
     let objCalc = {price, discount, finalAmount, savedAmount, qty};
@@ -164,36 +210,18 @@ let getCalci = (prod, qty) => {
 }
 let getPriceLine = (prod, qty) => {
     let x = getCalci(prod, qty);
-    let shtml = '<h2>' +
-        '<span>' + rs + prod.price + '*' + qty + '</span> ' +
+    let shtml = '<div><span>' + rs + prod.price + '*' + qty + '</span> ' +
         '<span> - ' + rs + x.savedAmount + '(' + x.discount + '%)</span> ' +
         '<span> = ' + rs + x.finalAmount + '</span> ' +
-        '<span class="btn btn-light pull-right" title="' + x.qty + ' qty selected" onclick="add2cart(\'' + prod.id + '\');">' +
-        'Add to Cart </span>' +
-        '</h2>';
+        '<span class="btn btn-light pull-right" title="' + x.qty + ' qty selected" onclick="add2cart(\'' + prod.code + '\');"><i class="fa fa-lg fa-check-square" ></i> </span></div>';
     return shtml;
 }
 
-let display_product_images = (id,folderRef, imgs) => {
-    let pid='prod_img_'+id;
-    if (imgs === '' || typeof imgs === "undefined") return;
-    let sImages = '<div id="'+pid+'"  class="carousel slide" data-ride="carousel">';
-    sImages+='<div class="carousel-inner">';
-    let arrImg = imgs.split(',');
-    for (let i in arrImg) {
-        sImages += '<div class="carousel-item '+(i==="0"?'active':'')+'" style="background-color: lightgray">';
-        sImages += '<img src="' + product_img_base + folderRef + arrImg[i] + '" alt="' + arrImg[i] + '" />';
-        sImages += '</div>';
+let display_product_images = (pid, imgs) => {
+    var sImages = '<div class="row">';
+    for (i in imgs) {
+        sImages += '<img class="col-lg-4" src="' + product_img_base + pid + '/' + imgs[i] + '" alt="' + imgs[i] + '" />';
     }
-    sImages+='</div>';
-    sImages+='<a class="carousel-control-prev" href="#'+pid+'" role="button" data-slide="prev">';
-    sImages+='<span class="carousel-control-prev-icon" aria-hidden="true"></span>';
-    sImages+='<span class="sr-only">Previous</span>';
-    sImages+='</a>';
-    sImages+='<a class="carousel-control-next" href="#'+pid+'" role="button" data-slide="next">';
-    sImages+='<span class="carousel-control-next-icon" aria-hidden="true"></span>';
-    sImages+='<span class="sr-only">Next</span>';
-    sImages+='</a>';
     sImages += '</div>';
     return sImages
 }
@@ -209,19 +237,21 @@ let makeContactPage = () => {
     }
     shtml += '</div>';
     $(rightContainer).html(shtml);
+    showRightPanel();
     move2top();
 }
 
 let makeProductPage = () => {
     curRightPanelObject = constObj.product;
     let elm1 = '<div id="id_product_page"><h2>Our Products</h2>';
-    let shtml = '';
+    let shtml = elm1;
     for (let i in v_product_categories) {
-        let category = v_product_categories[i];
-        shtml += '<div id="id_product_page_' + i + '"><span class="btn" title="' + category.type + ' - ' + category.details + '" onclick="clickOnProductCategory(\'' + category.name + '\')">' + category.name + '</span></div>'
+        let line = v_product_categories[i];
+        shtml += '<div id="id_product_page_' + i + '"><span class="btn" title="' + line.type + ' - ' + line.details + '" onclick="clickOnProductCategory(\'' + line.name + '\')">' + line.name + '</span></div>'
     }
     shtml += '</div>';
-    $(topContainer).html(shtml);
+    $(rightContainer).html(shtml);
+    showRightPanel();
     move2top();
 }
 
@@ -245,7 +275,11 @@ let prepareLeftPage = () => {
 }
 
 let clickOnProductCategory = (category) => {
+    // toastr.info(category + " is clicked");
     displayProducts(category);
+    if (globalVars['isMobile']) {
+        closeRightPanel();
+    }
 }
 
 
@@ -256,8 +290,8 @@ let add2cart = (xid) => {
         return;
     }
     if (cartObj.hasOwnProperty(xid)) {
-        if (cartObj[xid].qty === prods.qty) {
-            toastr.error(prods.name + " is already present. no qty changed");
+        if (cartObj[xid].qty == prods.qty) {
+            toastr.error(xid + " is already present. no qty changed");
             return;
         }
     }
@@ -270,23 +304,10 @@ let add2cart = (xid) => {
 }
 
 let initApp = () => {
-    //get home load data from server
-    prepareLeftPage();
-    onSuccess = (res) => {
-        if (res.status.status === 'success') {
-            console.log(res);
-            configObj = res.config;
-            v_product_categories = res.categories;
-            v_products = res.products;
-            displayCart();
-            makeProductPage();
-            displayProducts(v_product_categories[0].name);
-        } else {
-            onServerError();
-        }
+    if (!globalVars['isMobile']) {
+        prepareLeftPage();
+        displayCart();
     }
-    onFailure = failHandle
-    POSTMeesage(main, {loadhome: 1})
 }
 let closePanelIfMobile = () => {
     if (globalVars['isMobile']) {
@@ -295,31 +316,27 @@ let closePanelIfMobile = () => {
     }
 }
 
-function showMoreText(title,text) {
-    swal({text, title:title||''});
-}
-
-let displayCart = () => {
+var displayCart = () => {
     $(rightContainer).empty();
     let count = 0;
     let Amount = 0;
-    for (let o in cartObj) {
+    for (o in cartObj) {
         let prod = cartObj[o];
-        let elm1 = '<div class="xcard" id="id_cart_' + prod.id + '">';
-        let elm3 = '<h3><a class="orange" href="javascript:void(0)" onclick="">' + prod.name + '</a> <a href="javascript:void(0);" class="btn pull-right" onclick="removeFromCart(\'' + prod.id + '\')"><i class="fa fa-lg fa-minus"/></a></h3>';
-        let elm4 = '<div><span>' + prod.desc.substr(0, 30) + '...<a href="javascript:void(0);" onclick="showMoreText(\'' + prod.name + '\',\''+prod.desc+'\')">more</a></span><span>' + prod.calci + '</span></div>';
+        let elm1 = '<div class="xcard" id="id_cart_' + prod.code + '">';
+        let elm3 = '<h3>' + prod.code + ' <a href="#" class="btn pull-right" onclick="removeFromCart(\'' + prod.code + '\')">Remove</a></h3>';
+        let elm4 = '<span>' + prod.desc + prod.calci + '</span>';
         let elm5 = '</div>';
         $(rightContainer).append(elm1 + elm3 + elm4);
         count += 1;
         Amount += prod.finalAmount;
     }
     let elm0 = "<h4>Cart has <span id='" + cart_final_qty + "'>" + count + "</span> item of " + rs + "<span id='" + cart_final_amt + "' class='badge badge-light text-danger'>" + Amount + "</span></h4>";
-    let elm0_1 = "<div><a target='_blank' href='javascript:void(0);' class='btn'>Pay</a>";
-    let elm0_2 = " <a href='javascript:void(0);' class='btn' onclick='clearAll()'>Clear</a></div>";
+    let elm0_1 = "<div><a target='_blank' href='#' class='btn'>Pay</a>";
+    let elm0_2 = " <a href='#' class='btn' onclick='clearAll()'>Clear</a></div>";
     let elm0_4 = "<h4>Thanks for using kaathi.com</h4>";
     $(rightContainer).prepend(elm0 + elm0_1 + elm0_2 + elm0_4);
     manage_bottom_cart_icon_count();
-    $(".xcard span h2 span.btn").remove();
+    $(".cart_bg div span.btn").remove();
     checkOutPayment = Amount; //checkout amount that we may want to charge
     // showRightPanel();
 }
@@ -329,6 +346,36 @@ let makeCart = () => {
     displayCart();
     move2top();
 }
+
+// let getCloseButtonOnRightPanel = () => {
+//     return '<span id="rightPanelCloseButton" class="btn btn-danger" onclick="closeRightPanel();">Close</span>';
+// }
+// let getCloseButtonOnLeftPanel = () => {
+//     return '<span class="btn btn-danger" onclick="closeLeftPanel();">Close</span>';
+// }
+
+// let showRightPanel = () => {
+//     $(rightContainer).prepend(getCloseButtonOnRightPanel());
+//     if (!$(rightContainer).is(":visible")) {
+//         $(rightContainer).css({display: 'block'});
+//     }
+// }
+// let showLeftPanel = () => {
+//     $(leftContainer).prepend(getCloseButtonOnLeftPanel());
+//     if (!$(leftContainer).is(":visible")) {
+//         $(leftContainer).css({display: 'block'});
+//     }else{
+//         $(leftContainer).css({display: 'none'});
+//     }
+// }
+// let closeLeftPanel = () => {
+//     $(leftContainer).css({display: 'none'});
+// }
+// let closeRightPanel = () => {
+//     let txt = $(v_right_close_button).html() || '';
+//     if (txt.toLowerCase() === 'close')
+//         $(rightContainer).css({display: 'none'});
+// }
 
 let clickCartBadge = () => {
     move2top();
@@ -374,7 +421,7 @@ let clearAll = () => {
     cartObj = {};
     $(rightContainer).empty();
     displayProducts(Object.keys(v_product_categories)[0]);
-    // if (globalVars.isMobile) closeRightPanel();
+    if (globalVars.isMobile) closeRightPanel();
     manage_bottom_cart_icon_count();
 }
 
@@ -384,10 +431,10 @@ function isMobileDevice() {
 };
 
 
-let getProductByCode = (pid) => {
+let getProductByCode = (code) => {
     let pr = {}
-    for (let i in v_products) {
-        if (v_products[i].id === pid) {
+    for (i in v_products) {
+        if (v_products[i].code == code) {
             pr = v_products[i];
             break;
         }
@@ -395,15 +442,15 @@ let getProductByCode = (pid) => {
     return pr;
 }
 
-let handleProductClick = (pid, qty) => {
-    selectedProduct = getProductByCode(pid);
+let handleProductClick = (pname, qty) => {
+    selectedProduct = getProductByCode(pname);
     if (selectedProduct.qty == undefined) selectedProduct.qty = 0;
-    selectedProduct.qty = parseInt(selectedProduct.qty) + qty;
+    selectedProduct.qty += qty;
     if (selectedProduct.qty <= 0) selectedProduct.qty = 0;
     // console.log(selectedProduct)
     let sUpdatedPrice = getPriceLine(selectedProduct, selectedProduct.qty);
     selectedProduct.calci = sUpdatedPrice;
-    $(priceTag + '_' + pid).html(sUpdatedPrice);
+    $(priceTag + '_' + pname).html(sUpdatedPrice);
 }
 
 let move2top = () => {
@@ -444,7 +491,7 @@ let failHandle = (res) => {
 let emailSuccess = (res) => {
     if (res.status === constObj.success) {
         swal({
-            text: 'Processing Successful, ' + res.msg
+            text: 'Processing Successful, '+res.msg
             , icon: 'success'
         })
     }

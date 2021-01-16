@@ -11,15 +11,12 @@ html, body {
 footer i:hover {
     color: tomato;
 }
-.orange{
-    color: orangered;
-}
-.bgorange{
-    background-color: orangered;
+.color1 {
+    color: #008ECC;
 }
 
 h1 {
-    font-size: 16px;
+    font-size: 14px;
 }
 
 h2 {
@@ -57,18 +54,9 @@ a span {
 .xcontainer{
     display: flex;
     flex-direction: row;
+    /*width: 100%;*/
     max-width: 100%;
 }
-
-#id_div_top_container span.btn{
-    color: #8627c6;
-    background-color: lightgrey;
-}
-#id_div_top_container span.btn:hover{
-    color: white;
-    background-color: black;
-}
-
 .xcontainer div{
     margin: 5px;
 }
@@ -76,9 +64,17 @@ a span {
 #id_div_left_container, #id_div_right_container{
     width: 20%;
 }
-#id_div_container-parent{
+#id_div_container{
     width: 60%;
 }
+
+/*#id_div_left_container, #id_div_right_container {*/
+/*    margin-top: 1rem;*/
+/*    margin-bottom: 1rem;*/
+/*    !*text-align: right;*!*/
+/*}*/
+
+
 #id_div_container {
     margin-bottom: 0.2rem;
 }
@@ -239,15 +235,10 @@ div .link_logo > a > img {
 .top-control > button {
     display: inline-block;
 }
-.carousel-control-next, .carousel-control-prev{
-    background-color: black;
-    opacity: 0.25;
-    width: 50px;
-}
 
-.productImages > div img, .imgproduct {
-    height: 250px;
-    width: 100%;
+.productImages > div img {
+    height: 200px;
+    width: 200px;
     text-align: center;
     vertical-align: middle;
     left: 30%;

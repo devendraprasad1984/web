@@ -11,9 +11,9 @@ if ($server == '::1' or $server == 'localhost' or $server == '127.0.0.1') {
     define('db', 'kaathi');
 } else {
     define('host', 'localhost:3306');
-    define('user', 'dpkaathi');
+    define('user', 'wp_p9ii9');
     define('pwd', 'rbs1984#');
-    define('db', 'dlrgvkes_kaathi');
+    define('db', 'wp_8oy2w');
 }
 
 

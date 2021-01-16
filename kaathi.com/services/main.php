@@ -10,7 +10,6 @@ global $success, $failed;
 try {
     $data = $_SERVER["REQUEST_METHOD"] == 'POST' ? $_POST : $_GET;
     if (isset($_POST['contactus'])) handleContactUs($data);
-    if (isset($_POST['loadhome'])) handleLoadHome($data);
 
 } catch (Exception $ex) {
     writeErrorLog($ex);
