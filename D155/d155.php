@@ -1,7 +1,7 @@
 <?php
 require_once './ChromePHP.php';
 require_once './helper.php';
-require_once("./whatsapp/src/whatsprot.class.php");
+//require_once("./whatsapp/src/whatsprot.class.php");
 
 global $success, $failed;
 try{

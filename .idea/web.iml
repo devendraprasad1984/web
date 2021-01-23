@@ -2,7 +2,60 @@
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/doctrine/inflector" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/doctrine/lexer" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/dragonmantank/cron-expression" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/egulias/email-validator" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/erusev/parsedown" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/firebase/php-jwt" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/guzzlehttp/guzzle" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/guzzlehttp/promises" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/guzzlehttp/psr7" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/laravel/framework" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/laravel/nexmo-notification-channel" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/laravel/slack-notification-channel" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/lcobucci/jwt" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/league/flysystem" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/monolog/monolog" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/nesbot/carbon" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/nexmo/client" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/nielse63/phpimagecache" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/opis/closure" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/paragonie/random_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/php-http/guzzle6-adapter" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/php-http/httplug" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/php-http/promise" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/psr/container" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/psr/http-message" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/psr/log" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/psr/simple-cache" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/ralouphie/getallheaders" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/ramsey/uuid" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/spatie/image-optimizer" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/spatie/laravel-image-optimizer" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/swiftmailer/swiftmailer" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/symfony/console" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/symfony/contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/symfony/css-selector" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/symfony/debug" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/symfony/event-dispatcher" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/symfony/finder" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/symfony/http-foundation" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/symfony/http-kernel" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/symfony/polyfill-ctype" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/symfony/polyfill-mbstring" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/symfony/polyfill-php72" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/symfony/process" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/symfony/routing" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/symfony/translation" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/symfony/var-dumper" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/tijsverkoyen/css-to-inline-styles" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/tinify/tinify" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/vlucas/phpdotenv" />
+      <excludeFolder url="file://$MODULE_DIR$/php_api/vendor/zendframework/zend-diactoros" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
