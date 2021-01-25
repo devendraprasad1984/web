@@ -110,8 +110,13 @@ function handleCategoryLevelPagesPull($data)
 function handleCategoryLevels($data)
 {
     global $conn, $nodatafound;
-    $sql = $conn->query("SELECT cat.*, det.detail_description FROM category cat inner join categorydetails det ON cat.id=det.catid");
+//    $sql = $conn->query("SELECT a.*, b.detail_description FROM category a INNER JOIN CategoryDetails b ON a.id=b.catid");
+//    $categories = $sql->fetch_all(MYSQLI_ASSOC);
+    $sql = $conn->query("SELECT a.* FROM category a");
     $categories = $sql->fetch_all(MYSQLI_ASSOC);
+
+    $sql = $conn->query("SELECT * FROM categorydetails");
+    $details = $sql->fetch_all(MYSQLI_ASSOC);
 
     $sql = $conn->query("select * from categorylevel1");
     $catL1 = $sql->fetch_all(MYSQLI_ASSOC);
@@ -121,6 +126,7 @@ function handleCategoryLevels($data)
     mysqli_free_result($sql);
 
     $rows['data']['categories'] = $categories;
+    $rows['data']['details'] = $details;
     $rows['data']['catL1'] = $catL1;
     $rows['data']['catL2'] = $catL2;
     if ($conn) mysqli_close($conn);
