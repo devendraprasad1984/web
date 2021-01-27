@@ -144,10 +144,11 @@ function crudCategory($data)
         $id = $conn->real_escape_string($data['curdelid']);
         $type = $conn->real_escape_string($data['savetype']);
         $result = false;
-        $sqlPages = "delete from categorylevelpages where catL2 in (select a.id as catL2 from categorylevel2 a inner join categorylevel1 b ON a.catL1 = b.id where b.catid = $id)";
-        $sqlCatL2 = "delete from categorylevel2 where catL1 in (select a.id from categorylevel1 a where a.catid = $id)";
-        $sqlCatL1 = "delete from categorylevel1 where catid=$id";
-        $sqlCatDet = "delete from categorydetails where catid=$id";
+
+        $sqlPages = "delete from categorylevelpages where catL2 in (select a.id from categorylevel2 a inner join categorylevel1 b ON a.catL1 = b.id where b.id = $id)";
+        $sqlCatL2 = "delete from categorylevel2 where catL1 in (select a.id from categorylevel1 a where a.id = $id)";
+        $sqlCatL1 = "delete from categorylevel1 where id=$id";
+        $sqlCatDet = "delete from categorydetails where id=$id";
         $sqlCat = "delete from category where id=$id";
         if ($type == "cat") {
             $conn->query($sqlPages);
@@ -164,11 +165,16 @@ function crudCategory($data)
             $result = true;
         }
         if ($type == "catl2") {
+            $sqlPages = "delete from categorylevelpages where catL2 in (select id from categorylevel2 id = $id)";
+            $sqlCatL2 = "delete from categorylevel2 where id= $id";
             $conn->query($sqlPages);
             $conn->query($sqlCatL2);
+//            ChromePhp::log($sqlPages, $sqlCatL2);
             $result = true;
         }
         if ($type == "catpages") {
+            $sqlPages = "delete from categorylevelpages where id = $id";
+//            ChromePhp::log($sqlPages);
             $conn->query($sqlPages);
             $result = true;
         }
@@ -352,6 +358,7 @@ function pullTable($table, $where = '', $orderBy = '', $fld = '*')
         echo json_encode(["error" => $ex->getMessage() + ', ' + $ex->getTraceAsString()]);
     }
 }
+
 //function pullTable($table, $where = '', $orderBy = '', $fld = '*')
 //{
 //    global $conn;
