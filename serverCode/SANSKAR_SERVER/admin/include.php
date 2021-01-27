@@ -17,7 +17,7 @@ require_once $helperdir.$ps."email_helper.php";
 require_once $helperdir.$ps."error_handler.php";
 
 require_once $admindir.$ps."helper.php";
-
+require_once $admindir.$ps."header.php";
 
 require $phpmailer.$ps."Exception.php";
 require $phpmailer.$ps."PHPMailer.php";
