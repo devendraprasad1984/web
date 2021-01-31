@@ -47,7 +47,8 @@ function handleSupportQueries($data)
     $mobile = $conn->real_escape_string($data['mobile']);
     $email = $conn->real_escape_string($data['email']);
     $queries = $conn->real_escape_string($data['query']);
-    $query = "insert into supportqueries(name, mobile, email, query) values('$name','$mobile','$email','$queries')";
+    $agentid = $conn->real_escape_string($data['agentid']);
+    $query = "insert into supportqueries(name, mobile, email, query, agentid) values('$name','$mobile','$email','$queries',$agentid)";
     $result = $conn->query($query);
     if ($conn) mysqli_close($conn);
 //    $response['query']=$query;
