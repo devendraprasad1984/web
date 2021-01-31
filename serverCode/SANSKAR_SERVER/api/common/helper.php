@@ -55,6 +55,21 @@ function handleSupportQueries($data)
     echo $result ? $success : $failed;
 }
 
+function handleMiscOrder($data)
+{
+    global $conn, $success, $failed;
+    $orders = $conn->real_escape_string($data['orders']);
+    $remarks = $conn->real_escape_string($data['remarks']);
+    $agentid = $conn->real_escape_string($data['id']);
+    $query = "insert into misc_order_item(agentid, orderItems, remarks) values($agentid,'$orders','$remarks')";
+    $result = $conn->query($query);
+    if ($conn) mysqli_close($conn);
+//    $response['query']=$query;
+//    echo json_encode($response);
+    echo $result ? $success : $failed;
+}
+
+
 function handleAgentValidation($data)
 {
     global $conn, $failed;
