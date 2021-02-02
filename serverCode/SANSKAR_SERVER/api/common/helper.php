@@ -1,7 +1,7 @@
 <?php
 $nodatafound = "no data found or some fetch error, contact admin";
 
-function pullTableRows($table, $where = '', $orderBy = '',$fld='*')
+function pullTableRows($table, $where = '', $orderBy = '', $fld = '*')
 {
     global $conn;
     $qur = "select $fld from $table $where $orderBy";
@@ -10,6 +10,7 @@ function pullTableRows($table, $where = '', $orderBy = '',$fld='*')
     mysqli_free_result($sql);
     return $rows;
 }
+
 function pullTableRowsByQuery($query)
 {
     global $conn;
@@ -70,21 +71,40 @@ function handleMiscOrder($data)
     echo $result ? $success : $failed;
 }
 
+function handleCancelOrder($data)
+{
+    global $conn, $success, $failed;
+//    $successX = ["status" => "success"];
+//    $successX['data'] = $data;
+    $isCancel = $data['cancel'];
+    $type = $data['type'];
+    $id = $data['id'];
+    $agentid = $data['agentid'];
+    $result = false;
+    if ($type == 'misc') {
+        $qur = "update misc_order_item set state='cancelled' where id=$id and agentid=$agentid";
+        $result = $conn->query($qur);
+    }
+    if ($conn) mysqli_close($conn);
+//    echo json_encode($successX);
+    echo $result ? $success : $failed;
+}
+
 
 function handleAgentValidation($data)
 {
     global $conn, $failed;
     $isAgent = $data['agent'];
     $isValidate = $data['validate'];
-    $result=false;
-    $success1=['status'=>'success'];
+    $result = false;
+    $success1 = ['status' => 'success'];
     if ($isAgent == 1 && $isValidate == 1) {
         $guid = $data['pin'];
         $isOk = ifExists('dealers', "where guid='$guid'")[0]['num'];
-        if($isOk == "1"){
-            $row=pullTableRowsByQuery("select a.*,a2.type as xtype from dealers a inner join agenttype a2 on a.type = a2.id where a.guid='$guid'")[0];
-            $success1["info"]=$row;
-            $result=true;
+        if ($isOk == "1") {
+            $row = pullTableRowsByQuery("select a.*,a2.type as xtype from dealers a inner join agenttype a2 on a.type = a2.id where a.guid='$guid'")[0];
+            $success1["info"] = $row;
+            $result = true;
         }
     }
     if ($conn) mysqli_close($conn);
@@ -103,7 +123,7 @@ function handleForgotAgentCode($data)
         $pin = $data['pin'];
         $isOk = ifExists('dealers', "where agentid='$pin'")[0]['num'];
         $successUpdated['isok'] = $isOk;
-        $result=false;
+        $result = false;
         if ($isOk == "1") {
             $rows = pullTableRows('dealers', "where agentid='$pin'")[0];
             $successUpdated['rows'] = $rows;
