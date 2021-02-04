@@ -57,17 +57,50 @@ function handleSupportQueries($data)
     echo $result ? $success : $failed;
 }
 
-function handleMiscOrder($data)
+function handleOrderSave($data)
 {
     global $conn, $success, $failed;
-    $orders = $conn->real_escape_string($data['orders']);
-    $remarks = $conn->real_escape_string($data['remarks']);
+    $type = $conn->real_escape_string($data['type']);
     $agentid = $conn->real_escape_string($data['id']);
-    $query = "insert into misc_order_item(agentid, orderItems, remarks) values($agentid,'$orders','$remarks')";
-    $result = $conn->query($query);
+    $result = false;
+    $ordsave = false;
+    $orddet = false;
+    if ($type == 'misc') {
+        $orders = $conn->real_escape_string($data['orders']);
+        $remarks = $conn->real_escape_string($data['remarks']);
+        $query = "insert into misc_order_item(agentid, orderItems, remarks) values($agentid,'$orders','$remarks')";
+        $result = $conn->query($query);
+    }
+    if ($type == 'order') {
+        $orders = $data['orders'];
+        $amount = $conn->real_escape_string($data['cartAmount']);
+        $remarks = $conn->real_escape_string($data['remarks']);
+        $ordQur = "insert into orders(agentid,ordervalue,remarks)
+                    values($agentid,$amount,'$remarks')";
+        $ordsave = $conn->query($ordQur);
+        if ($ordsave) {
+//            $success1['a']=$ordsave;
+            $orderid = pullTableRowsByQuery('select max(id) as id from orders')[0]['id'];
+//            $success1['b']=$orderid;
+            foreach ($orders as $o) {
+                $p0 = $o['id'];
+                $p1 = $o['price'];
+                $p2 = $o['qty'];
+                $p3 = $o['tax'];
+                $p4 = $o['discount'];
+                $p5 = $o['amount'];
+                $p6 = $o['xline'];
+                $detqur = "insert into orderitems(prodid,orderid,price,qty,tax,discount,amount,calcline)
+                    values($p0,$orderid,$p1,$p2,$p3,$p4,$p5,'$p6')";
+                $orddet=$conn->query($detqur);
+//                $success1['c']=$orddet;
+//                $success1['d']=$detqur;
+            }
+        }
+        $result = $ordsave && $orddet;
+    }
     if ($conn) mysqli_close($conn);
-//    $response['query']=$query;
-//    echo json_encode($response);
+//    echo json_encode($success1);
     echo $result ? $success : $failed;
 }
 
@@ -82,7 +115,7 @@ function handleCancelOrder($data)
     $agentid = $data['agentid'];
     $result = false;
     if ($type == 'misc') {
-        $qur = "update misc_order_item set state='cancelled' where id=$id and agentid=$agentid";
+        $qur = "update misc_order_item set state='cancellation underway' where id=$id and agentid=$agentid";
         $result = $conn->query($qur);
     }
     if ($conn) mysqli_close($conn);
