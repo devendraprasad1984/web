@@ -1,7 +1,8 @@
 <?php
 require_once '../include.php';
 try{
-    pullTable('listingicons');
+    $type=$_GET['type'];
+    pullTable('icons',"where type=$type");
 }catch (Exception $ex){
     echo json_encode($ex);
 }
