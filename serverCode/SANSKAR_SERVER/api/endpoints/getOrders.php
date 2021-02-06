@@ -4,15 +4,16 @@ try {
     $data = $_GET;
     $id = $data['agentid'];
     $type = $data['type'];
-    $data = array();
-    $misc = array();
-    $orders = array();
     $ord = "order by date desc";
     if ($type == 'history') {
         $whr = "where agentid=$id";
-    }
-    if ($type == '3m') {
+    }elseif ($type == '3m') {
         $whr = "where (TIMESTAMPDIFF(MONTH, date, NOW())<=3 or state<>'success') and agentid=$id";
+    }elseif ($type == 'delivery') {
+        $id = $data['boy'];
+        $whr = "where deliveryby=$id";
+    }elseif ($type == 'handovercode') {
+        $whr = "where agentid=$id and isdelivered='0' and handovercode<>'0'";
     }
     $qurMisc = "select a.*,concat(b.name,', ',b.mobile) as deliveryboy from misc_order_item a
                 inner join deliveryboys b on a.deliveryby=b.id
@@ -23,11 +24,14 @@ try {
             inner join deliveryboys c on a.deliveryby=c.id
             $whr $ord";
 
+    $rows = array();
+    $misc = array();
+    $orders = array();
     $misc = pullTableRowsByQuery($qurMisc);
     $orders = pullTableRowsByQuery($qurOrder);
-    $data['misc'] = $misc;
-    $data['orders'] = $orders;
-    echo(json_encode($data));
+    $rows['misc'] = $misc;
+    $rows['orders'] = $orders;
+    echo(json_encode($rows));
 } catch (Exception $ex) {
     echo json_encode($ex);
 }
