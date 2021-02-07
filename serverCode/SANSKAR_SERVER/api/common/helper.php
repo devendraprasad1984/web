@@ -78,7 +78,7 @@ function handleOrderSave($data)
         $types = $files['type'];
         $sizes = $files['size'];
         $result = false;
-        $query = "insert into miscorders(agentid, orderItems, remarks,ordertype) values($agentid,'order images uploaded','$remarks','image')";
+        $query = "insert into miscorders(agentid, orderItems, remarks,ordertype,prefix) values($agentid,'order images uploaded','$remarks','image','X')";
         $conn->query($query);
         $orderid = pullTableRowsByQuery('select max(id) as id from miscorders')[0]['id'];
         foreach ($names as $k => $v) {

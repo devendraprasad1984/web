@@ -11,7 +11,7 @@ $commondir = $apidir . $ps . 'common';
 $uploaddir = $apidir . $ps . 'uploads';
 define('UPLOAD_DIR', $uploaddir);
 define('HTTP_HOST',"http://$host");
-define('UPLOAD_URL',"/SANSKAR_SERVER/api/uploads");
+define('UPLOAD_URL',HTTP_HOST."/SANSKAR_SERVER/api/uploads");
 
 require_once $helperdir . $ps . "ChromePHP.php";
 require_once $apidir . $ps . "init.php";

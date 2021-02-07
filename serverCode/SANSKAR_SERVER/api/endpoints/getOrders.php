@@ -2,7 +2,6 @@
 require_once '../include.php';
 try {
     $data = $_GET;
-    $http = HTTP_HOST;
     $id = $data['agentid'];
     $type = $data['type'];
     $ord = "order by date desc";
@@ -16,10 +15,11 @@ try {
     } elseif ($type == 'handovercode') {
         $whr = "where agentid=$id and isdelivered='0' and handovercode<>'0'";
     }
-    $qurMisc = "select a.*,concat(b.name,', ',b.mobile) as deliveryboy,concat('$http',c.imgs) as images
+    $qurMisc = "select a.*,concat(b.name,', ',b.mobile) as deliveryboy,ifnull(c.imgcnt,0) as icnt
                 from miscorders a inner join deliveryboys b on a.deliveryby=b.id
-                left outer join (select orderid,group_concat(uri,'~') as imgs from orderimages group by orderid) c on c.orderid=a.id
+                left outer join (select orderid,count(orderid) as imgcnt from orderimages group by orderid) c on c.orderid=a.id
                 $whr $ord";
+//    left outer join (select orderid,group_concat(uri,'~') as imgs from orderimages group by orderid) c on c.orderid=a.id
 
     $qurOrder = "select a.*,b.orderItems,concat(c.name,', ',c.mobile) as deliveryboy from orders a
             inner join (select orderid,group_concat(concat(qty,' pieces of ',p.name,' = ',calcline) separator '~') as orderItems 
