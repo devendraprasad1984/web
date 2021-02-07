@@ -68,10 +68,31 @@ function handleOrderSave($data)
     if ($type == 'misc') {
         $orders = $conn->real_escape_string($data['orders']);
         $remarks = $conn->real_escape_string($data['remarks']);
-        $query = "insert into misc_order_item(agentid, orderItems, remarks) values($agentid,'$orders','$remarks')";
+        $query = "insert into miscorders(agentid, orderItems, remarks) values($agentid,'$orders','$remarks')";
         $result = $conn->query($query);
-    }
-    if ($type == 'order') {
+    } elseif ($type == 'orderimages') {
+        $remarks = $conn->real_escape_string($data['remarks']);
+        $files = $data['files'];
+        $names = $files['name'];
+        $tmpnames = $files['tmp_name'];
+        $types = $files['type'];
+        $sizes = $files['size'];
+        $result = false;
+        $query = "insert into miscorders(agentid, orderItems, remarks,ordertype) values($agentid,'order images uploaded','$remarks','image')";
+        $conn->query($query);
+        $orderid = pullTableRowsByQuery('select max(id) as id from miscorders')[0]['id'];
+        foreach ($names as $k => $v) {
+            $fn = time() . '_' . $names[$k];
+            $abspath = UPLOAD_DIR . "/" . $fn;
+            $uri = UPLOAD_URL . "/" . $fn;
+            $ismoved = move_uploaded_file($tmpnames[$k], $abspath);
+            if ($ismoved) {
+                $qur = "insert into orderimages (orderid,abspath, uri) VALUES($orderid ,'$abspath', '$uri')";
+                $conn->query($qur);
+            }
+            $result = true;
+        }
+    } elseif ($type == 'order') {
         $orders = $data['orders'];
         $amount = $conn->real_escape_string($data['cartAmount']);
         $remarks = $conn->real_escape_string($data['remarks']);
@@ -79,9 +100,7 @@ function handleOrderSave($data)
                     values($agentid,$amount,'$remarks')";
         $ordsave = $conn->query($ordQur);
         if ($ordsave) {
-//            $success1['a']=$ordsave;
             $orderid = pullTableRowsByQuery('select max(id) as id from orders')[0]['id'];
-//            $success1['b']=$orderid;
             foreach ($orders as $o) {
                 $p0 = $o['id'];
                 $p1 = $o['price'];
@@ -92,15 +111,12 @@ function handleOrderSave($data)
                 $p6 = $o['xline'];
                 $detqur = "insert into orderitems(prodid,orderid,price,qty,tax,discount,amount,calcline)
                     values($p0,$orderid,$p1,$p2,$p3,$p4,$p5,'$p6')";
-                $orddet=$conn->query($detqur);
-//                $success1['c']=$orddet;
-//                $success1['d']=$detqur;
+                $orddet = $conn->query($detqur);
             }
         }
         $result = $ordsave && $orddet;
     }
     if ($conn) mysqli_close($conn);
-//    echo json_encode($success1);
     echo $result ? $success : $failed;
 }
 
@@ -115,7 +131,7 @@ function handleCancelOrder($data)
     $agentid = $data['agentid'];
     $result = false;
     if ($type == 'misc') {
-        $qur = "update misc_order_item set state='cancellation underway' where id=$id and agentid=$agentid";
+        $qur = "update miscorders set state='cancellation underway' where id=$id and agentid=$agentid";
         $result = $conn->query($qur);
     }
     if ($conn) mysqli_close($conn);

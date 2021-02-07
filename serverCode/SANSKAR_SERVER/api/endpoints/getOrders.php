@@ -2,22 +2,25 @@
 require_once '../include.php';
 try {
     $data = $_GET;
+    $http = HTTP_HOST;
     $id = $data['agentid'];
     $type = $data['type'];
     $ord = "order by date desc";
     if ($type == 'history') {
         $whr = "where agentid=$id";
-    }elseif ($type == '3m') {
+    } elseif ($type == '3m') {
         $whr = "where (TIMESTAMPDIFF(MONTH, date, NOW())<=3 or state<>'success') and agentid=$id";
-    }elseif ($type == 'delivery') {
+    } elseif ($type == 'delivery') {
         $id = $data['boy'];
         $whr = "where deliveryby=$id";
-    }elseif ($type == 'handovercode') {
+    } elseif ($type == 'handovercode') {
         $whr = "where agentid=$id and isdelivered='0' and handovercode<>'0'";
     }
-    $qurMisc = "select a.*,concat(b.name,', ',b.mobile) as deliveryboy from misc_order_item a
-                inner join deliveryboys b on a.deliveryby=b.id
-            $whr $ord";
+    $qurMisc = "select a.*,concat(b.name,', ',b.mobile) as deliveryboy,concat('$http',c.imgs) as images
+                from miscorders a inner join deliveryboys b on a.deliveryby=b.id
+                left outer join (select orderid,group_concat(uri,'~') as imgs from orderimages group by orderid) c on c.orderid=a.id
+                $whr $ord";
+
     $qurOrder = "select a.*,b.orderItems,concat(c.name,', ',c.mobile) as deliveryboy from orders a
             inner join (select orderid,group_concat(concat(qty,' pieces of ',p.name,' = ',calcline) separator '~') as orderItems 
             from orderitems oi inner join products p ON p.id=oi.prodid group by orderid) b on a.id=b.orderid
