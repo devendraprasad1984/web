@@ -11,7 +11,7 @@ try {
         $whr = "where (TIMESTAMPDIFF(MONTH, date, NOW())<=3 or state<>'success') and agentid=$id";
     } elseif ($type == 'delivery') {
         $id = $data['boy'];
-        $whr = "where deliveryby=$id";
+        $whr = "where deliveryby=$id and isdelivered='0' and handovercode<>'0'";
     } elseif ($type == 'handovercode') {
         $whr = "where agentid=$id and isdelivered='0' and handovercode<>'0'";
     }

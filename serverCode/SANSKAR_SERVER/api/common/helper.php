@@ -120,6 +120,29 @@ function handleOrderSave($data)
     echo $result ? $success : $failed;
 }
 
+function deliveryOrder($data)
+{
+    global $conn;
+    $out = array();
+    $id = $conn->real_escape_string($data['id']);
+    $prefix = $conn->real_escape_string($data['prefix']);
+    $code = $conn->real_escape_string($data['code']);
+    if ($prefix == 'M' || $prefix == 'X')
+        $table = "miscorders";
+    elseif ($prefix == 'A')
+        $table = "orders";
+    $selRow = pullTableRows($table, "where id=$id and handovercode='$code'", '', "count(*) as cnt");
+    if ($selRow[0]['cnt'] == 0) {
+        $out['status'] = 'invalid code, try again.';
+    } else {
+        $query = "update $table set state='delivered',isdelivered=1 where id=$id and handovercode='$code'";
+        $res=$conn->query($query);
+        $out['status'] = $res?'success':'failed';
+    }
+    if ($conn) mysqli_close($conn);
+    echo json_encode($out);
+}
+
 function handleCancelOrder($data)
 {
     global $conn, $success, $failed;
