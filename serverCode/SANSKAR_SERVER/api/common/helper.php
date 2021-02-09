@@ -62,13 +62,14 @@ function handleOrderSave($data)
     global $conn, $success, $failed;
     $type = $conn->real_escape_string($data['type']);
     $agentid = $conn->real_escape_string($data['id']);
+    $address = $conn->real_escape_string($data['address']);
     $result = false;
     $ordsave = false;
     $orddet = false;
     if ($type == 'misc') {
         $orders = $conn->real_escape_string($data['orders']);
         $remarks = $conn->real_escape_string($data['remarks']);
-        $query = "insert into miscorders(agentid, orderItems, remarks) values($agentid,'$orders','$remarks')";
+        $query = "insert into miscorders(agentid, orderItems, remarks,address) values($agentid,'$orders','$remarks','$address')";
         $result = $conn->query($query);
     } elseif ($type == 'orderimages') {
         $remarks = $conn->real_escape_string($data['remarks']);
@@ -78,7 +79,7 @@ function handleOrderSave($data)
         $types = $files['type'];
         $sizes = $files['size'];
         $result = false;
-        $query = "insert into miscorders(agentid, orderItems, remarks,ordertype,prefix) values($agentid,'order images uploaded','$remarks','image','X')";
+        $query = "insert into miscorders(agentid, orderItems, remarks,ordertype,prefix,address) values($agentid,'order images uploaded','$remarks','image','X','$address')";
         $conn->query($query);
         $orderid = pullTableRowsByQuery('select max(id) as id from miscorders')[0]['id'];
         foreach ($names as $k => $v) {
@@ -96,8 +97,7 @@ function handleOrderSave($data)
         $orders = $data['orders'];
         $amount = $conn->real_escape_string($data['cartAmount']);
         $remarks = $conn->real_escape_string($data['remarks']);
-        $ordQur = "insert into orders(agentid,ordervalue,remarks)
-                    values($agentid,$amount,'$remarks')";
+        $ordQur = "insert into orders(agentid,ordervalue,remarks,address) values($agentid,$amount,'$remarks','$address')";
         $ordsave = $conn->query($ordQur);
         if ($ordsave) {
             $orderid = pullTableRowsByQuery('select max(id) as id from orders')[0]['id'];
@@ -174,7 +174,7 @@ function handleAgentValidation($data)
         $guid = $data['pin'];
         $isOk = ifExists('dealers', "where guid='$guid'")[0]['num'];
         if ($isOk == "1") {
-            $row = pullTableRowsByQuery("select a.*,a2.type as xtype from dealers a inner join agenttype a2 on a.type = a2.id where a.guid='$guid'")[0];
+            $row = pullTableRowsByQuery("select a.*,a2.type as xtype,concat(address,', ',city,', ',country,', ',pincode,', ',landmark) as addr from dealers a inner join agenttype a2 on a.type = a2.id where a.guid='$guid'")[0];
             $success1["info"] = $row;
             $result = true;
         }
