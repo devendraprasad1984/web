@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+// https://material-ui.com/components
 export default function Modalify(props) {
     const {header, text, ok, callback, state} = props
     const classes = useStyles();
