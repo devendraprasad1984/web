@@ -1,0 +1,55 @@
+body {
+    margin: 10px;
+    color: #a006ef;
+}
+
+.activeLink {
+    color: white;
+    background-color: #a006ef;
+}
+
+h1, h2,h3{
+    background: -webkit-linear-gradient(#db1755, #a563c3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+a {
+    /*background: -webkit-linear-gradient(#db1755, #a563c3);*/
+    /*-webkit-background-clip: text;*/
+    /*-webkit-text-fill-color: #61dafb;*/
+    color: #7816ac;
+    font-weight: bolder;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 3px;
+    margin: 5px;
+}
+
+.cols {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.rows {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    margin: 5px;
+}
+
+.inrow {
+    justify-content: space-around;
+    align-content: space-around;
+}
+
+.mainLeftDiv {
+    opacity: 0.75;
+    width: 25%;
+}
+
+.mainRightDiv {
+    width: 75%;
+}
