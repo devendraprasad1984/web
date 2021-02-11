@@ -64,8 +64,10 @@ a {
     display: inline-block;
     font-size: 16px;
     font-weight: bolder;
+    /*box-shadow: 4px 4px 15px 2px rgb(191, 3, 248);*/
     cursor: pointer;
-
+    outline: none;
+    transition: 0.2s all;
 }
 
 .green {
@@ -89,7 +91,6 @@ a {
 
 .gray {
     background-color: #e7e7e7;
-    color: black;
     border-radius: 8px;
 }
 
