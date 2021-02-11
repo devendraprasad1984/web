@@ -1,8 +1,8 @@
 import React from "react";
-import {Switch, Route, NavLink} from "react-router-dom";
+import {NavLink, Route, Switch} from "react-router-dom";
 import './appstyles.css'
 import Home from "./Home";
-import About from "../About";
+import About from "./About";
 import Users from "./Users";
 
 // https://reactrouter.com/web/guides/quick-start

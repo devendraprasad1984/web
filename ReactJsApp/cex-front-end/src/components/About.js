@@ -1,5 +1,4 @@
 import React from "react"
-import AppButton from "./components/common/AppButton";
 
 const About = props => {
     return <div>
