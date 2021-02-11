@@ -8,7 +8,7 @@ body {
     background-color: #a006ef;
 }
 
-h1, h2,h3{
+h1, h2, h3 {
     background: -webkit-linear-gradient(#db1755, #a563c3);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -41,15 +41,61 @@ a {
 }
 
 .inrow {
-    justify-content: space-around;
-    align-content: space-around;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .mainLeftDiv {
     opacity: 0.75;
-    width: 25%;
+    width: 20%;
 }
 
 .mainRightDiv {
-    width: 75%;
+    width: 80%;
 }
+
+
+.btn {
+    color: black;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bolder;
+    cursor: pointer;
+
+}
+
+.green {
+    background-color: #4CAF50;
+    border-radius: 8px;
+}
+
+.blue {
+    background-color: #008CBA;
+    border-radius: 8px;
+}
+
+.red {
+    background-color: #f44336;
+    border-radius: 8px;
+}
+
+.white {
+    color: white;
+}
+
+.gray {
+    background-color: #e7e7e7;
+    color: black;
+    border-radius: 8px;
+}
+
+.black {
+    background-color: #555555;
+    border-radius: 8px;
+}
+
+
