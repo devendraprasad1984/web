@@ -49,12 +49,27 @@ export default function Modalify(props) {
             </div>
         </div>
     );
+
+    const xchild = (
+        <div style={modalStyle} className={classes.paper}>
+            <h2 id="simple-modal-title">{header}</h2>
+            <div id="simple-modal-description">
+                {props.children}
+            </div>
+            <div className='inrow'>
+                <AppButton val='ok' click={ok||hide}/>
+                <AppButton val='cancel' click={hide}/>
+            </div>
+        </div>
+    );
+
+
     return <Modal
         open={state}
         onClose={hide}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
     >
-        {body}
+        {typeof props.children !=="undefined" ? xchild : body}
     </Modal>
 }
