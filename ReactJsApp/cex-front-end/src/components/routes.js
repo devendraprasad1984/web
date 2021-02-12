@@ -7,7 +7,7 @@ import Users from "./screens/Users";
 // https://reactrouter.com/web/guides/quick-start
 export const RoutesComponent = props => {
     return <div className='rows'>
-        <div className='cols mainLeftDiv'>
+        <div id='mainLeftDiv' className='cols mainLeftDiv'>
             <NavLink to="/">Home</NavLink>
             <NavLink to="/about" activeClassName='activeLink'>About</NavLink>
             <NavLink to="/users" activeClassName='activeLink'>Users</NavLink>

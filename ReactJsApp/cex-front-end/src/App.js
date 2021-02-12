@@ -3,10 +3,11 @@ import './App.css';
 import './components/appstyles.css'
 import {RoutesComponent} from "./components/routes";
 import {BrowserRouter} from 'react-router-dom'
+import Header from "./components/screens/header";
 
 function App() {
     return <BrowserRouter>
-        <h1>Core eXpansion</h1>
+        <Header />
         <RoutesComponent/>
     </BrowserRouter>
 }

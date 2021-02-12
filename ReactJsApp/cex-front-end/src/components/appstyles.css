@@ -43,7 +43,12 @@ select, input, textarea {
     background-color: #a006ef;
 }
 
-h1, h2, h3 {
+.h1 {
+    font-size: 25pt;
+    font-weight: bolder;
+}
+
+h1, h2, h3, .h1 {
     background: -webkit-linear-gradient(#db1755, #a563c3);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -85,6 +90,12 @@ a {
 .mainLeftDiv {
     opacity: 0.75;
     width: 20%;
+    background-color: #535151;
+    min-height: calc(100vh - 100px);
+}
+
+.mainLeftDiv a {
+    color: white;
 }
 
 .mainRightDiv {
@@ -99,7 +110,7 @@ a {
     padding: 2px 2px;
     cursor: pointer;
     display: inline-block;
-    margin:3px;
+    margin: 3px;
     color: white;
     background-color: #515454;
     outline: none;
@@ -142,7 +153,7 @@ a {
     background-color: #555555;
 }
 
-.table{
+.table {
     overflow: auto;
     position: relative;
     width: 100%;
@@ -177,4 +188,38 @@ a {
     opacity: 0.7;
 }
 
+.icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px; /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+}
+
+/* Rules for sizing the icon. */
+.icons.md-18 { font-size: 18px; }
+.icons.md-24 { font-size: 24px; }
+.icons.md-36 { font-size: 36px; }
+.icons.md-48 { font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.icons.md-light { color: rgba(255, 255, 255, 1); }
+.icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+.icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
 
