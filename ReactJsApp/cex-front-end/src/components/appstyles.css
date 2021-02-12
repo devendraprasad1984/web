@@ -12,23 +12,28 @@ div > * {
     margin: 2px;
 }
 
-select, input{
+select, input, textarea {
     font-size: 12px;
     padding: 3px;
     font-weight: bolder;
+    opacity: 0.8;
+    color: black;
 }
 
-.label{
+.label {
     font-weight: bolder;
     font-size: 8px;
 }
-.wid30{
+
+.wid30 {
     width: 30%;
 }
-.wid50{
+
+.wid50 {
     width: 50%;
 }
-.wid70{
+
+.wid70 {
     width: 70%;
 }
 
@@ -142,6 +147,39 @@ a {
 .black {
     background-color: #555555;
     border-radius: 8px;
+}
+
+.table{
+    overflow: auto;
+    position: relative;
+}
+
+.line {
+    overflow-x: auto;
+    width: 100%;
+    border-bottom: 1px solid #8a8a8a;
+}
+
+.header {
+    font-weight: bolder;
+    font-size: 14px;
+    color: black;
+    opacity: 0.7;
+    background-color: #e7e6e6;
+}
+
+.line span {
+    font-size: 12px;
+    display: table-cell;
+    text-align: left;
+    justify-content: left;
+    min-width: 150px;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: black;
+    font-weight: bolder;
+    opacity: 0.7;
 }
 
 
