@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import Button from "./Button";
 import Input from "./textInput";
 
 const GridX = (props) => {
@@ -10,22 +9,20 @@ const GridX = (props) => {
         setDatax(data)
     }, [])
 
-    const rowAction = [
+    const rowAction = <span>
         <a href='#' className=''>edit</a>
-        , <a href='#' className=''>delete</a>
-    ]
+        <a href='#' className=''>delete</a>
+    </span>
+
     const displayGrid = () => {
         if (datax === undefined || datax.length === 0) return null
         let header = {}
-        const cols = [
-            rowAction.map((x, i) => header['act' + i] = ''),
-            , Object.keys(datax[0]).map(x => header[x] = x.toUpperCase())
-        ]
+        const cols = [{'act': ''}, Object.keys(datax[0]).map(x => header[x] = x.toUpperCase())]
         const dataWithHeader = [header, ...datax]
         console.log(dataWithHeader)
         return dataWithHeader.map((x, i) => {
             return <div key={'row' + i} className={i === 0 ? 'line header' : 'line'}>
-                {rowAction.map((btn, n) => <span key={'btn' + n}>{i === 0 ? '' : btn}</span>)}
+                {i !== 0 ? rowAction : <span></span>}
                 <span>{x.id}</span>
                 <span>{x.lastName}</span>
                 <span>{x.firstName}</span>
