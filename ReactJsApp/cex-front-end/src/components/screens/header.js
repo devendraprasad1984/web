@@ -9,6 +9,7 @@ const Header = props => {
     return <div>
         <Button val='' click={toggle} icon='reorder'/>
         <span className='h1'>Core eXpansion</span>
+        <span className='right bold'>Welcome, prasadf</span>
     </div>
 }
 export default Header
