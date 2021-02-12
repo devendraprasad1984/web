@@ -12,6 +12,7 @@ const Home = props => {
     const [isload, setIsload] = useState(false)
     const [checkedOnOff, setCheckedOnOff] = useState(false)
     const name = createRef()
+    const selnum = createRef()
     const date = createRef()
     const seldate = createRef()
     const onoff = createRef()
@@ -31,10 +32,11 @@ const Home = props => {
             <Input ref={name} label='Enter Name'/>
             <Input ref={date} label='date' type='date'/>
             <Select ref={seldate} label='choose dates' data={['one','two','three']}/>
-            <OnOff ref={onoff} label='are you permanent?' checked={checkedOnOff} toggle={()=>setCheckedOnOff(!checkedOnOff)}/>
+            <Select ref={selnum} label='choose..' data={[1,2,3,4,5,6,7,8,9,10]}/>
+            <OnOff ref={onoff} label='permanent?' checked={checkedOnOff} toggle={()=>setCheckedOnOff(!checkedOnOff)}/>
             {/*<Input type='checkbox' ref={onoff} label='permanent?'/>*/}
             <Button val='save' color='green' click={() => {
-                console.log(name.current.value, date.current.value, seldate.current.value, onoff.current)
+                console.log(selnum.current.value, name.current.value, date.current.value, seldate.current.value, checkedOnOff)
             }}/>
         </div>
     </div>
