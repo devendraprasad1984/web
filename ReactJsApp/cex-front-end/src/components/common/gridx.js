@@ -22,7 +22,7 @@ const GridX = (props) => {
         let header = {}
         let tmpKeys = Object.keys(datax[0])
         if (!noAction) tmpKeys = ['act', ...tmpKeys]
-        tmpKeys.forEach(x=>header[x]=x)
+        tmpKeys.forEach(x=>header[x]=x.toUpperCase())
         // console.log('header',header)
         const dataWithHeader = [header, ...datax]
         return dataWithHeader.map((x, i) => {
