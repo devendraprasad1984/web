@@ -1,8 +1,8 @@
 import React from "react";
 import {NavLink, Route, Switch} from "react-router-dom";
-import Home from "./Home";
-import About from "./About";
-import Users from "./Users";
+import Home from "./screens/Home";
+import About from "./screens/About";
+import Users from "./screens/Users";
 
 // https://reactrouter.com/web/guides/quick-start
 export const RoutesComponent = props => {
