@@ -62,7 +62,7 @@ const HomeUIForm = props => {
             }}/>
         </div>
         <div>
-            <GridX data={data}/>
+            <GridX data={data} edit={(x)=>{console.log(x)}}/>
         </div>
     </div>
 }

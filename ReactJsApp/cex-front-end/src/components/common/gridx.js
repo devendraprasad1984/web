@@ -3,27 +3,31 @@ import Input from "./textInput";
 import Button from "./Button";
 
 const GridX = (props) => {
-    const {data} = props
+    const {data, edit, del} = props
     const [datax, setDatax] = useState([])
 
     useEffect(() => {
         setDatax(data)
     }, [])
 
-    const rowAction = <span>
-        <Button color='badge' val='edit'/>
-        <Button color='badge red' val='delete'/>
-    </span>
+    const noAction = edit === undefined && del === undefined
+    const rowAction = !noAction ? <span>
+        {edit !== undefined ? <Button color='badge' val='edit' click={edit}/> : null}
+        {del !== undefined ? <Button color='badge red' val='delete' click={del}/> : null}
+    </span> : null
+
 
     const displayGrid = () => {
         if (datax === undefined || datax.length === 0) return null
         let header = {}
-        const cols = [{'act': ''}, Object.keys(datax[0]).map(x => header[x] = x.toUpperCase())]
+        let tmpKeys = Object.keys(datax[0])
+        if (!noAction) tmpKeys = ['act', ...tmpKeys]
+        tmpKeys.forEach(x=>header[x]=x)
+        // console.log('header',header)
         const dataWithHeader = [header, ...datax]
-        // console.log(dataWithHeader)
         return dataWithHeader.map((x, i) => {
             return <div key={'row' + i} className={i === 0 ? 'line header' : 'line'}>
-                {i !== 0 ? rowAction : <span></span>}
+                {i !== 0 ? rowAction : !noAction ? <span></span> :null}
                 <span>{x.id}</span>
                 <span>{x.lastName}</span>
                 <span>{x.firstName}</span>
