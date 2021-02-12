@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Input from "./textInput";
+import Button from "./Button";
 
 const GridX = (props) => {
     const {data} = props
@@ -10,8 +11,8 @@ const GridX = (props) => {
     }, [])
 
     const rowAction = <span>
-        <a href='#' className=''>edit</a>
-        <a href='#' className=''>delete</a>
+        <Button color='badge' val='edit'/>
+        <Button color='badge red' val='delete'/>
     </span>
 
     const displayGrid = () => {
@@ -19,7 +20,7 @@ const GridX = (props) => {
         let header = {}
         const cols = [{'act': ''}, Object.keys(datax[0]).map(x => header[x] = x.toUpperCase())]
         const dataWithHeader = [header, ...datax]
-        console.log(dataWithHeader)
+        // console.log(dataWithHeader)
         return dataWithHeader.map((x, i) => {
             return <div key={'row' + i} className={i === 0 ? 'line header' : 'line'}>
                 {i !== 0 ? rowAction : <span></span>}
@@ -31,7 +32,7 @@ const GridX = (props) => {
         })
     }
     return (
-        <div style={{height: 400, width: '100%'}}>
+        <div style={{height: 300, width: '100%'}}>
             <div className=''><Input placeholder={'search...'}/></div>
             <div className='table'>{displayGrid()}</div>
         </div>

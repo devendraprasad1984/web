@@ -52,8 +52,13 @@ const HomeUIForm = props => {
             <Select ref={selnum} label='choose..' data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}/>
             <OnOff ref={onoff} label='permanent?' checked={checkedOnOff} toggle={() => setCheckedOnOff(!checkedOnOff)}/>
             {/*<Input type='checkbox' ref={onoff} label='permanent?'/>*/}
-            <Button val='save' color='green' click={() => {
-                console.log(selnum.current.value, name.current.value, date.current.value, seldate.current.value, remarks.current.value, checkedOnOff)
+            <Button val='save' color='btn green' click={() => {
+                console.log(selnum.current.value
+                    , name.current.value
+                    , date.current.value
+                    , seldate.current.value
+                    , remarks.current.value
+                    , checkedOnOff)
             }}/>
         </div>
         <div>

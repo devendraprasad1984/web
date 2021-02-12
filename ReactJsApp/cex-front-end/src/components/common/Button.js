@@ -3,10 +3,8 @@ import '../appstyles.css'
 
 const Button = props => {
     const {click, val, color} = props
-    const btnColor=color || 'black white'
-    return <div onClick={click}>
-        <span className={`btn ${btnColor} riple`}>{val}</span>
-    </div>
+    const btnColor = color || 'btn black white'
+    return <a className={`${btnColor} riple`} onClick={click}>{val}</a>
 }
 
 export default Button
