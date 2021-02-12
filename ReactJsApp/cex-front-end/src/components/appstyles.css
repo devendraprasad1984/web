@@ -1,7 +1,37 @@
 body {
     margin: 10px;
     color: #a006ef;
+    opacity: 0.9;
 }
+
+div {
+    margin-bottom: 10px;
+}
+
+div > * {
+    margin: 2px;
+}
+
+select, input{
+    font-size: 12px;
+    padding: 3px;
+    font-weight: bolder;
+}
+
+.label{
+    font-weight: bolder;
+    font-size: 8px;
+}
+.wid30{
+    width: 30%;
+}
+.wid50{
+    width: 50%;
+}
+.wid70{
+    width: 70%;
+}
+
 
 .activeLink {
     color: white;
@@ -56,19 +86,33 @@ a {
     width: 80%;
 }
 
-
 .btn {
-    color: black;
-    padding: 10px 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+    border: none;
+    border-radius: 5px;
     font-weight: bolder;
-    /*box-shadow: 4px 4px 15px 2px rgb(191, 3, 248);*/
+    padding: 10px 10px;
+    font-size: 16px;
+    /*text-transform: uppercase;*/
     cursor: pointer;
+    display: inline-block;
+    color: white;
+    background-color: #515454;
+    /*box-shadow: 0 0 4px #999;*/
     outline: none;
-    transition: 0.2s all;
+    /*transition: background 0.8s;*/
+}
+
+/* Add animation */
+@keyframes ripple {
+    from {
+        opacity: 1;
+        transform: scale(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(10);
+    }
 }
 
 .green {

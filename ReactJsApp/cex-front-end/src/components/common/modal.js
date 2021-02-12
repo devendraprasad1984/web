@@ -1,33 +1,26 @@
 import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import AppButton from "./AppButton";
-
-function rand() {
-    return Math.round(Math.random() * 20) - 10;
-}
+import Button from "./Button";
 
 function getModalStyle() {
-    const top = 50 + rand();
-    const left = 50 + rand();
-
     return {
-        top: `${top}%`,
-        left: `${left}%`,
-        transform: `translate(-${top}%, -${left}%)`,
-    };
+        top:'50%',
+        left: '50%',
+        transform: `translate(-50%, -50%)`,
+    }
 }
 
 const useStyles = makeStyles((theme) => ({
     paper: {
         position: 'absolute',
         width: 400,
-        backgroundColor: theme.palette.background.paper,
+        backgroundColor: "white",
         border: '2px solid #000',
-        // boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
+        borderRadius:'10px',
+        padding: "10px",
     },
-}));
+}))
 
 // https://material-ui.com/components
 export default function Modalify(props) {
@@ -37,29 +30,28 @@ export default function Modalify(props) {
 
     const hide = () => {
         callback(false)
-    };
+    }
+
+    const bottomBtn = () => {
+        return <div className='inrow'>
+            <Button val='ok' click={ok || hide}/>
+            <Button val='cancel' click={hide}/>
+        </div>
+    }
 
     const body = (
         <div style={modalStyle} className={classes.paper}>
             <h2 id="simple-modal-title">{header}</h2>
             <span id="simple-modal-description">{text}</span>
-            <div className='inrow'>
-                <AppButton val='ok' click={ok||hide}/>
-                <AppButton val='cancel' click={hide}/>
-            </div>
+            {bottomBtn()}
         </div>
     );
 
     const xchild = (
         <div style={modalStyle} className={classes.paper}>
             <h2 id="simple-modal-title">{header}</h2>
-            <div id="simple-modal-description">
-                {props.children}
-            </div>
-            <div className='inrow'>
-                <AppButton val='ok' click={ok||hide}/>
-                <AppButton val='cancel' click={hide}/>
-            </div>
+            <div id="simple-modal-description">{props.children}</div>
+            {bottomBtn()}
         </div>
     );
 
@@ -68,8 +60,7 @@ export default function Modalify(props) {
         open={state}
         onClose={hide}
         aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-    >
-        {typeof props.children !=="undefined" ? xchild : body}
+        aria-describedby="simple-modal-description">
+        {typeof props.children !== "undefined" ? xchild : body}
     </Modal>
 }

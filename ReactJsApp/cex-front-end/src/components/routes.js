@@ -1,6 +1,5 @@
 import React from "react";
 import {NavLink, Route, Switch} from "react-router-dom";
-import './appstyles.css'
 import Home from "./Home";
 import About from "./About";
 import Users from "./Users";
