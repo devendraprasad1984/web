@@ -11,9 +11,9 @@ const GridX = (props) => {
     }, [])
 
     const noAction = edit === undefined && del === undefined
-    const rowAction = !noAction ? <span>
-        {edit !== undefined ? <Button color='badge' val='edit' click={edit}/> : null}
-        {del !== undefined ? <Button color='badge red' val='delete' click={del}/> : null}
+    const rowAction=(row) => !noAction ? <span>
+        {edit !== undefined ? <Button color='badge' val='edit' click={()=>edit(row)}/> : null}
+        {del !== undefined ? <Button color='badge red' val='delete' click={()=>del(row)}/> : null}
     </span> : null
 
 
@@ -27,7 +27,7 @@ const GridX = (props) => {
         const dataWithHeader = [header, ...datax]
         return dataWithHeader.map((x, i) => {
             return <div key={'row' + i} className={i === 0 ? 'line header' : 'line'}>
-                {i !== 0 ? rowAction : !noAction ? <span></span> :null}
+                {i !== 0 ? rowAction(x) : !noAction ? <span></span> :null}
                 <span>{x.id}</span>
                 <span>{x.lastName}</span>
                 <span>{x.firstName}</span>
