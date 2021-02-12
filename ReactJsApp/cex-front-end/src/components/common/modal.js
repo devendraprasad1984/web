@@ -57,6 +57,7 @@ export default function Modalify(props) {
 
 
     return <Modal
+        disableBackdropClick
         open={state}
         onClose={hide}
         aria-labelledby="simple-modal-title"
