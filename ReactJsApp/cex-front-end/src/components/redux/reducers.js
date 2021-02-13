@@ -1,13 +1,13 @@
-import {GET_AGENT, SET_AGENT} from './Types';
+import Types from "./types";
+
+const types = Types()
 
 const initAgentState = {
-    agent: {id:-1}
+    agent: [{id: -1}]
 }
-export const agentReducer=(state = initAgentState, action)=> {
+export const agentReducer = (state = initAgentState, action) => {
     switch (action.type) {
-        case GET_AGENT:
-            return state
-        case SET_AGENT:
+        case types.keys.SET_AGENT:
             return {
                 ...state,
                 agent: action.data,
