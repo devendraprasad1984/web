@@ -1,3 +1,7 @@
+html {
+    margin: 10px;
+}
+
 body {
     margin: 10px;
     color: #a006ef;
@@ -207,27 +211,54 @@ a {
 }
 
 /* Rules for sizing the icon. */
-.icons.md-18 { font-size: 18px; }
-.icons.md-24 { font-size: 24px; }
-.icons.md-36 { font-size: 36px; }
-.icons.md-48 { font-size: 48px; }
+.icons.md-18 {
+    font-size: 18px;
+}
+
+.icons.md-24 {
+    font-size: 24px;
+}
+
+.icons.md-36 {
+    font-size: 36px;
+}
+
+.icons.md-48 {
+    font-size: 48px;
+}
 
 /* Rules for using icons as black on a light background. */
-.icons.md-dark { color: rgba(0, 0, 0, 0.54); }
-.icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+.icons.md-dark {
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.icons.md-dark.md-inactive {
+    color: rgba(0, 0, 0, 0.26);
+}
 
 /* Rules for using icons as white on a dark background. */
-.icons.md-light { color: rgba(255, 255, 255, 1); }
-.icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+.icons.md-light {
+    color: rgba(255, 255, 255, 1);
+}
 
-.icons.md-dark { color: rgba(0, 0, 0, 0.54); }
-.icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+.icons.md-light.md-inactive {
+    color: rgba(255, 255, 255, 0.3);
+}
 
-.right{
+.icons.md-dark {
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.icons.md-dark.md-inactive {
+    color: rgba(0, 0, 0, 0.26);
+}
+
+.right {
     float: right;
     text-align: right;
 }
-.bold{
+
+.bold {
     font-weight: bolder;
     font-size: 14px;
 }
