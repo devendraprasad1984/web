@@ -34,17 +34,18 @@ class UploadHandler(BaseHandler):
 class downloadHandler(BaseHandler):
     def get(self, *args, **kwargs):
         try:
-            file_name = 'upload/'+'dpresumebs1dac.pdf'
+            file_name = 'upload/dpresumebs1dac.pdf'
             buf_size = 4096
             self.set_header('Content-Type', 'application/octet-stream')
+            # self.set_header('Content-Type', 'application/force-download')
             self.set_header('Content-Disposition', 'attachment; filename=' + file_name)
-            with open(file_name, 'r') as f:
+            with open(file_name, 'rb') as f:
                 while True:
                     data = f.read(buf_size)
                     if not data:
                         break
                     self.write(data)
-            self.finish()
+            self.finish({'status': 'success'})
         except Exception as ex:
             self.finish({'status': 'failed', 'msg': ex})
 
@@ -54,19 +55,32 @@ class jsonTest(BaseHandler):
         self.write({'data': 'json test'})
 
 
-def upload_app():
-    return web.Application([
+class StaticFileHandler(web.StaticFileHandler):
+    def parse_url_path(self, url_path):
+        if not url_path or url_path.endswith('/'):
+            url_path = url_path + 'index.html'
+        return url_path
+
+
+def mainapp(prefix=''):
+    if prefix:
+        path = '/' + prefix + '/(.*)'
+    else:
+        path = '/(.*)'
+    application = web.Application([
         (r"/upload", UploadHandler),
         (r"/download", downloadHandler),
         (r"/json", jsonTest),
+        (path, StaticFileHandler, {'path': os.getcwd()}),
     ], debug=True)
+    return application
 
 
 # /usr/local/bin/python3.9 /Users/dpadmin/deven/dpgit/web/ReactJsApp/cex_test_backend/endpoints/fileUploader.py
 if (__name__ == '__main__'):
-    app = upload_app()
+    app = mainapp()
     app.listen(8888)
-    io = ioloop.IOLoop.current()
+    io = ioloop.IOLoop.instance()
     # callback = functools.partial(connection_ready, sock)
     # io_loop.add_handler(sock.fileno(), callback, io_loop.READ)
     io.start()
