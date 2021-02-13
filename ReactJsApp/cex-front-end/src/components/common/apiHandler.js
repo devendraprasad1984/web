@@ -1,4 +1,4 @@
-export const getFromAPI = (uri, success, error) => {
+export const get = (uri, success, error) => {
     const errMsg = msg => {
         if (error !== undefined) error(msg)
         console.log('something went wrong - ' + msg)
@@ -15,7 +15,7 @@ export const getFromAPI = (uri, success, error) => {
 }
 
 
-export const postToAPI = (uri, payload, success) => {
+export const post = (uri, payload, success) => {
     let headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json'

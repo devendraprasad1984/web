@@ -31,6 +31,24 @@ class UploadHandler(BaseHandler):
             self.finish({'status': 'failed', 'msg': ex})
 
 
+class downloadHandler(BaseHandler):
+    def get(self, *args, **kwargs):
+        try:
+            file_name = 'upload/'+'dpresumebs1dac.pdf'
+            buf_size = 4096
+            self.set_header('Content-Type', 'application/octet-stream')
+            self.set_header('Content-Disposition', 'attachment; filename=' + file_name)
+            with open(file_name, 'r') as f:
+                while True:
+                    data = f.read(buf_size)
+                    if not data:
+                        break
+                    self.write(data)
+            self.finish()
+        except Exception as ex:
+            self.finish({'status': 'failed', 'msg': ex})
+
+
 class jsonTest(BaseHandler):
     def get(self, *args, **kwargs):
         self.write({'data': 'json test'})
@@ -39,6 +57,7 @@ class jsonTest(BaseHandler):
 def upload_app():
     return web.Application([
         (r"/upload", UploadHandler),
+        (r"/download", downloadHandler),
         (r"/json", jsonTest),
     ], debug=True)
 

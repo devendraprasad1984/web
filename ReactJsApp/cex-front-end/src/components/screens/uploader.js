@@ -2,7 +2,7 @@ import React, {useState} from "react"
 import Input from "../common/textInput";
 import Button from "../common/Button";
 import Progress from "../common/progress";
-import {sendFiles} from "../common/apiHandler";
+import {get, sendFiles} from "../common/apiHandler";
 import {config} from "../common/config";
 
 const Uploader = props => {
@@ -18,17 +18,25 @@ const Uploader = props => {
     }
     const handleFileUpload = () => {
         setIsload(true)
-        sendFiles(config.endpoints.uploaderEndopint, selfile, (d) => {
+        sendFiles(config.endpoints.uploaderEndpoint, selfile, (d) => {
             console.log(d)
             setIsload(false)
             alert(d.status+' - '+d.msg)
         })
     }
+
+    const handleDownload=()=>{
+        get(config.endpoints.downloadEndpoint, d=>{
+            console.log(d)
+        })
+    }
+
     return <div>
         <h2>{header}</h2>
         <Input type={'file'} change={handleFileChange}/>
         <Button val='Upload' click={handleFileUpload}/>
-        <Progress loader={isload}/>
+        <Button val='Download' click={handleDownload}/>
+            <Progress loader={isload}/>
     </div>
 }
 
