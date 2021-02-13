@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/cex-front-end.iml" filepath="$PROJECT_DIR$/.idea/cex-front-end.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../cex_test_backend/cex_test_backend.iml" filepath="$PROJECT_DIR$/../cex_test_backend/cex_test_backend.iml" />
     </modules>
   </component>
 </project>
