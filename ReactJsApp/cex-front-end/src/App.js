@@ -6,7 +6,7 @@ import {BrowserRouter} from 'react-router-dom'
 import Header from "./components/screens/header";
 import {Provider} from "react-redux";
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import * as reducers from "./components/redux/Reducers";
+import * as reducers from "./components/redux/reducers";
 import thunk from "redux-thunk";
 
 const rootReducer = combineReducers({

@@ -1,14 +1,16 @@
-
 export const getFromAPI = (uri, success, error) => {
-    const errMsg = msg => 'something went wrong - ' + msg;
+    const errMsg = msg => {
+        if (error !== undefined) error(msg)
+        console.log('something went wrong - ' + msg)
+    };
     const header = {
         "Content-Type": 'application/json',
         "Accept": 'application/json'
     }
     try {
-        fetch(uri, header).then(res => res.json()).then(data => success(data)).catch(err => alert(errMsg(err)));
+        fetch(uri, header).then(res => res.json()).then(data => success(data)).catch(err => errMsg(err));
     } catch (err) {
-        alert(errMsg(err));
+        errMsg(err);
     }
 }
 
@@ -34,25 +36,26 @@ export const postToAPI = (uri, payload, success) => {
 }
 
 
-export const postToApiFormSerializer = (uri, payload) => {
+export const sendFiles = (uri, payload, callback) => {
     const formData = new FormData();
-    formData.append('payload', payload);
-    //for image
-    // formData.append('files[]', {uri: x, type: 'image/jpeg', name: fn})
+    // formData.append('files[]', payload)
+    // formData.append('file', {uri: '', name: payload.name, type: payload.type})
+    formData.append('enctype', 'multipart/form-data')
+    formData.append('content-type', 'application/octet-stream')
+    formData.append('file', payload)
     fetch(uri, {
         method: 'post',
         headers: {
-            'Content-Type': 'multipart/form-data',
             'Accept': "application/x-www-form-urlencoded"
         },
         body: formData
     })
         .then((res) => res.json())
         .then((data) => {
-            alert(data.status)
+            callback(data.status)
         })
         .catch((error) => {
-            console.error(error);
+            callback(error);
         });
 }
 
