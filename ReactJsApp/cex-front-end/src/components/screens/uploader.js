@@ -2,7 +2,7 @@ import React, {useState} from "react"
 import Input from "../common/textInput";
 import Button from "../common/Button";
 import Progress from "../common/progress";
-import {get, sendFiles} from "../common/apiHandler";
+import {download, get, sendFiles} from "../common/apiHandler";
 import {config} from "../common/config";
 
 const Uploader = props => {
@@ -29,15 +29,15 @@ const Uploader = props => {
         const link = document.createElement('a');
         link.href = `http://192.168.1.3:8888/upload/dpresumebs1dac.pdf`;
         link.target = '_blank'
+        link.rel = "noopener noreferrer"
+        link.setAttribute('download', 'filename.pdf')
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
     }
 
-    const handleDownload2=()=>{
-        get(config.endpoints.downloadEndpoint, d=>{
-            console.log(d)
-        })
+    const handleDownload2 = () => {
+        download(config.endpoints.downloadEndpoint)
     }
 
     return <div>

@@ -1,3 +1,4 @@
+
 export const get = (uri, success, error) => {
     const errMsg = msg => {
         if (error !== undefined) error(msg)
@@ -11,6 +12,31 @@ export const get = (uri, success, error) => {
         fetch(uri, header).then(res => res.json()).then(data => success(data)).catch(err => errMsg(err));
     } catch (err) {
         errMsg(err);
+    }
+}
+
+
+export const download = (uri) => {
+    const header = {
+        "Content-Type": 'application/octet-stream',
+    }
+    try {
+        fetch(uri, header).then(res => res.blob()).then(blob => {
+            const url = window.URL.createObjectURL(
+                new Blob([blob]),
+            );
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute(
+                'download',
+                `FileName.pdf`,
+            );
+            document.body.appendChild(link);
+            link.click();
+            link.parentNode.removeChild(link);
+        });
+    } catch (err) {
+        console.log(err)
     }
 }
 
