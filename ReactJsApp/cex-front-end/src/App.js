@@ -4,12 +4,23 @@ import './components/appstyles.css'
 import {RoutesComponent} from "./components/routes";
 import {BrowserRouter} from 'react-router-dom'
 import Header from "./components/screens/header";
+import {Provider} from "react-redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
+import * as reducers from "./components/redux/Reducers";
+import thunk from "redux-thunk";
+
+const rootReducer = combineReducers({
+    config: reducers.agentReducer
+})
+const store = createStore(rootReducer, applyMiddleware(thunk))
 
 function App() {
-    return <BrowserRouter>
-        <Header />
-        <RoutesComponent/>
-    </BrowserRouter>
+    return <Provider store={store}>
+        <BrowserRouter>
+            <Header/>
+            <RoutesComponent/>
+        </BrowserRouter>
+    </Provider>
 }
 
 export default App;
