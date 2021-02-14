@@ -71,8 +71,7 @@ class getDataFromOtherAPI(BaseHandler):
         uri = 'https://jsonplaceholder.typicode.com/todos/1'
         client = httpclient.AsyncHTTPClient()
         response = await client.fetch(uri, method='POST', body=b"")
-        self.write({'data': response})
-        self.finish()
+        self.finish(json.dumps({'status': 'success', 'data': 'hello'}))
 
 
 class StaticFileHandler(web.StaticFileHandler):
