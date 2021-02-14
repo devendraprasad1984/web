@@ -51,8 +51,11 @@ class downloadHandler(BaseHandler):
 
 
 class jsonTest(BaseHandler):
+    def initialize(self, params):
+        self.params = params
+
     def get(self, *args, **kwargs):
-        self.write({'data': 'json test'})
+        self.write({'data': 'json test', 'params': self.params, 'args': args})
 
 
 class getDataFromOtherAPI(BaseHandler):
@@ -89,7 +92,7 @@ def mainapp(prefix=''):
     application = web.Application([
         (r"/upload", UploadHandler),
         (r"/download", downloadHandler),
-        (r"/json", jsonTest),
+        (r"/json/(\d+)/(.*?)", jsonTest, {'params': 'object has params object'}),
         (r"/xapi", getDataFromOtherAPI),
         (path, StaticFileHandler, {'path': os.getcwd()}),
     ], debug=True)
