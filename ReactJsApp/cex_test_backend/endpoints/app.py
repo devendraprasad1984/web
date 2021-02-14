@@ -1,4 +1,4 @@
-from tornado import ioloop, web
+from tornado import ioloop, web, httpclient, escape
 import os, random, string, json
 
 
@@ -55,6 +55,26 @@ class jsonTest(BaseHandler):
         self.write({'data': 'json test'})
 
 
+class getDataFromOtherAPI(BaseHandler):
+    async def get(self, *args, **kwargs):
+        self.set_header('Content-Type', 'application/json')
+        uri = 'https://jsonplaceholder.typicode.com/todos'
+        client = httpclient.AsyncHTTPClient()
+        response = await client.fetch(uri, method='GET')
+        # self.write(json.dumps({'data': response.body}))
+        self.write(response.body)
+        self.finish()
+
+    async def post(self, *args, **kwargs):
+        # self.write(kwargs.data)
+        self.set_header('Content-Type', 'text/json')
+        uri = 'https://jsonplaceholder.typicode.com/todos/1'
+        client = httpclient.AsyncHTTPClient()
+        response = await client.fetch(uri, method='POST', body=b"")
+        self.write({'data': response})
+        self.finish()
+
+
 class StaticFileHandler(web.StaticFileHandler):
     def parse_url_path(self, url_path):
         if not url_path or url_path.endswith('/'):
@@ -71,6 +91,7 @@ def mainapp(prefix=''):
         (r"/upload", UploadHandler),
         (r"/download", downloadHandler),
         (r"/json", jsonTest),
+        (r"/xapi", getDataFromOtherAPI),
         (path, StaticFileHandler, {'path': os.getcwd()}),
     ], debug=True)
     return application
