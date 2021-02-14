@@ -61,7 +61,7 @@ class getDataFromOtherAPI(BaseHandler):
         uri = 'https://jsonplaceholder.typicode.com/todos'
         client = httpclient.AsyncHTTPClient()
         response = await client.fetch(uri, method='GET')
-        # self.write(json.dumps({'data': response.body}))
+        # self.write(json.dumps({'data': 'hello world'}))
         self.write(response.body)
         self.finish()
 
