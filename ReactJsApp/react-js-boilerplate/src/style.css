@@ -1,0 +1,316 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url(asset/Roboto-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'Roboto-Medium';
+    src: url(asset/Roboto-Medium.ttf);
+}
+
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 300;
+    src: url(asset/materialfont.woff2) format('woff2');
+}
+
+html {
+    margin: 5px;
+    /*opacity: 0.95;*/
+}
+
+* {
+    font-family: 'Roboto', sans-serif;
+    color: #7816ac;
+}
+
+select, input, textarea {
+    /*width: 90%;*/
+    font-size: 14px;
+    padding: 3px;
+    font-weight: bolder;
+    /*opacity: 0.9;*/
+    color: black;
+}
+
+.opt {
+    font-size: 16px;
+    padding: 3px;
+    margin: 1px;
+}
+
+.label {
+    font-weight: bolder;
+    font-size: 12px;
+}
+
+.wid30 {
+    width: 30%;
+}
+
+.wid25 {
+    width: 25%;
+}
+
+.homeIconWid {
+    width: 100%;
+    height: 550px;
+}
+
+.wid50 {
+    width: 50%;
+}
+
+.wid70 {
+    width: 70%;
+}
+
+
+.activeLink {
+    /*color: #673486;*/
+    background-color: white;
+}
+
+.h1 {
+    font-size: 25pt;
+    font-weight: bolder;
+}
+
+h1, h2, h3, .h1, .cred {
+    background: -webkit-linear-gradient(#db1755, #a563c3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+a {
+    /*background: -webkit-linear-gradient(#db1755, #a563c3);*/
+    /*-webkit-background-clip: text;*/
+    /*-webkit-text-fill-color: #61dafb;*/
+    color: #7816ac;
+    font-weight: bolder;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 3px;
+    margin: 3px;
+    display: inline-flex;
+}
+
+.cols {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.rows {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    margin: 5px;
+}
+
+.inrow > div > * {
+    margin: 0px 2px 2px 2px;
+}
+
+.inrow {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.gridContainer {
+    height: 300px;
+    width: 100%;
+    margin: 10px;
+}
+
+.mainLeftDiv {
+    /*opacity: 0.75;*/
+    width: 25%;
+    background-color: #efeded;
+    min-height: calc(100vh - 100px);
+}
+
+.mainLeftDiv a {
+    color: #673486;
+}
+
+.pageCenter {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.mainRightDiv {
+    width: 100%;
+    margin-right: 10px;
+}
+
+.mainRightDiv div > * {
+    margin: 2px;
+}
+
+.badge {
+    border: none;
+    border-radius: 3px;
+    font-weight: bolder;
+    padding: 2px 2px;
+    cursor: pointer;
+    display: inline-block;
+    margin: 3px;
+    color: white;
+    background-color: #515454;
+    outline: none;
+}
+
+.btn {
+    background: -webkit-linear-gradient(135deg, #5c17db, #a717ec);
+    /*background-image: -webkit-radial-gradient(circle, #ec3dc3, #5c17db);*/
+    border: none;
+    border-radius: 5px;
+    font-weight: bolder;
+    padding: 10px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-block;
+    color: white;
+    /*background-color: #515454;*/
+    outline: none;
+}
+
+.green {
+    background-color: #4CAF50;
+}
+
+.blue {
+    background-color: #008CBA;
+}
+
+.purple {
+    background-color: rgb(155, 20, 141);
+}
+
+.red {
+    background-color: #f44336;
+}
+
+.white {
+    color: white;
+}
+
+.gray {
+    background-color: #e7e7e7;
+}
+
+.black {
+    background-color: #555555;
+}
+
+.table {
+    display: inline-block;
+    overflow: auto;
+    position: relative;
+    width: 100%;
+    height: 300px;
+    margin-bottom: 20px;
+}
+
+.line {
+    width: 100%;
+    border-bottom: 1px solid #8a8a8a;
+}
+
+.header {
+    font-weight: bolder;
+    font-size: 14px;
+    color: black;
+    /*opacity: 0.7;*/
+    background-color: #e7e6e6;
+}
+
+.line span {
+    font-size: 14px;
+    display: table-cell;
+    text-align: left;
+    justify-content: left;
+    min-width: 120px;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    /*color: black;*/
+    /*font-weight: bolder;*/
+    /*opacity: 0.7;*/
+}
+
+.icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px; /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+}
+
+/* Rules for sizing the icon. */
+.icons.md-18 {
+    font-size: 18px;
+}
+
+.icons.md-24 {
+    font-size: 24px;
+}
+
+.icons.md-36 {
+    font-size: 36px;
+}
+
+.icons.md-48 {
+    font-size: 48px;
+}
+
+/* Rules for using icons as black on a light background. */
+.icons.md-dark {
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.icons.md-dark.md-inactive {
+    color: rgba(0, 0, 0, 0.26);
+}
+
+/* Rules for using icons as white on a dark background. */
+.icons.md-light {
+    color: rgba(255, 255, 255, 1);
+}
+
+.icons.md-light.md-inactive {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.icons.md-dark {
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.icons.md-dark.md-inactive {
+    color: rgba(0, 0, 0, 0.26);
+}
+
+.right {
+    float: right;
+    text-align: right;
+}
+
+.bold {
+    font-weight: bolder;
+    font-size: 12px;
+}
