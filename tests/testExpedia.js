@@ -171,4 +171,27 @@ const powerset = () => {
     }
     console.log('powerset of', arr, 'is', res)
 }
-// powerset()
+const words = ['hello', 'world', 'this is fine']
+const hocUsingReduce = (w1, w2) => {
+    if (w1.length > w2.length)
+        return w1
+    else
+        return w2
+}
+//console.log('longest word is', words.reduce(hocUsingReduce))
+const left2RightCompose = () => {
+    let funcArr = [
+        x => x * 2,
+        x => x + 1,
+        x => x - 5,
+        x => x - 10,
+        x => x + 40
+    ]
+    let iVal = 100
+    let res=iVal
+    for(let fn of funcArr){
+        res=fn(res)
+    }
+    console.log('final result of function listing....',iVal,res)
+}
+left2RightCompose()
