@@ -1,3 +1,9 @@
+function pad(n, width, z) {
+    z = z || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+}
+
 const sampleLoop = () => {
     console.log('hello')
     let list = [1, 2, 3, 4, 5, 6]
@@ -93,13 +99,42 @@ const reverseString = (string1) => {
     }
     return string2
 }
-Array.prototype.reverseme = String.prototype.reverseme = function () {
+String.prototype.reverseme = function () {
     return reverseString(this)
 }
-const testArrayStringReverse=()=>{
+const testArrayStringReverse = () => {
     console.log('1234321', '==', reverseString('1234321'))
     console.log('hello', '==', reverseString('hello'))
     console.log('test', '==', 'test'.reverseme())
-    console.log('[test]', '==', 'test'.split('').reverseme())
+    // console.log('[test]', '==', 'test'.split('').reverseme())
+}
+const countOfObjects = () => {
+    let objects = [{x: 1, y: 1}, {x: 3, y: 3}, {x: 5, y: 2}, {x: 1, y: 2}, {x: 3, y: 5}, {x: 4, y: 4}]
+    let objCounter = {}
+    for (let i in objects) {
+        let curObj = objects[i]
+        if (curObj.x === curObj.y) objCounter[i] = curObj.x + ', ' + curObj.y
+    }
+    console.log('objects equals x==y', objCounter, Object.keys(objCounter).length)
+}
+const quickDateTest = () => {
+    var format = 'dd/mm/yyyy hh:mm:ss'
+// var format = 'yyyy-mm-dd hh:mm:ss'
+    var newFormatteDate = format;
+    var date_test = new Date(Date.now());
+    console.log(pad(date_test.getDate(), 2), pad(date_test.getMonth(), 2), pad(date_test.getFullYear(), 4));
+    newFormatteDate = newFormatteDate
+        .replace('dd', pad(date_test.getDate(), 2))
+        .replace('mm', pad(date_test.getMonth(), 2))
+        .replace('yyyy', pad(date_test.getFullYear(), 2))
+        .replace('hh', pad(date_test.getHours(), 2))
+        .replace('mm', pad(date_test.getMinutes(), 2))
+        .replace('ss', pad(date_test.getSeconds(), 2))
+    console.log("the formatted date of format is " + format + "->" + newFormatteDate)
+}
+const evenOddMultiplier = () => {
+    let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    let res = arr.map(x => x % 2 === 0 ? x * 2 : x * 3)
+    console.log(arr,res)
 }
 
