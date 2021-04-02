@@ -201,4 +201,12 @@ const minmaxsum_setof4=()=>{
     let sum=arr.reduce((p,c)=>p+c,0)
     console.log('min sum',sum-max,'max sum',sum-min)
 }
-minmaxsum_setof4()
+const incrementArrayBy1=()=>{
+    let ar=[1,2,3]
+    let num=Number(ar.join(''))+1
+    let nar=[]
+    for(let i of num.toString()){
+        nar.push(i)
+    }
+    console.log(ar,nar.map(x=>Number(x)))
+}
