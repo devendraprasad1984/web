@@ -188,25 +188,36 @@ const left2RightCompose = () => {
         x => x + 40
     ]
     let iVal = 100
-    let res=iVal
-    for(let fn of funcArr){
-        res=fn(res)
+    let res = iVal
+    for (let fn of funcArr) {
+        res = fn(res)
     }
-    console.log('final result of function listing....',iVal,res)
+    console.log('final result of function listing....', iVal, res)
 }
-const minmaxsum_setof4=()=>{
-    let arr=[5,4,2,3,7]
-    let min=Math.min(...arr)
-    let max=Math.max(...arr)
-    let sum=arr.reduce((p,c)=>p+c,0)
-    console.log('min sum',sum-max,'max sum',sum-min)
+const minmaxsum_setof4 = () => {
+    let arr = [5, 4, 2, 3, 7]
+    let min = Math.min(...arr)
+    let max = Math.max(...arr)
+    let sum = arr.reduce((p, c) => p + c, 0)
+    console.log('min sum', sum - max, 'max sum', sum - min)
 }
-const incrementArrayBy1=()=>{
-    let ar=[1,2,3]
-    let num=Number(ar.join(''))+1
-    let nar=[]
-    for(let i of num.toString()){
+const incrementArrayBy1 = (ar) => {
+    // let ar = [1, 2, 3]
+    // console.log('ar',ar)
+    let num = Number(ar.join('')) + 1
+    let nar = []
+    for (let i of num.toString()) {
         nar.push(i)
     }
-    console.log(ar,nar.map(x=>Number(x)))
+    return [ar, nar.map(x => Number(x))]
 }
+const profilingClosure = (func) => {
+    return function() {
+        let start = new Date()
+        let retval = func.apply(this,arguments)
+        let end = new Date()
+        return {msg: ` took ${end.getTime() - start.getTime()}s to execute`, result: retval}
+    }
+}
+// console.log(profilingClosure(Math.max).call(undefined, [2, 3, 4]))
+console.log(profilingClosure(incrementArrayBy1).call(undefined, [9, 9]))
