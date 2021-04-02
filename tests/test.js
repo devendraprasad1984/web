@@ -10,7 +10,6 @@ const sampleLoop=()=>{
         console.log(i,obj[i])
     }
 }
-
 const minMaxIndexes=()=>{
 //find min max and sum at indexes
     let array=[[1001,50],[1001,68],[1002,69],[1002,68],[1004,9],[1004,13],[1005,56],[1005,96],[1005,30],[1006,46],[1006,6],[1006,48],[1007,59],[1007,30],[1007,9],[1009,79],[1010,42],[1012,37],[1013,64],[1017,55],[1018,29],[1020,60],[1020,29],[1021,44],[1022,62],[1024,2],[1025,6],[1028,5],[1029,6],[1029,82]];
@@ -28,7 +27,6 @@ const minMaxIndexes=()=>{
     console.log('min-max at 0',min0,max0)
     console.log('min-max at 1',min1,max1)
 }
-
 const findPairSum=()=>{
 // find pair of sum
     let array= [1, 2, 3, 4, 5, 6, 8]
@@ -45,5 +43,29 @@ const findPairSum=()=>{
     }
     console.log('pair of numbers that equals givan sum',sum,'=',collectionResults)
 }
-
-minMaxIndexes()
+const makeUnique=(ar)=>{
+    let obj={}
+    for(let i of ar){
+        if(obj[i]===undefined) obj[i]=0
+        obj[i]+=1
+    }
+    return Object.keys(obj).map(x=>Number(x))
+}
+const countForTallestCandle=()=>{
+    let candles=[1,2,3,5,5,3,3,3]
+    // let sortedCandles=candles.sort((a,b)=>a-b)
+    let uniqElem=makeUnique(candles)
+    //let tallestCandle=Math.max(...candles)
+    let lengthOfUniqElem=uniqElem.length-1
+    let tallestCandle=uniqElem[lengthOfUniqElem]
+    let secondTallestCandle=uniqElem[lengthOfUniqElem-1]
+    let tallestCounter=0
+    let secondTallestCounter=0
+    for(let i of candles){
+        if(i===tallestCandle) tallestCounter++
+        if(i===secondTallestCandle) secondTallestCounter++
+    }
+    console.log('candles',candles,'unique', uniqElem, 'tallest candle',tallestCandle,'2nd tallest candle'
+        ,secondTallestCandle,'tallest counter',tallestCounter,'2nd tallest counter', secondTallestCounter)
+}
+countForTallestCandle()
