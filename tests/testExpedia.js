@@ -147,20 +147,28 @@ const balancedBrackets = (l, r, s) => {
 }
 // balancedBrackets(2, 0, "")
 // console.log('brackets', brackets.join(''))
-const isBalancedString=()=>{
+const isBalancedString = () => {
     let exp = '[()]{}{[()()]()}'
-    let openVals='{[('
-    let closeVals='}])'
-    let stack=[]
-    for(let i of exp){
-        if(openVals.indexOf(i)!==-1)
+    let openVals = '{[('
+    let closeVals = '}])'
+    let stack = []
+    for (let i of exp) {
+        if (openVals.indexOf(i) !== -1)
             stack.push(i)
-        else if(closeVals.indexOf(i)!==-1)
+        else if (closeVals.indexOf(i) !== -1)
             stack.pop()
     }
-    if(stack.length===0)
-        console.log('string',exp,'is balanced')
-    else
-        console.log('string',exp,'is not balanced')
+    console.log('string', exp, 'is', (stack.length === 0 ? 'balanced' : 'not balanced'))
 }
-isBalancedString()
+const powerset = () => {
+    let arr = [1, 2, 3, 4]
+    let res = [[]]
+    for (let i of arr) {
+        let len = res.length
+        for (let j = 0; j < len; j++) {
+            res.push([...res[j], i])
+        }
+    }
+    console.log('powerset of', arr, 'is', res)
+}
+// powerset()
