@@ -1,9 +1,11 @@
-function pad(n, width, z) {
+String.prototype.reverseme = function () {
+    return reverseString(this)
+}
+const pad = (n, width, z) => {
     z = z || '0';
     n = n + '';
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
-
 const sampleLoop = () => {
     console.log('hello')
     let list = [1, 2, 3, 4, 5, 6]
@@ -99,9 +101,6 @@ const reverseString = (string1) => {
     }
     return string2
 }
-String.prototype.reverseme = function () {
-    return reverseString(this)
-}
 const testArrayStringReverse = () => {
     console.log('1234321', '==', reverseString('1234321'))
     console.log('hello', '==', reverseString('hello'))
@@ -135,6 +134,33 @@ const quickDateTest = () => {
 const evenOddMultiplier = () => {
     let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     let res = arr.map(x => x % 2 === 0 ? x * 2 : x * 3)
-    console.log(arr,res)
+    console.log(arr, res)
 }
-
+let brackets = []
+const balancedBrackets = (l, r, s) => {
+    if (l === 0 && r === 0)
+        brackets.push(s)
+    if (l > 0)
+        balancedBrackets(l - 1, r + 1, s + '(')
+    if (r > 0)
+        balancedBrackets(l, r - 1, s + ')')
+}
+// balancedBrackets(2, 0, "")
+// console.log('brackets', brackets.join(''))
+const isBalancedString=()=>{
+    let exp = '[()]{}{[()()]()}'
+    let openVals='{[('
+    let closeVals='}])'
+    let stack=[]
+    for(let i of exp){
+        if(openVals.indexOf(i)!==-1)
+            stack.push(i)
+        else if(closeVals.indexOf(i)!==-1)
+            stack.pop()
+    }
+    if(stack.length===0)
+        console.log('string',exp,'is balanced')
+    else
+        console.log('string',exp,'is not balanced')
+}
+isBalancedString()
