@@ -194,4 +194,11 @@ const left2RightCompose = () => {
     }
     console.log('final result of function listing....',iVal,res)
 }
-left2RightCompose()
+const minmaxsum_setof4=()=>{
+    let arr=[5,4,2,3,7]
+    let min=Math.min(...arr)
+    let max=Math.max(...arr)
+    let sum=arr.reduce((p,c)=>p+c,0)
+    console.log('min sum',sum-max,'max sum',sum-min)
+}
+minmaxsum_setof4()
