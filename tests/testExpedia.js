@@ -220,4 +220,13 @@ const profilingClosure = (func) => {
     }
 }
 // console.log(profilingClosure(Math.max).call(undefined, [2, 3, 4]))
-console.log(profilingClosure(incrementArrayBy1).call(undefined, [9, 9]))
+// console.log(profilingClosure(incrementArrayBy1).call(undefined, [9, 9]))
+const singularity=(data)=>{
+    // data = '15931593950382205972005873020585729295767920094768300288002957529'
+    let res=data.split().reduce((p,c)=>p+Number(c),0)
+    if(res.toString().split().length>1)
+        return singularity(res.toString())
+    else
+        return res
+}
+// console.log(singularity('15931593950382205972005873020585729295767920094768300288002957529'))
