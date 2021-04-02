@@ -86,4 +86,20 @@ const foo = initVal => {
     let fn = functionComposer(listofFn, initVal)
     return fn
 }
-console.log(foo(100))
+const reverseString = (string1) => {
+    let string2 = ''
+    for (let i = string1.length - 1; i >= 0; i--) {
+        string2 += string1[i]
+    }
+    return string2
+}
+Array.prototype.reverseme = String.prototype.reverseme = function () {
+    return reverseString(this)
+}
+const testArrayStringReverse=()=>{
+    console.log('1234321', '==', reverseString('1234321'))
+    console.log('hello', '==', reverseString('hello'))
+    console.log('test', '==', 'test'.reverseme())
+    console.log('[test]', '==', 'test'.split('').reverseme())
+}
+
