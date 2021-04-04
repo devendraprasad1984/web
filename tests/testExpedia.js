@@ -212,21 +212,75 @@ const incrementArrayBy1 = (ar) => {
     return [ar, nar.map(x => Number(x))]
 }
 const profilingClosure = (func) => {
-    return function() {
+    return function () {
         let start = new Date()
-        let retval = func.apply(this,arguments)
+        let retval = func.apply(this, arguments)
         let end = new Date()
         return {msg: ` took ${end.getTime() - start.getTime()}s to execute`, result: retval}
     }
 }
 // console.log(profilingClosure(Math.max).call(undefined, [2, 3, 4]))
 // console.log(profilingClosure(incrementArrayBy1).call(undefined, [9, 9]))
-const singularity=(data)=>{
+const singularity = (data) => {
     // data = '15931593950382205972005873020585729295767920094768300288002957529'
-    let res=data.split().reduce((p,c)=>p+Number(c),0)
-    if(res.toString().split().length>1)
+    let res = data.split().reduce((p, c) => p + Number(c), 0)
+    if (res.toString().split().length > 1)
         return singularity(res.toString())
     else
         return res
 }
+
 // console.log(singularity('15931593950382205972005873020585729295767920094768300288002957529'))
+function* testYieldInteger(val) {
+    yield val
+    yield val + 10
+}
+
+//way hack to make chained operation
+function* testYieldFuncSeq() {
+    yield (p) => {
+        // console.log('called first function, param', p)
+        return 'first function done'
+    }
+    yield (p) => {
+        console.log('called second function, param', p)
+        return '2nd function done'
+    }
+}
+
+// let testYieldInt = testYieldInteger(10)
+// console.log(testYieldInt.next().value, testYieldInt.next().value)
+// let seq = testYieldFuncSeq()
+// let firstOutput = seq.next().value('nice')
+// let secondOutput = seq.next().value(firstOutput)
+// console.log(secondOutput)
+
+const chainedBuilderClass = () => {
+    let chainedObject = {}
+    chainedObject.first = (param) => {
+        chainedObject.firstParam = param
+        return chainedObject
+    }
+    chainedObject.second = (param) => {
+        chainedObject.secondParam = param
+        return chainedObject
+    }
+    chainedObject.third = (param) => {
+        chainedObject.thirdParam = param
+        return chainedObject
+    }
+    chainedObject.build = () => {
+        return JSON.stringify(chainedObject)
+    }
+    return chainedObject
+}
+
+console.log(
+    chainedBuilderClass()
+        .first('one')
+        .second('2nd')
+        .third('third')
+        .build()
+)
+
+
