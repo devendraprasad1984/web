@@ -335,7 +335,9 @@ const testClosure = () => {
 
     //another example
     function outerFunction(outerVariable) {
+        const outer2 = 'hi'
         return function (innerVariable) {
+            console.log('outer2 variable', outer2)
             console.log('outer variable', outerVariable) //outervariable is accessed inside inner because of closure
             console.log('inner variable', innerVariable)
             console.log('complete sentence', outerVariable + ' - ' + innerVariable)
