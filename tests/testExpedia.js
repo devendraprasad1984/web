@@ -274,13 +274,47 @@ const chainedBuilderClass = () => {
     }
     return chainedObject
 }
+//console.log(chainedBuilderClass().first('one').second('2nd').third('third').build())
+const testClassVanilaTypes = () => {
+    function user(name) {
+        this.name = name
+        //fine is a property of user
+        //arrow function binds this from lexical scope which parent class user in this case and this avoids user to explicitely bind in class
+        this.fine = () => {
+            return this.name + ' is good lad'
+        }
+    }
 
-console.log(
-    chainedBuilderClass()
-        .first('one')
-        .second('2nd')
-        .third('third')
-        .build()
-)
+    user.prototype.sayhello = function () {
+        return 'hello, ' + this.name + '.'
+    }
 
+    let dp = new user('Devendra')
+    let jyoti = new user('jyoti')
+    let users = [dp, jyoti]
+// console.log(dp.sayhello(), dp.fine())
+// console.log(jyoti.sayhello())
+    for (let u of users) {
+        console.log(u.sayhello(), u.fine())
 
+    }
+}
+// testClassVanilaTypes()
+const testClassEs6Types = () => {
+    class test {
+        constructor(name) {
+            this.name = name
+        }
+
+        sayhello() {
+            return 'hi, ' + this.name
+        }
+    }
+
+    let dpr = new test('dpresume')
+    let devn = new test('devendra')
+    for (let u of [dpr, devn]) {
+        console.log(u.sayhello())
+    }
+}
+testClassEs6Types()
