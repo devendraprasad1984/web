@@ -317,4 +317,32 @@ const testClassEs6Types = () => {
         console.log(u.sayhello())
     }
 }
-testClassEs6Types()
+// testClassEs6Types()
+const testClosure = () => {
+    //closure is the concept in js by which nested scope has access to its outer scope irrespective of how and where that variable is defined
+    // simple terms
+    let name = 'devendra'
+
+    function printName() {
+        console.log(name)
+    }
+
+    printName() //name is global inside testclosure scope and can be used inside of printName
+    name = 'jyoti'
+    printName()
+    name = 'rajkumar'
+    printName()
+
+    //another example
+    function outerFunction(outerVariable) {
+        return function (innerVariable) {
+            console.log('outer variable', outerVariable) //outervariable is accessed inside inner because of closure
+            console.log('inner variable', innerVariable)
+            console.log('complete sentence', outerVariable + ' - ' + innerVariable)
+        }
+    }
+
+    let scopeInnerByOuter = outerFunction('devendra')
+    scopeInnerByOuter('prasadf')
+}
+testClosure()
