@@ -445,4 +445,45 @@ const flattenLinkedList = () => {
     flatten(head)
     printNode(head)
 }
-flattenLinkedList()
+// flattenLinkedList()
+const flattenBinaryTreeIntoLinkedList = () => {
+    function node(key) {
+        this.key = key
+        this.left = null
+        this.right = null
+    }
+
+    const newNode = (key) => new node(key)
+    const flatten = (root) => {
+        if (!root || (!root.left && root.right))
+            return null
+        if (root.left) {
+            flatten(root.left)
+            let tmpRight = root.right
+            root.right = root.left
+            root.left = null
+            let tmp = root.right
+            while (tmp.right)
+                tmp = tmp.right
+            tmp.right = tmpRight
+            flatten(root.right)
+        }
+    }
+    let printList = []
+    const inorderTraversal = (root) => {
+        if (!root) return null
+        inorderTraversal(root.left)
+        printList.push(root.key)
+        inorderTraversal(root.right)
+    }
+    let root = newNode(1)
+    root.left = newNode(2)
+    root.right = newNode(5)
+    root.left.left = newNode(3)
+    root.left.right = newNode(4)
+    root.right.right = newNode(6)
+    flatten(root)
+    inorderTraversal(root)
+    console.log('printing binary tree as list traversal', printList.join('->'))
+}
+flattenBinaryTreeIntoLinkedList()
