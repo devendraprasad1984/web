@@ -365,5 +365,84 @@ const binarySearchLogic = (arr, searchValue, start, end) => {
     else if (arr[mid] < searchValue) return binarySearchLogic(arr, searchValue, mid + 1, end)
     else if (arr[mid] > searchValue) return binarySearchLogic(arr, searchValue, start, mid - 1)
 }
-let arr = [1, 3, 5, 7, 8, 9]
-console.log('found',binarySearchLogic(arr, 7, 0, arr.length - 1))
+// let arr = [1, 3, 5, 7, 8, 9]
+// console.log('found',binarySearchLogic(arr, 7, 0, arr.length - 1))
+const flattenLinkedList = () => {
+    function node(data) {
+        this.data = data
+        this.next = null
+        this.child = null
+    }
+
+    const newNode = (data) => {
+        return new node(data)
+    }
+    const printNode = (head) => {
+        if (!head) return null
+        let printList = []
+        while (head) {
+            printList.push(head.data)
+            head = head.next
+        }
+        console.log('nodes listing', printList.join('->'))
+    }
+    const flatten = (head) => {
+        if (!head) return null
+        let stack = [head], cur = null, prev = null
+        while (stack.length > 0) {
+            cur = stack.pop()
+            if (prev) {
+                cur.prev = prev
+                prev.next = cur
+            }
+            if (cur.next) {
+                stack.push(cur.next)
+            }
+            if (cur.child) {
+                stack.push(cur.child)
+                cur.child = null
+            }
+            prev = cur
+        }
+        return head
+    }
+
+    let child13 = newNode(16)
+    child13.child = newNode(3)
+
+    // # Child List of 10
+    let head1 = newNode(4)
+    head1.next = newNode(20)
+    head1.next.child = newNode(2)
+
+    // #Child of 20
+    head1.next.next = newNode(13)
+    head1.next.next.child = child13
+
+    // # Child of 9
+    let child9 = newNode(19)
+    child9.next = newNode(15)
+
+    // # Child List of 17
+    let child17 = newNode(9)
+    child17.next = newNode(8)
+    child17.child = child9
+
+    // # Child List of 7
+    let head2 = newNode(17)
+    head2.next = newNode(6)
+    head2.child = child17
+
+    // # Main List
+    let head = newNode(10)
+    head.child = head1
+    head.next = newNode(5)
+    head.next.next = newNode(12)
+    head.next.next.next = newNode(7)
+    head.next.next.next.child = head2
+    head.next.next.next.next = newNode(11)
+
+    flatten(head)
+    printNode(head)
+}
+flattenLinkedList()
