@@ -358,3 +358,12 @@ const stairCaseProblem = () => {
     }
     console.log('staircase output', res)
 }
+const binarySearchLogic = (arr, searchValue, start, end) => {
+    if (end < start) return false
+    let mid = Math.floor((start + end) / 2)
+    if (arr[mid] === searchValue) return true
+    else if (arr[mid] < searchValue) return binarySearchLogic(arr, searchValue, mid + 1, end)
+    else if (arr[mid] > searchValue) return binarySearchLogic(arr, searchValue, start, mid - 1)
+}
+let arr = [1, 3, 5, 7, 8, 9]
+console.log('found',binarySearchLogic(arr, 7, 0, arr.length - 1))
