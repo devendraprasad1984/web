@@ -484,6 +484,6 @@ const flattenBinaryTreeIntoLinkedList = () => {
     root.right.right = newNode(6)
     flatten(root)
     inorderTraversal(root)
-    console.log('printing binary tree as list traversal', printList.join('->'))
+    console.log('printing binary tree as list traversal', root, printList.join('->'))
 }
 flattenBinaryTreeIntoLinkedList()
