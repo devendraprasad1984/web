@@ -487,3 +487,27 @@ const flattenBinaryTreeIntoLinkedList = () => {
     console.log('printing binary tree as list traversal', root, printList.join('->'))
 }
 // flattenBinaryTreeIntoLinkedList()
+const longestPalindrome = () => {
+    const isPalindrome = (str1) => str1 === str1.split('').reverse().join('')
+    const findPalindrome = (stringValue) => {
+        if (stringValue === '') return null
+        let maxLength = 0, maxString = ''
+        for (let i = 0; i < stringValue.length; i++) {
+            let strsub = stringValue.substr(i, stringValue.length)
+            for (let j = strsub.length; j >= 0; j--) {
+                let subsubstr = strsub.substr(0, j)
+                if (subsubstr.length <= 1) continue
+                if (isPalindrome(subsubstr)) {
+                    if (subsubstr.length > maxLength) {
+                        maxLength = subsubstr.length
+                        maxString = subsubstr
+                    }
+                }
+            }
+        }
+        return {maxString, maxLength}
+    }
+    console.log(findPalindrome('abracadabra'))
+    console.log(findPalindrome('HYTBCABADEFGHABCDEDCBAGHTFYW12345678987654321ZWETYGDE'))
+}
+longestPalindrome()
