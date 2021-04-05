@@ -347,4 +347,14 @@ const testClosure = () => {
     let scopeInnerByOuter = outerFunction('devendra')
     scopeInnerByOuter('prasadf')
 }
-testClosure()
+const stairCaseProblem = () => {
+    let numberOfTimes = 5
+    let res = "\n"
+    let space = " "
+    let char = '#'
+    for (let i = 1; i <= numberOfTimes; i++) {
+        res += space.repeat(numberOfTimes - i) + char.repeat(i)
+        res += '\n'
+    }
+    console.log('staircase output', res)
+}
