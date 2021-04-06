@@ -566,4 +566,42 @@ const groupAnagrams = () => {
     }
     console.log('listing by anagrams', res)
 }
-groupAnagrams()
+// groupAnagrams()
+const findDuplicates = () => {
+    let arr = [1, 2, 3, 4, 4, 4, 5, 6, 6]
+    let counter = {}
+    for (let i of arr) {
+        if (counter[i] !== undefined)
+            counter[i] = counter[i] + 1
+        else
+            counter[i] = 1
+    }
+    for (let i in counter) {
+        if (counter[i] > 1) {
+            console.log('value: ', i, 'duplicate count', counter[i])
+        }
+    }
+}
+const findDuplicates_1 = () => {
+    let arr = [1, 2, 3, 4, 4, 5, 6, 6, 6]
+    let len = arr.length
+    let prevElem = arr[0], el = arr[0]
+    for (let i = 0; i < len; i++) {
+        if (i > arr.length) break
+        if (prevElem == arr[i]) {
+            continue
+        }
+        let el = arr[i]
+        let counterOccurance = 1
+        // skipCounter=0
+        for (let j = i + 1; j < len; j++) {
+            if (el !== arr[j]) break
+            counterOccurance++
+            // skipCounter++
+        }
+        prevElem=el
+        if (counterOccurance > 1)
+            console.log('element occurance', el, counterOccurance, 'times')
+    }
+}
+findDuplicates_1()
