@@ -510,4 +510,39 @@ const longestPalindrome = () => {
     console.log(findPalindrome('abracadabra'))
     console.log(findPalindrome('HYTBCABADEFGHABCDEDCBAGHTFYW12345678987654321ZWETYGDE'))
 }
-longestPalindrome()
+const spiralPrintingOf2DArray = () => {
+    //print 2d array matrix in spiral form which mean row->right to end, then down to cols, left to row and the up
+    let arr = [
+        [1, 2, 3, 4],
+        [5, 6, 7, 8],
+        [9, 11, 12, 13],
+        [14, 15, 16, 17]
+    ]
+    let spiralObject = []
+    let k = 0, m = arr.length, l = 0, n = arr[0].length, i = 0
+    console.log(k, m, l, n)
+    while (k < m && l < n) {
+        for (i = l; i < n; ++i) {
+            spiralObject.push(arr[k][i])
+        }
+        k++
+        for (i = k; i < m; ++i) {
+            spiralObject.push(arr[i][n - 1])
+        }
+        n--
+        if (k < m) {
+            for (i = n - 1; i >= l; --i) {
+                spiralObject.push(arr[m - 1][i])
+            }
+            m--;
+        }
+        if (l < n) {
+            for (i = m - 1; i >= k; --i) {
+                spiralObject.push(arr[i][l])
+            }
+            l++;
+        }
+    }
+    console.log(spiralObject.join('->'))
+}
+spiralPrintingOf2DArray()
