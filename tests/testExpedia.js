@@ -545,4 +545,25 @@ const spiralPrintingOf2DArray = () => {
     }
     console.log(spiralObject.join('->'))
 }
-spiralPrintingOf2DArray()
+const groupAnagrams = () => {
+    let sort=(w)=>{
+        return w.split('').sort().join('')
+    }
+    let check=(w1,w2)=>{
+        return sort(w1)===sort(w2)
+    }
+    let words = [
+        "CARS", "REPAID", "DUES", "NOSE", "SIGNED", "LANE",
+        "PAIRED", "ARCS", "GRAB", "USED", "ONES", "BRAG",
+        "SUED", "LEAN", "SCAR", "DESIGN"]
+    let res={}
+    for(let w of words){
+        let sorted=sort(w)
+        if(res[sorted])
+            res[sorted].push(w)
+        else
+            res[sorted]=[w]
+    }
+    console.log('listing by anagrams',Object.values(res))
+}
+groupAnagrams()
