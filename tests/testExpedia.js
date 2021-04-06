@@ -564,6 +564,6 @@ const groupAnagrams = () => {
         else
             res[sorted]=[w]
     }
-    console.log('listing by anagrams',Object.values(res))
+    console.log('listing by anagrams', res)
 }
 groupAnagrams()
