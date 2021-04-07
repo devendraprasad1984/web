@@ -229,13 +229,11 @@ const singularity = (data) => {
     else
         return res
 }
-
 // console.log(singularity('15931593950382205972005873020585729295767920094768300288002957529'))
 function* testYieldInteger(val) {
     yield val
     yield val + 10
 }
-
 //way hack to make chained operation
 function* testYieldFuncSeq() {
     yield (p) => {
@@ -247,14 +245,12 @@ function* testYieldFuncSeq() {
         return '2nd function done'
     }
 }
-
 // let testYieldInt = testYieldInteger(10)
 // console.log(testYieldInt.next().value, testYieldInt.next().value)
 // let seq = testYieldFuncSeq()
 // let firstOutput = seq.next().value('nice')
 // let secondOutput = seq.next().value(firstOutput)
 // console.log(secondOutput)
-
 const chainedBuilderClass = () => {
     let chainedObject = {}
     chainedObject.first = (param) => {
@@ -604,4 +600,17 @@ const findDuplicates_1 = () => {
             console.log('element occurance', el, counterOccurance, 'times')
     }
 }
-findDuplicates_1()
+const pairSum=()=>{
+    let arr=[1,2,3,4,5,6,7]
+    let sum=9
+    let len=arr.length
+    for(let i=0; i<len; i++){
+        let diff=sum-arr[i]
+        for(let j=i; j<len; j++){
+            if(diff===arr[j])
+                console.log('pair is',arr[i],arr[j])
+        }
+    }
+}
+pairSum()
+
