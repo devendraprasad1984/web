@@ -612,5 +612,21 @@ const pairSum=()=>{
         }
     }
 }
-pairSum()
-
+const rotateAnArrayAtPivot=()=>{
+    let arr=[1,2,3,4,5,6,7,8,9]
+    let newArray=[]
+    let merge=[]
+    let pivot=4
+    for(let i=0; i<pivot; i++){
+        let v=arr[i]
+        newArray.push(v)
+    }
+    for(let i=0; i<pivot; i++){
+        arr[i]=0
+    }
+    for(let i=0; i<arr.length; i++){
+        if(arr[i]!==0) merge.push(arr[i])
+    }
+    console.log(arr, newArray, [...merge, ...newArray])
+}
+rotateAnArrayAtPivot()
