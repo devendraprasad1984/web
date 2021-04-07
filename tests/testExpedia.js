@@ -229,11 +229,13 @@ const singularity = (data) => {
     else
         return res
 }
+
 // console.log(singularity('15931593950382205972005873020585729295767920094768300288002957529'))
 function* testYieldInteger(val) {
     yield val
     yield val + 10
 }
+
 //way hack to make chained operation
 function* testYieldFuncSeq() {
     yield (p) => {
@@ -245,6 +247,7 @@ function* testYieldFuncSeq() {
         return '2nd function done'
     }
 }
+
 // let testYieldInt = testYieldInteger(10)
 // console.log(testYieldInt.next().value, testYieldInt.next().value)
 // let seq = testYieldFuncSeq()
@@ -542,23 +545,23 @@ const spiralPrintingOf2DArray = () => {
     console.log(spiralObject.join('->'))
 }
 const groupAnagrams = () => {
-    let sort=(w)=>{
+    let sort = (w) => {
         return w.split('').sort().join('')
     }
-    let check=(w1,w2)=>{
-        return sort(w1)===sort(w2)
+    let check = (w1, w2) => {
+        return sort(w1) === sort(w2)
     }
     let words = [
         "CARS", "REPAID", "DUES", "NOSE", "SIGNED", "LANE",
         "PAIRED", "ARCS", "GRAB", "USED", "ONES", "BRAG",
         "SUED", "LEAN", "SCAR", "DESIGN"]
-    let res={}
-    for(let w of words){
-        let sorted=sort(w)
-        if(res[sorted])
+    let res = {}
+    for (let w of words) {
+        let sorted = sort(w)
+        if (res[sorted])
             res[sorted].push(w)
         else
-            res[sorted]=[w]
+            res[sorted] = [w]
     }
     console.log('listing by anagrams', res)
 }
@@ -595,38 +598,57 @@ const findDuplicates_1 = () => {
             counterOccurance++
             // skipCounter++
         }
-        prevElem=el
+        prevElem = el
         if (counterOccurance > 1)
             console.log('element occurance', el, counterOccurance, 'times')
     }
 }
-const pairSum=()=>{
-    let arr=[1,2,3,4,5,6,7]
-    let sum=9
-    let len=arr.length
-    for(let i=0; i<len; i++){
-        let diff=sum-arr[i]
-        for(let j=i; j<len; j++){
-            if(diff===arr[j])
-                console.log('pair is',arr[i],arr[j])
+const pairSum = () => {
+    let arr = [1, 2, 3, 4, 5, 6, 7]
+    let sum = 9
+    let len = arr.length
+    for (let i = 0; i < len; i++) {
+        let diff = sum - arr[i]
+        for (let j = i; j < len; j++) {
+            if (diff === arr[j])
+                console.log('pair is', arr[i], arr[j])
         }
     }
 }
-const rotateAnArrayAtPivot=()=>{
-    let arr=[1,2,3,4,5,6,7,8,9]
-    let newArray=[]
-    let merge=[]
-    let pivot=4
-    for(let i=0; i<pivot; i++){
-        let v=arr[i]
+const rotateAnArrayAtPivot = () => {
+    let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    let newArray = []
+    let merge = []
+    let pivot = 4
+    for (let i = 0; i < pivot; i++) {
+        let v = arr[i]
         newArray.push(v)
     }
-    for(let i=0; i<pivot; i++){
-        arr[i]=0
+    for (let i = 0; i < pivot; i++) {
+        arr[i] = 0
     }
-    for(let i=0; i<arr.length; i++){
-        if(arr[i]!==0) merge.push(arr[i])
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] !== 0) merge.push(arr[i])
     }
     console.log(arr, newArray, [...merge, ...newArray])
 }
-rotateAnArrayAtPivot()
+const columnizeArray = () => {
+    let arr = [
+        [1, 5, 9],
+        [2, 6, 10],
+        [3, 7, 11],
+        [4, 8, 12]
+    ]
+    //output=[1,2,3,4,5,6,7,8,9,10,11,12]
+    let newArr = []
+    let rows = arr.length
+    let cols = arr[0].length
+    for (let i = 0; i < cols; i++) {
+        // let cell = arr[(i * cols + Math.floor(i / rows)) * rows]
+        for (let j = 0; j < rows; j++) {
+            let cell=arr[j][i]
+            console.log(cell)
+        }
+    }
+}
+columnizeArray()
