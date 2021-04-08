@@ -254,5 +254,6 @@ function sendMsg() {
 
 (function () {
     preparePeriod();
+    // handleRefresh()
     getSummaryAndRefresh();
 })();

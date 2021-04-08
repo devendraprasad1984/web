@@ -23,6 +23,18 @@ if ($server == '::1' or $server == 'localhost' or $server == '127.0.0.1') {
 
 $conn = new mysqli(host, user, pwd, db);
 
+function returnDataset($qur)
+{
+    global $conn;
+//    $result = mysqli_query($conn, $qur);
+//    ChromePhp::log($qur);
+//    return mysqli_fetch_all($result);
+    $sql = $conn->query($qur);
+    $rows = $sql->fetch_all(MYSQLI_ASSOC);
+    mysqli_free_result($sql);
+    mysqli_close($conn);
+    return $rows;
+}
 
 function handleSave($data)
 {
@@ -52,32 +64,24 @@ function handleDelete($data)
 
 function handleExpensesReport($data)
 {
-    global $conn;
+//    global $conn;
     $search = $data['by'];
     $qur = "select * from expenses";
     if ($search == '>0' || $search == '<0')
-        $qur .= " where amount".$search;
+        $qur .= " where amount" . $search;
     else
         $qur .= " where (concat('@',name) like '%$search%' or date like '%$search%' or amount like '%$search%' or remarks like '%$search%')";
     $qur .= " order by  str_to_date(concat('01 ', `date`), '%d %M %Y') desc ,`when` desc";
-    ChromePhp::log($qur);
-    $sql = $conn->query($qur);
-    $rows = $sql->fetch_all(MYSQLI_ASSOC);
-    mysqli_free_result($sql);
-    mysqli_close($conn);
+    $rows = returnDataset($qur);
     echo(json_encode($rows));
 }
 
 function handleSummary1($data)
 {
-    global $conn;
     $qur = "select name,sum(amount) as amt from expenses where amount > 0 group by name union all
             select 'Paid outs',sum(amount) as amt from expenses where amount < 0
             ";
-    $sql = $conn->query($qur);
-    $rows = $sql->fetch_all(MYSQLI_ASSOC);
-    mysqli_free_result($sql);
-    mysqli_close($conn);
+    $rows = returnDataset($qur);
     echo(json_encode($rows));
 }
 
