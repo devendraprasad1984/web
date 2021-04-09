@@ -6,8 +6,9 @@ export default function SearchBox(props) {
     const [query, setQuery] = useState('')
     const [page, setPage] = useState(1)
     const [data, setData] = useState([])
-    const [loading, setLoading] = useState(false)
+    const [pageLoadingStatus, setPageLoadingStatus] = useState(false)
     const [error, setError] = useState(false)
+    const [hasMoreData, setHasMoreData] = useState(true)
     const txtSearch = useRef()
 
     useEffect(() => {
@@ -15,19 +16,20 @@ export default function SearchBox(props) {
     }, [query])
 
 
-    const handleData = data => {
-        if (data.error !== undefined) {
-            setError(data.error)
-            return
-        }
-        let uniqTitles = [...new Set(data.docs.map(x => x.title))]
-        setData(prevData => [...prevData, ...uniqTitles])
-        setLoading(false)
-    }
     const fetchData = () => {
         if (query === '') return
-        setLoading(true)
+        setPageLoadingStatus(true)
         let url = `https://openlibrary.org/search.json?q=${query}&page=${page}`
+        let handleData = data => {
+            if (data.error !== undefined) {
+                setError(data.error)
+                return
+            }
+            let uniqTitles = [...new Set(data.docs.map(x => x.title))]
+            setData(prevData => [...prevData, ...uniqTitles])
+            setPageLoadingStatus(false)
+            setHasMoreData(data.docs.length > 0)
+        }
         getData(url, handleData)
     }
     useEffect(() => {
@@ -36,21 +38,29 @@ export default function SearchBox(props) {
 
     const observerToLastElement = useRef()
     const lastElementRef = useCallback(node => {
-        if (loading) return
+        if (pageLoadingStatus) return
         if (observerToLastElement.current) observerToLastElement.current.disconnect()
         observerToLastElement.current = new IntersectionObserver(els => {
-            if (els[0].isIntersecting) {
+            if (els[0].isIntersecting && hasMoreData) {
                 setPage(prevPage => prevPage + 1)
             }
         })
         if (node) observerToLastElement.current.observe(node)
-        // console.log(node)
-    }, [loading])
+    }, [pageLoadingStatus, hasMoreData])
+
+    const delayedCallback = debounce((e) => setQuery(e.target.value), 1000)
+
     const handleChange = (e) => {
+        delayedCallback(e)
+        setPage(1)
+    }
+
+    const handleSubmitClick = (e) => {
         // setQuery(e.target.value)
         setQuery(txtSearch.current.value)
         setPage(1)
     }
+
     const handleDisplayData = () => {
         if (data.length === 0) return null
         return data.map((title, index) => {
@@ -61,10 +71,10 @@ export default function SearchBox(props) {
         })
     }
     return <div>
-        <input ref={txtSearch}/>
-        <button onClick={handleChange}>submit</button>
+        <input ref={txtSearch} onChange={handleChange}/>
+        <button onClick={handleSubmitClick}>submit</button>
         <div>{handleDisplayData()}</div>
-        {loading && <div><h1>please wait...</h1></div>}
+        {pageLoadingStatus && <div><h1>please wait...</h1></div>}
         {error && <div>{error}</div>}
     </div>
 }
