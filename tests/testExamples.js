@@ -646,9 +646,26 @@ const columnizeArray = () => {
     for (let i = 0; i < cols; i++) {
         // let cell = arr[(i * cols + Math.floor(i / rows)) * rows]
         for (let j = 0; j < rows; j++) {
-            let cell=arr[j][i]
+            let cell = arr[j][i]
             console.log(cell)
         }
     }
 }
-columnizeArray()
+const countNumber = (num) => {
+    console.log(Math.ceil(Math.log(num + 1) / Math.LN10))
+}
+//len=countNumber(777777777777777777777777777777)
+const debounce = (fn, wait) => {
+    // The debounce() function forces a function to wait a certain amount of time before running again.
+    // The function is built to limit the number of times a function is called.
+    // The function aims to reduce overhead by preventing a function from being called several times
+    // in succession.
+    let timeout;
+    return function () {
+        let context = this;
+        clearTimeout(timeout);
+        timeout = setTimeout(function () {
+            fn.apply(context, arguments);
+        }, wait);
+    }
+}
