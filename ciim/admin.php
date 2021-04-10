@@ -11,7 +11,7 @@ require_once './backend/adminHandle.php';
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>IBDN Admin</title>
+    <title>Devendra Prasad</title>
     <link rel="stylesheet" href="./libs/bootstrap.min.css"/>
     <link rel="stylesheet" href="./frontend/custom.css"/>
 </head>
@@ -19,8 +19,8 @@ require_once './backend/adminHandle.php';
 
 <body class="">
 <h3 class="topHeading">
-    <span>IBDN Messaging Platform</span>
-    <span style="float: right">@Natwest Group</span>
+    <span>Sample Post and Reply Messaging Platform</span>
+    <span style="float: right">@Devendra Prasad</span>
 </h3>
 
 <div class="container-fluid" style="margin-top: 50px;margin-bottom: 30px;">

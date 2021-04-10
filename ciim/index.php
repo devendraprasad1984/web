@@ -5,7 +5,7 @@ require_once './backend/common.php'
 <html>
 
 <head>
-    <title>IBDN Messaging platform in association with Natwest Group</title>
+    <title>Devendra Prasad</title>
     <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>-->
     <link rel="stylesheet" href="./libs/bootstrap.min.css"/>
     <link rel="stylesheet" href="frontend/custom.css"/>
@@ -14,9 +14,13 @@ require_once './backend/common.php'
 
 <body class="container">
 <h3 class="topHeading">
-    <span>IBDN Messaging Platform</span>
-    <span style="float: right">@Natwest Group</span>
+    <span>Sample Post and Reply Messaging Platform</span>
+    <span style="float: right">@Devendra Prasad</span>
 </h3>
+
+<div style="font-size: 14px; font-weight: bold; margin-top: 5%;">
+    sample userName: test@gmail.com, password: test
+</div>
 
 <div class="modal fade" id="registerModal">
     <div class="modal-dialog modal-lg">
@@ -60,7 +64,7 @@ require_once './backend/common.php'
 </div>
 
 <div class="row">
-<!--    --><?php //print_r($_SESSION)?>
+    <!--    --><?php //print_r($_SESSION)?>
     <div class="col-md-12" align="right">
             <textarea class="form-control" id="mainComment" placeholder="add new post" cols="30"
                       rows="2"></textarea><br>
