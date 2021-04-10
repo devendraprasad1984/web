@@ -161,6 +161,7 @@ let demoPageContent = () => {
         {href: 'https://dpresume.com/docs/bdfdemojan21.webm', name: 'BDF Native App Demo'},
         {href: 'https://dpresume.com/docs/supply-chain.webm', name: 'Supply Chain App Demo'},
         {href: 'https://dpresume.com/react-js-python/#/', name: 'React JS Library Based - without Node'},
+        {href: 'https://dpresume.com/ciim/', name: `Post & Reply system ${`<b style="font-size: 8px;">(username: test@gmail.com, password: test)</b>`}`},
         {href: 'https://dpresume.com/mocha/mocha.html', name: 'Mocha Unit Tests'},
         {href: 'https://dpresume.com/dpvoicebanking', name: 'Open Banking Hackathon'},
     ]
