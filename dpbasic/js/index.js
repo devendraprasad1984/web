@@ -3,7 +3,8 @@ let leftMenu = {
         text: "Who I Am...",
         uri: "resources/summary.json",
         overlayID: "Summary",
-        displaySubDiv: false
+        displaySubDiv: false,
+        loadDemo: true
     },
     "Education": {
         text: "Education Details",
@@ -64,6 +65,7 @@ let current = {}
 let cnt = 0;
 let left;
 let mobile = false;
+let plzWaitMsg = '<span class="plzwait">please wait...</span>'
 
 let getById = function (id) {
     return document.getElementById(id);
@@ -125,11 +127,14 @@ function app() {
     };
     mobile = mobilecheck();
     let elm = [];
+    let firstElem = undefined, curElem = undefined
     for (let ex in leftMenu) {
-        elm.push('<li id=' + ('id' + ex) + ' onclick="handleLeftButtonClick(\'' + ex + '\')">' + ex + '</li>');
+        curElem = '<li id=' + ('id' + ex) + ' onclick="handleLeftButtonClick(this,\'' + ex + '\')">' + ex + '</li>'
+        if (ex.toLowerCase() === 'about') firstElem = curElem
+        elm.push(curElem);
     }
     left.innerHTML = elm.join('');
-    handleLeftButtonClick(menuKeys[0]);
+    handleLeftButtonClick(firstElem, menuKeys[0]);
 }
 
 let doRotate = function () {
@@ -142,20 +147,46 @@ let doRotate = function () {
     }
 }
 
-let rotatorView = function (x) {
-    handleLeftButtonClick(menuKeys[x]);
-}
+// let rotatorView = function (x) {
+//     handleLeftButtonClick(menuKeys[x]);
+// }
 
 let toggleLeftPanel = function (e) {
     left.style.display = (left.style.display == 'none' ? 'block' : 'none');
 }
-let handleLeftButtonClick = function (key) {
+
+let demoPageContent = () => {
+    let demoLinks = [
+        {href: 'https://dpresume.com/debounceExampleLazySearch/', name: 'Lazy Search Debounce Example'},
+        {href: 'https://dpresume.com/docs/bdfdemojan21.webm', name: 'BDF Native App Demo'},
+        {href: 'https://dpresume.com/docs/supply-chain.webm', name: 'Supply Chain App Demo'},
+        {href: 'https://dpresume.com/react-js-python/#/', name: 'React JS Library Based - without Node'},
+        {href: 'https://dpresume.com/mocha/mocha.html', name: 'Mocha Unit Tests'},
+        {href: 'https://dpresume.com/dpvoicebanking', name: 'Open Banking Hackathon'},
+    ]
+    return `<div>
+    <h1>few Live Demo Examples</h1>
+    <div class="demo flexbox cards">
+        ${demoLinks.map(x => `<a target="_blank" href="${x.href}">${x.name}</a>`).join('')}
+    </div>
+    </div>`
+}
+
+
+let handleLeftButtonClick = function (cur, key) {
+    let resetText = () => {
+        setTimeout(() => {
+            cur.innerHTML = oldText
+        }, 500)
+    }
+    let oldText = cur.innerHTML
+    cur.innerHTML = plzWaitMsg
     // show(loadID);
     // moveProgress();
     let rightContainer = getById(rightPanelDiv);
-    let pageHeader=undefined;
-    pageHeader='<h1>Loading...</h1>';
-    rightContainer.innerHTML=pageHeader;
+    let pageHeader = undefined;
+    pageHeader = '<h1>Loading...</h1>';
+    rightContainer.innerHTML = pageHeader;
     rightContainer.style.backgroundColor = "white";
     let allLeftLI = document.querySelectorAll('div.content-left li');
     for (let i in allLeftLI) {
@@ -168,6 +199,7 @@ let handleLeftButtonClick = function (key) {
     let overlayID = current["overlayID"];
     let subDisplay = current["displaySubDiv"];
     let loadLocal = current["loadLocal"];
+    let loadDemo = current["loadDemo"] || false;
     // console.log(text, uri, loadLocal);
     let sub = getById(subDiv);
     sub.style.display = 'none';
@@ -177,13 +209,15 @@ let handleLeftButtonClick = function (key) {
     if (loadLocal === true) {
         let iframeContent = '<iframe id="codeBlock" src="' + uri + '"></iframe>';
         rightContainer.innerHTML = iframeContent;
+        resetText()
         return;
     }
 
     getFromWeb(isHtmlHttpTextTrue(uri), uri, function (successData) {
-        rightContainer.innerHTML = pageHeader + successData;
+        rightContainer.innerHTML = pageHeader + successData + (loadDemo ? demoPageContent() : '');
         if (subDisplay)
             getAdhocListing(key, fnSubDivDisplay);
+        resetText()
     }, function (failedData) {
         console.error(failedData)
     });
