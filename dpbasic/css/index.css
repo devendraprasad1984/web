@@ -171,7 +171,8 @@ section {
 }
 
 .content-right, .content-left, .content-right-subdiv {
-    height: 100vh;
+    height: calc(100vh - 120px);
+    width: calc(90vw - 300px);
     padding-left: 5px;
 }
 
@@ -296,12 +297,13 @@ code, kbd, samp {
     color: #8035a9;
 }
 
-.demo{
+.demo {
     position: relative;
     display: inline;
     overflow: auto;
     height: 300px;
 }
+
 .flexbox {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     display: grid;
@@ -317,7 +319,7 @@ code, kbd, samp {
 }
 
 .cards span:hover, .cards a:hover {
-/    background-color: #e2c3ef;
+/ background-color: #e2c3ef;
     background: linear-gradient(180deg, rgb(226, 104, 19) 0%, rgb(255, 255, 255) 50%, rgb(47, 184, 17) 100%);
 }
 
