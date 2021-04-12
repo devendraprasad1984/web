@@ -173,7 +173,7 @@ let demoPageContent = () => {
     </div>`
 }
 
-
+let globalObject={}
 let handleLeftButtonClick = function (cur, key) {
     let resetText = () => {
         setTimeout(() => {
@@ -213,7 +213,7 @@ let handleLeftButtonClick = function (cur, key) {
         resetText()
         return;
     }
-
+    globalObject.currentKey=key
     getFromWeb(isHtmlHttpTextTrue(uri), uri, function (successData) {
         rightContainer.innerHTML = pageHeader + successData + (loadDemo ? demoPageContent() : '');
         if (subDisplay)
@@ -272,7 +272,6 @@ function fnSubDivDisplay(ds) {
 
 //older js callbacks way, similar to return new Promise(resolve,reject)
 let getFromWeb = function (raw, uri, resolve, reject) {
-    that = this;
     let req = new XMLHttpRequest();
     req.onload = function () {
         var data = (isHtmlHttpTextTrue(uri)) ? this.response : JSON.parse(this.response);
@@ -291,7 +290,7 @@ let getFromWeb = function (raw, uri, resolve, reject) {
 
 function customFormat(data) {
     let vals2display = '';
-    let cbox = '<div class="box">';
+    let cbox = `<div class=${globalObject.currentKey.toLowerCase()!=='projects'?'box  ':''}>`;
     for (let x in data) {
         if (data[x] instanceof Object) {
             vals2display += (x === 'data' ? cbox : cbox + '<h1>' + x.replace('data', '').toUpperCase() + '</h1>');
@@ -312,7 +311,7 @@ function customFormat(data) {
                     vals2display += '<div>' + el + '</div>';
                 }
             } else
-                vals2display += '<li>' + beforeLI + el + '</li>';
+                vals2display += `<li class=${globalObject.currentKey.toLowerCase()==='projects'?'box  ':''}>${beforeLI} ${el} </li>`;
         }
         vals2display += '</div>';
     }
