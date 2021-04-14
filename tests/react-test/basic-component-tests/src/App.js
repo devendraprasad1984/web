@@ -10,10 +10,11 @@ function App() {
         {value: 'five', label: 'five', color: 'black'},
     ]
     const handleChange = (selected) => {
-        console.log(selected.map(x => x.value))
+        let isSingle = selected.length === undefined
+        console.log(isSingle ? selected : selected.map(x => x.value))
     }
     return <div>
-        <SelectBox data={data} change={handleChange}/>
+        <SelectBox multi={true} data={data} change={handleChange}/>
     </div>
 }
 

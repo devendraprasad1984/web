@@ -54,8 +54,8 @@ const colourStylesSingle = {
 
 
 const colourStylesMulti = {
-    control: styles => ({ ...styles, backgroundColor: 'white' }),
-    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+    control: styles => ({...styles, backgroundColor: 'white'}),
+    option: (styles, {data, isDisabled, isFocused, isSelected}) => {
         const color = chroma(data.color);
         return {
             ...styles,
@@ -82,18 +82,18 @@ const colourStylesMulti = {
             },
         };
     },
-    multiValue: (styles, { data }) => {
+    multiValue: (styles, {data}) => {
         const color = chroma(data.color);
         return {
             ...styles,
             backgroundColor: color.alpha(0.1).css(),
         };
     },
-    multiValueLabel: (styles, { data }) => ({
+    multiValueLabel: (styles, {data}) => ({
         ...styles,
         color: data.color,
     }),
-    multiValueRemove: (styles, { data }) => ({
+    multiValueRemove: (styles, {data}) => ({
         ...styles,
         color: data.color,
         ':hover': {
@@ -104,10 +104,11 @@ const colourStylesMulti = {
 };
 
 const SelectBox = props => {
-    const {change, data}=props
+    const {change, data, multi} = props
     return <span>
         <Select
-            isMulti options={data}
+            isMulti={multi}
+            options={data}
             styles={colourStylesMulti}
             onChange={change}
         />
