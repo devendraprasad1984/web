@@ -1,5 +1,6 @@
 import './App.css';
 import SelectBox from "./component/selectBox";
+import InputTag from "./component/inputTag";
 
 function App() {
     const data = [
@@ -13,8 +14,12 @@ function App() {
         let isSingle = selected.length === undefined
         console.log(isSingle ? selected : selected.map(x => x.value))
     }
+    const handleTagsCallBack=values=>{
+        console.log('tags', values)
+    }
     return <div>
         <SelectBox multi={true} data={data} change={handleChange}/>
+        <InputTag defaultTags={['devendra']} getValues={handleTagsCallBack}/>
     </div>
 }
 
