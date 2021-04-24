@@ -3,6 +3,33 @@
     color: #8416ab
 }
 
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../css/gstaticFont.woff2) format('woff2');
+}
+
+.icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+
+i {
+    color: white;
+}
+
 .bg {
     background-color: #790de5;
 }
@@ -170,16 +197,23 @@ section {
     pointer-events: auto;
 }
 
-.content-right, .content-left, .content-right-subdiv {
-    height: calc(100vh - 120px);
-    width: calc(90vw - 300px);
+.content-left {
+    /*height: calc(100vh - 120px);*/
+    width: 200px;
     padding-left: 5px;
 }
 
-.content-left {
+.content-right, .content-right-subdiv {
+    height: calc(100vh - 120px);
+    width: calc(80vw - 200px);
+    padding-left: 5px;
     float: left;
-
 }
+
+/*.content-left {*/
+/*    float: left;*/
+
+/*}*/
 
 .content-right {
     color: black;
@@ -226,8 +260,6 @@ header div, header span, header a {
     font-weight: bold;
     font-size: 18pt;
     vertical-align: middle;
-    /*float: left;*/
-    text-decoration: underline;
 }
 
 .tld {
@@ -294,7 +326,7 @@ code, kbd, samp {
 
 .plzwait {
     font-size: 12px;
-    color: #8035a9;
+    color: white;
 }
 
 .demo {
@@ -317,7 +349,7 @@ code, kbd, samp {
     width: 200px;
     text-align: center;
     box-sizing: border-box;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     /*transition: border-width 0.3s linear;*/
     transition: 1s;
     /*transition: outline-width 0.3s linear;*/
@@ -409,6 +441,7 @@ li {
     float: right;
     margin-right: 50px;
 }
+
 
 .box {
     border: 2px solid rgba(0, 0, 0, .225);

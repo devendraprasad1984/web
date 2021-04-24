@@ -1,5 +1,6 @@
 let leftMenu = {
     "About": {
+        icon: `<i class="icons">person_outline</i>`,
         text: "Who I Am...",
         uri: "resources/summary.json",
         overlayID: "Summary",
@@ -7,42 +8,49 @@ let leftMenu = {
         loadDemo: true
     },
     "Education": {
+        icon: `<i class="icons">school</i>`,
         text: "Education Details",
         uri: "resources/education.json",
         overlayID: "Education",
         displaySubDiv: false
     },
     "Certification": {
+        icon: `<i class="icons">badge</i>`,
         text: "Certification Details",
         uri: "resources/certifications.json",
         overlayID: "Certification",
         displaySubDiv: false
     },
     "Experience": {
+        icon: `<i class="icons">calendar_view_month</i>`,
         text: "Experience Summary",
         uri: "resources/prof_expr.json",
         overlayID: "Experience",
         displaySubDiv: false
     },
     "Projects": {
+        icon: `<i class="icons">engineering</i>`,
         text: "Projects I have Undertaken most recently",
         uri: "resources/projects.json",
         overlayID: "Projects",
         displaySubDiv: false
     },
     "Skills": {
+        icon: `<i class="icons">security</i>`,
         text: "What else I know",
         uri: "resources/skills.json",
         overlayID: "whatElse",
         displaySubDiv: false
     },
     "Notes": {
+        icon: `<i class="icons">edit_note</i>`,
         text: "This is What I make notes on...",
         uri: "resources/my_notes.txt",
         overlayID: "",
         displaySubDiv: false
     },
     "Code": {
+        icon: `<i class="icons">code</i>`,
         text: "Html/Javascript/Python/Sql Code Blocks that I practice",
         uri: "code.html",
         displaySubDiv: false,
@@ -65,7 +73,7 @@ let current = {}
 let cnt = 0;
 let left;
 let mobile = false;
-let plzWaitMsg = '<span class="plzwait">please wait...</span>'
+let plzWaitMsg = '<span class="plzwait"><i class="icons">autorenew</i> please wait...</span>'
 
 let getById = function (id) {
     return document.getElementById(id);
@@ -129,7 +137,8 @@ function app() {
     let elm = [];
     let firstElem = undefined, curElem = undefined
     for (let ex in leftMenu) {
-        curElem = '<li id=' + ('id' + ex) + ' onclick="handleLeftButtonClick(this,\'' + ex + '\')">' + ex + '</li>'
+        let icon = leftMenu[ex].icon || ''
+        curElem = '<li id=' + ('id' + ex) + ' onclick="handleLeftButtonClick(this,\'' + ex + '\')">' + icon + ex + '</li>'
         if (ex.toLowerCase() === 'about') firstElem = curElem
         elm.push(curElem);
     }
@@ -161,7 +170,10 @@ let demoPageContent = () => {
         {href: 'https://dpresume.com/docs/bdfdemojan21.webm', name: 'BDF Native App Demo'},
         {href: 'https://dpresume.com/docs/supply-chain.webm', name: 'Supply Chain App Demo'},
         {href: 'https://dpresume.com/react-js-python/#/', name: 'React JS Library Based - without Node'},
-        {href: 'https://dpresume.com/ciim/', name: `Post & Reply system ${`<b style="font-size: 8px;">(username: test@gmail.com, password: test)</b>`}`},
+        {
+            href: 'https://dpresume.com/ciim/',
+            name: `Post & Reply system ${`<b style="font-size: 8px;">(username: test@gmail.com, password: test)</b>`}`
+        },
         {href: 'https://dpresume.com/mocha/mocha.html', name: 'Mocha Unit Tests'},
         {href: 'https://dpresume.com/dpvoicebanking', name: 'Open Banking Hackathon'},
     ]
@@ -173,7 +185,7 @@ let demoPageContent = () => {
     </div>`
 }
 
-let globalObject={}
+let globalObject = {}
 let handleLeftButtonClick = function (cur, key) {
     let resetText = () => {
         setTimeout(() => {
@@ -192,7 +204,7 @@ let handleLeftButtonClick = function (cur, key) {
     let allLeftLI = document.querySelectorAll('div.content-left li');
     for (let i in allLeftLI) {
         let x = allLeftLI[i];
-        x.className = (x.id == 'id' + key ? 'cursel' : '');
+        x.class = (x.id == 'id' + key ? 'cursel' : '');
     }
     current = leftMenu[key];
     let text = current["text"];
@@ -213,7 +225,7 @@ let handleLeftButtonClick = function (cur, key) {
         resetText()
         return;
     }
-    globalObject.currentKey=key
+    globalObject.currentKey = key
     getFromWeb(isHtmlHttpTextTrue(uri), uri, function (successData) {
         rightContainer.innerHTML = pageHeader + successData + (loadDemo ? demoPageContent() : '');
         if (subDisplay)
@@ -290,7 +302,7 @@ let getFromWeb = function (raw, uri, resolve, reject) {
 
 function customFormat(data) {
     let vals2display = '';
-    let cbox = `<div class=${globalObject.currentKey.toLowerCase()!=='projects'?'box  ':''}>`;
+    let cbox = `<div class=${globalObject.currentKey.toLowerCase() !== 'projects' ? 'box  ' : ''}>`;
     for (let x in data) {
         if (data[x] instanceof Object) {
             vals2display += (x === 'data' ? cbox : cbox + '<h1>' + x.replace('data', '').toUpperCase() + '</h1>');
@@ -311,7 +323,7 @@ function customFormat(data) {
                     vals2display += '<div>' + el + '</div>';
                 }
             } else
-                vals2display += `<li class=${globalObject.currentKey.toLowerCase()==='projects'?'box  ':''}>${beforeLI} ${el} </li>`;
+                vals2display += `<li class=${globalObject.currentKey.toLowerCase() === 'projects' ? 'box  ' : ''}>${beforeLI} ${el} </li>`;
         }
         vals2display += '</div>';
     }
