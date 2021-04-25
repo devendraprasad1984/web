@@ -728,6 +728,7 @@ const thisContextChange = () => {
 }
 const lengthKnowledgeCheck = () => {
     let length = 10;
+
     function fn() {
         console.log('length', this.length);
     }
@@ -742,4 +743,16 @@ const lengthKnowledgeCheck = () => {
     }
     obj.method(fn, 1)
 }
-lengthKnowledgeCheck()
+const checkoutput1 = () => {
+    (function () {
+        try {
+            throw new Error();
+        } catch (x) {
+            var x = 1, y = 2;
+            console.log('inside error', x);
+        }
+        console.log(x);
+        console.log(y);
+    })();
+}
+
