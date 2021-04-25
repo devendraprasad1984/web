@@ -669,3 +669,60 @@ const debounce = (fn, wait) => {
         }, wait);
     }
 }
+const jsTrick1 = () => {
+    var myObject = {
+        foo: "bar",
+        func: function () {
+            var self = this;
+            console.log("outer func:  this.foo = " + this.foo);
+            console.log("outer func:  self.foo = " + self.foo);
+            (function () {
+                console.log("inner func:  this.foo = " + this.foo);
+                console.log("inner func:  self.foo = " + self.foo);
+            }());
+        }
+    };
+    myObject.func();
+}
+const jsTrick2 = () => {
+    (function () {
+        var a = b = 3;
+    })();
+
+    console.log("a defined? " + (typeof a !== 'undefined'));
+    console.log("b defined? " + (typeof b !== 'undefined'));
+}
+const promiseTestPlusMinus = () => {
+    const createPromise = (x) => {
+        return new Promise((resolve, reject) => {
+            if (x)
+                resolve(x)
+            else
+                reject('failed')
+        })
+    }
+    const plus = async (num) => {
+        return num + await createPromise(5) + await createPromise(10)
+    }
+    const minus = async (num) => {
+        return num - await createPromise(2) - await createPromise(5)
+    }
+    let number = 40
+    let promiseResult = plus(number).then(data => minus(data).then(res => res).catch(err => err))
+    promiseResult.then(r => {
+        console.log('promise plus minus: ', number, ' = ', r)
+    })
+
+}
+//promiseTestPlusMinus()
+const thisContextChange = () => {
+    var hero = {
+        _name: 'John Doe',
+        getSecretIdentity: function () {
+            return this._name;
+        }
+    }
+    let stoleSecretIdentity = hero.getSecretIdentity;
+    console.log(stoleSecretIdentity());
+    console.log(hero.getSecretIdentity());
+}
