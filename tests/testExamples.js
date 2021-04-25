@@ -726,3 +726,20 @@ const thisContextChange = () => {
     console.log(stoleSecretIdentity());
     console.log(hero.getSecretIdentity());
 }
+const lengthKnowledgeCheck = () => {
+    let length = 10;
+    function fn() {
+        console.log('length', this.length);
+    }
+
+    let obj = {
+        length: 5,
+        method: function (fn) {
+            // console.log(fn, arguments)
+            fn();
+            arguments[0]();
+        }
+    }
+    obj.method(fn, 1)
+}
+lengthKnowledgeCheck()
