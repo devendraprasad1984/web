@@ -17,6 +17,7 @@ html {
     font-weight: 400;
     src: url(../css/gstaticFont.woff2) format('woff2');
 }
+
 @font-face {
     font-family: 'Source Code Pro';
     font-style: normal;
@@ -26,10 +27,10 @@ html {
 }
 
 
-*{
+* {
     box-sizing: border-box;
     font-family: 'Source Code Pro', monospace;
-    opacity: 0.99;
+    /*opacity: 0.99;*/
 }
 
 .size15 {
@@ -37,12 +38,13 @@ html {
     color: #e94271;
 }
 
-.content *:not(h1)  {
-    color: #980e7a;
+.content *:not(h1):not(i) {
+    color: #623bab;
     font-size: 12px;
 }
-.header > div *, .footer > div *  {
-    color: #980e7a;
+
+.header > div *, .footer > div * {
+    color: #623bab;
 }
 
 .icons {
@@ -250,7 +252,7 @@ header div, header span, header a {
 }
 
 .active {
-    background-color: #fac78b;
+    background-color: #dacef3;
     color: white;
 }
 
@@ -333,14 +335,15 @@ code, kbd, samp {
 }
 
 .cards span, .cards a {
-    /*border-top: 5px solid #7111ae;*/
+    border-top: 5px solid #a585dd;
     padding: 10px;
     margin: 10px;
     height: 100px;
     width: 200px;
     text-align: center;
     box-sizing: border-box;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
     /*transition: border-width 0.3s linear;*/
     transition: 0.5s;
     /*transition: outline-width 0.3s linear;*/
@@ -368,7 +371,7 @@ code, kbd, samp {
     flex-direction: column;
 }
 
-.bottom a{
+.bottom a {
     font-size: 10px;
 }
 
@@ -440,7 +443,7 @@ li {
 
 
 .box {
-    border: 2px solid rgb(236, 127, 186);
+    border: 2px solid #a585dd;
     border-radius: .30rem;
     padding: 5px;
     left: 0;
@@ -571,12 +574,14 @@ li {
     width: 250px;
     padding: 5px;
 }
+
 .imgDonate {
     width: 100px;
     height: 100px;
     padding: 5px;
 }
-.imgIcon{
+
+.imgIcon {
     display: inline-flex;
 }
 
