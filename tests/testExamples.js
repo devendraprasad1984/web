@@ -756,3 +756,11 @@ const checkoutput1 = () => {
     })();
 }
 
+
+
+var d = {};
+[ 'zebra', 'horse' ].forEach(function(k) {
+    d[k] = undefined;
+});
+console.log(Object.values(d), Object.keys(d))
+

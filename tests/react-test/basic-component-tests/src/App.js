@@ -1,6 +1,9 @@
 import './App.css';
+import './style.css';
 import SelectBox from "./component/selectBox";
 import InputTag from "./component/inputTag";
+import TreeExample1 from "./component/treeExample1";
+import TreeExample2 from "./component/treeExample2";
 
 function App() {
     const data = [
@@ -20,6 +23,8 @@ function App() {
     return <div>
         <SelectBox multi={true} data={data} change={handleChange}/>
         <InputTag defaultTags={['devendra']} getValues={handleTagsCallBack}/>
+        <TreeExample1/>
+        <TreeExample2/>
     </div>
 }
 
