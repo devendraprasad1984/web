@@ -43,6 +43,12 @@ html {
     font-size: 12px;
 }
 
+.pright {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
 .header > div *, .footer > div * {
     color: #623bab;
 }
@@ -671,7 +677,7 @@ li {
     height: 90%;
     overflow-y: hidden;
     position: relative;
-    border: 2px solid #6610f2;
+    border: 2px solid #623bab;
     /*background-color: azure;*/
 }
 
@@ -698,11 +704,11 @@ select {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #e9c0d8;
+    background: #623bab;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #ca4995;
+    background: #d6c8ef;
 }
 
