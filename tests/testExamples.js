@@ -757,10 +757,47 @@ const checkoutput1 = () => {
 }
 
 
+//
+// var d = {};
+// [ 'zebra', 'horse' ].forEach(function(k) {
+//     d[k] = undefined;
+// });
+// console.log(Object.values(d), Object.keys(d))
+//
+const coronaSequenceTest=()=>{
+    function checkCorona(V,B,N){
+        // let V = 'coronavirus'
+        // let N = 3
+        // let B = ['abcde', 'crnas', 'onarous']
+        let result=[]
+        for (let seq of B) {
+            if(seq==='') continue
+            let foundAt = -1
+            let positive = false
+            let foundCounter = 0
+            for (let k = 0; k < seq.length; k++) {
+                let chr = seq[k]
+                for (let j = foundAt + 1; j < V.length; j++) {
+                    let chrV = V[j]
+                    if (chr === chrV) {
+                        foundAt = j
+                        foundCounter = foundCounter + 1
+                        break
+                    }
+                }
+            }
+            if (seq.length === foundCounter) {
+                positive = true
+            }
+            result.push(seq+'===>'+(positive ? ' - POSITIVE' : ' - NEGATIVE'))
+        }
+        return result
+    }
 
-var d = {};
-[ 'zebra', 'horse' ].forEach(function(k) {
-    d[k] = undefined;
-});
-console.log(Object.values(d), Object.keys(d))
 
+    let input_stdin_array = [ 'coronavirus', '3', 'abcde', 'crnas', 'onarous', '' ]
+    let [V,N,...B]=input_stdin_array
+    let output=checkCorona(V,B,N)
+    console.log(V,'\n',output.join('\n'));
+}
+coronaSequenceTest()
