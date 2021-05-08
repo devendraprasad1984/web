@@ -76,9 +76,9 @@ let leftMenu = {
     "CodeAPI": {
         icon: `<i class="icons">code</i>`,
         text: "Code Example API endpoint",
-        uri: 'https://dpresume.com/API/getCode.php?nodes=jsDataTypeTest',
+        uri: 'https://dpresume.com/API/getCode.php?',
         displaySubDiv: false,
-        displayInMenu: true,
+        displayInMenu: false,
         displayContent: true,
         loadLocal: false
     },
@@ -170,7 +170,16 @@ function app() {
     mobile = mobilecheck();
     let elm = [];
     let whichElemOnLoad = undefined
-    let curHrefLoc = window.location.hash.replace('#/', '')
+    let winhash = window.location.hash
+    let curHrefLoc = winhash.replace('#/', '')
+    let codeapi = winhash.toLowerCase().indexOf('codeapi')
+    let sufApi = ''
+    if (codeapi) {
+        //nodes=jsDataTypeTest
+        let strUriArr = curHrefLoc.split('/')
+        curHrefLoc = strUriArr[0]
+        sufApi = strUriArr[1]
+    }
     let keyonload = (curHrefLoc === '' ? menuKeys[0] : curHrefLoc)
     for (let ex in leftMenu) {
         let curElem = undefined
@@ -185,7 +194,7 @@ function app() {
     left.innerHTML = elm.join('');
     globalObject.thisKey = keyonload
     globalObject.hash = window.location.hash
-    if (leftMenu[keyonload].displayContent === true) handleLeftButtonClick(whichElemOnLoad, keyonload);
+    if (leftMenu[keyonload].displayContent === true) handleLeftButtonClick(whichElemOnLoad, keyonload, sufApi);
 }
 
 let doRotate = function () {
@@ -230,7 +239,7 @@ let demoPageContent = () => {
     </div>`
 }
 
-let handleLeftButtonClick = function (cur, key) {
+let handleLeftButtonClick = function (cur, key, sufApi='') {
     let curUndefined = cur === undefined
     let resetText = () => {
         if (curUndefined) return
@@ -254,7 +263,7 @@ let handleLeftButtonClick = function (cur, key) {
     }
     current = leftMenu[key];
     let text = current["text"];
-    let uri = current["uri"];
+    let uri = current["uri"] + sufApi;
     let overlayID = current["overlayID"];
     let subDisplay = current["displaySubDiv"];
     let loadLocal = current["loadLocal"];
