@@ -281,7 +281,6 @@ p {
 }
 
 .btn {
-    background-color: #f5bbdd;
     display: inline-block;
     font-weight: bold;
     text-align: center;
@@ -308,7 +307,7 @@ code, kbd, samp {
 
 .plzwait {
     font-size: 12px;
-    color: #41bcec;
+    color: #7532b3;
 }
 
 .demo {
@@ -458,7 +457,7 @@ li {
 
 
 .info {
-    background-color: #17a2b8 !important
+    background-color: #7055c6 !important
 }
 
 .warning {
