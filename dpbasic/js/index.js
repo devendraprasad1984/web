@@ -91,8 +91,13 @@ let loadID = getById('idLoad');
 // loadID.innerHTML=loader('loader1');
 
 document.addEventListener('DOMContentLoaded', function (event) {
-    app(); //run when document is initialised and contents are ready to be displayed
-    getLinksDisplay();
+    let initCall = () => {
+        app()
+    }
+    window.addEventListener('load', initCall);
+    window.addEventListener('hashchange', initCall)
+    window.addEventListener('onpopstate', initCall);
+    getLinksDisplay()
 });
 
 function getAdhocListing(key, what2run) {
@@ -108,15 +113,16 @@ function getAdhocListing(key, what2run) {
 
 function getLinksDisplay() {
     getFromWeb(true, 'resources/links.json', function (successData) {
+        // linksDiv.innerHTML=""
         let linksDiv = getById('idLinks');
         if (linksDiv === null) return;
 
         let header = successData.header;
         let links = []
         for (let x in header) {
-            links.push('<a class="badge white" href="' + header[x] + '" target="_blank">' + x + '</a>')
+            links.push('<a class="btn" href="' + header[x] + '" target="_blank">' + x + '</a>')
         }
-        linksDiv.innerHTML += links.join(' ');
+        linksDiv.innerHTML = links.join(' ');
     }, function (failedData) {
         console.log(failedData)
     })
@@ -135,15 +141,20 @@ function app() {
     };
     mobile = mobilecheck();
     let elm = [];
-    let firstElem = undefined, curElem = undefined
+    let whichElemOnLoad = undefined, curElem = undefined
+    let curHrefLoc = window.location.hash.replace('#/', '')
+    let keyonload = (curHrefLoc === '' ? menuKeys[0] : curHrefLoc)
     for (let ex in leftMenu) {
         let icon = leftMenu[ex].icon || ''
-        curElem = '<li id=' + ('id' + ex) + ' onclick="handleLeftButtonClick(this,\'' + ex + '\')">' + icon + ex + '</li>'
-        if (ex.toLowerCase() === 'about') firstElem = curElem
+        // curElem = `<li id=${'id' + ex} onclick="handleLeftButtonClick(this,${ex})">${icon + ex}</li>`
+        curElem = `<li id=${'id' + ex}><a href="#/${ex}" onclick="handleLeftButtonClick(this,${ex})">${icon + ex}</a></li>`
+        if (ex.toLowerCase() === keyonload.toLowerCase()) {
+            whichElemOnLoad = curElem = `<li id=${'id' + ex} class="active">${icon}<a href="#/${ex}" onclick="handleLeftButtonClick(this,${ex})">${ex}</a></li>`
+        }
         elm.push(curElem);
     }
     left.innerHTML = elm.join('');
-    handleLeftButtonClick(firstElem, menuKeys[0]);
+    handleLeftButtonClick(whichElemOnLoad, keyonload);
 }
 
 let doRotate = function () {
