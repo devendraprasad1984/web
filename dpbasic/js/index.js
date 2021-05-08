@@ -5,6 +5,8 @@ let leftMenu = {
         uri: "resources/summary.json",
         overlayID: "Summary",
         displaySubDiv: false,
+        displayInMenu: true,
+        displayContent: true,
         loadDemo: true
     },
     "Education": {
@@ -12,13 +14,18 @@ let leftMenu = {
         text: "Education Details",
         uri: "resources/education.json",
         overlayID: "Education",
+        displayInMenu: true,
+        displayContent: true,
         displaySubDiv: false
+
     },
     "Certification": {
         icon: `<i class="icons">badge</i>`,
         text: "Certification Details",
         uri: "resources/certifications.json",
         overlayID: "Certification",
+        displayInMenu: true,
+        displayContent: true,
         displaySubDiv: false
     },
     "Experience": {
@@ -26,6 +33,8 @@ let leftMenu = {
         text: "Experience Summary",
         uri: "resources/prof_expr.json",
         overlayID: "Experience",
+        displayInMenu: true,
+        displayContent: true,
         displaySubDiv: false
     },
     "Projects": {
@@ -33,6 +42,8 @@ let leftMenu = {
         text: "Projects I have Undertaken most recently",
         uri: "resources/projects.json",
         overlayID: "Projects",
+        displayInMenu: true,
+        displayContent: true,
         displaySubDiv: false
     },
     "Skills": {
@@ -40,6 +51,8 @@ let leftMenu = {
         text: "What else I know",
         uri: "resources/skills.json",
         overlayID: "whatElse",
+        displayInMenu: true,
+        displayContent: true,
         displaySubDiv: false
     },
     "Notes": {
@@ -47,6 +60,8 @@ let leftMenu = {
         text: "This is What I make notes on...",
         uri: "resources/my_notes.txt",
         overlayID: "",
+        displayInMenu: true,
+        displayContent: true,
         displaySubDiv: false
     },
     "Code": {
@@ -54,8 +69,28 @@ let leftMenu = {
         text: "Html/Javascript/Python/Sql Code Blocks that I practice",
         uri: "code.html",
         displaySubDiv: false,
+        displayInMenu: true,
+        displayContent: true,
         loadLocal: true
-    }
+    },
+    "CodeAPI": {
+        icon: `<i class="icons">code</i>`,
+        text: "Code Example API endpoint",
+        uri: 'https://dpresume.com/API/getCode.php?nodes=jsDataTypeTest',
+        displaySubDiv: false,
+        displayInMenu: true,
+        displayContent: true,
+        loadLocal: false
+    },
+    "donate": {
+        icon: ``,
+        text: "Donate Me",
+        uri: "resources/donate.json",
+        overlayID: "Education",
+        displayInMenu: false,
+        displayContent: true,
+        displaySubDiv: false
+    },
 };
 let subDiv = 'rightPanelDivSub';
 let menuKeys = Object.keys(leftMenu);
@@ -74,6 +109,8 @@ let cnt = 0;
 let left;
 let mobile = false;
 let plzWaitMsg = '<span class="plzwait"><i class="icons">autorenew</i> please wait...</span>'
+let globalObject = {}
+
 
 let getById = function (id) {
     return document.getElementById(id);
@@ -88,17 +125,8 @@ let getById = function (id) {
 // }
 
 let loadID = getById('idLoad');
-// loadID.innerHTML=loader('loader1');
 
-document.addEventListener('DOMContentLoaded', function (event) {
-    let initCall = () => {
-        app()
-    }
-    window.addEventListener('load', initCall);
-    window.addEventListener('hashchange', initCall)
-    window.addEventListener('onpopstate', initCall);
-    getLinksDisplay()
-});
+// loadID.innerHTML=loader('loader1');
 
 function getAdhocListing(key, what2run) {
     getFromWeb(true, 'resources/adhoc.json', function (successData) {
@@ -141,20 +169,23 @@ function app() {
     };
     mobile = mobilecheck();
     let elm = [];
-    let whichElemOnLoad = undefined, curElem = undefined
+    let whichElemOnLoad = undefined
     let curHrefLoc = window.location.hash.replace('#/', '')
     let keyonload = (curHrefLoc === '' ? menuKeys[0] : curHrefLoc)
     for (let ex in leftMenu) {
+        let curElem = undefined
         let icon = leftMenu[ex].icon || ''
-        // curElem = `<li id=${'id' + ex} onclick="handleLeftButtonClick(this,${ex})">${icon + ex}</li>`
-        curElem = `<li id=${'id' + ex}><a href="#/${ex}" onclick="handleLeftButtonClick(this,${ex})">${icon + ex}</a></li>`
-        if (ex.toLowerCase() === keyonload.toLowerCase()) {
+        if (leftMenu[ex].displayInMenu === true)
+            curElem = `<li id=${'id' + ex}><a href="#/${ex}" onclick="handleLeftButtonClick(this,${ex})">${icon + ex}</a></li>`
+        if (ex.toLowerCase() === keyonload.toLowerCase() && leftMenu[ex].displayInMenu === true) {
             whichElemOnLoad = curElem = `<li id=${'id' + ex} class="active">${icon}<a href="#/${ex}" onclick="handleLeftButtonClick(this,${ex})">${ex}</a></li>`
         }
         elm.push(curElem);
     }
     left.innerHTML = elm.join('');
-    handleLeftButtonClick(whichElemOnLoad, keyonload);
+    globalObject.thisKey = keyonload
+    globalObject.hash = window.location.hash
+    if (leftMenu[keyonload].displayContent === true) handleLeftButtonClick(whichElemOnLoad, keyonload);
 }
 
 let doRotate = function () {
@@ -172,7 +203,10 @@ let doRotate = function () {
 // }
 
 let toggleLeftPanel = function (e) {
-    left.style.display = (left.style.display == 'none' ? 'block' : 'none');
+    let disp = left.style.display == 'none'
+    let rightPanel = getById(rightPanelDiv)
+    left.style.display = disp ? 'block' : 'none'
+    // rightPanel.style.width = disp ? '80%' : '100%'
 }
 
 let demoPageContent = () => {
@@ -196,15 +230,16 @@ let demoPageContent = () => {
     </div>`
 }
 
-let globalObject = {}
 let handleLeftButtonClick = function (cur, key) {
+    let curUndefined = cur === undefined
     let resetText = () => {
+        if (curUndefined) return
         setTimeout(() => {
             cur.innerHTML = oldText
         }, 500)
     }
-    let oldText = cur.innerHTML
-    cur.innerHTML = plzWaitMsg
+    let oldText = curUndefined ? '' : cur.innerHTML
+    if (!curUndefined) cur.innerHTML = plzWaitMsg
     // show(loadID);
     // moveProgress();
     let rightContainer = getById(rightPanelDiv);
@@ -238,7 +273,10 @@ let handleLeftButtonClick = function (cur, key) {
     }
     globalObject.currentKey = key
     getFromWeb(isHtmlHttpTextTrue(uri), uri, function (successData) {
-        rightContainer.innerHTML = pageHeader + successData + (loadDemo ? demoPageContent() : '');
+        let code = globalObject.thisKey.toLowerCase() === 'codeapi'
+        let dataValue = code ? `<div id='jsEditor'></div>` : successData
+        rightContainer.innerHTML = pageHeader + dataValue + (loadDemo ? demoPageContent() : '');
+        if (code) setCodeData('nodes', JSON.parse(successData))
         if (subDisplay)
             getAdhocListing(key, fnSubDivDisplay);
         resetText()
@@ -341,7 +379,7 @@ function customFormat(data) {
     return vals2display;
 }
 
-function getContentsByTagT(tag, text) {
+function getContentsByTag(tag, text) {
     return text.match('<' + tag + '>(.*)?</' + tag + '>')[1];
 }
 
@@ -402,3 +440,37 @@ function moveProgress() {
         }
     }
 }
+
+let setCodeData = (type, data) => {
+    let editor;
+    if (type === 'nodes') {
+        editor = window.ace.edit('jsEditor');
+        editor.session.setMode("ace/mode/javascript");
+    } else if (type === 'python') {
+        editor = window.ace.edit('pythonEditor');
+        editor.session.setMode("ace/mode/python");
+    }
+
+    editor.setTheme("ace/theme/chrome");
+    editor.setReadOnly(true);
+
+    let contentToDisplay = ''
+    for (let d in data) {
+        contentToDisplay += data[d];
+    }
+    editor.setValue(contentToDisplay);
+    editor.clearSelection();
+}
+
+
+document.addEventListener('DOMContentLoaded', function (event) {
+    let initCall = () => {
+        app()
+    }
+    window.addEventListener('load', initCall);
+    window.addEventListener('hashchange', initCall)
+    window.addEventListener('onpopstate', initCall);
+    getLinksDisplay()
+});
+
+
