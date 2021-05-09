@@ -129,20 +129,22 @@ let globalObject = {}
 
 
 let changeColor = function () {
-    setInterval(changeThemeColor, 1000);
-    let colorsArray=['F8EC7B','E8B2EE','F8C67B','C3EEF1','D9B2EE','B2EED2','EEB2CE','F87D8A','E1EAAF','95A525','7FB4EC']
+    let colorsArray = ['F8EC7B', 'E8B2EE', 'F8C67B', 'C3EEF1', 'D9B2EE', 'B2EED2', 'EEB2CE', 'F87D8A', 'E1EAAF', '95A525', '7FB4EC']
+
     function changeThemeColor() {
-        let num=Math.floor(Math.random()*colorsArray.length)
-        let clr=colorsArray[num]||'white'
-        let changeColorById=(id)=>{
-            id.style.backgroundColor=`#${clr}`
-            id.style.transition='0.5sec'
-            id.style.opacity='0.8'
+        let num = Math.floor(Math.random() * colorsArray.length)
+        let clr = colorsArray[num] || 'white'
+        let changeColorById = (id) => {
+            id.style.backgroundColor = `#${clr}`
+            id.style.transition = '0.8s'
+            id.style.opacity = '0.8'
         }
         // changeColorById(leftPanel)
         // changeColorById(headDiv)
         changeColorById(bottomDiv)
     }
+    changeThemeColor()
+    setInterval(changeThemeColor, 2000);
 }
 
 
@@ -319,7 +321,7 @@ let handleLeftButtonClick = function (cur, key, sufApi = '') {
     let somepy = (key.toLowerCase() === 'somepy')
     if (somejs || somepy) {
         getFromWeb(true, uri, data => {
-            let block=`<div id='jsEditor'>${data}</div>`
+            let block = `<div id='jsEditor'>${data}</div>`
             rightContainer.innerHTML = pageHeader + block;
         })
         resetText()
