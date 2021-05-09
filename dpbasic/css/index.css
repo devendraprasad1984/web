@@ -404,7 +404,7 @@ a:hover {
 }
 
 .noHover {
-    pointer-events: none;
+    /*pointer-events: none;*/
 }
 
 
@@ -585,8 +585,8 @@ li {
 }
 
 .imgDonate {
-    width: 100px;
-    height: 100px;
+    width: 300px;
+    height: 250px;
     padding: 5px;
 }
 
