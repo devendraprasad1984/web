@@ -1,5 +1,5 @@
 let leftMenu = {
-    "About": {
+    "Home": {
         icon: `<i class="icons">person_outline</i>`,
         text: "Who I Am...",
         uri: "resources/summary.json",
@@ -126,6 +126,24 @@ let left;
 let mobile = false;
 let plzWaitMsg = '<span class="plzwait"><i class="icons">autorenew</i> please wait...</span>'
 let globalObject = {}
+
+
+let changeColor = function () {
+    setInterval(changeThemeColor, 1000);
+    let colorsArray=['F8EC7B','E8B2EE','F8C67B','C3EEF1','D9B2EE','B2EED2','EEB2CE','F87D8A','E1EAAF','95A525','7FB4EC']
+    function changeThemeColor() {
+        let num=Math.floor(Math.random()*colorsArray.length)
+        let clr=colorsArray[num]||'white'
+        let changeColorById=(id)=>{
+            id.style.backgroundColor=`#${clr}`
+            id.style.transition='0.5sec'
+            id.style.opacity='0.8'
+        }
+        // changeColorById(leftPanel)
+        // changeColorById(headDiv)
+        changeColorById(bottomDiv)
+    }
+}
 
 
 let getById = function (id) {
@@ -503,6 +521,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     let initCall = () => {
         app()
     }
+    changeColor()
     window.addEventListener('load', initCall);
     window.addEventListener('hashchange', initCall)
     window.addEventListener('onpopstate', initCall);
