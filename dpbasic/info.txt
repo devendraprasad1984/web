@@ -1,0 +1,9 @@
+google captch site key: 6LcqlMwaAAAAALsW5AJu6ofeVzd9WBuDk3UwNv68
+google captch secret key: 6LcqlMwaAAAAAPpBd12uwidvRiPLQbbXilJTNPjX
+
+<!--google property id: 271699196-->
+<!--google streamid: 2595606085-->
+<!--measurement id: G-D0WQ7W1PQ7-->
+<!--stream name: dpresume tech lead developer javascript react python-->
+
+google ads account: 221-377-9816

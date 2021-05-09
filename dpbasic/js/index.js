@@ -184,11 +184,11 @@ function app() {
     for (let ex in leftMenu) {
         let curElem = undefined
         let icon = leftMenu[ex].icon || ''
-        if (leftMenu[ex].displayInMenu === true)
-            curElem = `<li id=${'id' + ex}><a href="#/${ex}" onclick="handleLeftButtonClick(this,${ex})">${icon + ex}</a></li>`
-        if (ex.toLowerCase() === keyonload.toLowerCase() && leftMenu[ex].displayInMenu === true) {
-            whichElemOnLoad = curElem = `<li id=${'id' + ex} class="active">${icon}<a href="#/${ex}" onclick="handleLeftButtonClick(this,${ex})">${ex}</a></li>`
-        }
+        let wannaDisplayClickLink = (leftMenu[ex].displayInMenu === true)
+        let curKeyFound = (ex.toLowerCase() === keyonload.toLowerCase())
+        if (wannaDisplayClickLink)
+            curElem = `<li id=${'id' + ex} class="${curKeyFound ? 'active' : ''}"><a href="#/${ex}" onclick="handleLeftButtonClick(this,'${ex}')">${icon + ex}</a></li>`
+        if (curKeyFound && wannaDisplayClickLink) whichElemOnLoad = curElem
         elm.push(curElem);
     }
     left.innerHTML = elm.join('');
@@ -239,7 +239,7 @@ let demoPageContent = () => {
     </div>`
 }
 
-let handleLeftButtonClick = function (cur, key, sufApi='') {
+let handleLeftButtonClick = function (cur, key, sufApi = '') {
     let curUndefined = cur === undefined
     let resetText = () => {
         if (curUndefined) return
