@@ -37,10 +37,18 @@ let leftMenu = {
         displayContent: true,
         displaySubDiv: false
     },
+    "SomeJs": {
+        icon: `<i class="icons">code</i>`,
+        text: "Some Javascript Alogrithms - mostly linearly complex",
+        uri: "resources/fewjs.txt",
+        displaySubDiv: false,
+        displayInMenu: true,
+        displayContent: true,
+    },
     "Projects": {
         icon: `<i class="icons">engineering</i>`,
-        text: "Projects I have Undertaken most recently",
-        uri: "resources/projects.json",
+        text: "most recent projects",
+        uri: "resources/projects.txt",
         overlayID: "Projects",
         displayInMenu: true,
         displayContent: true,
@@ -274,13 +282,33 @@ let handleLeftButtonClick = function (cur, key, sufApi = '') {
     pageHeader = '<h1 onclick="handleOverlayContent(\'' + text + '\',\'' + overlayID + '\')">' + text + '</h1>';
     // let container = getById(rightPanelDiv);
 
+    globalObject.currentKey = key
     if (loadLocal === true) {
         let iframeContent = '<iframe id="codeBlock" src="' + uri + '"></iframe>';
         rightContainer.innerHTML = iframeContent;
         resetText()
         return;
     }
-    globalObject.currentKey = key
+    let somejs = (key.toLowerCase() === 'somejs')
+    let somepy = (key.toLowerCase() === 'somepy')
+    if (somejs || somepy) {
+        let jsBlock = `<div id="jsEditor"></div>`
+        let pyBlock = `<div id="pythonEditor"></div>`
+        rightContainer.innerHTML = pageHeader + (somejs ? jsBlock : pyBlock);
+        if (somejs) {
+            getFromWeb(true, uri, data => {
+                setCodeData('nodes', data)
+            })
+        }
+        if (somepy) {
+            getFromWeb(true, uri, data => {
+                setCodeData('python', data)
+            })
+        }
+        resetText()
+        return;
+    }
+
     getFromWeb(isHtmlHttpTextTrue(uri), uri, function (successData) {
         let code = globalObject.thisKey.toLowerCase() === 'codeapi'
         let dataValue = code ? `<div id='jsEditor'></div>` : successData

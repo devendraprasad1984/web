@@ -1,0 +1,46 @@
+﻿<div>
+<div class='box'>
+    <b>CeX / RfX, Natwest Group, Mar2021 - Current</b>
+    These projects are regression projects for Risk Based Markets Economic factors and
+    produce risk weights on scenario variables. To achieve this, we hook univar and moody’s
+    analytics APIs and get data snapshots and do regression & analytics over it. We used
+    internal SSO, python3, django, django-rest, postgres and React.Js to achieve the output,
+</div>
+
+<div class='box'>
+    <b>Smart Disability Initiatives, Natwest Group, Aug2020 - Jan2021</b>
+    I have opted to be in the disability initiative and contributed by making one social network
+    platform for disabled carers and NGOs and CII-IBDN indian government body and native
+    app for the BDF(Business Disability Forum) group in the UK
+</div>
+
+<div class='box'>
+    <b>Arria NLG Budgets and Forecasts Narratives, Jul2019 - Nov2020</b>
+    This project was intended for automatic commentary / notes / narratives generation from
+    bank statement reports using Arria.com NLG platform and using Tableau UI /
+    dashboarding capabilities.
+</div>
+
+<div class='box'>
+    <b>Finance Portal, Apr2016 - Jul2018</b>
+    Across the Bank, for statutory / regulatory needs, the project uses standard and
+    configurable reports approach to building disclosures using MVC, Python3 & Tornado, Javascript, React/Html5 and Sql & PlSql in Oracle 11g.
+</div>
+
+<div class='box'>
+    <b>CNMS - Cash Nostro Management System, Oct2011 - Jan2015</b>
+    Soap implemented, python proxy server, the aim was to have a single instance accessing
+    RBS cash balances server and can give relevant data to authorized clients identified by
+    IPs.
+</div>
+
+<div class='box'>
+    <b>Miscellaneous:</b> L3 support, non technology / reporting / migration projects
+
+    <b>Agile ceremonies:</b> planning, estimation, sprint, retrospective, review
+
+    <b>SDLC:</b> requirements gathering, analysis, design, coding, testing, deployment and support
+
+    <b>Other Projects:</b> Library Management, PRVit, MDO, iPub, few automation tools in excel
+</div>
+</div>
