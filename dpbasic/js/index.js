@@ -45,6 +45,14 @@ let leftMenu = {
         displayInMenu: true,
         displayContent: true,
     },
+    "Blogs": {
+        icon: `<i class="icons">rss_feed</i>`,
+        text: "Some Blogs",
+        uri: "resources/blogs.txt",
+        displaySubDiv: false,
+        displayInMenu: true,
+        displayContent: true
+    },
     "Projects": {
         icon: `<i class="icons">engineering</i>`,
         text: "most recent projects",
@@ -292,19 +300,10 @@ let handleLeftButtonClick = function (cur, key, sufApi = '') {
     let somejs = (key.toLowerCase() === 'somejs')
     let somepy = (key.toLowerCase() === 'somepy')
     if (somejs || somepy) {
-        let jsBlock = `<div id="jsEditor"></div>`
-        let pyBlock = `<div id="pythonEditor"></div>`
-        rightContainer.innerHTML = pageHeader + (somejs ? jsBlock : pyBlock);
-        if (somejs) {
-            getFromWeb(true, uri, data => {
-                setCodeData('nodes', data)
-            })
-        }
-        if (somepy) {
-            getFromWeb(true, uri, data => {
-                setCodeData('python', data)
-            })
-        }
+        getFromWeb(true, uri, data => {
+            let block=`<div id='jsEditor'>${data}</div>`
+            rightContainer.innerHTML = pageHeader + block;
+        })
         resetText()
         return;
     }
