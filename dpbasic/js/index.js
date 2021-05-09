@@ -523,7 +523,8 @@ document.addEventListener('DOMContentLoaded', function (event) {
     let rightContainer = getById(rightPanelDiv);
     rightContainer.innerHTML=`<h1>Loading Contents, Please Wait...</h1>`
     let initCall = () => {
-        setTimeout(app,1500)
+        app()
+        // setTimeout(app,1000)
     }
     changeColor()
     window.addEventListener('load', initCall);
