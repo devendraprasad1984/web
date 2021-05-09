@@ -45,14 +45,6 @@ let leftMenu = {
         displayInMenu: true,
         displayContent: true,
     },
-    "Blogs": {
-        icon: `<i class="icons">rss_feed</i>`,
-        text: "Some Blogs",
-        uri: "resources/blogs.txt",
-        displaySubDiv: false,
-        displayInMenu: true,
-        displayContent: true
-    },
     "Projects": {
         icon: `<i class="icons">engineering</i>`,
         text: "most recent projects",
@@ -106,6 +98,14 @@ let leftMenu = {
         displayInMenu: false,
         displayContent: true,
         displaySubDiv: false
+    },
+    "Blogs": {
+        icon: `<i class="icons">rss_feed</i>`,
+        text: "Some Blogs",
+        uri: "resources/blogs.txt",
+        displaySubDiv: false,
+        displayInMenu: true,
+        displayContent: true
     },
 };
 let subDiv = 'rightPanelDivSub';
