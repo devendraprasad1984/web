@@ -520,8 +520,10 @@ let setCodeData = (type, data) => {
 
 
 document.addEventListener('DOMContentLoaded', function (event) {
+    let rightContainer = getById(rightPanelDiv);
+    rightContainer.innerHTML=`<h1>Loading Contents, Please Wait...</h1>`
     let initCall = () => {
-        app()
+        setTimeout(app,1500)
     }
     changeColor()
     window.addEventListener('load', initCall);
