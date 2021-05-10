@@ -300,6 +300,7 @@ let demoPageContent = () => {
 let handleLeftButtonClick = function (cur, key, sufApi = '') {
     let curUndefined = cur === undefined
     let resetText = () => {
+        if (mobile) left.style.display = 'none';
         if (curUndefined) return
         setTimeout(() => {
             cur.innerHTML = oldText
@@ -329,7 +330,8 @@ let handleLeftButtonClick = function (cur, key, sufApi = '') {
     // console.log(text, uri, loadLocal);
     let sub = getById(subDiv);
     sub.style.display = 'none';
-    pageHeader = '<h1 onclick="handleOverlayContent(\'' + text + '\',\'' + overlayID + '\')">' + text + '</h1>';
+    // pageHeader = '<h1 onclick="handleOverlayContent(\'' + text + '\',\'' + overlayID + '\')">' + text + '</h1>';
+    pageHeader = `<h1>${text}</h1>`
     // let container = getById(rightPanelDiv);
 
     globalObject.currentKey = key
@@ -361,7 +363,6 @@ let handleLeftButtonClick = function (cur, key, sufApi = '') {
     }, function (failedData) {
         console.error(failedData)
     });
-    if (mobile) left.style.display = 'none';
 }
 
 function show(id2show) {
@@ -582,9 +583,11 @@ const runAll = () => {
         let appObject = JSON.parse(iskeyset)
         globalObject.welcomeMsg = appObject.name!=='' ? `<div class="labelx xinfo">Welcome, <span class="xred">${appObject.name || 'XXXX'}</span>, you last came on <span class="time xgray">${appObject.lastloggedon || ''}</span></div>`:`<div class="labelx xred">Welcome, Mate!</div>`
         app()
-        notifyMe('welcome mate!!')
     }
-    window.addEventListener('load', initCall);
+    window.addEventListener('load', ()=> {
+        initCall()
+        notifyMe('welcome mate!!')
+    });
     window.addEventListener('hashchange', initCall)
     window.addEventListener('onpopstate', initCall);
 }
