@@ -52,6 +52,10 @@ code{
     width: 100%;
 }
 
+div{
+    margin-top: 2px;
+}
+
 .header > div *, .footer > div * {
     color: #623bab;
 }
@@ -112,6 +116,17 @@ pre {
     word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
 
+input{
+    width: 100%;
+    border: 2px solid #509bdd;
+    padding: 5px;
+    margin-top: 4px;
+}
+::placeholder {
+    color: #509bdd;
+    opacity: 0.8;
+}
+
 .page {
     position: relative;
     overflow-x: hidden;
@@ -139,6 +154,7 @@ footer, .bottom {
     width: 100%;
     font-size: 10px;
 }
+
 
 section {
     /*padding: 4px;*/
@@ -443,6 +459,14 @@ li {
     /*background-color: white;*/
 }
 
+.labelx{
+    font-size: 12px;
+    font-weight: bold;
+}
+.time{
+    font-size: 10px;
+}
+
 .overlay .closebtn {
     position: fixed;
     right: 45px;
@@ -461,7 +485,7 @@ li {
 
 
 .primary {
-    background-color: #007bff !important
+    background-color: #96d4e7 !important
 }
 
 .white {
@@ -506,6 +530,9 @@ li {
     color: #6c757d !important
 }
 
+.xgray{
+    color: #b4b8b8 !important
+}
 
 .xsuccess {
     color: #28a745 !important

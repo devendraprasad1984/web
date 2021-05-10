@@ -126,7 +126,13 @@ let left;
 let mobile = false;
 let plzWaitMsg = '<span class="plzwait"><i class="icons">autorenew</i> please wait...</span>'
 let globalObject = {}
+let appkey = 'dpresume'
 
+
+let getById = function (id) {
+    return document.getElementById(id);
+}
+let rightContainer = getById(rightPanelDiv);
 
 let changeColor = function () {
     let colorsArray = ['F8EC7B', 'E8B2EE', 'F8C67B', 'C3EEF1', 'D9B2EE', 'B2EED2', 'EEB2CE', 'F87D8A', 'E1EAAF', '95A525', '7FB4EC']
@@ -143,13 +149,9 @@ let changeColor = function () {
         // changeColorById(headDiv)
         changeColorById(bottomDiv)
     }
+
     changeThemeColor()
     setInterval(changeThemeColor, 2000);
-}
-
-
-let getById = function (id) {
-    return document.getElementById(id);
 }
 
 // const loader=(svgName)=>{
@@ -192,8 +194,27 @@ function getLinksDisplay() {
     })
 }
 
+let notifyMe = (msg, autohide = true, callback) => {
+    let iserr = msg.substring(0, 1) === '?'
+    let msgNotifyInstance = new Notify({
+        title: 'information',
+        status: iserr ? 'error' : 'success',
+        text: iserr ? msg.substring(1) : msg,
+        position: 'right top',
+        customIcon: '',
+        customClass: '',
+        autoclose: autohide
+    })
+    setTimeout(() => {
+        if (callback !== undefined) callback()
+    }, 2000)
+}
+
 //init function
 function app() {
+    getLinksDisplay()
+    changeColor()
+
     left = getById('leftPanel');
     if (left === null) return;
     window.mobilecheck = function () {
@@ -217,6 +238,7 @@ function app() {
         sufApi = strUriArr[1]
     }
     let keyonload = (curHrefLoc === '' ? menuKeys[0] : curHrefLoc)
+    elm.push(globalObject.welcomeMsg || '')
     for (let ex in leftMenu) {
         let curElem = undefined
         let icon = leftMenu[ex].icon || ''
@@ -518,19 +540,53 @@ let setCodeData = (type, data) => {
     editor.clearSelection();
 }
 
+let saveSession = () => {
+    let name = document.getElementById('visitorname').value || ''
+    let mobile = document.getElementById('visitormobile').value || ''
+    let appdata = JSON.stringify({name,mobile, lastloggedon: new Date()})
+    localStorage.setItem(appkey, appdata)
+    notifyMe('welcome, thanks for visiting my app', true, () => {
+        location.href = '/'
+    })
+}
+let whoareyou = () => {
+    let elm = []
+    elm.push('<div>')
+    elm.push(`<h1>please enter your name, this is just for me to know you.</h1>`)
+    elm.push(`<input id="visitorname" placeholder="enter you name" />`)
+    elm.push(`<input id="visitormobile" placeholder="enter you contact number (optional)" />`)
+    elm.push(`<div>
+            <span class="btn primary" onclick="saveSession()">Submit</span></div>
+        `)
+    elm.push('</div>')
+    rightContainer.innerHTML = elm.join('')
+}
 
-document.addEventListener('DOMContentLoaded', function (event) {
-    let rightContainer = getById(rightPanelDiv);
-    rightContainer.innerHTML=`<h1>Loading Contents, Please Wait...</h1>`
-    let initCall = () => {
-        app()
-        // setTimeout(app,1000)
+let localise = () => {
+    let found = localStorage.getItem(appkey)
+    if (found === undefined || found === null || found === false) {
+        return false
     }
-    changeColor()
+    return found
+}
+
+const runAll = () => {
+    rightContainer.innerHTML = `<h1>Loading Contents, Please Wait...</h1>`
+    let initCall = () => {
+        let iskeyset = localise()
+        if (iskeyset === false) {
+            whoareyou()
+            return
+        }
+        let appObject = JSON.parse(iskeyset)
+        globalObject.welcomeMsg = `<div class="labelx xinfo">Welcome, <span class="xsuccess">${appObject.name || 'XXXX'}</span>, you last came on <span class="time xgray">${appObject.lastloggedon || ''}</span></div>`
+        app()
+        notifyMe('welcome mate!!')
+    }
     window.addEventListener('load', initCall);
     window.addEventListener('hashchange', initCall)
     window.addEventListener('onpopstate', initCall);
-    getLinksDisplay()
-});
+}
+document.addEventListener('DOMContentLoaded', runAll)
 
 
