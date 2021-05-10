@@ -540,11 +540,14 @@ li {
 
 
 .xinfo {
-    color: #7055c6 !important
+    color: #5ccdea !important
 }
 
 .xwarning {
     color: #ffc107 !important
+}
+.xred {
+    color: #c82f3e !important
 }
 
 

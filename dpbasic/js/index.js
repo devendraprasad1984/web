@@ -553,10 +553,11 @@ let whoareyou = () => {
     let elm = []
     elm.push('<div>')
     elm.push(`<h1>please enter your name, this is just for me to know you.</h1>`)
-    elm.push(`<input id="visitorname" placeholder="enter you name" />`)
+    elm.push(`<h3 class="xinfo">this is only one time ask</h3>`)
+    elm.push(`<input id="visitorname" placeholder="enter you name(optional)" />`)
     elm.push(`<input id="visitormobile" placeholder="enter you contact number (optional)" />`)
     elm.push(`<div>
-            <span class="btn primary" onclick="saveSession()">Submit</span></div>
+            <span class="btn primary" onclick="saveSession()">Proceed</span></div>
         `)
     elm.push('</div>')
     rightContainer.innerHTML = elm.join('')
@@ -579,7 +580,7 @@ const runAll = () => {
             return
         }
         let appObject = JSON.parse(iskeyset)
-        globalObject.welcomeMsg = `<div class="labelx xinfo">Welcome, <span class="xsuccess">${appObject.name || 'XXXX'}</span>, you last came on <span class="time xgray">${appObject.lastloggedon || ''}</span></div>`
+        globalObject.welcomeMsg = appObject.name!=='' ? `<div class="labelx xinfo">Welcome, <span class="xred">${appObject.name || 'XXXX'}</span>, you last came on <span class="time xgray">${appObject.lastloggedon || ''}</span></div>`:`<div class="labelx xred">Welcome, Mate!</div>`
         app()
         notifyMe('welcome mate!!')
     }
