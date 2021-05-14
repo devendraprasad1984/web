@@ -20,10 +20,15 @@ const sampleLoop = () => {
 }
 const minMaxIndexes = () => {
 //find min max and sum at indexes
-    let array = [[1001, 50], [1001, 68], [1002, 69], [1002, 68], [1004, 9], [1004, 13], [1005, 56], [1005, 96], [1005, 30], [1006, 46], [1006, 6], [1006, 48], [1007, 59], [1007, 30], [1007, 9], [1009, 79], [1010, 42], [1012, 37], [1013, 64], [1017, 55], [1018, 29], [1020, 60], [1020, 29], [1021, 44], [1022, 62], [1024, 2], [1025, 6], [1028, 5], [1029, 6], [1029, 82]];
+    let array = [
+        [1001, 50]
+        , [1001, 68]
+        , [1002, 69]
+        , [1002, 68]
+        , [1004, 9], [1004, 13], [1005, 56], [1005, 96], [1005, 30], [1006, 46], [1006, 6], [1006, 48], [1007, 59], [1007, 30], [1007, 9], [1009, 79], [1010, 42], [1012, 37], [1013, 64], [1017, 55], [1018, 29], [1020, 60], [1020, 29], [1021, 44], [1022, 62], [1024, 2], [1025, 6], [1028, 5], [1029, 6], [1029, 82]];
 // find min,max at index 0
 // and 1 and sum up min-max at 0 with index 1
-    let [min0, max0, min1, max1] = [array[0][0], array[0][1], array[1][0], array[1][1]]
+    let [min0, max0, min1, max1] = [array[0][0], array[0][1], array[0][0], array[0][1]]
     for (let i in array) {
         let valArr = array[i]
         if (valArr[0] > max0) max0 = valArr[0]
@@ -35,6 +40,8 @@ const minMaxIndexes = () => {
     console.log('min-max at 0', min0, max0)
     console.log('min-max at 1', min1, max1)
 }
+// minMaxIndexes()
+
 const findPairSum = () => {
 // find pair of sum
     let array = [1, 2, 3, 4, 5, 6, 8]
@@ -53,12 +60,12 @@ const findPairSum = () => {
 }
 const makeUnique = (ar) => {
     let obj = {}
-    for (let i of ar) {
-        if (obj[i] === undefined) obj[i] = 0
-        obj[i] += 1
-    }
+    for (let i of ar)
+        obj[i] = '1'
     return Object.keys(obj).map(x => Number(x))
+    //this is another way of sorting the array, keys are automatically sorted
 }
+// console.log(makeUnique([1, 2, 3,9,8, 5, 5, 3, 3, 3]))
 const countForTallestCandle = () => {
     let candles = [1, 2, 3, 5, 5, 3, 3, 3]
     // let sortedCandles=candles.sort((a,b)=>a-b)
@@ -94,6 +101,7 @@ const foo = initVal => {
     let fn = functionComposer(listofFn, initVal)
     return fn
 }
+// console.log('functional sequencing as composer pattern call, output of 1 function as input of the other, INIT=',10,'becomes',foo(10))
 const reverseString = (string1) => {
     let string2 = ''
     for (let i = string1.length - 1; i >= 0; i--) {
@@ -145,8 +153,9 @@ const balancedBrackets = (l, r, s) => {
     if (r > 0)
         balancedBrackets(l, r - 1, s + ')')
 }
-// balancedBrackets(2, 0, "")
+// balancedBrackets(3, 0, "")
 // console.log('brackets', brackets.join(''))
+
 const isBalancedString = () => {
     let exp = '[()]{}{[()()]()}'
     let openVals = '{[('
@@ -178,7 +187,7 @@ const hocUsingReduce = (w1, w2) => {
     else
         return w2
 }
-//console.log('longest word is', words.reduce(hocUsingReduce))
+// console.log('longest word is', words.reduce(hocUsingReduce))
 const left2RightCompose = () => {
     let funcArr = [
         x => x * 2,
@@ -201,16 +210,16 @@ const minmaxsum_setof4 = () => {
     let sum = arr.reduce((p, c) => p + c, 0)
     console.log('min sum', sum - max, 'max sum', sum - min)
 }
+// minmaxsum_setof4()
 const incrementArrayBy1 = (ar) => {
     // let ar = [1, 2, 3]
     // console.log('ar',ar)
     let num = Number(ar.join('')) + 1
-    let nar = []
-    for (let i of num.toString()) {
-        nar.push(i)
-    }
-    return [ar, nar.map(x => Number(x))]
+    let updatedArr = num.toString().split('').map(x => Number(x))
+    return [ar, updatedArr]
 }
+// console.log(incrementArrayBy1([1,2,3,4]))
+
 const profilingClosure = (func) => {
     return function () {
         let start = new Date()
@@ -357,6 +366,7 @@ const stairCaseProblem = () => {
     }
     console.log('staircase output', res)
 }
+// stairCaseProblem()
 const binarySearchLogic = (arr, searchValue, start, end) => {
     if (end < start) return false
     let mid = Math.floor((start + end) / 2)
@@ -592,17 +602,16 @@ const findDuplicates_1 = () => {
         }
         let el = arr[i]
         let counterOccurance = 1
-        // skipCounter=0
         for (let j = i + 1; j < len; j++) {
-            if (el !== arr[j]) break
+            if (el !== arr[j]) continue
             counterOccurance++
-            // skipCounter++
         }
         prevElem = el
         if (counterOccurance > 1)
             console.log('element occurance', el, counterOccurance, 'times')
     }
 }
+// findDuplicates_1()
 const pairSum = () => {
     let arr = [1, 2, 3, 4, 5, 6, 7]
     let sum = 9
@@ -623,8 +632,6 @@ const rotateAnArrayAtPivot = () => {
     for (let i = 0; i < pivot; i++) {
         let v = arr[i]
         newArray.push(v)
-    }
-    for (let i = 0; i < pivot; i++) {
         arr[i] = 0
     }
     for (let i = 0; i < arr.length; i++) {
@@ -632,6 +639,7 @@ const rotateAnArrayAtPivot = () => {
     }
     console.log(arr, newArray, [...merge, ...newArray])
 }
+// rotateAnArrayAtPivot()
 const columnizeArray = () => {
     let arr = [
         [1, 5, 9],
@@ -651,10 +659,11 @@ const columnizeArray = () => {
         }
     }
 }
+// columnizeArray()
 const countNumber = (num) => {
-    console.log(Math.ceil(Math.log(num + 1) / Math.LN10))
+    return Math.ceil(Math.log(num + 1) / Math.LN10)
 }
-//len=countNumber(777777777777777777777777777777)
+// console.log(countNumber(777777777777777777777777777777))
 const debounce = (fn, wait) => {
     // The debounce() function forces a function to wait a certain amount of time before running again.
     // The function is built to limit the number of times a function is called.
@@ -668,6 +677,9 @@ const debounce = (fn, wait) => {
             fn.apply(context, arguments);
         }, wait);
     }
+}
+const throtleCheck = () => {
+    console.log('throttle example')
 }
 const jsTrick1 = () => {
     var myObject = {
@@ -726,6 +738,7 @@ const thisContextChange = () => {
     console.log(stoleSecretIdentity());
     console.log(hero.getSecretIdentity());
 }
+// thisContextChange()
 const lengthKnowledgeCheck = () => {
     let length = 10;
 
@@ -743,6 +756,8 @@ const lengthKnowledgeCheck = () => {
     }
     obj.method(fn, 1)
 }
+// lengthKnowledgeCheck()
+
 const checkoutput1 = () => {
     (function () {
         try {
@@ -755,6 +770,7 @@ const checkoutput1 = () => {
         console.log(y);
     })();
 }
+// checkoutput1()
 
 
 //
@@ -764,14 +780,14 @@ const checkoutput1 = () => {
 // });
 // console.log(Object.values(d), Object.keys(d))
 //
-const coronaSequenceTest=()=>{
-    function checkCorona(V,B,N){
+const coronaSequenceTest = () => {
+    function checkCorona(V, B, N) {
         // let V = 'coronavirus'
         // let N = 3
         // let B = ['abcde', 'crnas', 'onarous']
-        let result=[]
+        let result = []
         for (let seq of B) {
-            if(seq==='') continue
+            if (seq === '') continue
             let foundAt = -1
             let positive = false
             let foundCounter = 0
@@ -789,15 +805,61 @@ const coronaSequenceTest=()=>{
             if (seq.length === foundCounter) {
                 positive = true
             }
-            result.push(seq+'===>'+(positive ? ' - POSITIVE' : ' - NEGATIVE'))
+            result.push(seq + '===>' + (positive ? ' - POSITIVE' : ' - NEGATIVE'))
         }
         return result
     }
 
 
-    let input_stdin_array = [ 'coronavirus', '3', 'abcde', 'crnas', 'onarous', '' ]
-    let [V,N,...B]=input_stdin_array
-    let output=checkCorona(V,B,N)
-    console.log(V,'\n',output.join('\n'));
+    let input_stdin_array = ['coronavirus', '3', 'abcde', 'crnas', 'onarous', '']
+    let [V, N, ...B] = input_stdin_array
+    let output = checkCorona(V, B, N)
+    console.log(V, '\n', output.join('\n'));
 }
-coronaSequenceTest()
+// coronaSequenceTest()
+
+const longestValidParenthesis = () => {
+    // let str = ')()())'
+    // let str = '(()'
+    // let str="()(())"
+    // let str="(()()"
+    let str = '()(()))()'
+    if (str.length <= 1) return 0
+    let s1 = '('
+    let s2 = ')'
+    let foundStart = 0
+    let stack = []
+    let stack2 = []
+    for (let i of str) {
+        if (i === s1) {
+            foundStart = foundStart + 1
+            stack.push(i)
+            stack2.push(i)
+        } else if (i === s2 && foundStart >= 1) {
+            stack.push(i)
+            stack2.pop()
+            foundStart = foundStart - 1
+        }
+    }
+    let res = stack.length - stack2.length
+    console.log('length of longest valid parenthesis', str, stack, stack2, res)
+}
+// longestValidParenthesis()
+const maxSumLessGiveSum = () => {
+    let K = 60
+    let sum = 0
+    let arr = [1, 2, 34, 25, 54, 75, 43]
+    //let filter = arr.filter(x => x < K).sort((a, b) => a - b)
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = i + 1; j < arr.length; j++) {
+            let innerSum = arr[i] + arr[j]
+            if (innerSum > K) break
+            sum = innerSum
+        }
+    }
+    console.log(arr, K, sum)
+}
+const leastCommonInterestOutOf2Lists=()=>{
+
+}
+// maxSumLessGiveSum()
