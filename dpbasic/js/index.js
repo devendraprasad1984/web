@@ -288,6 +288,7 @@ let demoPageContent = () => {
         },
         {href: 'https://dpresume.com/mocha/mocha.html', name: 'Mocha Unit Tests'},
         {href: 'https://dpresume.com/dpvoicebanking', name: 'Open Banking Hackathon'},
+        {href:'https://github.com/devendraprasad1984/nodejs/tree/master/ts-node-postgres-orm-api',name:'nodejs typeorm sample'}
     ]
     return `<div>
     <h1>few Live Demo Examples</h1>
