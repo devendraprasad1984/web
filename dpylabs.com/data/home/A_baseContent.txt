@@ -1,4 +1,0 @@
-<h1>Home</h1>
-
-<div>we have strong experience in software development and IT services.</div>
-<div>we have got +11 years of wide experience in customer services</div>

@@ -1,3 +1,0 @@
-culture
-<div>Fantastic</div>
-<strong>Hello</strong>

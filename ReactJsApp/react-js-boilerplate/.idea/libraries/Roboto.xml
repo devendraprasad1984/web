@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Roboto">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/src/asset/Roboto.zip!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
