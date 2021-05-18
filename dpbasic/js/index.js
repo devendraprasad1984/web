@@ -136,12 +136,13 @@ let rightContainer = getById(rightPanelDiv);
 
 let changeColor = function () {
     let colorsArray = ['F8EC7B', 'E8B2EE', 'F8C67B', 'C3EEF1', 'D9B2EE', 'B2EED2', 'EEB2CE', 'F87D8A', 'E1EAAF', '95A525', '7FB4EC']
+    let bgColor = 'white'
 
     function changeThemeColor() {
         let num = Math.floor(Math.random() * colorsArray.length)
-        let clr = colorsArray[num] || 'white'
+        bgColor = colorsArray[num] || 'white'
         let changeColorById = (id) => {
-            id.style.backgroundColor = `#${clr}`
+            id.style.backgroundColor = `#${bgColor}`
             id.style.transition = '0.8s'
             id.style.opacity = '0.8'
         }
@@ -150,8 +151,30 @@ let changeColor = function () {
         changeColorById(bottomDiv)
     }
 
+    function changeCardsColor() {
+        if (globalObject.thisKey === undefined) return;
+        if (globalObject.thisKey.toLowerCase() !== 'home') return
+        let cards = document.getElementsByClassName('cards')
+        if (cards.length === 1) {
+            let cardsElem = cards[0].getElementsByTagName('a')
+            if (cardsElem.length > 0) {
+                let arr = Array.from(cardsElem)
+                let num = Math.floor(Math.random() * arr.length)
+                arr.forEach((id, i) => {
+                    id.style.backgroundColor = `white`
+                    if (i !== num) return
+                    id.style.backgroundColor = `#${bgColor}`
+                    id.style.transition = '0.8s'
+                    id.style.opacity = '0.8'
+                })
+            }
+        }
+    }
+
     changeThemeColor()
+    changeCardsColor()
     setInterval(changeThemeColor, 2000);
+    setInterval(changeCardsColor, 2000);
 }
 
 // const loader=(svgName)=>{
@@ -353,7 +376,7 @@ let handleLeftButtonClick = function (cur, key, sufApi = '') {
                 rightContainer.innerHTML = pageHeader + dataValue + demodata;
             }
             xyz()
-        }else
+        } else
             rightContainer.innerHTML = pageHeader + dataValue;
         if (code) setCodeData('nodes', JSON.parse(successData))
         if (subDisplay)
