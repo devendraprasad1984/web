@@ -7,3 +7,5 @@ google captch secret key: 6LcqlMwaAAAAAPpBd12uwidvRiPLQbbXilJTNPjX
 <!--stream name: dpresume tech lead developer javascript react python-->
 
 google ads account: 221-377-9816
+
+browser-sync start -s -f . --no-notify --host localhost --port 6200

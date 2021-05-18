@@ -276,25 +276,16 @@ let toggleLeftPanel = function (e) {
     // rightPanel.style.width = disp ? '80%' : '100%'
 }
 
-let demoPageContent = () => {
-    let demoLinks = [
-        {href: 'https://dpresume.com/debounceExampleLazySearch/', name: 'Lazy Search Debounce Example'},
-        {href: 'https://dpresume.com/docs/bdfdemojan21.webm', name: 'BDF Native App Demo'},
-        {href: 'https://dpresume.com/docs/supply-chain.webm', name: 'Supply Chain App Demo'},
-        {href: 'https://dpresume.com/react-js-python/#/', name: 'React JS Library Based - without Node'},
-        {
-            href: 'https://dpresume.com/ciim/',
-            name: `Post & Reply system ${`<b style="font-size: 8px;">(username: test@gmail.com, password: test)</b>`}`
-        },
-        {href: 'https://dpresume.com/mocha/mocha.html', name: 'Mocha Unit Tests'},
-        {href: 'https://dpresume.com/dpvoicebanking', name: 'Open Banking Hackathon'},
-        {href:'https://github.com/devendraprasad1984/nodejs/tree/master/ts-node-postgres-orm-api',name:'nodejs typeorm sample'}
-    ]
+let demoPageContent = async () => {
+    let res = await fetch('resources/demo.json')
+    let data = await res.json()
+    let print = () => data.map(x => {
+        return `<a target="_blank" href="${x.href}">${x.name}</a>`
+    }).join('')
+
     return `<div>
     <h1>few Live Demo Examples</h1>
-    <div class="demo flexbox cards">
-        ${demoLinks.map(x => `<a target="_blank" href="${x.href}">${x.name}</a>`).join('')}
-    </div>
+    <div class="demo flexbox cards">${print()}</div>
     </div>`
 }
 
@@ -356,7 +347,14 @@ let handleLeftButtonClick = function (cur, key, sufApi = '') {
     getFromWeb(isHtmlHttpTextTrue(uri), uri, function (successData) {
         let code = globalObject.thisKey.toLowerCase() === 'codeapi'
         let dataValue = code ? `<div id='jsEditor'></div>` : successData
-        rightContainer.innerHTML = pageHeader + dataValue + (loadDemo ? demoPageContent() : '');
+        if (loadDemo) {
+            let xyz = async () => {
+                let demodata = await demoPageContent()
+                rightContainer.innerHTML = pageHeader + dataValue + demodata;
+            }
+            xyz()
+        }else
+            rightContainer.innerHTML = pageHeader + dataValue;
         if (code) setCodeData('nodes', JSON.parse(successData))
         if (subDisplay)
             getAdhocListing(key, fnSubDivDisplay);
@@ -545,7 +543,7 @@ let setCodeData = (type, data) => {
 let saveSession = () => {
     let name = document.getElementById('visitorname').value || ''
     let mobile = document.getElementById('visitormobile').value || ''
-    let appdata = JSON.stringify({name,mobile, lastloggedon: new Date()})
+    let appdata = JSON.stringify({name, mobile, lastloggedon: new Date()})
     localStorage.setItem(appkey, appdata)
     notifyMe('welcome, thanks for visiting my app', true, () => {
         location.href = '/'
@@ -582,10 +580,10 @@ const runAll = () => {
             return
         }
         let appObject = JSON.parse(iskeyset)
-        globalObject.welcomeMsg = appObject.name!=='' ? `<div class="labelx xinfo">Welcome, <span class="xred">${appObject.name || 'XXXX'}</span>, you last came on <span class="time xgray">${appObject.lastloggedon || ''}</span></div>`:`<div class="labelx xred">Welcome, Mate!</div>`
+        globalObject.welcomeMsg = appObject.name !== '' ? `<div class="labelx xinfo">Welcome, <span class="xred">${appObject.name || 'XXXX'}</span>, you last came on <span class="time xgray">${appObject.lastloggedon || ''}</span></div>` : `<div class="labelx xred">Welcome, Mate!</div>`
         app()
     }
-    window.addEventListener('load', ()=> {
+    window.addEventListener('load', () => {
         initCall()
         notifyMe('welcome mate!!')
     });
