@@ -76,6 +76,43 @@ div {
     -webkit-font-smoothing: antialiased;
 }
 
+.ml2 {
+    font-weight: 900;
+    /*font-size: 3.5em;*/
+}
+
+.ml2 .letter {
+    display: inline-block;
+    /*line-height: 1em;*/
+}
+.ml6 {
+    position: relative;
+    font-weight: 900;
+}
+
+.ml6 .text-wrapper {
+    position: relative;
+    display: inline-block;
+    padding-top: 0.2em;
+    padding-right: 0.05em;
+    padding-bottom: 0.1em;
+    overflow: hidden;
+}
+
+.ml6 .letter {
+    display: inline-block;
+}
+
+
+.ml13 {
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    /*font-weight: 800;*/
+}
+
+.ml13 .letter {
+    display: inline-block;
+}
 
 .cursel {
     background-color: #ceadf5;
@@ -88,10 +125,17 @@ div::after {
     clear: both
 }
 
-body {
-    margin: 2px;
+
+.capt{
+    background-color:grey;
+    width: 300px;
+    height:100px;
+
 }
 
+#mainCaptcha{
+    font-size: 15pt;
+}
 
 iframe {
     -moz-border-radius: 5px;
@@ -302,9 +346,8 @@ dl, ol, ul {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-size: 15px;
-    /*margin-top: -10px;*/
-    /*margin-bottom: .5rem;*/
+    /*font-size: 15px;*/
+    font-weight: bolder;
     cursor: pointer;
     text-decoration: none;
 }

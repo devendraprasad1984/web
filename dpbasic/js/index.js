@@ -127,15 +127,15 @@ let mobile = false;
 let plzWaitMsg = '<span class="plzwait"><i class="icons">autorenew</i> please wait...</span>'
 let globalObject = {}
 let appkey = 'dpresume'
-
+let displayCaptcha = `<div class=""><h2><span id="mainCaptcha" class="tld"></h2><input type="text" id="txtInput" placeholder="enter captcha"/>    </div>`
 
 let getById = function (id) {
     return document.getElementById(id);
 }
 let rightContainer = getById(rightPanelDiv);
 
+let colorsArray = ['00FF7F', 'CD853F', '66CDAA', 'F0FFFF', 'FAFAD2', 'FFEBCD', '66d9ff', 'F8EC7B', 'E8B2EE', 'F8C67B', 'C3EEF1', 'D9B2EE', 'B2EED2', 'EEB2CE', 'F87D8A', 'E1EAAF', '95A525', '7FB4EC']
 let changeColor = function () {
-    let colorsArray = ['F8EC7B', 'E8B2EE', 'F8C67B', 'C3EEF1', 'D9B2EE', 'B2EED2', 'EEB2CE', 'F87D8A', 'E1EAAF', '95A525', '7FB4EC']
     let bgColor = 'white'
 
     function changeThemeColor() {
@@ -152,6 +152,8 @@ let changeColor = function () {
     }
 
     function changeCardsColor() {
+        let num = Math.floor(Math.random() * colorsArray.length)
+        bgColor = colorsArray[num] || 'white'
         if (globalObject.thisKey === undefined) return;
         if (globalObject.thisKey.toLowerCase() !== 'home') return
         let cards = document.getElementsByClassName('cards')
@@ -159,7 +161,6 @@ let changeColor = function () {
             let cardsElem = cards[0].getElementsByTagName('a')
             if (cardsElem.length > 0) {
                 let arr = Array.from(cardsElem)
-                let num = Math.floor(Math.random() * arr.length)
                 arr.forEach((id, i) => {
                     id.style.backgroundColor = `white`
                     if (i !== num) return
@@ -170,11 +171,8 @@ let changeColor = function () {
             }
         }
     }
-
-    changeThemeColor()
     changeCardsColor()
-    setInterval(changeThemeColor, 2000);
-    setInterval(changeCardsColor, 2000);
+    setInterval(changeCardsColor, 1000);
 }
 
 // const loader=(svgName)=>{
@@ -188,6 +186,42 @@ let changeColor = function () {
 let loadID = getById('idLoad');
 
 // loadID.innerHTML=loader('loader1');
+
+
+function Captcha() {
+    var alpha = new Array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
+    var i;
+    for (i = 0; i < 6; i++) {
+        var a = alpha[Math.floor(Math.random() * alpha.length)];
+        var b = alpha[Math.floor(Math.random() * alpha.length)];
+        var c = alpha[Math.floor(Math.random() * alpha.length)];
+        var d = alpha[Math.floor(Math.random() * alpha.length)];
+        var e = alpha[Math.floor(Math.random() * alpha.length)];
+        var f = alpha[Math.floor(Math.random() * alpha.length)];
+        var g = alpha[Math.floor(Math.random() * alpha.length)];
+    }
+    var code = a + ' ' + b + ' ' + ' ' + c + ' ' + d + ' ' + e + ' ' + f + ' ' + g;
+    document.getElementById("mainCaptcha").innerHTML = code
+    document.getElementById("mainCaptcha").value = code
+}
+
+function ValidCaptcha() {
+    var string1 = removeSpaces(document.getElementById('mainCaptcha').value);
+    var string2 = removeSpaces(document.getElementById('txtInput').value);
+    if (string1 == string2) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function removeSpaces(string) {
+    return string.split(' ').join('');
+}
+
+
 
 function getAdhocListing(key, what2run) {
     getFromWeb(true, 'resources/adhoc.json', function (successData) {
@@ -562,8 +596,19 @@ let setCodeData = (type, data) => {
     editor.setValue(contentToDisplay);
     editor.clearSelection();
 }
-
-let saveSession = () => {
+let checkCaptch = (isCaptcha = false) => {
+    if (isCaptcha) {
+        let validated = ValidCaptcha()
+        if (validated === false) {
+            notifyMe('please enter valid captch')
+            return validated
+        }
+        return validated
+    }
+    return true
+}
+let saveSession = (isCaptcha=false) => {
+    if(!checkCaptch(isCaptcha)) return
     let name = document.getElementById('visitorname').value || ''
     let mobile = document.getElementById('visitormobile').value || ''
     let appdata = JSON.stringify({name, mobile, lastloggedon: new Date()})
@@ -572,16 +617,16 @@ let saveSession = () => {
         location.href = '/'
     })
 }
-let whoareyou = () => {
+let whoareyou = (isCaptcha = false) => {
+    if(isCaptcha===true) Captcha()
     let elm = []
-    elm.push('<div>')
+    elm.push('<div style="width: 30%">')
     elm.push(`<h1>please enter your name, this is just for me to know you.</h1>`)
     elm.push(`<h3 class="xinfo">this is only one time ask</h3>`)
     elm.push(`<input id="visitorname" placeholder="enter you name(optional)" />`)
     elm.push(`<input id="visitormobile" placeholder="enter you contact number (optional)" />`)
-    elm.push(`<div>
-            <span class="btn primary" onclick="saveSession()">Proceed</span></div>
-        `)
+    elm.push(isCaptcha ? displayCaptcha : null)
+    elm.push(`<div><span class="btn primary" onclick="saveSession(${isCaptcha})">Proceed</span></div>`)
     elm.push('</div>')
     rightContainer.innerHTML = elm.join('')
 }
@@ -594,9 +639,71 @@ let localise = () => {
     return found
 }
 
+const animate = (clsid, type = 1) => {
+    var textWrapper = document.querySelector('.' + clsid);
+    textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+    if (type === 1) {
+        anime.timeline({loop: true})
+            .add({
+                targets: `.${clsid} .letter`,
+                translateY: ["0.7em", 0],
+                translateZ: 0,
+                duration: 850,
+                delay: (el, i) => 50 * i
+            }).add({
+            targets: `.${clsid}`,
+            opacity: 0,
+            duration: 1000,
+            easing: "easeOutExpo",
+            delay: 1000
+        });
+    }
+    if (type === 2) {
+        anime.timeline({loop: true})
+            .add({
+                targets: `.${clsid} .letter`,
+                scale: [2, 1],
+                opacity: [0, 1],
+                translateZ: 0,
+                easing: "easeOutExpo",
+                duration: 750,
+                delay: (el, i) => 70 * i
+            }).add({
+            targets: `.${clsid}`,
+            opacity: 0,
+            duration: 1000,
+            easing: "easeOutExpo",
+            delay: 1000
+        })
+    }
+    if (type === 3) {
+        anime.timeline({loop: true})
+            .add({
+                targets: `.${clsid} .letter`,
+                translateY: [100, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                easing: "easeOutExpo",
+                duration: 1400,
+                delay: (el, i) => 300 + 30 * i
+            }).add({
+            targets: `.${clsid} .letter`,
+            translateY: [0, -100],
+            opacity: [1, 0],
+            easing: "easeInExpo",
+            duration: 1200,
+            delay: (el, i) => 100 + 30 * i
+        });
+    }
+}
+
 const runAll = () => {
     rightContainer.innerHTML = `<h1>Loading Contents, Please Wait...</h1>`
     let initCall = () => {
+        animate('ml6', 1)
+        animate('ml2', 2)
+        animate('ml13', 3)
         let iskeyset = localise()
         if (iskeyset === false) {
             whoareyou()
