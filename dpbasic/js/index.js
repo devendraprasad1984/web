@@ -112,6 +112,8 @@ let subDiv = 'rightPanelDivSub';
 let menuKeys = Object.keys(leftMenu);
 let idLeftMenu = 'leftMenu';
 let rightPanelDiv = 'rightPanelDiv';
+let isLocal = window.location.host.indexOf('localhost') !== -1
+let uriPrefix = isLocal ? 'http://localhost:8000/' : 'https://dpresume.com/'
 let br = '<br>';
 let br2 = '<br><br>';
 let idOverlay = 'idOverlay';
@@ -128,6 +130,8 @@ let plzWaitMsg = '<span class="plzwait"><i class="icons">autorenew</i> please wa
 let globalObject = {}
 let appkey = 'dpresume'
 let displayCaptcha = `<div class=""><h2><span id="mainCaptcha" class="tld"></h2><input type="text" id="txtInput" placeholder="enter captcha"/>    </div>`
+let welcomeTag = document.getElementById('welcomeTag')
+
 
 let getById = function (id) {
     return document.getElementById(id);
@@ -171,6 +175,7 @@ let changeColor = function () {
             }
         }
     }
+
     changeCardsColor()
     setInterval(changeCardsColor, 1000);
 }
@@ -220,7 +225,6 @@ function ValidCaptcha() {
 function removeSpaces(string) {
     return string.split(' ').join('');
 }
-
 
 
 function getAdhocListing(key, what2run) {
@@ -311,6 +315,19 @@ function app() {
     globalObject.hash = window.location.hash
     if (leftMenu[keyonload].displayContent === true) handleLeftButtonClick(whichElemOnLoad, keyonload, sufApi);
 }
+
+const handleX = (type = 'get', payload = {}, cb) => {
+    let isget = (type === 'get')
+    let uri = isget ? 'service/service.php?get=1' : 'service/service.php?set=1'
+    let headers = isget ? {method: type} : {method: type, body: JSON.stringify(payload)}
+    const call = async () => {
+        const res = await fetch(uriPrefix + uri, headers)
+        const data = await res.json()
+        if (cb !== undefined) cb(data)
+    }
+    call()
+}
+
 
 let doRotate = function () {
     setInterval(rotate, 2000);
@@ -607,8 +624,8 @@ let checkCaptch = (isCaptcha = false) => {
     }
     return true
 }
-let saveSession = (isCaptcha=false) => {
-    if(!checkCaptch(isCaptcha)) return
+let saveSession = (isCaptcha = false) => {
+    if (!checkCaptch(isCaptcha)) return
     let name = document.getElementById('visitorname').value || ''
     let mobile = document.getElementById('visitormobile').value || ''
     let appdata = JSON.stringify({name, mobile, lastloggedon: new Date()})
@@ -618,7 +635,7 @@ let saveSession = (isCaptcha=false) => {
     })
 }
 let whoareyou = (isCaptcha = false) => {
-    if(isCaptcha===true) Captcha()
+    if (isCaptcha === true) Captcha()
     let elm = []
     elm.push('<div style="width: 30%">')
     elm.push(`<h1>please enter your name, this is just for me to know you.</h1>`)
@@ -640,7 +657,7 @@ let localise = () => {
 }
 
 const animate = (clsid, type = 1) => {
-    var textWrapper = document.querySelector('.' + clsid);
+    let textWrapper = document.querySelector('.' + clsid);
     textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
 
     if (type === 1) {
@@ -712,6 +729,12 @@ const runAll = () => {
         let appObject = JSON.parse(iskeyset)
         globalObject.welcomeMsg = appObject.name !== '' ? `<div class="labelx xinfo">Welcome, <span class="xred">${appObject.name || 'XXXX'}</span>, you last came on <span class="time xgray">${appObject.lastloggedon || ''}</span></div>` : `<div class="labelx xred">Welcome, Mate!</div>`
         app()
+        let payload = JSON.parse(localise())
+        handleX('post', payload)
+        handleX('get', undefined, (data) => {
+            welcomeTag.innerHTML = `<h1 class="ml13">Welcome, visited: ${data.counter.visits||'0'} times</h1>`
+            animate('ml13',3)
+        })
     }
     window.addEventListener('load', () => {
         initCall()
@@ -720,6 +743,7 @@ const runAll = () => {
     window.addEventListener('hashchange', initCall)
     window.addEventListener('onpopstate', initCall);
 }
+
 document.addEventListener('DOMContentLoaded', runAll)
 
 
