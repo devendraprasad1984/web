@@ -33,13 +33,16 @@ html {
     /*opacity: 0.99;*/
 }
 
+.content *:not(h1):not(i):not(.size20) {
+    color: #623bab;
+    font-size: 12px;
+}
+
 .size15 {
     font-size: 20px;
 }
-
-.content *:not(h1):not(i) {
-    color: #623bab;
-    font-size: 12px;
+.size20{
+    font-size: 40pt;
 }
 
 code {
@@ -527,7 +530,7 @@ li {
 
 
 .primary {
-    background-color: #96d4e7 !important
+    background-color: #329bbb !important
 }
 
 .white {
@@ -565,7 +568,7 @@ li {
 }
 
 .xwhite {
-    color: #8a4cb7 !important
+    color: white !important;
 }
 
 .xsecondary {

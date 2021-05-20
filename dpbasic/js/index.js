@@ -268,7 +268,7 @@ let notifyMe = (msg, autohide = true, callback) => {
     })
     setTimeout(() => {
         if (callback !== undefined) callback()
-    }, 2000)
+    }, 700)
 }
 
 //init function
@@ -624,7 +624,10 @@ let checkCaptch = (isCaptcha = false) => {
     }
     return true
 }
+
+let moveAwayIntr = undefined
 let saveSession = (isCaptcha = false) => {
+    if (moveAwayIntr !== undefined) clearInterval(moveAwayIntr)
     if (!checkCaptch(isCaptcha)) return
     let name = document.getElementById('visitorname').value || ''
     let mobile = document.getElementById('visitormobile').value || ''
@@ -635,17 +638,36 @@ let saveSession = (isCaptcha = false) => {
     })
 }
 let whoareyou = (isCaptcha = false) => {
+    let counter = 15
+    let showLoader = () => {
+        let moveAwayId = document.getElementById('moveAwayCounter')
+        let show = i => {
+            moveAwayId.innerHTML = `<h1 class="xred">Landing to home in <span class="size20">${i}</span> <span class="btn danger xwhite" onclick="clearInterval(${moveAwayIntr})">stop</span></h1>`
+        }
+        moveAwayIntr = setInterval(() => {
+            if (counter <= 1) {
+                clearInterval(moveAwayIntr)
+                saveSession(isCaptcha)
+                return
+            }
+            counter = counter - 1
+            show(counter)
+        }, 1000)
+        show(counter)
+    }
     if (isCaptcha === true) Captcha()
     let elm = []
-    elm.push('<div style="width: 30%">')
-    elm.push(`<h1>please enter your name, this is just for me to know you.</h1>`)
+    elm.push('<div style="width: 50%">')
+    elm.push(`<h1>only for one time in life, i just need to know who visited my page</h1>`)
+    elm.push(`<div id="moveAwayCounter"></div>`)
     elm.push(`<h3 class="xinfo">this is only one time ask</h3>`)
     elm.push(`<input id="visitorname" placeholder="enter you name(optional)" />`)
     elm.push(`<input id="visitormobile" placeholder="enter you contact number (optional)" />`)
     elm.push(isCaptcha ? displayCaptcha : null)
-    elm.push(`<div><span class="btn primary" onclick="saveSession(${isCaptcha})">Proceed</span></div>`)
+    elm.push(`<div><span class="btn primary xwhite" onclick="saveSession(${isCaptcha})">Proceed</span></div>`)
     elm.push('</div>')
     rightContainer.innerHTML = elm.join('')
+    showLoader()
 }
 
 let localise = () => {
@@ -732,8 +754,8 @@ const runAll = () => {
         let payload = JSON.parse(localise())
         handleX('post', payload)
         handleX('get', undefined, (data) => {
-            welcomeTag.innerHTML = `<h1 class="ml13">Welcome, visited: ${data.counter.visits||'0'} times</h1>`
-            animate('ml13',3)
+            welcomeTag.innerHTML = `<h1 class="ml13">Welcome, visited: ${data.counter.visits || '0'} times</h1>`
+            animate('ml13', 3)
         })
     }
     window.addEventListener('load', () => {
