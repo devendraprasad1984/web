@@ -740,9 +740,9 @@ const animate = (clsid, type = 1) => {
 const runAll = () => {
     rightContainer.innerHTML = `<h1>Loading Contents, Please Wait...</h1>`
     let initCall = () => {
-        animate('ml6', 1)
-        animate('ml2', 2)
-        animate('ml13', 3)
+        // animate('ml6', 1)
+        // animate('ml2', 2)
+        // animate('ml13', 3)
         let iskeyset = localise()
         if (iskeyset === false) {
             whoareyou()
@@ -755,7 +755,7 @@ const runAll = () => {
         handleX('post', payload)
         handleX('get', undefined, (data) => {
             welcomeTag.innerHTML = `<h1 class="ml13">viewed by all, ${data.counter.visits || '0'} time(s)</h1>`
-            animate('ml13', 3)
+            // animate('ml13', 3)
         })
     }
     window.addEventListener('load', () => {
