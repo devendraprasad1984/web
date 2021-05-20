@@ -754,7 +754,7 @@ const runAll = () => {
         let payload = JSON.parse(localise())
         handleX('post', payload)
         handleX('get', undefined, (data) => {
-            welcomeTag.innerHTML = `<h1 class="ml13">Welcome, visited: ${data.counter.visits || '0'} times</h1>`
+            welcomeTag.innerHTML = `<h1 class="ml13">viewed by all, ${data.counter.visits || '0'} time(s)</h1>`
             animate('ml13', 3)
         })
     }
