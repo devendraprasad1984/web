@@ -131,67 +131,12 @@ let globalObject = {}
 let appkey = 'dpresume'
 let displayCaptcha = `<div class=""><h2><span id="mainCaptcha" class="tld"></h2><input type="text" id="txtInput" placeholder="enter captcha"/>    </div>`
 let welcomeTag = document.getElementById('welcomeTag')
-
-
 let getById = function (id) {
     return document.getElementById(id);
 }
 let rightContainer = getById(rightPanelDiv);
-
 let colorsArray = ['00FF7F', 'CD853F', '66CDAA', 'F0FFFF', 'FAFAD2', 'FFEBCD', '66d9ff', 'F8EC7B', 'E8B2EE', 'F8C67B', 'C3EEF1', 'D9B2EE', 'B2EED2', 'EEB2CE', 'F87D8A', 'E1EAAF', '95A525', '7FB4EC']
-let changeColor = function () {
-    let bgColor = 'white'
-
-    function changeThemeColor() {
-        let num = Math.floor(Math.random() * colorsArray.length)
-        bgColor = colorsArray[num] || 'white'
-        let changeColorById = (id) => {
-            id.style.backgroundColor = `#${bgColor}`
-            id.style.transition = '0.8s'
-            id.style.opacity = '0.8'
-        }
-        // changeColorById(leftPanel)
-        // changeColorById(headDiv)
-        changeColorById(bottomDiv)
-    }
-
-    function changeCardsColor() {
-        let num = Math.floor(Math.random() * colorsArray.length)
-        bgColor = colorsArray[num] || 'white'
-        if (globalObject.thisKey === undefined) return;
-        if (globalObject.thisKey.toLowerCase() !== 'home') return
-        let cards = document.getElementsByClassName('cards')
-        if (cards.length === 1) {
-            let cardsElem = cards[0].getElementsByTagName('a')
-            if (cardsElem.length > 0) {
-                let arr = Array.from(cardsElem)
-                arr.forEach((id, i) => {
-                    id.style.backgroundColor = `white`
-                    if (i !== num) return
-                    id.style.backgroundColor = `#${bgColor}`
-                    id.style.transition = '0.8s'
-                    id.style.opacity = '0.8'
-                })
-            }
-        }
-    }
-
-    changeCardsColor()
-    setInterval(changeCardsColor, 1000);
-}
-
-// const loader=(svgName)=>{
-//     icon='loading, plz wait...'
-//     if(svgName==='loader1'){
-//         icon='<img class="imgsvg" src="./js/bar.svg" width="40" alt="loading..."/>';
-//     }
-//     return icon;
-// }
-
 let loadID = getById('idLoad');
-
-// loadID.innerHTML=loader('loader1');
-
 
 function Captcha() {
     var alpha = new Array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
@@ -258,10 +203,10 @@ function getLinksDisplay() {
 let notifyMe = (msg, autohide = true, callback) => {
     let iserr = msg.substring(0, 1) === '?'
     let msgNotifyInstance = new Notify({
-        title: 'information',
+        title: 'hey there',
         status: iserr ? 'error' : 'success',
         text: iserr ? msg.substring(1) : msg,
-        position: 'right top',
+        position: 'right bottom',
         customIcon: '',
         customClass: '',
         autoclose: autohide
@@ -274,8 +219,6 @@ let notifyMe = (msg, autohide = true, callback) => {
 //init function
 function app() {
     getLinksDisplay()
-    changeColor()
-
     left = getById('leftPanel');
     if (left === null) return;
     window.mobilecheck = function () {
@@ -354,7 +297,11 @@ let demoPageContent = async () => {
     let res = await fetch('resources/demo.json')
     let data = await res.json()
     let print = () => data.map(x => {
-        return `<a target="_blank" href="${x.href}">${x.name}</a>`
+        let num = Math.floor(Math.random() * colorsArray.length)
+        let bgColor = colorsArray[num] || 'white'
+        return `<a style="background-color: #${bgColor};"  target="_blank" href="${x.href}" class="mcard">
+        <span>${x.name}</span>
+        </a>`
     }).join('')
 
     return `<div>
