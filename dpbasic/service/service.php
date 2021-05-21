@@ -19,16 +19,16 @@ if ($isget) {
 }
 if ($isset) {
     $post = json_decode(file_get_contents('php://input', true), true);
-//    $cnt = $counter['visits'];
-//    $cnt = $cnt + 1;
-//    $counter['visits'] = $cnt;
+    $cnt = $counter->visits;
+    $cnt = $cnt + 1;
+    $counter->visits = $cnt;
     $iscreated = file_put_contents($counterFileName, json_encode($counter));
     $msg = $iscreated ? 'created' : 'couldnt create';
     $data = array();
-    $data['data'] = 'setter';
+    $data['type'] = 'setter';
     $data['status'] = "success - $msg";
-    $data['counter'] = $counter;
-    $data['post'] = $post;
+    $data['counter'] = $cnt;
+    $data['data'] = $counter;
     $res = json_encode($data);
 }
 echo $res;
