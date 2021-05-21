@@ -777,7 +777,7 @@ select {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #0e637d;
+    background: #222;
 }
 
 /* Handle on hover */
