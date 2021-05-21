@@ -8,6 +8,7 @@ let leftMenu = {
         displayInMenu: true,
         displayContent: true,
         loadDemo: true
+        , speek: true
     },
     "Education": {
         icon: `<i class="icons">school</i>`,
@@ -17,7 +18,7 @@ let leftMenu = {
         displayInMenu: true,
         displayContent: true,
         displaySubDiv: false
-
+        , speek: true
     },
     "Certification": {
         icon: `<i class="icons">badge</i>`,
@@ -27,6 +28,7 @@ let leftMenu = {
         displayInMenu: true,
         displayContent: true,
         displaySubDiv: false
+        , speek: true
     },
     "Experience": {
         icon: `<i class="icons">calendar_view_month</i>`,
@@ -36,6 +38,7 @@ let leftMenu = {
         displayInMenu: true,
         displayContent: true,
         displaySubDiv: false
+        , speek: false
     },
     "SomeJs": {
         icon: `<i class="icons">code</i>`,
@@ -43,7 +46,8 @@ let leftMenu = {
         uri: "resources/fewjs.txt",
         displaySubDiv: false,
         displayInMenu: true,
-        displayContent: true,
+        displayContent: true
+        , speek: false
     },
     "Projects": {
         icon: `<i class="icons">engineering</i>`,
@@ -53,6 +57,7 @@ let leftMenu = {
         displayInMenu: true,
         displayContent: true,
         displaySubDiv: false
+        , speek: false
     },
     "Skills": {
         icon: `<i class="icons">security</i>`,
@@ -62,6 +67,7 @@ let leftMenu = {
         displayInMenu: true,
         displayContent: true,
         displaySubDiv: false
+        , speek: false
     },
     "Notes": {
         icon: `<i class="icons">edit_note</i>`,
@@ -71,6 +77,7 @@ let leftMenu = {
         displayInMenu: true,
         displayContent: true,
         displaySubDiv: false
+        , speek: false
     },
     "Code": {
         icon: `<i class="icons">code</i>`,
@@ -80,6 +87,7 @@ let leftMenu = {
         displayInMenu: true,
         displayContent: true,
         loadLocal: true
+        , speek: false
     },
     "CodeAPI": {
         icon: `<i class="icons">code</i>`,
@@ -89,6 +97,7 @@ let leftMenu = {
         displayInMenu: false,
         displayContent: true,
         loadLocal: false
+        , speek: false
     },
     "donate": {
         icon: ``,
@@ -98,6 +107,7 @@ let leftMenu = {
         displayInMenu: false,
         displayContent: true,
         displaySubDiv: false
+        , speek: false
     },
     "Blogs": {
         icon: `<i class="icons">rss_feed</i>`,
@@ -106,6 +116,7 @@ let leftMenu = {
         displaySubDiv: false,
         displayInMenu: true,
         displayContent: true
+        , speek: false
     },
 };
 let subDiv = 'rightPanelDivSub';
@@ -118,7 +129,8 @@ let br = '<br>';
 let br2 = '<br><br>';
 let idOverlay = 'idOverlay';
 let idOverlayContent = 'idOverlayContent';
-let beforeLI = '<span>&#10004;</span>';
+// let beforeLI = '<span>&#10004;</span>';
+let beforeLI = '';
 let adhocDataSet = {};
 var width = 1;
 var bar = document.getElementById("barStatus");
@@ -131,11 +143,14 @@ let globalObject = {}
 let appkey = 'dpresume'
 let displayCaptcha = `<div class=""><h2><span id="mainCaptcha" class="tld"></h2><input type="text" id="txtInput" placeholder="enter captcha"/>    </div>`
 let welcomeTag = document.getElementById('welcomeTag')
-let getById = function (id) {
-    return document.getElementById(id);
-}
-let rightContainer = getById(rightPanelDiv);
+let synthesis = 'speechSynthesis' in window ? window.speechSynthesis : undefined;
+let isSpeaking = false;
+
 let colorsArray = ['00FF7F', 'CD853F', '66CDAA', 'F0FFFF', 'FAFAD2', 'FFEBCD', '66d9ff', 'F8EC7B', 'E8B2EE', 'F8C67B', 'C3EEF1', 'D9B2EE', 'B2EED2', 'EEB2CE', 'F87D8A', 'E1EAAF', '95A525', '7FB4EC']
+let volumeup = (id) => `<span class="icons click size15" onclick="speakOut(this,'${id}')">volume_up</span>`
+
+let getById = (id) => document.getElementById(id);
+let rightContainer = getById(rightPanelDiv);
 let loadID = getById('idLoad');
 
 function Captcha() {
@@ -340,6 +355,7 @@ let handleLeftButtonClick = function (cur, key, sufApi = '') {
     let subDisplay = current["displaySubDiv"];
     let loadLocal = current["loadLocal"];
     let loadDemo = current["loadDemo"] || false;
+    let speek = current["speek"] || false;
     // console.log(text, uri, loadLocal);
     let sub = getById(subDiv);
     sub.style.display = 'none';
@@ -366,6 +382,11 @@ let handleLeftButtonClick = function (cur, key, sufApi = '') {
     }
 
     getFromWeb(isHtmlHttpTextTrue(uri), uri, function (successData) {
+        let canspeek = () => {
+            if (speek)
+                pageHeader = `<h1>${text} ${ volumeup('nohover') }</h1>`
+        }
+        canspeek()
         let code = globalObject.thisKey.toLowerCase() === 'codeapi'
         let dataValue = code ? `<div id='jsEditor'></div>` : successData
         if (loadDemo) {
@@ -379,6 +400,7 @@ let handleLeftButtonClick = function (cur, key, sufApi = '') {
         if (code) setCodeData('nodes', JSON.parse(successData))
         if (subDisplay)
             getAdhocListing(key, fnSubDivDisplay);
+
         resetText()
     }, function (failedData) {
         console.error(failedData)
@@ -437,7 +459,7 @@ let getFromWeb = function (raw, uri, resolve, reject) {
         var data = (isHtmlHttpTextTrue(uri)) ? this.response : JSON.parse(this.response);
         if (req.status >= 200 && req.status < 400) {
             let vals2display = raw ? data : '';
-            if (!raw) vals2display += '<ul class="noHover">' + customFormat(data) + '</ul>';
+            if (!raw) vals2display += '<ul id="nohover" class="noHover">' + customFormat(data) + '</ul>';
             resolve(vals2display);
         } else {
             // hide(loadID);
@@ -684,6 +706,95 @@ const animate = (clsid, type = 1) => {
     }
 }
 
+
+function speakOut(cur,id) {
+    let elemId = getById(id)
+    let text = elemId.innerText
+    if (text === '') return
+    if(cur.innerHTML.toLowerCase()==='volume_off') {
+        stopPlay()
+        cur.innerHTML='volume_up'
+        return;
+    }
+    isSpeaking = true;
+    let utterance = new SpeechSynthesisUtterance(text);
+    speechUtteranceChunker(utterance, {
+        chunkLength: 120
+    }, function () {
+    });
+    cur.innerHTML='volume_off'
+}
+
+function stopPlay() {
+    isSpeaking = false;
+    if (typeof window.speechSynthesis === 'undefined') {
+        notifyMe('no voice assistant present');
+        return;
+    }
+    synthesis.cancel();
+}
+
+
+const speechUtteranceChunker = function (utt, settings, callback) {
+    if (!isSpeaking) return;
+
+    settings = settings || {};
+    var newUtt;
+    var txt = (settings && settings.offset !== undefined ? utt.text.substring(settings.offset) : utt.text);
+    if (utt.voice && utt.voice.voiceURI === 'native') { // Not part of the spec
+        newUtt = utt;
+        newUtt.text = txt;
+        newUtt.addEventListener('end', function () {
+            if (speechUtteranceChunker.cancel) {
+                speechUtteranceChunker.cancel = false;
+            }
+            if (callback !== undefined) {
+                callback();
+            }
+        });
+    } else {
+        var chunkLength = (settings && settings.chunkLength) || 160;
+        var pattRegex = new RegExp('^[\\s\\S]{' + Math.floor(chunkLength / 2) + ',' + chunkLength + '}[.!?,]{1}|^[\\s\\S]{1,' + chunkLength + '}$|^[\\s\\S]{1,' + chunkLength + '} ');
+        var chunkArr = txt.match(pattRegex);
+
+        if (chunkArr[0] === undefined || chunkArr[0].length <= 2) {
+            //call once all text has been spoken...
+            if (callback !== undefined) {
+                callback();
+            }
+            return;
+        }
+        var chunk = chunkArr[0];
+        newUtt = new SpeechSynthesisUtterance(chunk);
+        var x;
+        for (x in utt) {
+            if (utt.hasOwnProperty(x) && x !== 'text') {
+                newUtt[x] = utt[x];
+            }
+        }
+        newUtt.addEventListener('end', function () {
+            if (speechUtteranceChunker.cancel) {
+                speechUtteranceChunker.cancel = false;
+                return;
+            }
+            settings.offset = settings.offset || 0;
+            settings.offset += chunk.length - 1;
+            speechUtteranceChunker(utt, settings, callback);
+        });
+    }
+
+    if (settings.modifier) {
+        settings.modifier(newUtt);
+    }
+    // console.log(newUtt); //IMPORTANT!! Do not remove: Logging the object out fixes some onend firing issues.
+    //placing the speak invocation inside a callback fixes ordering and onend issues.
+    setTimeout(function () {
+        if (!isSpeaking) return;
+        // speechSynthesis.speak(newUtt);
+        synthesis.speak(newUtt);
+    }, 0);
+};
+
 const runAll = () => {
     rightContainer.innerHTML = `<h1>Loading Contents, Please Wait...</h1>`
     let initCall = () => {
@@ -701,7 +812,7 @@ const runAll = () => {
         let payload = JSON.parse(localise())
         handleX('post', payload)
         handleX('get', undefined, (data) => {
-            welcomeTag.innerHTML = `<h1 class="ml13">viewed by all <span class="size20">${data.counter.visits || '0'}</span> time(s)</h1>`
+            welcomeTag.innerHTML = `<h1 class="ml13"><span class="icons size15">visibility</span> <span class="size15">${data.counter.visits || '0'}</span></h1>`
             // animate('ml13', 3)
         })
     }

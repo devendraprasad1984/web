@@ -33,13 +33,17 @@ html {
     /*opacity: 0.99;*/
 }
 
-a, div > *:not(.acitve, .tld, .size20), .content *:not(.acitve, .tld, .size20) {
+a, :not(i,.icons),
+div > *:not(i,.icons.acitve, .tld, .size20, .size15),
+.content *:not(i,.icons,.acitve, .tld, .size20, .size15) {
     color: #222;
     font-size: 14px;
 }
+
 .active {
     background-color: #eeeded;
 }
+
 h1, h2, h3, h4, h5, h6, .tld {
     color: #222;
     font-weight: bolder;
@@ -52,7 +56,7 @@ h1, h2, h3, h4, h5, h6, .tld {
 }
 
 .size15 {
-    font-size: 15px;
+    font-size: 20px;
 }
 
 .size20 {
@@ -416,7 +420,8 @@ code, kbd, samp {
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
     opacity: 0.7;
 }
-.mcard{
+
+.mcard {
     display: inline-block;
     vertical-align: middle;
     line-height: normal;
@@ -458,14 +463,10 @@ a:hover {
     transition-timing: ease-in-out;
 }
 
-.noHover {
-    /*pointer-events: none;*/
-}
-
-
 li {
     list-style-type: none;
     position: relative;
+    line-height: 20px;
 }
 
 .overlay {
@@ -651,9 +652,15 @@ li {
     border-radius: .25rem;
 }
 
-.imgPic {
+.imgPic, #imgPic {
     width: 250px;
     height: 250px;
+    padding: 5px;
+}
+
+.img {
+    width: 200px;
+    height: 200px;
     padding: 5px;
 }
 
