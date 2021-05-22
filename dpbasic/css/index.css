@@ -1,5 +1,5 @@
 html {
-    /*font-size: 80%;*/
+    zoom: 90%;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
     -ms-overflow-style: scrollbar;
@@ -27,9 +27,18 @@ html {
 }
 
 
+@font-face {
+    font-family: 'Source Code Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../css/GothamRounded-Medium.woff2) format('woff2');
+}
+
+
 * {
     box-sizing: border-box;
-    font-family: 'Source Code Pro', monospace;
+    font-family:'GothamRrounded', 'Source Code Pro', monospace;
     /*opacity: 0.99;*/
 }
 
@@ -290,7 +299,7 @@ section {
 }
 
 .content-right, .content-right-subdiv {
-    height: calc(100vh - 120px);
+    height: calc(100vh - 150px);
     width: calc(80vw - 350px);
     padding-left: 10px;
     padding-right: 10px;
@@ -522,7 +531,7 @@ li {
     padding: 5px;
     left: 0;
     margin-bottom: 10px;
-    line-height: 1rem;
+    line-height: 1.5rem;
 }
 
 

@@ -146,7 +146,17 @@ let welcomeTag = document.getElementById('welcomeTag')
 let synthesis = 'speechSynthesis' in window ? window.speechSynthesis : undefined;
 let isSpeaking = false;
 
-let colorsArray = ['00FF7F', 'CD853F', '66CDAA', 'F0FFFF', 'FAFAD2', 'FFEBCD', '66d9ff', 'F8EC7B', 'E8B2EE', 'F8C67B', 'C3EEF1', 'D9B2EE', 'B2EED2', 'EEB2CE', 'F87D8A', 'E1EAAF', '95A525', '7FB4EC']
+let colorsArray = [
+    '#cbf8df', '#f5dabe', '#66CDAA', '#F0FFFF',
+    '#FAFAD2', '#FFEBCD', '#66d9ff', '#F8EC7B',
+    '#E8B2EE', '#F8C67B', '#C3EEF1', '#D9B2EE',
+    '#B2EED2', '#EEB2CE', '#f8a5ae', '#E1EAAF',
+    '#e7e8d7', '#7FB4EC', '#7ffcd9', '#ecb88a',
+    '#437dc7', '#caf3bf', '#c8a1fc', '#f5c16d',
+    '#ff8566', '#f6e23d', '#e2e0e3', '#ea9517',
+    '#f6def8', '#f8c6bf', '#61fab4', '#fc75b1',
+    '#7dce8a', '#daef51', '#9388d7', '#bea9cd'
+]
 let volumeup = (id) => `<span class="icons click size15" onclick="speakOut(this,'${id}')">volume_up</span>`
 
 let getById = (id) => document.getElementById(id);
@@ -314,7 +324,7 @@ let demoPageContent = async () => {
     let print = () => data.map(x => {
         let num = Math.floor(Math.random() * colorsArray.length)
         let bgColor = colorsArray[num] || 'white'
-        return `<a style="background-color: #${bgColor};"  target="_blank" href="${x.href}" class="mcard">
+        return `<a style="background-color: ${bgColor};"  target="_blank" href="${x.href}" class="mcard">
         <span>${x.name}</span>
         </a>`
     }).join('')
