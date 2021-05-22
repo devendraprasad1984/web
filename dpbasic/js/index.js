@@ -819,8 +819,6 @@ const runAll = () => {
         let appObject = JSON.parse(iskeyset)
         globalObject.welcomeMsg = appObject.name !== '' ? `<div class="labelx xinfo">Welcome, <span class="xred">${appObject.name || 'XXXX'}</span>, you last came on <span class="time xgray">${appObject.lastloggedon || ''}</span></div>` : `<div class="labelx xred">Welcome, Mate!</div>`
         app()
-        let payload = JSON.parse(localise())
-        handleX('post', payload)
         handleX('get', undefined, (data) => {
             welcomeTag.innerHTML = `<h1 class="ml13"><span class="icons size15">visibility</span> <span class="size15">${data.counter.visits || '0'}</span></h1>`
             // animate('ml13', 3)
@@ -828,6 +826,8 @@ const runAll = () => {
     }
     window.addEventListener('load', () => {
         initCall()
+        let payload = JSON.parse(localise())
+        handleX('post', payload)
         notifyMe('welcome mate!!')
     });
     window.addEventListener('hashchange', initCall)
