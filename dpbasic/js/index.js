@@ -157,7 +157,7 @@ let colorsArray = [
     '#f6def8', '#f8c6bf', '#61fab4', '#fc75b1',
     '#7dce8a', '#daef51', '#9388d7', '#bea9cd'
 ]
-let volumeup = (id) => `<span class="icons click size15" onclick="speakOut(this,'${id}')">volume_up</span>`
+let volumeup = (id) => `<span class="icons click size25" onclick="speakOut(this,'${id}')">volume_up</span>`
 
 let getById = (id) => document.getElementById(id);
 let rightContainer = getById(rightPanelDiv);
@@ -394,7 +394,7 @@ let handleLeftButtonClick = function (cur, key, sufApi = '') {
     getFromWeb(isHtmlHttpTextTrue(uri), uri, function (successData) {
         let canspeek = () => {
             if (speek)
-                pageHeader = `<h1>${text} ${ volumeup('nohover') }</h1>`
+                pageHeader = `<h1>${text} ${volumeup('nohover')}</h1>`
         }
         canspeek()
         let code = globalObject.thisKey.toLowerCase() === 'codeapi'
@@ -482,22 +482,32 @@ let getFromWeb = function (raw, uri, resolve, reject) {
 
 function customFormat(data) {
     let vals2display = '';
-    let cbox = `<div class=${globalObject.currentKey.toLowerCase() !== 'projects' ? 'box  ' : ''}>`;
+    let cbox = `<div class=${globalObject.currentKey.toLowerCase() !== 'projects' ? 'box ' : ''}>`;
     for (let x in data) {
         if (data[x] instanceof Object) {
             vals2display += (x === 'data' ? cbox : cbox + '<h1>' + x.replace('data', '').toUpperCase() + '</h1>');
         }
+        let allowSpeek = false
         for (let i in data[x]) {
             let el = data[x][i];
+            if (i.toLowerCase() === 'speek' && el === true) {
+                allowSpeek = true
+                continue
+            }
+            let canspeek = allowSpeek ? `${volumeup(`speek${i}`)}` : ''
             if (isNaN(i)) { //json types
-                vals2display += '<b>' + i.toUpperCase() + '</b>';
+                vals2display += '<h1>' + i.toUpperCase()+ canspeek + '</h1>';
+                if (allowSpeek) {
+                    vals2display += `<div id="speek${i}">`;
+                }
                 if (Array.isArray(el)) {
                     for (let k in el) {
                         if (x.toLowerCase() === 'skills' && el[k].indexOf('~') !== -1) {
                             d1 = el[k].split('~');
                             vals2display += '<div><span>' + d1[0] + '</span>' + '<span class="right star" title="I know ' + d1[0] + ' - ' + d1[1] + '/5">' + getStar(d1[1]) + '</span></div>';
-                        } else
+                        } else {
                             vals2display += '<div>' + el[k] + '</div>';
+                        }
                     }
                 } else {
                     vals2display += '<div>' + el + '</div>';
@@ -505,6 +515,7 @@ function customFormat(data) {
             } else
                 vals2display += `<li class=${globalObject.currentKey.toLowerCase() === 'projects' ? 'box  ' : ''}>${beforeLI} ${el} </li>`;
         }
+        if (allowSpeek) vals2display += '</div>';
         vals2display += '</div>';
     }
     return vals2display;
@@ -717,13 +728,13 @@ const animate = (clsid, type = 1) => {
 }
 
 
-function speakOut(cur,id) {
+function speakOut(cur, id) {
     let elemId = getById(id)
     let text = elemId.innerText
     if (text === '') return
-    if(cur.innerHTML.toLowerCase()==='volume_off') {
+    if (cur.innerHTML.toLowerCase() === 'volume_off') {
         stopPlay()
-        cur.innerHTML='volume_up'
+        cur.innerHTML = 'volume_up'
         return;
     }
     isSpeaking = true;
@@ -732,7 +743,7 @@ function speakOut(cur,id) {
         chunkLength: 120
     }, function () {
     });
-    cur.innerHTML='volume_off'
+    cur.innerHTML = 'volume_off'
 }
 
 function stopPlay() {
@@ -820,7 +831,7 @@ const runAll = () => {
         globalObject.welcomeMsg = appObject.name !== '' ? `<div class="labelx xinfo">Welcome, <span class="xred">${appObject.name || 'XXXX'}</span>, you last came on <span class="time xgray">${appObject.lastloggedon || ''}</span></div>` : `<div class="labelx xred">Welcome, Mate!</div>`
         app()
         handleX('get', undefined, (data) => {
-            welcomeTag.innerHTML = `<h1 class="ml13"><span class="icons size15">visibility</span> <span class="size15">${data.counter.visits || '0'}</span></h1>`
+            welcomeTag.innerHTML = `<h1 class="ml13"><span class="icons size25">visibility</span> <span class="size25">${data.counter.visits || '0'}</span></h1>`
             // animate('ml13', 3)
         })
     }
