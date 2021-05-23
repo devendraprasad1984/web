@@ -43,8 +43,8 @@ html {
 }
 
 a, :not(i,.icons),
-div > *:not(i,.icons.acitve, .tld, .size20, .size25),
-.content *:not(i,.icons,.acitve, .tld, .size20, .size25) {
+div > *:not(i,.icons.acitve, .tld, .size20, .size15, .size25),
+.content *:not(i,.icons,.acitve, .tld, .size15, .size20, .size25) {
     color: #222;
     font-size: 14px;
 }
@@ -58,6 +58,12 @@ h1, h2, h3, h4, h5, h6, .tld {
     font-weight: bolder;
     cursor: pointer;
     text-decoration: none;
+    padding: 0;
+    margin: 0;
+}
+h1{
+    display: flex;
+    vertical-align: middle;
 }
 
 .size10 {
@@ -68,12 +74,12 @@ h1, h2, h3, h4, h5, h6, .tld {
     font-size: 15px;
 }
 
-.size25 {
-    font-size: 25px;
+.size20 {
+    font-size: 20px;
 }
 
-.size20 {
-    font-size: 35pt;
+.size25 {
+    font-size: 25px;
 }
 
 code {
@@ -106,7 +112,7 @@ div {
     -webkit-font-smoothing: antialiased;
 }
 
-.icons:hover{
+.icons:hover, .fab:hover, .fas:hover, .far:hover{
     color: orangered;
 }
 

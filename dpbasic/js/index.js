@@ -350,7 +350,7 @@ let handleLeftButtonClick = function (cur, key, sufApi = '') {
     // moveProgress();
     let rightContainer = getById(rightPanelDiv);
     let pageHeader = undefined;
-    pageHeader = '<h1>Loading...</h1>';
+    pageHeader = '<h1 class="size20">Loading...</h1>';
     rightContainer.innerHTML = pageHeader;
     rightContainer.style.backgroundColor = "white";
     let allLeftLI = document.querySelectorAll('div.content-left li');
@@ -370,7 +370,7 @@ let handleLeftButtonClick = function (cur, key, sufApi = '') {
     let sub = getById(subDiv);
     sub.style.display = 'none';
     // pageHeader = '<h1 onclick="handleOverlayContent(\'' + text + '\',\'' + overlayID + '\')">' + text + '</h1>';
-    pageHeader = `<h1>${text}</h1>`
+    pageHeader = `<h1 class="size20">${text}</h1>`
     // let container = getById(rightPanelDiv);
 
     globalObject.currentKey = key
@@ -394,7 +394,7 @@ let handleLeftButtonClick = function (cur, key, sufApi = '') {
     getFromWeb(isHtmlHttpTextTrue(uri), uri, function (successData) {
         let canspeek = () => {
             if (speek)
-                pageHeader = `<h1>${text} ${volumeup('nohover')}</h1>`
+                pageHeader = `<h1 class="size20">${text} ${volumeup('nohover')}</h1>`
         }
         canspeek()
         let code = globalObject.thisKey.toLowerCase() === 'codeapi'
@@ -496,7 +496,7 @@ function customFormat(data) {
             }
             let canspeek = allowSpeek ? `${volumeup(`speek${i}`)}` : ''
             if (isNaN(i)) { //json types
-                vals2display += '<h1>' + i.toUpperCase()+ canspeek + '</h1>';
+                vals2display += `<h1><span>${i.toUpperCase()}</span> ${canspeek}</h1>`;
                 if (allowSpeek) {
                     vals2display += `<div id="speek${i}">`;
                 }
