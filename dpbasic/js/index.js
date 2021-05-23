@@ -485,7 +485,7 @@ function customFormat(data) {
     let cbox = `<div class=${globalObject.currentKey.toLowerCase() !== 'projects' ? 'box ' : ''}>`;
     for (let x in data) {
         if (data[x] instanceof Object) {
-            vals2display += (x === 'data' ? cbox : cbox + '<h1>' + x.replace('data', '').toUpperCase() + '</h1>');
+            vals2display += (x === 'data' ? cbox : cbox + '<h1 class="size15">' + x.replace('data', '').toUpperCase() + '</h1>');
         }
         let allowSpeek = false
         for (let i in data[x]) {
@@ -496,7 +496,7 @@ function customFormat(data) {
             }
             let canspeek = allowSpeek ? `${volumeup(`speek${x}`)}` : ''
             if (isNaN(i)) { //json types
-                vals2display += `<h1><span>${i.toUpperCase()}</span> ${canspeek}</h1>`;
+                vals2display += `<h1><b>${i.toUpperCase()}</b>&nbsp; ${typeof el==="string" ? el : ''} ${canspeek}</h1>`;
                 if (allowSpeek) {
                     vals2display += `<div id="speek${x}">`;
                 }
@@ -504,13 +504,11 @@ function customFormat(data) {
                     for (let k in el) {
                         if (x.toLowerCase() === 'skills' && el[k].indexOf('~') !== -1) {
                             d1 = el[k].split('~');
-                            vals2display += '<div><span>' + d1[0] + '</span>' + '<span class="right star" title="I know ' + d1[0] + ' - ' + d1[1] + '/5">' + getStar(d1[1]) + '</span></div>';
+                            vals2display += '<div><span>' + d1[0] + '</span>' + '<span class="right star" title="I know ' + d1[0] + ' - ' + d1[1] + '/span">' + getStar(d1[1]) + '</span></div>';
                         } else {
                             vals2display += '<div>' + el[k] + '</div>';
                         }
                     }
-                } else {
-                    vals2display += '<div>' + el + '</div>';
                 }
             } else
                 vals2display += `<li class=${globalObject.currentKey.toLowerCase() === 'projects' ? 'box  ' : ''}>${beforeLI} ${el} </li>`;
