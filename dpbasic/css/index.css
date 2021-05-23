@@ -250,8 +250,9 @@ section {
 }
 
 .content-left li, .content-left li a, .content-left li icon {
-    font-size: 14px;
     padding: 3px;
+    vertical-align: middle;
+    display: flex;
 }
 
 .load {

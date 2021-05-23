@@ -1,7 +1,7 @@
 let leftMenu = {
     "Home": {
-        icon: `<i class="icons">person_outline</i>`,
-        text: "Who I Am...",
+        icon: `<i class="icons size20">person_outline</i>`,
+        text: "About Me",
         uri: "resources/summary.json",
         overlayID: "Summary",
         displaySubDiv: false,
@@ -11,7 +11,7 @@ let leftMenu = {
         , speek: true
     },
     "Education": {
-        icon: `<i class="icons">school</i>`,
+        icon: `<i class="icons size20">school</i>`,
         text: "Education Details",
         uri: "resources/education.json",
         overlayID: "Education",
@@ -21,7 +21,7 @@ let leftMenu = {
         , speek: true
     },
     "Certification": {
-        icon: `<i class="icons">badge</i>`,
+        icon: `<i class="icons size20">badge</i>`,
         text: "Certification Details",
         uri: "resources/certifications.json",
         overlayID: "Certification",
@@ -31,7 +31,7 @@ let leftMenu = {
         , speek: true
     },
     "Experience": {
-        icon: `<i class="icons">calendar_view_month</i>`,
+        icon: `<i class="icons size20">calendar_view_month</i>`,
         text: "Experience Summary",
         uri: "resources/prof_expr.json",
         overlayID: "Experience",
@@ -41,7 +41,7 @@ let leftMenu = {
         , speek: false
     },
     "SomeJs": {
-        icon: `<i class="icons">code</i>`,
+        icon: `<i class="icons size20">code</i>`,
         text: "Some Javascript Alogrithms - mostly linearly complex",
         uri: "resources/fewjs.txt",
         displaySubDiv: false,
@@ -50,7 +50,7 @@ let leftMenu = {
         , speek: false
     },
     "Projects": {
-        icon: `<i class="icons">engineering</i>`,
+        icon: `<i class="icons size20">engineering</i>`,
         text: "most recent projects",
         uri: "resources/projects.txt",
         overlayID: "Projects",
@@ -60,7 +60,7 @@ let leftMenu = {
         , speek: false
     },
     "Skills": {
-        icon: `<i class="icons">security</i>`,
+        icon: `<i class="icons size20">security</i>`,
         text: "What else I know",
         uri: "resources/skills.json",
         overlayID: "whatElse",
@@ -70,7 +70,7 @@ let leftMenu = {
         , speek: false
     },
     "Notes": {
-        icon: `<i class="icons">edit_note</i>`,
+        icon: `<i class="icons size20">edit_note</i>`,
         text: "This is What I make notes on...",
         uri: "resources/my_notes.txt",
         overlayID: "",
@@ -80,7 +80,7 @@ let leftMenu = {
         , speek: false
     },
     "Code": {
-        icon: `<i class="icons">code</i>`,
+        icon: `<i class="icons size20">code</i>`,
         text: "Html/Javascript/Python/Sql Code Blocks that I practice",
         uri: "code.html",
         displaySubDiv: false,
@@ -90,7 +90,7 @@ let leftMenu = {
         , speek: false
     },
     "CodeAPI": {
-        icon: `<i class="icons">code</i>`,
+        icon: `<i class="icons size20">code</i>`,
         text: "Code Example API endpoint",
         uri: 'https://dpresume.com/API/getCode.php?',
         displaySubDiv: false,
@@ -110,7 +110,7 @@ let leftMenu = {
         , speek: false
     },
     "Blogs": {
-        icon: `<i class="icons">rss_feed</i>`,
+        icon: `<i class="icons size20">rss_feed</i>`,
         text: "Some Blogs",
         uri: "resources/blogs.txt",
         displaySubDiv: false,
@@ -345,7 +345,7 @@ let handleLeftButtonClick = function (cur, key, sufApi = '') {
         }, 500)
     }
     let oldText = curUndefined ? '' : cur.innerHTML
-    if (!curUndefined) cur.innerHTML = plzWaitMsg
+    // if (!curUndefined) cur.innerHTML = plzWaitMsg
     // show(loadID);
     // moveProgress();
     let rightContainer = getById(rightPanelDiv);
@@ -494,11 +494,11 @@ function customFormat(data) {
                 allowSpeek = true
                 continue
             }
-            let canspeek = allowSpeek ? `${volumeup(`speek${i}`)}` : ''
+            let canspeek = allowSpeek ? `${volumeup(`speek${x}`)}` : ''
             if (isNaN(i)) { //json types
                 vals2display += `<h1><span>${i.toUpperCase()}</span> ${canspeek}</h1>`;
                 if (allowSpeek) {
-                    vals2display += `<div id="speek${i}">`;
+                    vals2display += `<div id="speek${x}">`;
                 }
                 if (Array.isArray(el)) {
                     for (let k in el) {
