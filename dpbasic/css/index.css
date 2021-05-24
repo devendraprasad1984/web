@@ -104,7 +104,7 @@ div {
     font-weight: normal;
     font-style: normal;
     /*font-size: 20px;*/
-    line-height: 1;
+    /*line-height: 1;*/
     letter-spacing: normal;
     text-transform: none;
     display: inline-block;
@@ -115,8 +115,8 @@ div {
     -webkit-font-smoothing: antialiased;
 }
 
-.icons:hover, .fab:hover, .fas:hover, .far:hover{
-    color: orangered;
+.icons:hover, a:hover, i:hover, .fab:hover, .fas:hover, .far:hover{
+    color: #797979;
 }
 
 .ml2 {
@@ -357,25 +357,11 @@ header, .top {
     font-size: 14px;
 }
 
-header div, header span, header a {
-    margin: 2px;
-    /*padding: 3px;*/
-}
-
 .name {
     font-weight: bold;
     font-size: 28px;
     vertical-align: middle;
 }
-
-.tld {
-    font-weight: bold;
-    font-size: 18pt;
-    vertical-align: middle;
-    float: right;
-    /*text-decoration: underline;*/
-}
-
 dl, ol, ul {
     margin-block-start: 0.2em;
     margin-block-end: 0.2em;
@@ -479,11 +465,6 @@ a {
     background-color: transparent;
 }
 
-a:hover {
-    color: orangered;
-    /*text-decoration: underline*/
-}
-
 .droplet {
     background: #4285F4;
     border-radius: 5% 5%;
@@ -522,7 +503,7 @@ li {
     overflow-y: auto;
 }
 
-.click {
+.click,i,.icons {
     cursor: pointer;
 }
 
@@ -716,9 +697,9 @@ li {
     }
 
     a, :not(i,.icons),
-    div > *:not(i,.icons.acitve, .tld, .size20, .size25),
-    .content *:not(i,.icons,.acitve, .tld, .size20, .size25) {
-        font-size: 10px;
+    div > *:not(i,.name,.icons.acitve, .tld, .size20, .size25),
+    .content *:not(i,.name,.icons,.acitve, .tld, .size20, .size25) {
+        font-size: 12px;
     }
     .overlay .closebtn {
         font-size: 10px;
@@ -726,8 +707,8 @@ li {
         right: -40px;
     }
 
-    .name, .tld {
-        font-size: 15px;
+    .name {
+        font-size: 14px;
         vertical-align: middle;
     }
 
