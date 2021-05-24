@@ -630,7 +630,7 @@ let whoareyou = (isCaptcha = false) => {
     let showLoader = () => {
         let moveAwayId = document.getElementById('moveAwayCounter')
         let show = i => {
-            moveAwayId.innerHTML = `<h1 class="xred">Landing to home in <span class="size20">${i}</span> <span class="btn danger xwhite" onclick="clearInterval(${moveAwayIntr})">stop</span></h1>`
+            moveAwayId.innerHTML = `<div class="xred">Landing to home in <span class="size20">${i}</span> <span class="btn danger xwhite" onclick="clearInterval(${moveAwayIntr})">stop</span></div>`
         }
         moveAwayIntr = setInterval(() => {
             if (counter <= 1) {
