@@ -20,6 +20,16 @@ let leftMenu = {
         displaySubDiv: false
         , speek: true
     },
+    "Achievements": {
+        icon: `<i class="icons size20">stars</i>`,
+        text: "Achievements Details",
+        uri: "resources/achievements.json",
+        overlayID: "Education",
+        displayInMenu: true,
+        displayContent: true,
+        displaySubDiv: false
+        , speek: true
+    },
     "Certification": {
         icon: `<i class="icons size20">badge</i>`,
         text: "Certification Details",
