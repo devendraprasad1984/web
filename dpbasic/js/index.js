@@ -845,7 +845,7 @@ const runAll = () => {
     }
     window.addEventListener('load', () => {
         initCall()
-        let payload = JSON.parse(localise())
+        let payload = JSON.parse(localise())    
         // handleX('post', payload)
         notifyMe('welcome mate!!')
     });
@@ -881,5 +881,4 @@ const runAll = () => {
 
 
 document.addEventListener('DOMContentLoaded', runAll)
-
 
