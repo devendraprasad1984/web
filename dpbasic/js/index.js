@@ -7,8 +7,9 @@ let leftMenu = {
         displaySubDiv: false,
         displayInMenu: true,
         displayContent: true,
-        loadDemo: true
-        , speek: true
+        loadDemo: true,
+        loadChannel: true,
+        speek: true
     },
     "Education": {
         icon: `<i class="icons size20">school</i>`,
@@ -375,6 +376,7 @@ let handleLeftButtonClick = function (cur, key, sufApi = '') {
     let subDisplay = current["displaySubDiv"];
     let loadLocal = current["loadLocal"];
     let loadDemo = current["loadDemo"] || false;
+    let loadChannel = current["loadChannel"] || false;
     let speek = current["speek"] || false;
     // console.log(text, uri, loadLocal);
     let sub = getById(subDiv);
@@ -845,7 +847,7 @@ const runAll = () => {
     }
     window.addEventListener('load', () => {
         initCall()
-        let payload = JSON.parse(localise())    
+        let payload = JSON.parse(localise())
         // handleX('post', payload)
         notifyMe('welcome mate!!')
     });
