@@ -8,5 +8,7 @@
   {"href": "https://dpresume.com/dpvoicebanking", "name": "Open Banking Hackathon"},
   {"href":"https://github.com/devendraprasad1984/nodejs/tree/master/ts-node-postgres-orm-api","name":"nodejs typeorm sample"},
   {"href": "https://github.com/devendraprasad1984/nodejs/tree/master/react-graphql-atom-recoil/test-recoil-atom","name": "react recoil graphql"},
-  {"href": "https://dpresume.com/swagger","name": "swagger"}
+  {"href": "https://dpresume.com/swagger","name": "swagger"},
+  {"href": "https://dpresume.com/bmi","name": "BMI Calculator Node App"},
+  {"href": "https://dpresume.com/bmi/coverage/lcov-report","name": "BMI-JEST"}
 ]
