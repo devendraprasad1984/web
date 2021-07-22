@@ -1,6 +1,7 @@
 [
-  {"href": "https://dpresume.com/bmi","name": "BMI Calculator Node App"},
+  {"href": "https://dpresume.com/bmi","name": "BMI Calculator NodeJs App"},
   {"href": "https://dpresume.com/bmi/coverage/lcov-report/index.html","name": "BMI-JEST"},
+  {"href": "https://dpresume.com/dragd3","name": "Draggable D3"},
   {"href": "https://dpresume.com/react-js-python/#/", "name": "React JS Library Based - without Node"},
   {"href": "https://dpresume.com/debounceExampleLazySearch/", "name": "Lazy Search Debounce Example"},
   {"href": "https://dpresume.com/docs/bdfdemojan21.webm", "name": "BDF Native App Demo"},
