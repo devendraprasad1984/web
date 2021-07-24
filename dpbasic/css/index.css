@@ -411,22 +411,33 @@ code, kbd, samp {
     font-size: 12px;
 }
 
-/*.demo {*/
-/*    position: relative;*/
-/*    display: inline;*/
-/*    overflow: auto;*/
-/*    !*height: 300px;*!*/
-/*}*/
-
 .flexbox {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     display: grid;
 }
 
+.flexbox-video {
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    display: grid;
+}
+
+
 .cards > span, .cards > a {
     padding: 5px;
     margin: 3px;
     height: 100px;
+    vertical-align: middle;
+    text-align: center;
+    box-sizing: border-box;
+    border-radius: 5px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
+    opacity: 0.7;
+}
+
+.video-cards > span, .video-cards > a {
+    padding: 10px;
+    margin: 10px;
+    height: 350px;
     vertical-align: middle;
     text-align: center;
     box-sizing: border-box;

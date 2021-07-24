@@ -298,7 +298,7 @@ function app() {
 const handleX = (type = 'get', payload = {}, cb) => {
     let isget = (type === 'get')
     let uri = isget ? 'service/service.php?get=1' : 'service/service.php?set=1'
-    let headers = isget ? {method: type} : {method: type, body: JSON.stringify(payload)}
+    let headers = isget ? { method: type } : { method: type, body: JSON.stringify(payload) }
     const call = async () => {
         const res = await fetch(uriPrefix + uri, headers)
         const data = await res.json()
@@ -332,17 +332,30 @@ let toggleLeftPanel = function (e) {
 let demoPageContent = async () => {
     let res = await fetch('resources/demo.json')
     let data = await res.json()
-    let print = () => data.map(x => {
+    let { links, videos } = data
+    let printLinks = () => links.map(x => {
         let num = Math.floor(Math.random() * colorsArray.length)
         let bgColor = colorsArray[num] || 'white'
         return `<a style="background-color: ${bgColor};"  target="_blank" href="${x.href}" class="mcard">
         <span>${x.name}</span>
         </a>`
     }).join('')
+    let printVideos = () => videos.map(x => {
+        let vtag = `<span>
+        <h2>${x.name}</h2>
+        <video width="100%" height="95%" controls>
+            <source src="${x.src}" type="${x.type}">
+        </video>
+        </span>`
+        return vtag
+    }).join('')
 
     return `<div>
     <h1>few Live Demo Examples</h1>
-    <div class="demo flexbox cards">${print()}</div>
+    <div class="flexbox cards">${printLinks()}</div>
+    <br/><br/>
+    <h1>few Video Demo</h1>
+    <div class="flexbox-video video-cards">${printVideos()}</div>
     </div>`
 }
 
@@ -508,7 +521,7 @@ function customFormat(data) {
             }
             let canspeek = allowSpeek ? `${volumeup(`speek${x}`)}` : ''
             if (isNaN(i)) { //json types
-                vals2display += `<h1><b>${i.toUpperCase()}</b>&nbsp; ${typeof el==="string" ? el : ''} ${canspeek}</h1>`;
+                vals2display += `<h1><b>${i.toUpperCase()}</b>&nbsp; ${typeof el === "string" ? el : ''} ${canspeek}</h1>`;
                 if (allowSpeek) {
                     vals2display += `<div id="speek${x}">`;
                 }
@@ -548,7 +561,7 @@ function handleOverlayContent(text, id) {
     loadID.style.display = 'block';
     // moveProgress();
     let overlayDiv = getById(idOverlay);
-    let xobj = {text: text};
+    let xobj = { text: text };
     let headerLine = '<h1>' + xobj.text + '</h1>';
     let contetnLine = '<div>';
     let ds = adhocDataSet[id];
@@ -631,7 +644,7 @@ let saveSession = (isCaptcha = false) => {
     if (!checkCaptch(isCaptcha)) return
     let name = document.getElementById('visitorname').value || ''
     let mobile = document.getElementById('visitormobile').value || ''
-    let appdata = JSON.stringify({name, mobile, lastloggedon: new Date()})
+    let appdata = JSON.stringify({ name, mobile, lastloggedon: new Date() })
     localStorage.setItem(appkey, appdata)
     notifyMe('welcome, thanks for visiting my app', true, () => {
         location.href = '/'
@@ -683,7 +696,7 @@ const animate = (clsid, type = 1) => {
     textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
 
     if (type === 1) {
-        anime.timeline({loop: true})
+        anime.timeline({ loop: true })
             .add({
                 targets: `.${clsid} .letter`,
                 translateY: ["0.7em", 0],
@@ -691,15 +704,15 @@ const animate = (clsid, type = 1) => {
                 duration: 850,
                 delay: (el, i) => 50 * i
             }).add({
-            targets: `.${clsid}`,
-            opacity: 0,
-            duration: 1000,
-            easing: "easeOutExpo",
-            delay: 1000
-        });
+                targets: `.${clsid}`,
+                opacity: 0,
+                duration: 1000,
+                easing: "easeOutExpo",
+                delay: 1000
+            });
     }
     if (type === 2) {
-        anime.timeline({loop: true})
+        anime.timeline({ loop: true })
             .add({
                 targets: `.${clsid} .letter`,
                 scale: [2, 1],
@@ -709,15 +722,15 @@ const animate = (clsid, type = 1) => {
                 duration: 750,
                 delay: (el, i) => 70 * i
             }).add({
-            targets: `.${clsid}`,
-            opacity: 0,
-            duration: 1000,
-            easing: "easeOutExpo",
-            delay: 1000
-        })
+                targets: `.${clsid}`,
+                opacity: 0,
+                duration: 1000,
+                easing: "easeOutExpo",
+                delay: 1000
+            })
     }
     if (type === 3) {
-        anime.timeline({loop: true})
+        anime.timeline({ loop: true })
             .add({
                 targets: `.${clsid} .letter`,
                 translateY: [100, 0],
@@ -727,13 +740,13 @@ const animate = (clsid, type = 1) => {
                 duration: 1400,
                 delay: (el, i) => 300 + 30 * i
             }).add({
-            targets: `.${clsid} .letter`,
-            translateY: [0, -100],
-            opacity: [1, 0],
-            easing: "easeInExpo",
-            duration: 1200,
-            delay: (el, i) => 100 + 30 * i
-        });
+                targets: `.${clsid} .letter`,
+                translateY: [0, -100],
+                opacity: [1, 0],
+                easing: "easeInExpo",
+                duration: 1200,
+                delay: (el, i) => 100 + 30 * i
+            });
     }
 }
 
@@ -854,33 +867,5 @@ const runAll = () => {
     window.addEventListener('hashchange', initCall)
     window.addEventListener('onpopstate', initCall);
 }
-
-//
-// function createCircleChart(percent, color, size, stroke) {
-//     let svg = `<svg class="mkc_circle-chart" viewbox="0 0 36 36" width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg">
-//         <path class="mkc_circle-bg" stroke="#eeeeee" stroke-width="${stroke * 0.5}" fill="none" d="M18 2.0845
-//               a 15.9155 15.9155 0 0 1 0 31.831
-//               a 15.9155 15.9155 0 0 1 0 -31.831"/>
-//         <path class="mkc_circle" stroke="${color}" stroke-width="${stroke}" stroke-dasharray="${percent},100" stroke-linecap="round" fill="none"
-//             d="M18 2.0845
-//               a 15.9155 15.9155 0 0 1 0 31.831
-//               a 15.9155 15.9155 0 0 1 0 -31.831" />
-//         <text class="mkc_info" x="50%" y="50%" alignment-baseline="central" text-anchor="middle" font-size="8">${percent}%</text>
-//     </svg>`;
-//     return svg;
-// }
-//
-// let charts = document.getElementsByClassName('mkCharts');
-//
-// for(let i=0;i<charts.length;i++) {
-//     let chart = charts[i];
-//     let percent = chart.dataset.percent;
-//     let color = ('color' in chart.dataset) ? chart.dataset.color : "#2F4F4F";
-//     let size = ('size' in chart.dataset) ? chart.dataset.size : "100";
-//     let stroke = ('stroke' in chart.dataset) ? chart.dataset.stroke : "1";
-//     charts[i].innerHTML = createCircleChart(percent, color, size, stroke);
-// }
-
-
 document.addEventListener('DOMContentLoaded', runAll)
 
