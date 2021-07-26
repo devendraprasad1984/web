@@ -29,18 +29,15 @@
 
 <div class='box'>
     <b>CNMS - Cash Nostro Management System, Oct2011 - Jan2015</b>
-    Soap implemented, python proxy server, the aim was to have a single instance accessing
+    Soap implemented, python proxy server, acts as middleware, the aim was to have a single instance accessing
     RBS cash balances server and can give relevant data to authorized clients identified by
     IPs.
 </div>
 
 <div class='box'>
-    <b>Miscellaneous:</b> L3 support, non technology / reporting / migration projects
-
-    <b>Agile ceremonies:</b> planning, estimation, sprint, retrospective, review
-
-    <b>SDLC:</b> requirements gathering, analysis, design, coding, testing, deployment and support
-
-    <b>Other Projects:</b> Library Management, PRVit, MDO, iPub, few automation tools in excel
+    <b>Miscellaneous:</b> L3 support, non technology / reporting / migration projects<br/>
+    <b>Agile ceremonies:</b> planning, estimation, sprint, retrospective, review<br/>
+    <b>SDLC:</b> requirements gathering, analysis, design, coding, testing, deployment and support<br/>
+    <b>Other Projects:</b> Library Management, PRVit, MDO, iPub, few automation tools in excel<br/>
 </div>
 </div>
