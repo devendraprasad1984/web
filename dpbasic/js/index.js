@@ -158,15 +158,15 @@ let synthesis = 'speechSynthesis' in window ? window.speechSynthesis : undefined
 let isSpeaking = false;
 
 let colorsArray = [
-    '#cbf8df', '#f5dabe', '#66CDAA', '#F0FFFF',
-    '#FAFAD2', '#FFEBCD', '#66d9ff', '#F8EC7B',
-    '#E8B2EE', '#F8C67B', '#C3EEF1', '#D9B2EE',
-    '#B2EED2', '#EEB2CE', '#f8a5ae', '#E1EAAF',
-    '#e7e8d7', '#7FB4EC', '#7ffcd9', '#ecb88a',
-    '#437dc7', '#caf3bf', '#c8a1fc', '#f5c16d',
-    '#ff8566', '#f6e23d', '#e2e0e3', '#ea9517',
-    '#f6def8', '#f8c6bf', '#61fab4', '#fc75b1',
-    '#7dce8a', '#daef51', '#9388d7', '#bea9cd'
+    '#0f7d3e', '#e77b0c', '#66CDAA', '#3ebaba',
+    '#666650', '#ce9138', '#66d9ff', '#898125',
+    '#d81ae8', '#958776', '#4caeb6', '#7f0dbb',
+    '#16de81', '#EEB2CE', '#f8a5ae', '#91a058',
+    '#214f80', '#7FB4EC', '#18a57d', '#ecb88a',
+    '#4539c6', '#4f8740', '#7318e7', '#f5c16d',
+    '#ff8566', '#baaa29', '#9536c2', '#ea9517',
+    '#458cc9', '#e24e3c', '#36ba7d', '#fc75b1',
+    '#43c45a', '#839321', '#9388d7', '#9b42d2'
 ]
 let volumeup = (id) => `<span class="icons click size25" onclick="speakOut(this,'${id}')">volume_up</span>`
 
@@ -335,9 +335,9 @@ let demoPageContent = async () => {
     let {links, videos} = data
     let printLinks = () => links.map(x => {
         let num = Math.floor(Math.random() * colorsArray.length)
-        let bgColor = colorsArray[num] || 'white'
-        return `<a style="background-color: ${bgColor};"  target="_blank" href="${x.href}" class="mcard">
-        <span>${x.name}</span>
+        let color = colorsArray[num] || 'white'
+        return `<a class="white pcenter" target="_blank" href="${x.href}" class="mcard">
+            <span style="color: ${color}" class="center">${x.name}</span>
         </a>`
     }).join('')
     let printVideos = () => videos.map(x => {

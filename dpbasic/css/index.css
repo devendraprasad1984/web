@@ -83,6 +83,20 @@ h1 {
     font-weight: bolder;
 }
 
+.pcenter{
+    display: flex;
+}
+
+.pcenter span{
+    width: 100%;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 b {
     color: #7f279e !important;
 }
