@@ -21,6 +21,10 @@
       "name": "Geek Trust Admin UI Challenge"
     },
     {
+      "href": "https://dpresume.com/svelte/firstapp",
+      "name": "first basic svelte library/transpiled app"
+    },
+    {
       "href": "https://dpresume.com/debounceExampleLazySearch/",
       "name": "Lazy Search Debounce Example"
     },
