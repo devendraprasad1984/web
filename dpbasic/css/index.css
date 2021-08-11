@@ -1,3 +1,13 @@
+:root {
+    --purple-color: #7f279e;
+    --gray-color: #797979;
+    --black-color: #222;
+    --grad-color1: #ffefe3;
+    --grad-color2: #e4f8e4;
+    --link-active-color1: #9149c2;
+    --link-active-color2: #f3cdc1;
+}
+
 html {
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
@@ -10,6 +20,7 @@ html {
     -o-background-size: cover;
     background-size: cover;
 }
+
 @font-face {
     font-family: 'Material Icons';
     font-style: normal;
@@ -26,9 +37,13 @@ html {
     src: url(../css/GothamRounded-Medium.woff2) format('woff2');
 }
 
-body{
+body {
     height: 100vh;
     width: 100vw;
+}
+@-ms-viewport {
+    width: 100vw;
+    height: 100vh;
 }
 
 *, :after, :before {
@@ -37,23 +52,23 @@ body{
 }
 
 .bodybg {
-    background-image: linear-gradient(to bottom, #ffefe3, #e4f8e4);
+    background-image: linear-gradient(to bottom, var(--grad-color1), var(--grad-color2));
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
 
 a, :not(i,.icons, .size10, .size15, .size20) {
-    color: #222;
+    color: var(--black-color);
     font-size: 14px;
 }
 
 .active {
     /*background-color: white;*/
-    background-image: linear-gradient(to right, #b998ef, #f5efec);
+    background-image: linear-gradient(to right, var(--link-active-color1), var(--link-active-color2));
 }
 
 h1, h2, h3, h4, h5, h6, .tld {
-    color: #222;
+    color: var(--black-color);
     font-weight: bolder;
     cursor: pointer;
     text-decoration: none;
@@ -83,22 +98,22 @@ h1 {
     font-weight: bolder;
 }
 
-.pcenter{
+.pcenter {
     display: flex;
 }
 
-.pcenter span{
+.pcenter span {
     width: 100%;
 }
 
-.center{
+.center {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 b {
-    color: #7f279e !important;
+    color: var(--purple-color) !important;
 }
 
 code {
@@ -130,7 +145,7 @@ div {
 }
 
 .icons:hover, a:hover, i:hover, .fab:hover, .fas:hover, .far:hover {
-    color: #797979;
+    color: var(--gray-color);
 }
 
 .ml2 {
@@ -221,13 +236,13 @@ pre {
 
 input {
     width: 100%;
-    border: 2px solid #222;
+    border: 2px solid var(--black-color);
     padding: 5px;
     margin-top: 4px;
 }
 
 ::placeholder {
-    color: #202124;
+    color: var(--black-color);
     opacity: 0.8;
 }
 
@@ -238,11 +253,6 @@ input {
     height: 100%;
     width: 100%;
     background-color: white;
-}
-
-@-ms-viewport {
-    width: 100vw;
-    height: 100vh;
 }
 
 /*html5 compatible old browser IE*/
@@ -290,12 +300,11 @@ section {
 }
 
 .text-black {
-    color: black;
+    color: var(--black-color);
 }
 
 .column {
     flex: 50%;
-    /*padding: 10px;*/
     height: 300px;
 }
 
@@ -312,12 +321,12 @@ section {
 }
 
 .star {
-    color: #c82333;
+    color: var(--purple-color);
     cursor: pointer;
 }
 
 .star:hover {
-    color: #005cbf;
+    color: var(--gray-color);
     float: right;
 }
 
@@ -359,7 +368,6 @@ section {
 
 .topdiv {
     position: absolute;
-    background-color: #20c997;
     color: white;
     width: auto;
     padding: 5px;
@@ -368,9 +376,7 @@ section {
 header, .top {
     top: 0;
     left: 0;
-    /*position: fixed;*/
     width: 100%;
-    /*z-index: 100;*/
     font-size: 14px;
 }
 
@@ -495,7 +501,7 @@ a {
 }
 
 .droplet {
-    background: #4285F4;
+    background: var(--grad-color1);
     border-radius: 5% 5%;
     transition: all 1s;
     transition-timing: ease-in-out;
@@ -514,7 +520,7 @@ li {
     z-index: 1000;
     top: 0;
     left: 0;
-    background-color: rgb(18, 76, 152);
+    background-color: var(--grad-color2);
     overflow-x: hidden;
     display: none;
     opacity: 0.85;
@@ -872,7 +878,7 @@ select {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #222;
+    background: var(--black-color);
 }
 
 /* Handle on hover */
