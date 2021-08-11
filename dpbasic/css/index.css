@@ -1,20 +1,15 @@
 html {
-    zoom: 92%;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
     -ms-overflow-style: scrollbar;
     -webkit-tap-highlight-color: transparent;
-    /*font-family: sans-serif;*/
     -webkit-font-smoothing: antialiased;
-    /*font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";*/
-    /*width: 98vw;*/
+    zoom: 98%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
-
-*, :after, :before {
-    box-sizing: border-box;
-}
-
-
 @font-face {
     font-family: 'Material Icons';
     font-style: normal;
@@ -22,38 +17,39 @@ html {
     src: url(../css/gstaticFont.woff2) format('woff2');
 }
 
-@font-face {
-    font-family: 'Source Code Pro';
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url(../css/sourceCodePro.woff2) format('woff2');
-}
-
 
 @font-face {
-    font-family: 'Source Code Pro';
+    font-family: "Gotham Rounded";
     font-style: normal;
-    font-weight: 400;
+    font-weight: 450;
     font-display: swap;
     src: url(../css/GothamRounded-Medium.woff2) format('woff2');
 }
 
-
-* {
-    box-sizing: border-box;
-    font-family:'GothamRrounded', 'Source Code Pro', monospace;
-    /*opacity: 0.99;*/
+body{
+    height: 100vh;
+    width: 100vw;
 }
 
-a, :not(i,.icons, .size10, .size15, .size20)
-{
+*, :after, :before {
+    box-sizing: border-box;
+    font-family: 'Gotham Rounded', monospace;
+}
+
+.bodybg {
+    background-image: linear-gradient(to bottom, #ffefe3, #e4f8e4);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+a, :not(i,.icons, .size10, .size15, .size20) {
     color: #222;
     font-size: 14px;
 }
 
 .active {
-    background-color: #eeeded;
+    /*background-color: white;*/
+    background-image: linear-gradient(to right, #b998ef, #f5efec);
 }
 
 h1, h2, h3, h4, h5, h6, .tld {
@@ -64,7 +60,8 @@ h1, h2, h3, h4, h5, h6, .tld {
     padding: 0;
     margin: 0;
 }
-h1{
+
+h1 {
     display: flex;
     vertical-align: middle;
 }
@@ -86,7 +83,7 @@ h1{
 }
 
 b {
-    color: #229ecd !important;
+    color: #7f279e !important;
 }
 
 code {
@@ -119,7 +116,7 @@ div {
     -webkit-font-smoothing: antialiased;
 }
 
-.icons:hover, a:hover, i:hover, .fab:hover, .fas:hover, .far:hover{
+.icons:hover, a:hover, i:hover, .fab:hover, .fas:hover, .far:hover {
     color: #797979;
 }
 
@@ -330,6 +327,9 @@ section {
 }
 
 .content-right {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 10px;
     overflow: auto;
     word-wrap: break-word;
     position: relative;
@@ -340,7 +340,7 @@ section {
     overflow: auto;
     word-wrap: break-word;
     position: relative;
-    background-color: #e9ecef;
+    /*background-color: #e9ecef;*/
     width: 80%;
 }
 
@@ -366,6 +366,7 @@ header, .top {
     font-size: 28px;
     vertical-align: middle;
 }
+
 dl, ol, ul {
     margin-block-start: 0.2em;
     margin-block-end: 0.2em;
@@ -518,7 +519,7 @@ li {
     overflow-y: auto;
 }
 
-.click,i,.icons {
+.click, i, .icons {
     cursor: pointer;
 }
 
@@ -614,6 +615,7 @@ li {
 .xred {
     color: #c82f3e !important;
 }
+
 .xorange {
     color: #ea550c !important;
 }
@@ -683,7 +685,7 @@ li {
     padding: 5px;
 }
 
-.runbar{
+.runbar {
     border-bottom: 3px solid mediumvioletred;
     /*width: 400px;*/
     /*height: 2px;*/
@@ -693,6 +695,7 @@ li {
     /*left: 50%;*/
     /*transform: translate(-50%, -50%);*/
 }
+
 /*.runbar:before{*/
 /*    content: "";*/
 /*    position: absolute;*/
@@ -728,7 +731,8 @@ li {
     display: inline-block;
     vertical-align: middle;
 }
-.img-animate{
+
+.img-animate {
     border-radius: 100%;
     -webkit-animation: border-transform-default 10s linear infinite alternate forwards;
     animation: border-transform-default 10s linear infinite alternate forwards;
@@ -761,6 +765,7 @@ li {
     .content *:not(i,.name,.icons,.acitve, .tld, .size20, .size25) {
         font-size: 12px;
     }
+
     .overlay .closebtn {
         font-size: 10px;
         top: 5px;
