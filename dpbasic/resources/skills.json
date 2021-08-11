@@ -15,6 +15,7 @@
     "FrontEnd": [
       "HTML5 . ES6~5",
       "react: 16.8.0~4",
+      "svelte: 3.0.0~4",
       "recoil: latest~4",
       "node: latest~4",
       "typeOrm: latest~4",
