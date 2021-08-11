@@ -69,5 +69,19 @@
       "type": "video/webm",
       "name": "Supply Chain React-Native App"
     }
+  ],
+  "youtube": [
+    {
+      "src": "https://www.youtube.com/embed/Rixb_zZoG-g",
+      "name": "NodeJs BMI App"
+    },
+    {
+      "src": "https://www.youtube.com/embed/4t_oHrZKwgw",
+      "name": "BDF React-Native App"
+    },
+    {
+      "src": "https://www.youtube.com/embed/V1GI28fOYvQ",
+      "name": "Supply Chain React-Native App"
+    }
   ]
 }

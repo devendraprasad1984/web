@@ -332,7 +332,7 @@ let toggleLeftPanel = function (e) {
 let demoPageContent = async () => {
     let res = await fetch('resources/demo.json')
     let data = await res.json()
-    let {links, videos} = data
+    let {links, videos, youtube} = data
     let printLinks = () => links.map(x => {
         let num = Math.floor(Math.random() * colorsArray.length)
         let color = colorsArray[num] || 'white'
@@ -349,13 +349,20 @@ let demoPageContent = async () => {
         </span>`
         return vtag
     }).join('')
+    let printYouTubeVideos = () => youtube.map(x => {
+        let vtag = `<span>
+        <h2>${x.name}</h2>
+        <iframe width="420" height="345" src="${x.src}" frameborder="0"></iframe>
+        </span>`
+        return vtag
+    }).join('')
 
     return `<div>
     <h1>few Live Demo Examples</h1>
     <div class="flexbox cards">${printLinks()}</div>
     <br/><br/>
     <h1>few Video Demo</h1>
-    <div class="flexbox-video video-cards">${printVideos()}</div>
+    <div class="flexbox-video video-cards">${printYouTubeVideos()}</div>
     </div>`
 }
 
