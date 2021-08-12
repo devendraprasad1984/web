@@ -6,6 +6,7 @@
     --grad-color2: #e4f8e4;
     --link-active-color1: #c997ee;
     --link-active-color2: #f3cdc1;
+    --gradient-image-color: linear-gradient(to right, var(--link-active-color1), var(--link-active-color2))
 }
 
 html {
@@ -40,7 +41,10 @@ html {
 body {
     height: 100vh;
     width: 100vw;
+    margin: 2px;
+    padding: 2px;
 }
+
 @-ms-viewport {
     width: 100vw;
     height: 100vh;
@@ -64,7 +68,7 @@ a, :not(i,.icons, .size10, .size15, .size20) {
 
 .active {
     /*background-color: white;*/
-    background-image: linear-gradient(to right, var(--link-active-color1), var(--link-active-color2));
+    background-image: var(--gradient-image-color)
 }
 
 h1, h2, h3, h4, h5, h6, .tld {
@@ -74,6 +78,14 @@ h1, h2, h3, h4, h5, h6, .tld {
     text-decoration: none;
     padding: 0;
     margin: 0;
+}
+
+.topbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: space-between;
+    align-items: stretch;
 }
 
 h1 {
@@ -311,9 +323,16 @@ section {
 .row {
     display: flex;
 }
-
+.right-flex{
+    display: flex;
+    align-content: flex-end;
+    align-items: flex-end;
+    align-self: flex-end;
+    text-align: right;
+}
 .right {
-    float: right;
+    /*float: right;*/
+    text-align: right;
 }
 
 .left {
@@ -383,7 +402,10 @@ header, .top {
 .name {
     font-weight: bold;
     font-size: 28px;
-    vertical-align: middle;
+}
+.name-lead {
+    font-weight: bold;
+    font-size: 20px;
 }
 
 dl, ol, ul {
@@ -457,6 +479,12 @@ code, kbd, samp {
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
     opacity: 0.7;
 }
+
+.cards span:hover, .cards a:hover {
+    background-image: var(--gradient-image-color);
+    color: var(--black-color) !important;
+}
+
 
 .video-cards > span, .video-cards > a {
     padding: 10px;
@@ -705,43 +733,8 @@ li {
 }
 
 .runbar {
-    border-bottom: 3px solid mediumvioletred;
-    /*width: 400px;*/
-    /*height: 2px;*/
-    /*background: #fff;*/
-    /*!*position: absolute;*!*/
-    /*top: 50%;*/
-    /*left: 50%;*/
-    /*transform: translate(-50%, -50%);*/
+    border-bottom: 3px solid var(--black-color);
 }
-
-/*.runbar:before{*/
-/*    content: "";*/
-/*    position: absolute;*/
-/*    top: 0;*/
-/*    left: 0;*/
-/*    width: 5px;*/
-/*    height: 100%;*/
-/*    background: #732fce;*/
-/*    animation: lineanimate 5s linear infinite;*/
-/*}*/
-/*.runbar:before {*/
-/*    content: "";*/
-/*    position: absolute;*/
-/*    left: 0;*/
-/*    top: 0;*/
-/*    height: 100%;*/
-/*    width: 5px;*/
-/*    background: #2f86e3;*/
-/*    -webkit-animation-duration: 2s;*/
-/*    animation-duration: 2s;*/
-/*    -webkit-animation-timing-function: linear;*/
-/*    animation-timing-function: linear;*/
-/*    -webkit-animation-iteration-count: infinite;*/
-/*    animation-iteration-count: infinite;*/
-/*    -webkit-animation-name: MOVE-BG;*/
-/*    animation-name: MOVE-BG;*/
-/*}*/
 
 .img {
     width: 100%;
@@ -769,10 +762,20 @@ li {
 
 
 @media screen and (max-width: 600px) {
-
     .flexbox {
         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
         display: grid;
+    }
+    .menuicon{
+        font-size: 20px;
+    }
+    .content-left{
+        position: absolute;
+        /*background-image: var(--gradient-image-color);*/
+        background-color: var(--grad-color2);
+        z-index: 10000;
+        height: 100%;
+        width: 70vw;
     }
 
     #imgPic, .imgPic {
@@ -792,8 +795,10 @@ li {
     }
 
     .name {
-        font-size: 14px;
-        vertical-align: middle;
+        font-size: 18px;
+    }
+    .name-lead {
+        font-size: 16px;
     }
 
     .togglePanel {
