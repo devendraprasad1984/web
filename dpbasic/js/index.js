@@ -536,7 +536,7 @@ function customFormat(data) {
                     for (let k in el) {
                         if (x.toLowerCase() === 'skills' && el[k].indexOf('~') !== -1) {
                             d1 = el[k].split('~');
-                            vals2display += '<div><span>' + d1[0] + '</span>' + '<span class="right star" title="I know ' + d1[0] + ' - ' + d1[1] + '/span">' + getStar(d1[1]) + '</span></div>';
+                            vals2display += '<div class="flexitem"><span>' + d1[0] + '</span>' + '<span class="star" title="I know ' + d1[0] + ' - ' + d1[1] + '/span">' + getStar(d1[1]) + '</span></div>';
                         } else {
                             vals2display += '<div>' + el[k] + '</div>';
                         }
