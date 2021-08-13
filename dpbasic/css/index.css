@@ -665,7 +665,7 @@ li {
 }
 
 .xred {
-    color: #c82f3e !important;
+    color: red !important;
 }
 
 .xorange {
@@ -678,7 +678,7 @@ li {
 }
 
 .danger {
-    background-color: #dc3545
+    background-color: #ee5664
 }
 
 
