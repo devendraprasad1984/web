@@ -677,7 +677,7 @@ let whoareyou = (isCaptcha = false) => {
     }
     if (isCaptcha === true) Captcha()
     let elm = []
-    elm.push('<div style="width: 50%">')
+    elm.push('<div style="width: 100%">')
     elm.push(`<h1>only for one time in life, i just need to know who visited my page</h1>`)
     elm.push(`<div id="moveAwayCounter"></div>`)
     elm.push(`<h3 class="xinfo">this is only one time ask</h3>`)
@@ -861,7 +861,7 @@ const runAll = () => {
     window.addEventListener('load', () => {
         // window.startConfetti()
         initCall()
-        let payload = JSON.parse(localise())
+        // let payload = JSON.parse(localise())
         // handleX('post', payload)
         notifyMe('welcome mate!!')
         // setTimeout(() => window.stopConfetti(), 5000)

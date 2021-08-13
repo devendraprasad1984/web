@@ -110,11 +110,19 @@ h1 {
 }
 
 .size20 {
-    font-size: 25px !important;
+    font-size: 20px !important;
 }
 
 .size25 {
-    font-size: 20px !important;
+    font-size: 25px !important;
+    font-weight: bolder;
+}
+.size30 {
+    font-size: 30px !important;
+    font-weight: bolder;
+}
+.size35 {
+    font-size: 35px !important;
     font-weight: bolder;
 }
 
@@ -649,7 +657,7 @@ li {
 
 
 .xinfo {
-    color: #5ccdea !important;
+    color: #3dadcd !important;
 }
 
 .xwarning {
@@ -769,6 +777,7 @@ li {
     }
 
     .content-left {
+        display: none;
         position: absolute;
         /*background-image: var(--gradient-image-color);*/
         background-color: var(--grad-color2);
