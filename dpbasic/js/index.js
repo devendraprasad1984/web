@@ -352,7 +352,11 @@ let demoPageContent = async () => {
     let printYouTubeVideos = () => youtube.map(x => {
         let vtag = `<span>
         <h2>${x.name}</h2>
-        <iframe width="100%" height="95%" src="${x.src}" frameborder="0"></iframe>
+        <iframe width="100%" height="95%" src="${x.src}" frameborder="0" allowfullscreen="allowfullscreen"
+        mozallowfullscreen="mozallowfullscreen" 
+        msallowfullscreen="msallowfullscreen" 
+        oallowfullscreen="oallowfullscreen" 
+        webkitallowfullscreen="webkitallowfullscreen"></iframe>
         </span>`
         return vtag
     }).join('')
