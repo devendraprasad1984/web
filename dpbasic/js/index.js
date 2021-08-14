@@ -684,7 +684,7 @@ let whoareyou = (isCaptcha = false) => {
     elm.push('<div style="width: 100%">')
     elm.push(`<h1>only for one time in life, i just need to know who visited my page</h1>`)
     elm.push(`<div id="moveAwayCounter"></div>`)
-    elm.push(`<h3 class="xinfo">this is only one time ask</h3>`)
+    elm.push(`<h3 class="xinfo">this is only one time ask - <span class="xred">(DUMMY), I am NOT Saving Your Details</span></h3>`)
     elm.push(`<input id="visitorname" placeholder="enter you name(optional)" />`)
     elm.push(`<input id="visitormobile" placeholder="enter you contact number (optional)" />`)
     elm.push(isCaptcha ? displayCaptcha : null)
