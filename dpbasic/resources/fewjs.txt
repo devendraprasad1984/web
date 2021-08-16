@@ -1,3 +1,4 @@
+<pre><code>
 String.prototype.reverseme = function () {
     return reverseString(this)
 }
@@ -1143,3 +1144,4 @@ const updateInventoryInArray = () => {
 
     updateInventory(curInv, newInv);
 }
+</code></pre>
