@@ -1,4 +1,4 @@
-<pre><code>
+<pre><div class='codeBlock'>
 String.prototype.reverseme = function () {
     return reverseString(this)
 }
@@ -1144,4 +1144,4 @@ const updateInventoryInArray = () => {
 
     updateInventory(curInv, newInv);
 }
-</code></pre>
+</div></pre>
