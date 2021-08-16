@@ -43,48 +43,47 @@ const minMaxIndexes = () => {
 }
 // minMaxIndexes()
 
-const findPairSum = () => {
-    // find pair of sum
-    let array = [1, 2, 3, 4, 5, 6, 8]
-    let collectionResults = {}
-    let sum = 9
-    for (let i in array) {
-        let curVal = array[i]
-        //for removing duplicates
-        let resKeys = Object.keys(collectionResults).map(x => parseInt(x))
-        let resVals = Object.values(collectionResults)
-        // console.log(resKeys, resVals)
-        if (resKeys.indexOf(curVal) === -1 && resVals.indexOf(curVal) === -1)
-            collectionResults[sum - curVal] = curVal
+const findPairSum = (arr, givensum) => {
+    let pairSum = []
+    for (let i in arr) {
+        let curVal = arr[i]
+        if (curVal === undefined || curVal === null || isNaN(curVal)) continue
+        let diff = givensum - curVal
+        if (pairSum.indexOf(diff) === -1 && arr.indexOf(diff) !== -1) {
+            pairSum.push(curVal, diff)
+        }
     }
-    console.log('pair of numbers that equals givan sum', sum, '=', collectionResults)
+    console.log('pair of numbers that equals givan sum', givensum, '=', pairSum)
 }
 
-const makeUnique = (ar) => {
-    let obj = {}
+const uniqueAndSort = (ar) => {
+    let uniqSortCounter = {}
     for (let i of ar)
-        obj[i] = '1'
-    return Object.keys(obj).map(x => Number(x))
+        uniqSortCounter[i] = uniqSortCounter[i] === undefined ? 1 : uniqSortCounter[i] + 1
+    return uniqSortCounter
     //this is another way of sorting the array, keys are automatically sorted
 }
-// console.log(makeUnique([1, 2, 3,9,8, 5, 5, 3, 3, 3]))
+// console.log(makeUnique([1, 2, 3, 9, 8, 5, 5, 3, 3, 3]))
+
 const countForTallestCandle = () => {
     let candles = [1, 2, 3, 5, 5, 3, 3, 3]
     // let sortedCandles=candles.sort((a,b)=>a-b)
-    let uniqElem = makeUnique(candles)
-    //let tallestCandle=Math.max(...candles)
-    let lengthOfUniqElem = uniqElem.length - 1
-    let tallestCandle = uniqElem[lengthOfUniqElem]
-    let secondTallestCandle = uniqElem[lengthOfUniqElem - 1]
-    let tallestCounter = 0
-    let secondTallestCounter = 0
-    for (let i of candles) {
-        if (i === tallestCandle) tallestCounter++
-        if (i === secondTallestCandle) secondTallestCounter++
-    }
-    console.log('candles', candles, 'unique', uniqElem, 'tallest candle', tallestCandle, '2nd tallest candle'
-        , secondTallestCandle, 'tallest counter', tallestCounter, '2nd tallest counter', secondTallestCounter)
+    let uniqSort = uniqueAndSort(candles)
+    let distinctArr = Object.keys(uniqSort)
+    let lengthOfUniqElem = distinctArr.length - 1
+    let tallestCandle = distinctArr[lengthOfUniqElem]
+    let secondTallestCandle = distinctArr[lengthOfUniqElem - 1]
+    let tallestCounter = uniqSort[tallestCandle]
+    let secondTallestCounter = uniqSort[secondTallestCandle]
+    // for (let i of candles) {
+    //     if (i === tallestCandle) tallestCounter++
+    //     if (i === secondTallestCandle) secondTallestCounter++
+    // }
+    console.log('candles', candles, 'unique', uniqSort, 'tallest candle', tallestCandle, '2nd tallest candle', secondTallestCandle)
+    console.log('tallest counter', tallestCounter, '2nd tallest counter', secondTallestCounter)
 }
+// countForTallestCandle()
+
 const reduceTest = () => {
     let sum = [1, 2, 3, 4, 5, 6].reduce((prev, cur, index) => {
         return prev + cur
@@ -182,7 +181,9 @@ const powerset = () => {
     }
     console.log('powerset of', arr, 'is', res)
 }
-const words = ['hello', 'world', 'this is fine']
+// powerset()
+
+const words = ['hello', 'world', 'this is fine!', 'this a final']
 const hocUsingReduce = (w1, w2) => {
     if (w1.length > w2.length)
         return w1
@@ -190,6 +191,7 @@ const hocUsingReduce = (w1, w2) => {
         return w2
 }
 // console.log('longest word is', words.reduce(hocUsingReduce))
+
 const left2RightCompose = () => {
     let funcArr = [
         x => x * 2,
@@ -213,6 +215,7 @@ const minmaxsum_setof4 = () => {
     console.log('min sum', sum - max, 'max sum', sum - min)
 }
 // minmaxsum_setof4()
+
 const incrementArrayBy1 = (ar) => {
     // let ar = [1, 2, 3]
     // console.log('ar',ar)
@@ -232,16 +235,19 @@ const profilingClosure = (func) => {
 }
 // console.log(profilingClosure(Math.max).call(undefined, [2, 3, 4]))
 // console.log(profilingClosure(incrementArrayBy1).call(undefined, [9, 9]))
+
 const singularity = (data) => {
     // data = '15931593950382205972005873020585729295767920094768300288002957529'
-    let res = data.split().reduce((p, c) => p + Number(c), 0)
-    if (res.toString().split().length > 1)
+    let res = data.split('').reduce((p, c) => p + Number(c), 0)
+    // console.log('sum is', res)
+    if (res.toString().split('').length > 1)
         return singularity(res.toString())
     else
         return res
 }
-
+// console.log(singularity('15931593950'))
 // console.log(singularity('15931593950382205972005873020585729295767920094768300288002957529'))
+
 function* testYieldInteger(val) {
     yield val
     yield val + 10
@@ -284,7 +290,8 @@ const chainedBuilderClass = () => {
     }
     return chainedObject
 }
-//console.log(chainedBuilderClass().first('one').second('2nd').third('third').build())
+console.log(chainedBuilderClass().first('one').second('2nd').third('third').build())
+
 const testClassVanilaTypes = () => {
     function user(name) {
         this.name = name
@@ -1030,6 +1037,10 @@ const quickSortExample = () => {
     const arr = [10, 6, 7, 4, 7, 3, 2, 1, 0]
     console.log('array', arr, 'FASTEST: quick sort example (best/average-OnLogn, worst: 0n^2)', quicksort_swap(arr))
 }
+
+findPairSum([undefined, 10, 6, 15, 3, 7, 9], 22)
+
+
 const powerSchoolTest = () => {
     console.log('powerschool algoritham - finding given sum in list')
     const findIfGivenSumExists = () => {
@@ -1072,8 +1083,10 @@ const powerSchoolTest = () => {
 
 const symmetricalDiffrences = () => {
     /*
+    reducer problem
         The mathematical term symmetric difference (△ or ⊕) of two sets is the set of elements which are in either of the two sets but not in both. For example, for sets A = {1, 2, 3} and B = {2, 3, 4}, A △ B = {1, 4}.
-        Symmetric difference is a binary operation, which means it operates on only two elements. So to evaluate an expression involving symmetric differences among three elements (A △ B △ C), you must complete one operation at a time. Thus, for sets A and B above, and C = {2, 3}, A △ B △ C = (A △ B) △ C = {1, 4} △ {2, 3} = {1, 2, 3, 4}.
+        Symmetric difference is a binary operation, which means it operates on only two elements. So to evaluate an expression involving symmetric differences among three elements (A △ B △ C), you must complete one operation at a time.
+        Thus, for sets A and B above, and C = {2, 3}, A △ B △ C = (A △ B) △ C = {1, 4} △ {2, 3} = {1, 2, 3, 4}.
         sym([1, 2, 3], [5, 2, 1, 4]) should return [3, 4, 5].
         Passed: sym([1, 2, 3], [5, 2, 1, 4]) should contain only three elements.
         Passed: sym([1, 2, 3, 3], [5, 2, 1, 4]) should return [3, 4, 5].
@@ -1144,4 +1157,5 @@ const updateInventoryInArray = () => {
 
     updateInventory(curInv, newInv);
 }
+
 </div></pre>
