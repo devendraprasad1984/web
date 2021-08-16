@@ -532,7 +532,7 @@ function customFormat(data) {
             }
             let canspeek = allowSpeek ? `${volumeup(`speek${x}`)}` : ''
             if (isNaN(i)) { //json types
-                vals2display += `<h1><b>${i.toUpperCase()}</b>&nbsp; ${typeof el === "string" ? el : ''} ${canspeek}</h1>`;
+                vals2display += `<h1 class="size15"><b>${i.toUpperCase()}</b> ${typeof el === "string" ? `<span style="margin-left: 10px">${el}</span>` : ''} ${canspeek}</h1>`;
                 if (allowSpeek) {
                     vals2display += `<div id="speek${x}">`;
                 }
