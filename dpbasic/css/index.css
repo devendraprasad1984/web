@@ -28,6 +28,8 @@ body {
     width: 100vw;
     margin: 2px;
     padding: 2px;
+}
+body, iframe{
     background-image: var(--body-linear-grad-color);
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -162,10 +164,6 @@ b {
     color: var(--purple-color) !important;
 }
 
-code {
-    font-family: "Courier New", monospace;
-}
-
 .pright {
     display: flex;
     flex-direction: row;
@@ -252,10 +250,11 @@ div {
 }
 
 iframe {
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    background-color: white;
+    border: 0;
+    /*-moz-border-radius: 5px;*/
+    /*-webkit-border-radius: 5px;*/
+    /*border-radius: 5px;*/
+    /*background-color: white;*/
     overflow: auto;
     word-wrap: break-word;
 }
@@ -890,6 +889,8 @@ li {
     overflow: auto;
     font-size: 10px;
     color: var(--gray-color);
+    width: 100%;
+    height: 100%;
 }
 
 #codeBlock::-webkit-scrollbar {
