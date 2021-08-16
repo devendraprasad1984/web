@@ -1,16 +1,11 @@
-<div class='box'>
-<pre>
-<code>
 String.prototype.reverseme = function () {
     return reverseString(this)
 }
-</code><code>
 const pad = (n, width, z) => {
     z = z || '0';
     n = n + '';
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
-</code><code>
 const sampleLoop = () => {
     console.log('hello')
     let list = [1, 2, 3, 4, 5, 6]
@@ -23,13 +18,17 @@ const sampleLoop = () => {
         console.log(i, obj[i])
     }
 }
-</code><code>
 const minMaxIndexes = () => {
-//find min max and sum at indexes
-    let array = [[1001, 50], [1001, 68], [1002, 69], [1002, 68], [1004, 9], [1004, 13], [1005, 56], [1005, 96], [1005, 30], [1006, 46], [1006, 6], [1006, 48], [1007, 59], [1007, 30], [1007, 9], [1009, 79], [1010, 42], [1012, 37], [1013, 64], [1017, 55], [1018, 29], [1020, 60], [1020, 29], [1021, 44], [1022, 62], [1024, 2], [1025, 6], [1028, 5], [1029, 6], [1029, 82]];
-// find min,max at index 0
-// and 1 and sum up min-max at 0 with index 1
-    let [min0, max0, min1, max1] = [array[0][0], array[0][1], array[1][0], array[1][1]]
+    //find min max and sum at indexes
+    let array = [
+        [1001, 50]
+        , [1001, 68]
+        , [1002, 69]
+        , [1002, 68]
+        , [1004, 9], [1004, 13], [1005, 56], [1005, 96], [1005, 30], [1006, 46], [1006, 6], [1006, 48], [1007, 59], [1007, 30], [1007, 9], [1009, 79], [1010, 42], [1012, 37], [1013, 64], [1017, 55], [1018, 29], [1020, 60], [1020, 29], [1021, 44], [1022, 62], [1024, 2], [1025, 6], [1028, 5], [1029, 6], [1029, 82]];
+    // find min,max at index 0
+    // and 1 and sum up min-max at 0 with index 1
+    let [min0, max0, min1, max1] = [array[0][0], array[0][1], array[0][0], array[0][1]]
     for (let i in array) {
         let valArr = array[i]
         if (valArr[0] > max0) max0 = valArr[0]
@@ -41,9 +40,10 @@ const minMaxIndexes = () => {
     console.log('min-max at 0', min0, max0)
     console.log('min-max at 1', min1, max1)
 }
-</code><code>
+// minMaxIndexes()
+
 const findPairSum = () => {
-// find pair of sum
+    // find pair of sum
     let array = [1, 2, 3, 4, 5, 6, 8]
     let collectionResults = {}
     let sum = 9
@@ -58,16 +58,15 @@ const findPairSum = () => {
     }
     console.log('pair of numbers that equals givan sum', sum, '=', collectionResults)
 }
-</code><code>
+
 const makeUnique = (ar) => {
     let obj = {}
-    for (let i of ar) {
-        if (obj[i] === undefined) obj[i] = 0
-        obj[i] += 1
-    }
+    for (let i of ar)
+        obj[i] = '1'
     return Object.keys(obj).map(x => Number(x))
+    //this is another way of sorting the array, keys are automatically sorted
 }
-</code><code>
+// console.log(makeUnique([1, 2, 3,9,8, 5, 5, 3, 3, 3]))
 const countForTallestCandle = () => {
     let candles = [1, 2, 3, 5, 5, 3, 3, 3]
     // let sortedCandles=candles.sort((a,b)=>a-b)
@@ -85,14 +84,12 @@ const countForTallestCandle = () => {
     console.log('candles', candles, 'unique', uniqElem, 'tallest candle', tallestCandle, '2nd tallest candle'
         , secondTallestCandle, 'tallest counter', tallestCounter, '2nd tallest counter', secondTallestCounter)
 }
-</code><code>
 const reduceTest = () => {
     let sum = [1, 2, 3, 4, 5, 6].reduce((prev, cur, index) => {
         return prev + cur
     }, 0)
     console.log(sum)
 }
-</code><code>
 const functionComposer = (listOfFunctions, initVal) => {
     let res = initVal
     for (let fn of listOfFunctions) {
@@ -100,13 +97,12 @@ const functionComposer = (listOfFunctions, initVal) => {
     }
     return res
 }
-</code><code>
 const foo = initVal => {
     let listofFn = [x => x * 2, x => x + 1, x => x - 5]
     let fn = functionComposer(listofFn, initVal)
     return fn
 }
-</code><code>
+// console.log('functional sequencing as composer pattern call, output of 1 function as input of the other, INIT=',10,'becomes',foo(10))
 const reverseString = (string1) => {
     let string2 = ''
     for (let i = string1.length - 1; i >= 0; i--) {
@@ -114,14 +110,12 @@ const reverseString = (string1) => {
     }
     return string2
 }
-</code><code>
 const testArrayStringReverse = () => {
     console.log('1234321', '==', reverseString('1234321'))
     console.log('hello', '==', reverseString('hello'))
     console.log('test', '==', 'test'.reverseme())
     // console.log('[test]', '==', 'test'.split('').reverseme())
 }
-</code><code>
 const countOfObjects = () => {
     let objects = [{x: 1, y: 1}, {x: 3, y: 3}, {x: 5, y: 2}, {x: 1, y: 2}, {x: 3, y: 5}, {x: 4, y: 4}]
     let objCounter = {}
@@ -131,10 +125,9 @@ const countOfObjects = () => {
     }
     console.log('objects equals x==y', objCounter, Object.keys(objCounter).length)
 }
-</code><code>
 const quickDateTest = () => {
     var format = 'dd/mm/yyyy hh:mm:ss'
-// var format = 'yyyy-mm-dd hh:mm:ss'
+    // var format = 'yyyy-mm-dd hh:mm:ss'
     var newFormatteDate = format;
     var date_test = new Date(Date.now());
     console.log(pad(date_test.getDate(), 2), pad(date_test.getMonth(), 2), pad(date_test.getFullYear(), 4));
@@ -147,13 +140,11 @@ const quickDateTest = () => {
         .replace('ss', pad(date_test.getSeconds(), 2))
     console.log("the formatted date of format is " + format + "->" + newFormatteDate)
 }
-</code><code>
 const evenOddMultiplier = () => {
     let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     let res = arr.map(x => x % 2 === 0 ? x * 2 : x * 3)
     console.log(arr, res)
 }
-</code><code>
 let brackets = []
 const balancedBrackets = (l, r, s) => {
     if (l === 0 && r === 0)
@@ -163,9 +154,9 @@ const balancedBrackets = (l, r, s) => {
     if (r > 0)
         balancedBrackets(l, r - 1, s + ')')
 }
-</code><code>
-// balancedBrackets(2, 0, "")
+// balancedBrackets(3, 0, "")
 // console.log('brackets', brackets.join(''))
+
 const isBalancedString = () => {
     let exp = '[()]{}{[()()]()}'
     let openVals = '{[('
@@ -179,7 +170,6 @@ const isBalancedString = () => {
     }
     console.log('string', exp, 'is', (stack.length === 0 ? 'balanced' : 'not balanced'))
 }
-</code><code>
 const powerset = () => {
     let arr = [1, 2, 3, 4]
     let res = [[]]
@@ -191,7 +181,6 @@ const powerset = () => {
     }
     console.log('powerset of', arr, 'is', res)
 }
-</code><code>
 const words = ['hello', 'world', 'this is fine']
 const hocUsingReduce = (w1, w2) => {
     if (w1.length > w2.length)
@@ -199,8 +188,7 @@ const hocUsingReduce = (w1, w2) => {
     else
         return w2
 }
-</code><code>
-//console.log('longest word is', words.reduce(hocUsingReduce))
+// console.log('longest word is', words.reduce(hocUsingReduce))
 const left2RightCompose = () => {
     let funcArr = [
         x => x * 2,
@@ -216,7 +204,6 @@ const left2RightCompose = () => {
     }
     console.log('final result of function listing....', iVal, res)
 }
-</code><code>
 const minmaxsum_setof4 = () => {
     let arr = [5, 4, 2, 3, 7]
     let min = Math.min(...arr)
@@ -224,18 +211,16 @@ const minmaxsum_setof4 = () => {
     let sum = arr.reduce((p, c) => p + c, 0)
     console.log('min sum', sum - max, 'max sum', sum - min)
 }
-</code><code>
+// minmaxsum_setof4()
 const incrementArrayBy1 = (ar) => {
     // let ar = [1, 2, 3]
     // console.log('ar',ar)
     let num = Number(ar.join('')) + 1
-    let nar = []
-    for (let i of num.toString()) {
-        nar.push(i)
-    }
-    return [ar, nar.map(x => Number(x))]
+    let updatedArr = num.toString().split('').map(x => Number(x))
+    return [ar, updatedArr]
 }
-</code><code>
+// console.log(incrementArrayBy1([1,2,3,4]))
+
 const profilingClosure = (func) => {
     return function () {
         let start = new Date()
@@ -244,7 +229,6 @@ const profilingClosure = (func) => {
         return {msg: ` took ${end.getTime() - start.getTime()}s to execute`, result: retval}
     }
 }
-</code><code>
 // console.log(profilingClosure(Math.max).call(undefined, [2, 3, 4]))
 // console.log(profilingClosure(incrementArrayBy1).call(undefined, [9, 9]))
 const singularity = (data) => {
@@ -255,13 +239,13 @@ const singularity = (data) => {
     else
         return res
 }
-</code><code>
+
 // console.log(singularity('15931593950382205972005873020585729295767920094768300288002957529'))
 function* testYieldInteger(val) {
     yield val
     yield val + 10
 }
-</code><code>
+
 //way hack to make chained operation
 function* testYieldFuncSeq() {
     yield (p) => {
@@ -273,7 +257,7 @@ function* testYieldFuncSeq() {
         return '2nd function done'
     }
 }
-</code><code>
+
 // let testYieldInt = testYieldInteger(10)
 // console.log(testYieldInt.next().value, testYieldInt.next().value)
 // let seq = testYieldFuncSeq()
@@ -299,7 +283,6 @@ const chainedBuilderClass = () => {
     }
     return chainedObject
 }
-</code><code>
 //console.log(chainedBuilderClass().first('one').second('2nd').third('third').build())
 const testClassVanilaTypes = () => {
     function user(name) {
@@ -318,14 +301,13 @@ const testClassVanilaTypes = () => {
     let dp = new user('Devendra')
     let jyoti = new user('jyoti')
     let users = [dp, jyoti]
-// console.log(dp.sayhello(), dp.fine())
-// console.log(jyoti.sayhello())
+    // console.log(dp.sayhello(), dp.fine())
+    // console.log(jyoti.sayhello())
     for (let u of users) {
         console.log(u.sayhello(), u.fine())
 
     }
 }
-</code><code>
 // testClassVanilaTypes()
 const testClassEs6Types = () => {
     class test {
@@ -344,7 +326,6 @@ const testClassEs6Types = () => {
         console.log(u.sayhello())
     }
 }
-</code><code>
 // testClassEs6Types()
 const testClosure = () => {
     //closure is the concept in js by which nested scope has access to its outer scope irrespective of how and where that variable is defined
@@ -375,7 +356,6 @@ const testClosure = () => {
     let scopeInnerByOuter = outerFunction('devendra')
     scopeInnerByOuter('prasadf')
 }
-</code><code>
 const stairCaseProblem = () => {
     let numberOfTimes = 5
     let res = "\n"
@@ -387,7 +367,7 @@ const stairCaseProblem = () => {
     }
     console.log('staircase output', res)
 }
-</code><code>
+// stairCaseProblem()
 const binarySearchLogic = (arr, searchValue, start, end) => {
     if (end < start) return false
     let mid = Math.floor((start + end) / 2)
@@ -395,7 +375,6 @@ const binarySearchLogic = (arr, searchValue, start, end) => {
     else if (arr[mid] < searchValue) return binarySearchLogic(arr, searchValue, mid + 1, end)
     else if (arr[mid] > searchValue) return binarySearchLogic(arr, searchValue, start, mid - 1)
 }
-</code><code>
 // let arr = [1, 3, 5, 7, 8, 9]
 // console.log('found',binarySearchLogic(arr, 7, 0, arr.length - 1))
 const flattenLinkedList = () => {
@@ -476,7 +455,6 @@ const flattenLinkedList = () => {
     flatten(head)
     printNode(head)
 }
-</code><code>
 // flattenLinkedList()
 const flattenBinaryTreeIntoLinkedList = () => {
     function node(key) {
@@ -518,7 +496,6 @@ const flattenBinaryTreeIntoLinkedList = () => {
     inorderTraversal(root)
     console.log('printing binary tree as list traversal', root, printList.join('->'))
 }
-</code><code>
 // flattenBinaryTreeIntoLinkedList()
 const longestPalindrome = () => {
     const isPalindrome = (str1) => str1 === str1.split('').reverse().join('')
@@ -543,7 +520,6 @@ const longestPalindrome = () => {
     console.log(findPalindrome('abracadabra'))
     console.log(findPalindrome('HYTBCABADEFGHABCDEDCBAGHTFYW12345678987654321ZWETYGDE'))
 }
-</code><code>
 const spiralPrintingOf2DArray = () => {
     //print 2d array matrix in spiral form which mean row->right to end, then down to cols, left to row and the up
     let arr = [
@@ -579,7 +555,6 @@ const spiralPrintingOf2DArray = () => {
     }
     console.log(spiralObject.join('->'))
 }
-</code><code>
 const groupAnagrams = () => {
     let sort = (w) => {
         return w.split('').sort().join('')
@@ -602,7 +577,6 @@ const groupAnagrams = () => {
     console.log('listing by anagrams', res)
 }
 // groupAnagrams()
-</code><code>
 const findDuplicates = () => {
     let arr = [1, 2, 3, 4, 4, 4, 5, 6, 6]
     let counter = {}
@@ -618,7 +592,6 @@ const findDuplicates = () => {
         }
     }
 }
-</code><code>
 const findDuplicates_1 = () => {
     let arr = [1, 2, 3, 4, 4, 5, 6, 6, 6]
     let len = arr.length
@@ -630,18 +603,16 @@ const findDuplicates_1 = () => {
         }
         let el = arr[i]
         let counterOccurance = 1
-        // skipCounter=0
         for (let j = i + 1; j < len; j++) {
-            if (el !== arr[j]) break
+            if (el !== arr[j]) continue
             counterOccurance++
-            // skipCounter++
         }
         prevElem = el
         if (counterOccurance > 1)
             console.log('element occurance', el, counterOccurance, 'times')
     }
 }
-</code><code>
+// findDuplicates_1()
 const pairSum = () => {
     let arr = [1, 2, 3, 4, 5, 6, 7]
     let sum = 9
@@ -654,7 +625,6 @@ const pairSum = () => {
         }
     }
 }
-</code><code>
 const rotateAnArrayAtPivot = () => {
     let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     let newArray = []
@@ -663,8 +633,6 @@ const rotateAnArrayAtPivot = () => {
     for (let i = 0; i < pivot; i++) {
         let v = arr[i]
         newArray.push(v)
-    }
-    for (let i = 0; i < pivot; i++) {
         arr[i] = 0
     }
     for (let i = 0; i < arr.length; i++) {
@@ -672,7 +640,7 @@ const rotateAnArrayAtPivot = () => {
     }
     console.log(arr, newArray, [...merge, ...newArray])
 }
-</code><code>
+// rotateAnArrayAtPivot()
 const columnizeArray = () => {
     let arr = [
         [1, 5, 9],
@@ -692,12 +660,11 @@ const columnizeArray = () => {
         }
     }
 }
-</code><code>
+// columnizeArray()
 const countNumber = (num) => {
-    console.log(Math.ceil(Math.log(num + 1) / Math.LN10))
+    return Math.ceil(Math.log(num + 1) / Math.LN10)
 }
-</code><code>
-//len=countNumber(777777777777777777777777777777)
+// console.log(countNumber(777777777777777777777777777777))
 const debounce = (fn, wait) => {
     // The debounce() function forces a function to wait a certain amount of time before running again.
     // The function is built to limit the number of times a function is called.
@@ -712,7 +679,9 @@ const debounce = (fn, wait) => {
         }, wait);
     }
 }
-</code><code>
+const throtleCheck = () => {
+    console.log('throttle example')
+}
 const jsTrick1 = () => {
     var myObject = {
         foo: "bar",
@@ -728,7 +697,6 @@ const jsTrick1 = () => {
     };
     myObject.func();
 }
-</code><code>
 const jsTrick2 = () => {
     (function () {
         var a = b = 3;
@@ -737,7 +705,6 @@ const jsTrick2 = () => {
     console.log("a defined? " + (typeof a !== 'undefined'));
     console.log("b defined? " + (typeof b !== 'undefined'));
 }
-</code><code>
 const promiseTestPlusMinus = () => {
     const createPromise = (x) => {
         return new Promise((resolve, reject) => {
@@ -761,7 +728,6 @@ const promiseTestPlusMinus = () => {
 
 }
 //promiseTestPlusMinus()
-</code><code>
 const thisContextChange = () => {
     var hero = {
         _name: 'John Doe',
@@ -773,7 +739,7 @@ const thisContextChange = () => {
     console.log(stoleSecretIdentity());
     console.log(hero.getSecretIdentity());
 }
-</code><code>
+// thisContextChange()
 const lengthKnowledgeCheck = () => {
     let length = 10;
 
@@ -791,7 +757,8 @@ const lengthKnowledgeCheck = () => {
     }
     obj.method(fn, 1)
 }
-</code><code>
+// lengthKnowledgeCheck()
+
 const checkoutput1 = () => {
     (function () {
         try {
@@ -804,6 +771,7 @@ const checkoutput1 = () => {
         console.log(y);
     })();
 }
+// checkoutput1()
 
 
 //
@@ -813,15 +781,14 @@ const checkoutput1 = () => {
 // });
 // console.log(Object.values(d), Object.keys(d))
 //
-</code><code>
-const coronaSequenceTest=()=>{
-    function checkCorona(V,B,N){
+const coronaSequenceTest = () => {
+    function checkCorona(V, B, N) {
         // let V = 'coronavirus'
         // let N = 3
         // let B = ['abcde', 'crnas', 'onarous']
-        let result=[]
+        let result = []
         for (let seq of B) {
-            if(seq==='') continue
+            if (seq === '') continue
             let foundAt = -1
             let positive = false
             let foundCounter = 0
@@ -839,17 +806,340 @@ const coronaSequenceTest=()=>{
             if (seq.length === foundCounter) {
                 positive = true
             }
-            result.push(seq+'===>'+(positive ? ' - POSITIVE' : ' - NEGATIVE'))
+            result.push(seq + '===>' + (positive ? ' - POSITIVE' : ' - NEGATIVE'))
         }
         return result
     }
 
 
-    let input_stdin_array = [ 'coronavirus', '3', 'abcde', 'crnas', 'onarous', '' ]
-    let [V,N,...B]=input_stdin_array
-    let output=checkCorona(V,B,N)
-    console.log(V,'\n',output.join('\n'));
+    let input_stdin_array = ['coronavirus', '3', 'abcde', 'crnas', 'onarous', '']
+    let [V, N, ...B] = input_stdin_array
+    let output = checkCorona(V, B, N)
+    console.log(V, '\n', output.join('\n'));
 }
-</code>
-</pre>
-</div>
+// coronaSequenceTest()
+
+const longestValidParenthesis = () => {
+    // let str = ')()())'
+    // let str = '(()'
+    // let str="()(())"
+    // let str="(()()"
+    let str = '()(()))()'
+    if (str.length <= 1) return 0
+    let s1 = '('
+    let s2 = ')'
+    let foundStart = 0
+    let stack = []
+    let stack2 = []
+    for (let i of str) {
+        if (i === s1) {
+            foundStart = foundStart + 1
+            stack.push(i)
+            stack2.push(i)
+        } else if (i === s2 && foundStart >= 1) {
+            stack.push(i)
+            stack2.pop()
+            foundStart = foundStart - 1
+        }
+    }
+    let res = stack.length - stack2.length
+    console.log('length of longest valid parenthesis', str, stack, stack2, res)
+}
+// longestValidParenthesis()
+const maxSumLessGiveSum = () => {
+    let K = 60
+    let sum = 0
+    let arr = [1, 2, 34, 25, 54, 75, 43]
+    //let filter = arr.filter(x => x < K).sort((a, b) => a - b)
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = i + 1; j < arr.length; j++) {
+            let innerSum = arr[i] + arr[j]
+            if (innerSum > K) break
+            sum = innerSum
+        }
+    }
+    console.log(arr, K, sum)
+}
+const leastCommonInterestOutOf2Lists = () => {
+
+}
+// maxSumLessGiveSum()
+const checkArrayElementUsingBinarySearchAndInsertAtRelevantPosIfNotFound = () => {
+    let isFound = false
+    let found = {}
+
+    function findElementPosUsingBinary(start, end, elementValue) {
+        let startX = start
+        let endX = end
+        let mid = Math.floor((start + end) / 2)
+        // if (end > start) found = {start, mid, end, found: false}
+        let check = elementValue === arr[mid]
+        if (check === true || end > start) {
+            found = {start, mid, end, found: check}
+            isFound = true
+        } else if (elementValue > arr[mid]) {
+            startX = mid + 1
+        } else if (elementValue < arr[mid]) {
+            endX = mid - 1
+        }
+        if (isFound === false) {
+            findElementPosUsingBinary(startX, endX, elementValue)
+        }
+    }
+
+    arr = [1, 2, 5, 6, 8, 9]
+    let element = 5
+    findElementPosUsingBinary(0, arr.length - 1, element)
+    // let isFound = found['foundAt'] !== -1
+    // let newArray = !isFound ? [...arr, element].sort((a, b) => a - b) : arr
+    if (found['found'] === false) arr.splice(found['start'], 0, element)
+    console.log(arr, found)
+}
+
+const createEveryCombinationInAString = () => {
+    //generate all possible combinations of a string
+    let str = 'abc'
+    // let len=Math.pow(2*str.length)
+    let len = str.length
+    let res = []
+    res.push(str)
+    for (let i = 0; i < len; i++) {
+        for (let j = i; j < len; j++) {
+            let substr = str.substr(i, j)
+            if (substr.length !== 0)
+                res.push(str.substr(i, j))
+        }
+    }
+    console.log(res)
+}
+
+// createEveryCombinationInAString()
+// checkArrayElementUsingBinarySearchAndInsertAtRelevantPosIfNotFound()
+
+const swapCaseAndNumbers = () => {
+    function switchCase(char) {
+        if (typeof char !== "string") return ''
+
+        let charCode = char.charCodeAt(0)
+        if (charCode >= 65 && charCode <= 90)
+            return char.toLowerCase()
+        else if (charCode >= 97 && charCode <= 122)
+            return char.toUpperCase()
+        else
+            return char
+    }
+
+    function swap(param) {
+        let newParam = '';
+        let numFirstFound = false
+        let firstNumIndex = -1
+        for (let index in param) {
+            let chr = param[index]
+            let isnum = (isNaN(chr) === false && chr !== ' ')
+
+            // if(isnum){
+            //   console.log(isnum, chr, index)
+            // }
+
+            if (chr === ' ') {
+                numFirstFound = false
+                firstNumIndex = -1
+                newParam += chr
+            } else if (isnum === true && index !== firstNumIndex && numFirstFound === true) {
+                //console.log('found 2nd number',chr, 'at', index)
+                let tmp = newParam.split('')
+                tmp[firstNumIndex] = param[index]
+                newParam = tmp.join('').toString() + param[firstNumIndex]
+                //newParam+=param[firstNumIndex]
+                //console.log('updated',param[index], param[firstNumIndex], newParam)
+                numFirstFound = false
+                firstNumIndex = -1
+            } else if (isnum === true && firstNumIndex === -1 && numFirstFound === false) {
+                //console.log('found 1st number',chr,'at',index)
+                firstNumIndex = index
+                numFirstFound = true
+                newParam += chr
+            } else {
+                newParam += switchCase(chr)
+            }
+        }
+        return newParam;
+    }
+
+    let str1 = swap("6Hello4 -8World, 7 yes3")
+    console.log(str1);
+    console.log(swap("Hello -5LOL6du5d4e"));
+    // console.log(swap("2S 6 du5d4e"));
+}
+// swapCaseAndNumbers()
+
+
+const CountingAnagrams = (str) => {
+    let anagramObject = {}
+    let words = str.split(' ')
+    let anagramCounter = 0
+    for (let w of words) {
+        if (w.length == 1) continue
+        let sortChars = w.split('').sort((a, b) => b.charCodeAt(0) - a.charCodeAt(0)).join('')
+        if (anagramObject[sortChars] === undefined) {
+            anagramObject[sortChars] = [w]
+        } else {
+            let temp = anagramObject[sortChars]
+            temp.push(w)
+            let uniqVals = [...new Set(temp)]
+            anagramObject[sortChars] = uniqVals
+        }
+    }
+    for (let key in anagramObject) {
+        let vals = anagramObject[key]
+        if (vals.length > 1 || vals.indexOf(key.toString()) >= 0) {
+            anagramCounter += 1
+        }
+    }
+    return anagramCounter;
+}
+const quickSortExample = () => {
+    const quicksort_recursion = arr =>
+        arr.length <= 1
+            ? arr
+            : [
+                ...quicksort_recursion(arr.slice(1).filter((el) => el < arr[0])),
+                arr[0],
+                ...quicksort_recursion(arr.slice(1).filter((el) => el >= arr[0])),
+            ];
+    let counter = 0
+
+    function quicksort_swap(array) {
+        if (array.length <= 1) {
+            return array;
+        }
+
+        counter += 1
+        var pivot = array[0];
+        var left = [];
+        var right = [];
+        console.log('iterating', counter)
+        for (var i = 1; i < array.length; i++) {
+            array[i] < pivot ? left.push(array[i]) : right.push(array[i]);
+        }
+
+        return quicksort_swap(left).concat(pivot, quicksort_swap(right));
+    };
+
+    const arr = [10, 6, 7, 4, 7, 3, 2, 1, 0]
+    console.log('array', arr, 'FASTEST: quick sort example (best/average-OnLogn, worst: 0n^2)', quicksort_swap(arr))
+}
+const powerSchoolTest = () => {
+    console.log('powerschool algoritham - finding given sum in list')
+    const findIfGivenSumExists = () => {
+        let givenArray = [undefined, 10, 6, 15, 3, 7, 9]
+        let givenSum = 20
+        let found = false
+        let foundNum = -1
+        let tmpArr = []
+        for (let i = 0; i < givenArray.length; i++) {
+            let num = givenArray[i] //current element in iteration
+            if (isNaN(num) === true) continue
+
+            let diff = givenSum - num //store the difference from current element to given sum
+            tmpArr = givenArray.filter((x, j) => j > i)
+            //check diff from current position to entire array and exit if found and return true
+            if (tmpArr.indexOf(diff) !== -1) {
+                found = true
+                foundNum = num
+                break
+            }
+        }
+        tmpArr = []
+        if (found) {
+            console.log('found the given sum', givenSum, foundNum, (givenSum - foundNum))
+        } else {
+            console.log('not found the given sum', givenSum)
+        }
+    }
+
+    findIfGivenSumExists()
+    const jsIValueLoopCheck = () => {
+        for (i = 0; i < 3; i++) {
+            setTimeout(() => {
+                console.log(i)
+            }, 1000);
+        }
+    }
+    jsIValueLoopCheck()
+}
+
+const symmetricalDiffrences = () => {
+    /*
+        The mathematical term symmetric difference (△ or ⊕) of two sets is the set of elements which are in either of the two sets but not in both. For example, for sets A = {1, 2, 3} and B = {2, 3, 4}, A △ B = {1, 4}.
+        Symmetric difference is a binary operation, which means it operates on only two elements. So to evaluate an expression involving symmetric differences among three elements (A △ B △ C), you must complete one operation at a time. Thus, for sets A and B above, and C = {2, 3}, A △ B △ C = (A △ B) △ C = {1, 4} △ {2, 3} = {1, 2, 3, 4}.
+        sym([1, 2, 3], [5, 2, 1, 4]) should return [3, 4, 5].
+        Passed: sym([1, 2, 3], [5, 2, 1, 4]) should contain only three elements.
+        Passed: sym([1, 2, 3, 3], [5, 2, 1, 4]) should return [3, 4, 5].
+        Passed: sym([1, 2, 3, 3], [5, 2, 1, 4]) should contain only three elements.
+        Passed: sym([1, 2, 3], [5, 2, 1, 4, 5]) should return [3, 4, 5].
+        Passed: sym([1, 2, 3], [5, 2, 1, 4, 5]) should contain only three elements.
+        sym([1, 2, 5], [2, 3, 5], [3, 4, 5]) should return [1, 4, 5]
+        sym([1, 2, 5], [2, 3, 5], [3, 4, 5]) should contain only three elements.
+        sym([1, 1, 2, 5], [2, 2, 3, 5], [3, 4, 5, 5]) should return [1, 4, 5].
+        Passed: sym([1, 1, 2, 5], [2, 2, 3, 5], [3, 4, 5, 5]) should contain only three elements.
+        sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3]) should return [2, 3, 4, 6, 7].
+        sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3]) should contain only five elements.
+        sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3], [5, 3, 9, 8], [1]) should return [1, 2, 4, 5, 6, 7, 8, 9].
+        sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3], [5, 3, 9, 8], [1]) should contain only eight elements.
+    * */
+
+    function symdiff(arr1, arr2) {
+        let arr = []
+        for (let i of arr1) {
+            if (arr.indexOf(i) !== -1 || arr2.indexOf(i) !== -1) continue
+            arr.push(i)
+        }
+        for (let i of arr2) {
+            if (arr.indexOf(i) !== -1 || arr1.indexOf(i) !== -1) continue
+            arr.push(i)
+        }
+        return arr
+    }
+
+    function sym(...args) {
+        return args.reduce(symdiff)
+    }
+
+    let res = sym([1, 2, 3], [5, 2, 1, 4])
+    // let res = sym([1, 2, 5], [2, 3, 5], [3, 4, 5])
+    // let res = sym([1, 2, 3, 3], [5, 2, 1, 4])
+    console.log('result', res)
+}
+const updateInventoryInArray = () => {
+    //Compare and update the inventory stored in a 2D array against a second 2D array of a fresh delivery. Update the current existing inventory item quantities (in arr1). If an item cannot be found, add the new item and quantity into the inventory array. The returned inventory array should be in alphabetical order by item.
+    /*
+    The function updateInventory should return an array.
+        updateInventory([[21, "Bowling Ball"], [2, "Dirty Sock"], [1, "Hair Pin"], [5, "Microphone"]], [[2, "Hair Pin"], [3, "Half-Eaten Apple"], [67, "Bowling Ball"], [7, "Toothpaste"]]) should return an array with a length of 6.
+        updateInventory([[21, "Bowling Ball"], [2, "Dirty Sock"], [1, "Hair Pin"], [5, "Microphone"]], [[2, "Hair Pin"], [3, "Half-Eaten Apple"], [67, "Bowling Ball"], [7, "Toothpaste"]]) should return [[88, "Bowling Ball"], [2, "Dirty Sock"], [3, "Hair Pin"], [3, "Half-Eaten Apple"], [5, "Microphone"], [7, "Toothpaste"]].
+        updateInventory([[21, "Bowling Ball"], [2, "Dirty Sock"], [1, "Hair Pin"], [5, "Microphone"]], []) should return [[21, "Bowling Ball"], [2, "Dirty Sock"], [1, "Hair Pin"], [5, "Microphone"]].
+        updateInventory([], [[2, "Hair Pin"], [3, "Half-Eaten Apple"], [67, "Bowling Ball"], [7, "Toothpaste"]]) should return [[67, "Bowling Ball"], [2, "Hair Pin"], [3, "Half-Eaten Apple"], [7, "Toothpaste"]].
+        updateInventory([[0, "Bowling Ball"], [0, "Dirty Sock"], [0, "Hair Pin"], [0, "Microphone"]], [[1, "Hair Pin"], [1, "Half-Eaten Apple"], [1, "Bowling Ball"], [1, "Toothpaste"]]) should return [[1, "Bowling Ball"], [0, "Dirty Sock"], [1, "Hair Pin"], [1, "Half-Eaten Apple"], [0, "Microphone"], [1, "Toothpaste"]].
+    */
+
+    function updateInventory(arr1, arr2) {
+        return arr1;
+    }
+
+    // Example inventory lists
+    var curInv = [
+        [21, "Bowling Ball"],
+        [2, "Dirty Sock"],
+        [1, "Hair Pin"],
+        [5, "Microphone"]
+    ];
+
+    var newInv = [
+        [2, "Hair Pin"],
+        [3, "Half-Eaten Apple"],
+        [67, "Bowling Ball"],
+        [7, "Toothpaste"]
+    ];
+
+    updateInventory(curInv, newInv);
+}
