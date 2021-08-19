@@ -7,7 +7,8 @@
     --link-active-color1: #c997ee;
     --link-active-color2: #f3cdc1;
     --gradient-image-color: linear-gradient(to right, var(--link-active-color1), var(--link-active-color2));
-    --body-linear-grad-color: linear-gradient(to bottom, var(--grad-color1), var(--grad-color2))
+    --body-linear-grad-color: linear-gradient(to bottom, var(--grad-color1), var(--grad-color2));
+    --medium-violet: #b71d7d;
 }
 
 html {
@@ -29,7 +30,8 @@ body {
     margin: 2px;
     padding: 2px;
 }
-body, iframe{
+
+body, iframe {
     background-image: var(--body-linear-grad-color);
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -92,6 +94,15 @@ h1, h2, h3, h4, h5, h6, .tld {
     text-decoration: none;
     padding: 0;
     margin: 0;
+}
+
+hr {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double var(--medium-violet);
+    color: var(--grad-color2);
+    text-align: center;
 }
 
 #idLinks a {
@@ -270,6 +281,12 @@ pre {
     overflow: auto;
     color: var(--gray-color);
     font-size: 12px;
+}
+
+.preline *::before {
+    content: "–";
+    padding-right: 8px;
+    font-size: 20px;
 }
 
 input {
@@ -670,7 +687,7 @@ li {
 }
 
 .xgray {
-    color: #b4b8b8 !important;
+    color: var(--gray-color) !important;
 }
 
 .xsuccess {
@@ -688,6 +705,14 @@ li {
 
 .xred {
     color: red !important;
+}
+
+.xblue {
+    color: #3e9fe9 !important;
+}
+
+.xviolet {
+    color: var(--medium-violet) !important;
 }
 
 .xorange {
@@ -818,7 +843,6 @@ li {
     /*.content *:not(i, .name,.icons,.acitve, .tld, .size20, .size25) {*/
     /*    font-size: 12px;*/
     /*}*/
-
     .topbar {
         display: inline;
     }
@@ -837,9 +861,10 @@ li {
         font-size: 12px;
     }
 
-    .pright{
+    .pright {
         margin-bottom: 20px;
     }
+
     #idLinks a {
         font-size: 8px;
     }
