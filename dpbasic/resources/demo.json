@@ -51,6 +51,10 @@
     {
       "href": "https://dpresume.com/swagger",
       "name": "swagger"
+    },
+    {
+      "href": "https://test-loan-ledger-dp.herokuapp.com/",
+      "name": "Loan Ledger Python Django API App"
     }
   ],
   "videos": [
@@ -71,6 +75,10 @@
     }
   ],
   "youtube": [
+    {
+      "src": "https://www.youtube.com/embed/6-v_vIxyB4g",
+      "name": "Loan Ledger API Demo"
+    },
     {
       "src": "https://www.youtube.com/embed/tnOzTKFzky4",
       "name": "NodeJs BMI App"
