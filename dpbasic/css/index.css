@@ -279,8 +279,8 @@ pre {
     white-space: -o-pre-wrap; /* Opera 7 */
     word-wrap: break-word; /* Internet Explorer 5.5+ */
     overflow: auto;
-    color: var(--gray-color);
-    font-size: 12px;
+    color: var(--black-color);
+    font-size: 14px;
 }
 
 .preline *::before {
