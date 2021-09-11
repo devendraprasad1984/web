@@ -283,11 +283,11 @@ pre {
     font-size: 14px;
 }
 
-.preline *::before {
-    content: "–";
-    padding-right: 8px;
-    font-size: 20px;
-}
+/*.preline *::before {*/
+/*    content: "–";*/
+/*    padding-right: 8px;*/
+/*    font-size: 20px;*/
+/*}*/
 
 input {
     width: 100%;
