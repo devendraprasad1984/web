@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="web">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Amazon-Feature-clone-main.zip!/" />
+      <root url="jar://$PROJECT_DIR$/NotFacebook-main.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
