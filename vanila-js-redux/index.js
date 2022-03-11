@@ -49,5 +49,4 @@ const handleActions = () => {
     }
     subscribe(render)
     handleActions()
-    render()
 })()
