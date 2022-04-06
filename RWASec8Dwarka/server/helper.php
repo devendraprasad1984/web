@@ -12,7 +12,7 @@ $server = $_SERVER['REMOTE_ADDR'];
 if ($server == '::1' or $server == 'localhost' or $server == '127.0.0.1') {
     define('HOST', 'localhost:3306');
     define('USER', 'root');
-    define('PWD', 'dpadmin');
+    define('PWD', null);
     define('DB', 'rwasec8');
 } else {
     define('HOST', 'localhost:3306');
@@ -30,6 +30,8 @@ function returnDataset($qur)
 //    ChromePhp::log($qur);
 //    return mysqli_fetch_all($result);
     $sql = $conn->query($qur);
+    ChromePhp::log($qur);
+    ChromePhp::log($$sql);
     $rows = $sql->fetch_all(MYSQLI_ASSOC);
     mysqli_free_result($sql);
     mysqli_close($conn);

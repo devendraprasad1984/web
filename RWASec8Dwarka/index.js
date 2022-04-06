@@ -1,4 +1,3 @@
-let dataObject = {};
 let summaryObject1 = {};
 let colors = ['pink', 'green', 'gray', 'goldenrod', 'navy', 'blue', 'magenta']
 let imgObj = {
@@ -10,7 +9,8 @@ let imgObj = {
 let curObj = {}
 let searchBtn = $('#idSearchBtn');
 let colorx = '#428bdb';
-let phpServing = './rwa.php'
+let serverPrefix = "http://localhost:8080/rwasec8"
+let phpServing = `${serverPrefix}/rwa.php`
 
 function changeView(type) {
     let divx = $('#divLines');
@@ -106,7 +106,11 @@ let success = {
             button: 'Ok',
         }).then(flag => getSummaryAndRefresh());
     }, refresh: function (res) {
-        dataObject = res;
+        if (res.status.indexOf('failed') !== -1) {
+            report1.innerHTML = `<div>No Data Found. ${res.status}</div>`
+            return
+        }
+
         let result = [];
         let total = 0;
         result = res.map((x, i) => {
@@ -239,17 +243,6 @@ function searchByKeyword(e) {
         getSummaryAndRefresh();
         e.preventDefault();
     }
-}
-
-function sendMsg() {
-    let data = {};
-    data['whatsapp'] = 1;
-    data['msg'] = 'this is a test message';
-    postData(phpServing, data, (res) => {
-        console.log('from server', res)
-    }, (err) => {
-        console.error(err);
-    });
 }
 
 //initialise
