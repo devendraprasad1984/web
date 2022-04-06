@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>D Block RWA Expense Register</title>
+    <link href="images/icon.png" rel="icon" type="image/png">
+    <link href="index.css" rel="stylesheet">
+</head>
+<body class="container">
+
+<div class="header">
+    <img class="logo" src="images/icon.png">
+    <h1>D Block, Sector8 Dwarka - Expense Register</h1>
+</div>
+
+<div>
+    <button class="btn blue textwhite" id="btnUnlock" onclick="handleUnlock(this.id)">Unlock</button>
+    <button class="btn purple textwhite" id="btnGrid" onclick="changeView('grid')">Grid</button>
+    <button class="btn purple textwhite" id="btnCard" onclick="changeView('card')">Card</button>
+    <button class="btn green textwhite" id="btnSummary" onclick="cardClick('summaryCard')">SUMMARY</button>
+</div>
+
+<div class="input-inline purple hide" id="formInputs">
+    <select id="names">
+        <option selected value="anish">Anish Ji</option>
+        <option value="dp">Devendra Ji</option>
+        <option value="dev">Devdatt Ji</option>
+        <option value="ajay">Ajay Ji</option>
+    </select>
+    <select id="time">
+        <option value="Oct2020">Oct2020</option>
+    </select>
+    <input class="input-right" id="amount" placeholder="enter your amount, if expenses place negative number" type="text"
+           value="1000" width="50px">
+    <input id="remarks" placeholder="eg regular maintenance" type="text" width="150px">
+    <button class="btn red" id="btnSubmit" onclick="handleSubmit(this.id)">Submit</button>
+</div>
+
+
+<div>
+    <div id="search1">
+        <input class="searchText" id="idSearchBox" onkeypress="searchByKeyword(event)" placeholder="enter search keyword by name,remarks,amount(>0|<0),month/years etc"
+               type="text">
+        <button class="btn green textwhite" id="idSearchBtn" onclick="handleRefresh()">Search</button>
+    </div>
+    <div class="divx" id="report1"></div>
+</div>
+
+
+<script src="./libs/jquery.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha512-C2RveGuPIWqkaLAluvoxyiaN1XYNe5ss11urhZWZYBUA9Ydgj+hfGKPcxCzTwut1/fmjEZR7Ac35f2aycT8Ogw=="
+        src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.2.0/d3.min.js"></script>
+<link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css"
+      integrity="sha512-f8gN/IhfI+0E9Fc/LKtjVq4ywfhYAVeMGKsECzDUHcFJ5teVwvKTqizm+5a84FINhfrgdvjX8hEJbem2io1iTA=="
+      rel="stylesheet"/>
+<script crossorigin="anonymous"
+        integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+        src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script src="index.js"></script>
+
+</body>
+</html>
