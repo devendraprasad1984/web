@@ -30,4 +30,9 @@ create table expenses
 );
 
 
+# inserts
+insert into admin(username, password, type) values('amit','password','admin');
+insert into admin(username, password, type) values('anant','password','admin');
+insert into admin(username, password, type) values('dp','password','admin');
 
+insert into members(memkey, name, address, pic) values('xyz','test','test','');
