@@ -30,8 +30,8 @@ function returnDataset($qur)
 //    ChromePhp::log($qur);
 //    return mysqli_fetch_all($result);
     $sql = $conn->query($qur);
-    ChromePhp::log($qur);
-    ChromePhp::log($$sql);
+//    ChromePhp::log($qur);
+//    ChromePhp::log($$sql);
     $rows = $sql->fetch_all(MYSQLI_ASSOC);
     mysqli_free_result($sql);
     mysqli_close($conn);
@@ -80,9 +80,10 @@ function handleExpensesReport($data)
 
 function handleSummary1($data)
 {
-    $qur = "select name,sum(amount) as amt from expenses where amount > 0 group by name union all
-            select 'Paid outs',sum(amount) as amt from expenses where amount < 0
-            ";
+    $qur = "
+    select memid,sum(amount) as amt from expenses where amount > 0 group by memid union all
+    select 'Paid outs',sum(amount) as amt from expenses where amount < 0
+    ";
     $rows = returnDataset($qur);
     echo(json_encode($rows));
 }

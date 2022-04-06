@@ -1,7 +1,7 @@
 <?php
 require_once './ChromePHP.php';
+require_once './headers.php';
 require_once './helper.php';
-//require_once("./whatsapp/src/whatsprot.class.php");
 
 global $success, $failed;
 try{
@@ -13,5 +13,3 @@ try{
 //    ChromePhp::error($ex->getMessage());
     echo $failed;
 }
-
-?>
