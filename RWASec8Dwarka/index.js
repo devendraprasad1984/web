@@ -11,30 +11,20 @@ let searchBtn = $('#idSearchBtn');
 let colorx = '#428bdb';
 let serverPrefix = "http://localhost:8080/rwasec8"
 let phpServing = `${serverPrefix}/rwa.php`
-
-function changeView(type) {
-    let divx = $('#divLines');
-    if (type === 'grid') {
-        divx.removeClass('flexbox');
-        divx.addClass('flexgrid');
-    } else if (type === 'card') {
-        divx.removeClass('flexgrid');
-        divx.addClass('flexbox');
-    }
-}
+let rsSymbol = '₹'
+let entryform = document.getElementById('entryform')
+let membersform = document.getElementById('membersform')
+let report1 = document.getElementById('report1')
+let defaultEntryType = 'member' //member or admin
+let adminform = document.getElementById('adminform')
 
 
-function handleUnlock(id) {
-    let oldval = $('#' + id).html();
-    $('#' + id).html('Please Wait...');
-    let pass = prompt('enter passphrase');
-    if (pass !== '6200') {
-        $('#' + id).html(oldval);
+function handleEntryType(type) {
+    adminform.classList.add('show')
+    adminform.classList.remove('hide')
 
-    } else {
-        formInputs.classList.remove('hide');
-        $('#' + id).html(oldval);
-    }
+    // handleFormsToggle(undefined, true)
+    defaultEntryType = type
 }
 
 function postData(url = '', data = {}, success, error) {
@@ -46,6 +36,14 @@ function postData(url = '', data = {}, success, error) {
         success,
         error
     });
+}
+
+function handleFormsToggle(_this, isShow = false) {
+    membersform.classList.remove(isShow ? 'hide' : 'show')
+    membersform.classList.add(!isShow ? 'hide' : 'show')
+
+    entryform.classList.remove(!isShow ? 'hide' : 'show')
+    entryform.classList.add(isShow ? 'hide' : 'show')
 }
 
 function getData(url = '', success, error) {
@@ -83,11 +81,6 @@ function cardClick(cur) {
         let overlayContainer = Array.from(document.getElementsByClassName('swal-overlay'));
         overlayContainer.map(x => x.remove());
     });
-
-    // let xdivmain = document.getElementsByClassName('swal-modal');
-    // xdivmain.style.width='80%';
-    // xdivmain.style.height='80%';
-
 }
 
 let partDateTime = (strDateTime) => {
@@ -98,6 +91,9 @@ let partDateTime = (strDateTime) => {
 }
 
 let success = {
+    modifyCardBorderColor: function () {
+        Array.from($('.card')).map((x, i) => x.style.borderTop = '3px solid ' + (x.getAttribute('xtype') === '+' ? 'green' : 'red'))
+    },
     alert: function (res) {
         let isaved = res.status === 'success' ? true : false;
         swal({
@@ -105,41 +101,70 @@ let success = {
             icon: isaved ? "success" : "error",
             button: 'Ok',
         }).then(flag => getSummaryAndRefresh());
-    }, refresh: function (res) {
-        if (res.status.indexOf('failed') !== -1) {
-            report1.innerHTML = `<div>No Data Found. ${res.status}</div>`
-            return
-        }
+    },
+    getSummaryCard: function (balance, total) {
+        return `
+            <div id="summaryFundCard" xtype="+" onclick="cardClick(this)" class="column card size14 bl">
+            <div>Adhoc in hand (miscellaneous balance):  ${rsSymbol} <span class="txtgreen size20">${balance}</span></div>
+            <div>Current Fund Value (credit-debit):  ${rsSymbol} <span class="txtgreen size20">${total}</span></div>
+            </div>        
+        `
+    },
+    displayRows: function (res) {
+        let _that = success
+        if (res.status !== undefined)
+            if (res.status.indexOf('failed') !== -1) {
+                report1.innerHTML = `<div>No Data Found. ${res.status}</div>`
+                return
+            }
 
         let result = [];
         let total = 0;
+        //for all cards group by memid
         result = res.map((x, i) => {
             total += parseFloat(x.amount);
             let isnegative = x.amount < 0 ? true : false;
             return '<div id="card' + i + '" class="card" onclick="cardClick(this)" xtype="' + (isnegative ? '-' : '+') + '">' +
-                '<span style="float: right">' +
+                // '<span><img src="' + imgObj[x.name] + '" class="imgdrop"/></span>' +
+                `<h1>${x.memid.toUpperCase()}</h1>` +
+                '<div class="flex">' +
+                '<span class=" ' + (isnegative ? 'red' : '') + '">' + rsSymbol + Math.abs(x.amount) + ' (' + x.remarks + ')</span>' +
+                '<span class="time">' + partDateTime(x.when) + ' <span style="color:' + colorx + '">' + x.date + '</span></span>' +
+                '</div>' +
+
+                '<div style="float: right">' +
                 '<button class="btn red" onclick="handleDelete(' + x.id.trim() + ')">Delete</button>' +
-                '</span>' +
-                '<span><img src="' + imgObj[x.name] + '" class="imgdrop"/></span>' +
-                '<span>' + partDateTime(x.when) + ' <span style="color:' + colorx + '">' + x.date + '</span></span>' +
-                '<span class=" ' + (isnegative ? 'red' : '') + '">₹' + Math.abs(x.amount) + ' (' + x.remarks + ')</span>' +
+                '</div>' +
                 '</div>';
         });
-        result.splice(0, 0, '<div  id="summaryFundCard"  xtype="+" onclick="cardClick(this)" class="column card" style="font-weight: bolder; font-size: 20px;">Current Fund Value: ' + '₹' + total + '<br><span style="font-size: 10px; color: gray">red: DEBITS, green: CREDIT</span></div>');
-        let rowx = '<div id="summaryCard"  onclick="cardClick(this)" class="row card summarycard" style="font-size: 20px;">' +
-            '<div style="font-weight: bolder">Contribution Summary</div>' +
-            summaryObject1.map(x => {
-                return '<span style="font-size: 40px" class="column">'
-                    + (typeof imgObj[x.name] === 'undefined'
-                        ? x.name
-                        : '<img class="imgdropx" src="' + imgObj[x.name] + '"/>')
-                    + '<span class="amt" style="font-size: 40px"> ₹' + Math.abs(x.amt) + '</span>' +
-                    '</span>';
-            }).join('') +
-            '</div>';
-        report1.innerHTML = rowx + '<div id="divLines" class="flexgrid">' + result.join('') + '</div>';
-        //change randonw broderTop color
-        Array.from($('.card')).map((x, i) => x.style.borderTop = '3px solid ' + (x.getAttribute('xtype') === '+' ? 'green' : 'red'));
+        //for summary card
+        result.splice(0, 0, _that.getSummaryCard(0, total));
+        report1.innerHTML = rowx + '<div id="divLines" class="flexboxCards">' + result.join('') + '</div>';
+        _that.modifyCardBorderColor()
+    },
+    group: function (res) {
+        let _that = success
+        if (res.status !== undefined)
+            if (res.status.indexOf('failed') !== -1) {
+                report1.innerHTML = `<div>No Data Found. ${res.status}</div>`
+                return
+            }
+
+        let result = [];
+        let total = 0
+        result = res.map((x, i) => {
+            total += parseFloat(x.amount)
+            return `
+                <div id="card${i}" class="card" xtype="+" onclick="cardClick(this)">
+                    <h1>${x.name.toUpperCase()}</h1>
+                    <h3>code: <span class="txtpurple">${x.memkey} - ${x.memid}</span></h3>
+                    <div class="size14">Total Contributions ${rsSymbol} <span class="txtgreen size20">${Math.abs(x.amount)}</span></div>
+                </div>
+            `
+        });
+        result.splice(0, 0, _that.getSummaryCard(0, total));
+        report1.innerHTML = '<div id="divLines" class="flexboxCards">' + result.join('') + '</div>';
+        _that.modifyCardBorderColor()
     }
 }
 
@@ -180,7 +205,7 @@ function handleSubmit(id) {
     cur.html('please wait...');
     data = {};
     data['save'] = 1;
-    data['name'] = names.value;
+    data['memid'] = memid.value;
     data['time'] = time.value;
     data['amount'] = amount.value;
     data['remarks'] = remarks.value === "" ? "regular maintenance" : remarks.value;
@@ -202,6 +227,32 @@ function handleSubmit(id) {
     });
 }
 
+function handleSubmitMember(id) {
+    let cur = $('#' + id);
+    let oldval = cur.html();
+    cur.html('please wait...');
+    data = {};
+    data['addMember'] = 1;
+    data['memberid'] = document.getElementById('memberid').value;
+    data['name'] = document.getElementById('name').value;
+    data['address'] = document.getElementById('address').value;
+
+    swal(
+        {
+            title: "Are you sure to add new member.",
+            text: `Adding ${data.memberid} - ${data.name} to RWA group sector 8 D Block Dwarka`,
+            buttons: ['No', 'Yes'],
+        }
+    ).then((flag) => {
+        if (flag === true) {
+            postData(phpServing, data, success.alert, error);
+            cur.html(oldval);
+        } else {
+            cur.html(oldval);
+        }
+    });
+}
+
 function getSummaryAndRefresh() {
     getData(`${phpServing}?summary1=1`, (res) => {
         summaryObject1 = res;
@@ -213,9 +264,8 @@ function handleRefresh() {
     // searchBtn.html('Please Wait...');
     let oldval = searchBtn.html();
     report1.innerHTML = '<h1>please wait, loading...</h1>';
-    let txt = idSearchBox.value.toLowerCase();
-    getData(`${phpServing}?expenses=1&by=${txt}`, success.refresh, error);
-    // searchBtn.html(oldval);
+    // let txt = idSearchBox.value.toLowerCase();
+    getData(`${phpServing}?expensesGroup=1`, success.group, error);
     if (typeof curObj.submit !== "undefined") {
         curObj.submit.html(curObj.submitText);
         curObj.submit = undefined;
@@ -227,15 +277,34 @@ function preparePeriod() {
     let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     let curDate = new Date();
     let curPeriod = months[curDate.getMonth()] + ' ' + curDate.getFullYear();
-    for (let i = 2020; i < 2025; i++) {
+    for (let i = 2022; i < 2035; i++) {
         years.push(months.map(x => {
             let cval = x + ' ' + i;
             let xelem = cval === curPeriod ? '<option value="' + cval + '" selected>' + cval + '</option>' : '<option value="' + cval + '">' + cval + '</option>';
             return xelem
         }).join(''));
-        // years.push('<option value="'+i+'">'+i+'</option>');
     }
     time.innerHTML = years.join('');
+}
+
+function handleAdminCheck() {
+    let id = document.getElementById('adminId')
+    let pwd = document.getElementById('adminPwd')
+    if (1 === 1) {
+        handleEntryType('admin')
+        handleDefaultView()
+        adminform.classList.add('hide')
+        adminform.classList.remove('show')
+    } else {
+        handleEntryType('member')
+        adminform.classList.add('show')
+        adminform.classList.remove('hide')
+        swal({
+            title: 'Error logging in',
+            text: 'Wrong admin id or password',
+            button: 'Close'
+        })
+    }
 }
 
 function searchByKeyword(e) {
@@ -245,9 +314,27 @@ function searchByKeyword(e) {
     }
 }
 
+function handleDefaultView() {
+    if (defaultEntryType === 'member') {
+        report1.classList.add('wid100')
+        report1.classList.remove('wid70')
+
+        entryform.classList.add('hide')
+        entryform.classList.remove('show')
+    } else if (defaultEntryType === 'admin') {
+        report1.classList.add('wid70')
+        report1.classList.remove('wid100')
+
+        entryform.classList.add('show')
+        entryform.classList.remove('hide')
+    }
+}
+
 //initialise
-(function () {
+function onInit() {
     preparePeriod();
-    // handleRefresh()
+    handleDefaultView()
     getSummaryAndRefresh();
-})();
+}
+
+document.addEventListener("DOMContentLoaded", onInit);

@@ -1,11 +1,53 @@
 
+:root {
+    --2px: 2px;
+    --4px: 4px;
+    --6px: 6px;
+    --linear2: all 2s linear;
+}
+
 * {
-    color: #4f0ea0;
+    color: #414040;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.imgbg {
+    background-image: url("./images/sec8park.jpg");
+    object-fit: cover;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 99%;
+    overflow: hidden;
+}
+
+.imgbg:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    z-index: -1;
+
+    filter: blur(var(--6px));
+    -moz-filter: blur(var(--6px));
+    -webkit-filter: blur(var(--6px));
+    -o-filter: blur(var(--6px));
+
+    transition: var(--linear2);
+    -moz-transition: var(--linear2);
+    -webkit-transition: var(--linear2);
+    -o-transition: var(--linear2);
 }
 
 
 .container div {
     margin: 5px;
+}
+
+input, select {
+    font-size: 20px;
 }
 
 .input-inline {
@@ -15,21 +57,26 @@
     flex-wrap: wrap;
 }
 
+.input-inline * {
+    margin: 5px;
+}
+
 .input-right {
     text-align: right;
 }
 
 .purple {
-    background-color: #8743e5;
+    background-color: #b8b8b4;
 }
 
-.input-inline * {
-    margin: 5px;
+input {
+    padding: 10px;
+    display: inline;
 }
 
 .btn {
     border: 1px solid transparent;
-    display: inline-block;
+    /*display: inline-block;*/
     font-weight: bold;
     text-align: center;
     white-space: nowrap;
@@ -44,7 +91,7 @@
     border-radius: .25rem;
     cursor: pointer;
     opacity: 0.95;
-    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
+    /*transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out*/
 }
 
 .btn:hover {
@@ -106,45 +153,65 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    justify-content: space-between;
+}
+
+.wid70 {
+    width: 70%;
+}
+
+.wid30 {
+    width: 30%;
+}
+
+.height450 {
+    height: 450px;
+    overflow: auto;
+    position: relative;
+}
+
+.wid100 {
+    width: 100%;
 }
 
 .column {
-    flex: 15%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.pad20 {
     padding: 20px;
 }
 
-
-.card span {
-    padding: 5px;
+.formInputs * {
+    padding: 20px;
+    margin-bottom: 5px;
 }
 
-/*.card .btn {*/
-/*    font-size: 80%;*/
-/*}*/
-
-.summarycard {
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    box-sizing: border-box;
-    display: none;
+.flexboxCards {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    display: grid;
 }
 
 .time {
-    color: gray;
-    /*font-size: 12px;*/
+    font-size: 10px;
 }
 
-.flexbox {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    display: grid;
+.size14 {
+    font-size: 14px;
+}
+
+.size20 {
+    font-size: 20px;
 }
 
 .flexgrid {
     display: grid;
 }
 
-.flexbox span, .flexgrid span {
-    font-size: 20px;
+.bl {
+    font-weight: bolder;
 }
 
 .box > * {
@@ -152,22 +219,30 @@
 }
 
 .card {
-    border-top: 3px solid #0c5460;
+    /*border-top: 3px solid #0c5460;*/
     /*box-shadow: 0 4px 4px 0;*/
     /*max-width: 200px;*/
     /*height: 100px;*/
+    background-color: white;
     padding: 10px;
     margin: 10px;
     cursor: pointer;
 }
 
-.flex {
+/*.flex {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    flex-wrap: wrap;*/
+/*    flex-basis: fit-content;*/
+/*    justify-content: space-around;*/
+/*    align-items: flex-start;*/
+/*}*/
+
+.row {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    flex-basis: fit-content;
     justify-content: space-around;
-    align-items: flex-start;
 }
 
 .card:hover {
@@ -179,17 +254,20 @@
     font-size: 16px;
 }
 
-.divx {
-    height: auto;
-    width: 100%;
-    /*overflow-y: auto;*/
-    /*overflow-x: hidden;*/
-    /*position: relative;*/
-    /*font-size: 80%;*/
-}
-
 .green {
     background-color: #82c389;
+}
+
+.txtgreen {
+    color: #258930;
+}
+
+.textwhite {
+    color: white;
+}
+
+.txtpurple {
+    color: #5229a6;
 }
 
 .blue {
@@ -200,7 +278,7 @@
     margin: 0px;
     font-size: 16px;
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.21);
-    margin-bottom: 28px;
+    margin-bottom: 5px;
 }
 
 .textwhite {
@@ -212,7 +290,7 @@
 }
 
 .show {
-    display: inline-block;
+    display: flex;
 }
 
 
@@ -246,9 +324,9 @@
 
 
 .searchText {
-    width: 70%;
-    padding: 5px;
-    font-size: 12px;
+    width: 50%;
+    /*padding: 10px;*/
+    font-size: 14px;
 }
 
 
@@ -268,10 +346,12 @@
     overflow: auto;
     position: relative;
 }
+
 .carddiv > span {
     padding: 5px;
     font-size: 35px;
 }
+
 .carddiv > span > img {
     height: 200px;
     width: 200px;
