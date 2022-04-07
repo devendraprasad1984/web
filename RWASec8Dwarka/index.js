@@ -1,4 +1,4 @@
-let summaryObject1 = {};
+let summaryObject1 = {}
 let colors = ['pink', 'green', 'gray', 'goldenrod', 'navy', 'blue', 'magenta']
 let imgObj = {
     anish: 'images/anish.png'
@@ -7,8 +7,8 @@ let imgObj = {
     , ajay: 'images/ajay.png'
 }
 let curObj = {}
-let searchBtn = $('#idSearchBtn');
-let colorx = '#428bdb';
+let searchBtn = $('#idSearchBtn')
+let colorx = '#428bdb'
 let serverPrefix = "http://localhost:8080/rwasec8"
 let phpServing = `${serverPrefix}/rwa.php`
 let rsSymbol = '₹'
@@ -36,7 +36,7 @@ function postData(url = '', data = {}, success, error) {
         data,
         success,
         error
-    });
+    })
 }
 
 function handleFormsToggle(_this, isShow = false) {
@@ -54,41 +54,60 @@ function getData(url = '', success, error) {
         dataType: 'json',
         success,
         error
-    });
+    })
 }
 
 function getRandomBorderColor() {
-    let ln = colors.length;
-    let num = Math.round(Math.random() * ln, 0);
-    // console.log(ln,num,colors[num]);
-    return colors[num];
+    let ln = colors.length
+    let num = Math.round(Math.random() * ln, 0)
+    // console.log(ln,num,colors[num])
+    return colors[num]
 }
 
-function cardClick(cur) {
-    let cardid = cur.id;
+function memberCardClick(cur, id) {
+    let cardid = cur.id
     if (typeof cur === 'string') {
-        cardid = cur;
+        cardid = cur
     }
-    let xdiv = document.createElement('div');
-    xdiv.id = 'openCardId';
-    xdiv.innerHTML = document.getElementById(cardid).innerHTML;
-    xdiv.className = 'carddiv';
-    Array.from(xdiv.children).map(a => a.classList.remove('amt'));
-    swal({
-        content: xdiv,
-        button: 'Close'
-    }).then(flag => {
-        xdiv.remove();
-        let overlayContainer = Array.from(document.getElementsByClassName('swal-overlay'));
-        overlayContainer.map(x => x.remove());
-    });
+
+    getData(`${phpServing}?expensesByMember=1&id=${id}`, (res) => {
+        let rows = res.map(x => {
+            return `
+                <div class="row flex">
+                    <span>${x.remarks}</span>
+                    <span>${x.amount}</span>
+                    <span>${x.when}</span>
+                </div>
+            `
+        })
+        let xdiv = document.createElement('div')
+        xdiv.id = 'openCardId'
+        let cardBaseElements = document.getElementById(cardid).innerHTML
+        let txnData = `
+            <div class="size30">your contributions so far...</div>
+            <div class="flexgrid">
+                ${rows.join('')}
+            </div>
+        `
+        xdiv.innerHTML = cardBaseElements + '<br/>' + txnData
+        xdiv.className = 'carddiv'
+        Array.from(xdiv.children).map(a => a.classList.remove('amt'))
+        swal({
+            content: xdiv,
+            button: 'Close'
+        }).then(flag => {
+            xdiv.remove()
+            let overlayContainer = Array.from(document.getElementsByClassName('swal-overlay'))
+            overlayContainer.map(x => x.remove())
+        })
+    }, error)
 }
 
 let partDateTime = (strDateTime) => {
-    let sdateArr = strDateTime.split(' ');
-    let sDate = sdateArr[0];
-    let sTime = sdateArr[1];
-    return '<span><span style="color: ' + colorx + '">' + sDate + '</span> <span class="">' + sTime + '</span></span>';
+    let sdateArr = strDateTime.split(' ')
+    let sDate = sdateArr[0]
+    let sTime = sdateArr[1]
+    return '<span><span style="color: ' + colorx + '">' + sDate + '</span> <span class="">' + sTime + '</span></span>'
 }
 
 let success = {
@@ -96,16 +115,16 @@ let success = {
         Array.from($('.card')).map((x, i) => x.style.borderTop = '3px solid ' + (x.getAttribute('xtype') === '+' ? 'green' : 'red'))
     },
     alert: function (res) {
-        let isaved = res.status === 'success' ? true : false;
+        let isaved = res.status === 'success' ? true : false
         swal({
             title: isaved ? "Action Processed" : res.status !== undefined ? res.status : "Not processed.",
             icon: isaved ? "success" : "error",
             button: 'Ok',
-        }).then(flag => getSummaryAndRefresh());
+        }).then(flag => getSummaryAndRefresh())
     },
     getSummaryCard: function (balance = 0, total = 0, expenses = 0) {
         return `
-            <div id="summaryFundCard" xtype="+" onclick="cardClick(this)" class="column card size14 bl">
+            <div id="summaryFundCard" xtype="+" class="column card size14 bl">
             <div>Adhoc in hand (miscellaneous balance): <span class="red size30">${rsSymbol}${balance}</span></div>
             <div>Current Fund Value (credit-debit): <span class="red size30">${rsSymbol}${total + expenses}</span></div>
             </div>        
@@ -113,11 +132,11 @@ let success = {
     },
     displayRows: function (res) {
         let _that = success
-        let result = [];
-        let total = 0;
+        let result = []
+        let total = 0
         result = res.map((x, i) => {
-            total += parseFloat(x.amount);
-            let isnegative = x.amount < 0 ? true : false;
+            total += parseFloat(x.amount)
+            let isnegative = x.amount < 0 ? true : false
             return `
             <div class='row'>
                 <span>${x.remarks}</span>
@@ -125,13 +144,13 @@ let success = {
                 <span>${partDateTime(x.when)}</span>
             </div>
             `
-        });
+        })
         report1.innerHTML = `
             <div class="right">
                 <button class="btn green" onclick="">Export PDF</button>
             </div>
             <div id="divLines" class="white flexgrid">${result.join('')}</div>
-        `;
+        `
     },
     group: function (res) {
         let _that = success
@@ -141,26 +160,25 @@ let success = {
                 return
             }
 
-        let result = [];
+        let result = []
         let total = 0, expenses = 0
         result = res.map((x, i) => {
-            total += parseFloat(x.amount)
             if (x.memid !== null)
                 if (x.memid.toLowerCase() === 'expenses') {
                     expenses = parseFloat(x.amount)
                     return null
                 }
+            total += parseFloat(x.amount)
             return `
-                <div id="card${i}" class="card" xtype="+" onclick="cardClick(this)">
+                <div id="card${i}" class="card" xtype="+" onclick="memberCardClick(this,${x.memid})">
                     <h1>${x.name.toUpperCase()}</h1>
                     <h3>unique code: <span class="txtpurple">${x.memkey} ${x.memid === null ? '' : '(' + x.memid + ')'}</span></h3>
                     <div class="right"><span class=" txtgreen size30">${rsSymbol}${Math.abs(x.amount)}</span></div>
                 </div>
             `
-        });
-        console.log('total', expenses, total)
-        result.splice(0, 0, _that.getSummaryCard(0, total, expenses));
-        report1.innerHTML = `<div id="divLines" class="flexboxCards">${result.join('')}</div>`;
+        })
+        result.splice(0, 0, _that.getSummaryCard(0, total, expenses))
+        report1.innerHTML = `<div id="divLines" class="flexboxCards">${result.join('')}</div>`
         _that.modifyCardBorderColor()
     }
 }
@@ -169,43 +187,20 @@ function error(err) {
     swal({
         title: "some error contact admin",
         button: 'Ok',
-    });
-    console.log(err);
+    })
+    console.error(err)
 }
-
-function handleDelete(id) {
-    let pass = prompt('enter passphrase');
-    if (pass !== '6200') return;
-
-    data = {};
-    data['delete'] = 1;
-    data['id'] = id;
-    swal(
-        {
-            title: "Are you sure to delete.",
-            icon: 'error',
-            text: 'please review entry before deleting',
-            buttons: ['No', 'Yes'],
-        }
-    ).then((flag) => {
-        if (flag === true) {
-            postData(phpServing, data, success.alert, error);
-        }
-    });
-
-}
-
 
 function handleSubmit(id) {
-    let cur = $('#' + id);
-    let oldval = cur.html();
-    cur.html('please wait...');
-    data = {};
-    data['save'] = 1;
-    data['memid'] = memid.value;
-    data['time'] = time.value;
-    data['amount'] = amount.value;
-    data['remarks'] = remarks.value === "" ? "regular maintenance" : remarks.value;
+    let cur = $('#' + id)
+    let oldval = cur.html()
+    cur.html('please wait...')
+    data = {}
+    data['save'] = 1
+    data['memid'] = memid.value
+    data['time'] = time.value
+    data['amount'] = amount.value
+    data['remarks'] = remarks.value === "" ? "regular maintenance" : remarks.value
 
     swal(
         {
@@ -215,37 +210,37 @@ function handleSubmit(id) {
         }
     ).then((flag) => {
         if (flag === true) {
-            curObj.submit = cur;
-            curObj.submitText = oldval;
-            postData(phpServing, data, success.alert, error);
+            curObj.submit = cur
+            curObj.submitText = oldval
+            postData(phpServing, data, success.alert, error)
         } else {
-            cur.html(oldval);
+            cur.html(oldval)
         }
-    });
+    })
 }
 
 
 function handleSubmitExpense(id) {
-    let cur = $('#' + id);
-    let oldval = cur.html();
-    cur.html('please wait...');
-    data = {};
-    data['saveExpense'] = 1;
-    data['amount'] = amountexpense.value;
-    data['reason'] = reason.value === "" ? "regular maintenance" : reason.value;
-    postData(phpServing, data, success.alert, error);
+    let cur = $('#' + id)
+    let oldval = cur.html()
+    cur.html('please wait...')
+    data = {}
+    data['saveExpense'] = 1
+    data['amount'] = amountexpense.value
+    data['reason'] = reason.value === "" ? "regular maintenance" : reason.value
+    postData(phpServing, data, success.alert, error)
     cur.html(oldval)
 }
 
 function handleSubmitMember(id) {
-    let cur = $('#' + id);
-    let oldval = cur.html();
-    cur.html('please wait...');
-    data = {};
-    data['addMember'] = 1;
-    data['memberid'] = document.getElementById('memberid').value;
-    data['name'] = document.getElementById('name').value;
-    data['address'] = document.getElementById('address').value;
+    let cur = $('#' + id)
+    let oldval = cur.html()
+    cur.html('please wait...')
+    data = {}
+    data['addMember'] = 1
+    data['memberid'] = document.getElementById('memberid').value
+    data['name'] = document.getElementById('name').value
+    data['address'] = document.getElementById('address').value
 
     swal(
         {
@@ -255,30 +250,40 @@ function handleSubmitMember(id) {
         }
     ).then((flag) => {
         if (flag === true) {
-            postData(phpServing, data, success.alert, error);
-            cur.html(oldval);
+            postData(phpServing, data, success.alert, error)
+            cur.html(oldval)
         } else {
-            cur.html(oldval);
+            cur.html(oldval)
         }
-    });
+    })
 }
 
 function getSummaryAndRefresh() {
     getData(`${phpServing}?summary1=1`, (res) => {
-        summaryObject1 = res;
-        handleRefresh();
-    });
+        summaryObject1 = res
+        handleRefresh()
+    })
 }
 
+function pullMembersList() {
+    getData(`${phpServing}?membersList=1`, (res) => {
+        let data=res.map(x=>{
+            return `<option value="${x.id}">${x.name}</option>`
+        })
+        memid.innerHTML = data.join('')
+    })
+}
+
+
 function handleRefresh() {
-    // searchBtn.html('Please Wait...');
-    let oldval = searchBtn.html();
-    report1.innerHTML = '<h1>please wait, loading...</h1>';
-    // let txt = idSearchBox.value.toLowerCase();
-    getData(`${phpServing}?expensesGroup=1`, success.group, error);
+    // searchBtn.html('Please Wait...')
+    let oldval = searchBtn.html()
+    report1.innerHTML = '<h1>please wait, loading...</h1>'
+    // let txt = idSearchBox.value.toLowerCase()
+    getData(`${phpServing}?expensesGroup=1`, success.group, error)
     if (typeof curObj.submit !== "undefined") {
-        curObj.submit.html(curObj.submitText);
-        curObj.submit = undefined;
+        curObj.submit.html(curObj.submitText)
+        curObj.submit = undefined
     }
 }
 
@@ -293,22 +298,22 @@ function handlePullExpenses(_this) {
     cur.innerHTML = 'Pull Summary'
     getData(`${phpServing}?expensesOnly=1`, (res) => {
         success.displayRows(res)
-    }, error);
+    }, error)
 }
 
 function preparePeriod() {
-    let years = [];
-    let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    let curDate = new Date();
-    let curPeriod = months[curDate.getMonth()] + ' ' + curDate.getFullYear();
+    let years = []
+    let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    let curDate = new Date()
+    let curPeriod = months[curDate.getMonth()] + ' ' + curDate.getFullYear()
     for (let i = 2022; i < 2035; i++) {
         years.push(months.map(x => {
-            let cval = x + ' ' + i;
-            let xelem = cval === curPeriod ? '<option value="' + cval + '" selected>' + cval + '</option>' : '<option value="' + cval + '">' + cval + '</option>';
+            let cval = x + ' ' + i
+            let xelem = cval === curPeriod ? '<option value="' + cval + '" selected>' + cval + '</option>' : '<option value="' + cval + '">' + cval + '</option>'
             return xelem
-        }).join(''));
+        }).join(''))
     }
-    time.innerHTML = years.join('');
+    time.innerHTML = years.join('')
 }
 
 function handleAdminCheck() {
@@ -333,8 +338,8 @@ function handleAdminCheck() {
 
 function searchByKeyword(e) {
     if (e.keyCode === 13) {
-        getSummaryAndRefresh();
-        e.preventDefault();
+        getSummaryAndRefresh()
+        e.preventDefault()
     }
 }
 
@@ -356,9 +361,10 @@ function handleDefaultView() {
 
 //initialise
 function onInit() {
-    preparePeriod();
+    preparePeriod()
+    pullMembersList()
     handleDefaultView()
-    getSummaryAndRefresh();
+    getSummaryAndRefresh()
 }
 
-document.addEventListener("DOMContentLoaded", onInit);
+document.addEventListener("DOMContentLoaded", onInit)

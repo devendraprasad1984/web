@@ -239,17 +239,9 @@ input {
     opacity: 0.9;
 }
 
-/*.flex {*/
-/*    display: flex;*/
-/*    flex-direction: row;*/
-/*    flex-wrap: wrap;*/
-/*    flex-basis: fit-content;*/
-/*    justify-content: space-around;*/
-/*    align-items: flex-start;*/
-/*}*/
-
 .row {
     display: flex;
+    align-content: flex-start;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -355,7 +347,6 @@ input {
     text-align: left;
     display: flex;
     flex-direction: column;
-    height: 500px;
     width: 100%;
     overflow: auto;
     position: relative;
@@ -372,6 +363,6 @@ input {
 }
 
 .swal-modal {
-    height: 400px;
+    height: auto;
     width: 60%;
 }
