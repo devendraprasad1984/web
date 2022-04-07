@@ -242,9 +242,17 @@ input {
 .row {
     display: flex;
     align-content: flex-start;
+    align-items: flex-start;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
+}
+.row > span{
+    min-width: 200px;
+    width: 200px;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    text-wrap: normal;
 }
 
 .card:hover {
