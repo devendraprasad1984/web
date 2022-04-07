@@ -15,7 +15,7 @@ let rsSymbol = '₹'
 let entryform = document.getElementById('entryform')
 let membersform = document.getElementById('membersform')
 let report1 = document.getElementById('report1')
-let defaultEntryType = 'admin' //member or admin
+let defaultEntryType = 'member' //member or admin
 let adminform = document.getElementById('adminform')
 let currentReportType = 'summary'
 
@@ -76,7 +76,7 @@ function memberCardClick(cur, id) {
                 <div class="row flex">
                     <span>${x.remarks}</span>
                     <span>${x.amount}</span>
-                    <span>${x.when}</span>
+                    <span>${ partDateTime(x.when)}</span>
                 </div>
             `
         })
@@ -85,9 +85,7 @@ function memberCardClick(cur, id) {
         let cardBaseElements = document.getElementById(cardid).innerHTML
         let txnData = `
             <div class="size30">your contributions so far...</div>
-            <div class="flexgrid">
-                ${rows.join('')}
-            </div>
+            <div class="height450">${rows.join('')}</div>
         `
         xdiv.innerHTML = cardBaseElements + '<br/>' + txnData
         xdiv.className = 'carddiv'
@@ -105,7 +103,7 @@ function memberCardClick(cur, id) {
 
 let partDateTime = (strDateTime) => {
     let sdateArr = strDateTime.split(' ')
-    let sDate = sdateArr[0]
+    let sDate = new Date(sdateArr[0]).toLocaleDateString()
     let sTime = sdateArr[1]
     return '<span><span style="color: ' + colorx + '">' + sDate + '</span> <span class="">' + sTime + '</span></span>'
 }
@@ -146,10 +144,11 @@ let success = {
             `
         })
         report1.innerHTML = `
+            <h1>Expenses made so far</h1>
             <div class="right">
                 <button class="btn green" onclick="">Export PDF</button>
             </div>
-            <div id="divLines" class="white flexgrid">${result.join('')}</div>
+            <div id="divLines" class="white">${result.join('')}</div>
         `
     },
     group: function (res) {
@@ -178,7 +177,10 @@ let success = {
             `
         })
         result.splice(0, 0, _that.getSummaryCard(0, total, expenses))
-        report1.innerHTML = `<div id="divLines" class="flexboxCards">${result.join('')}</div>`
+        report1.innerHTML = `
+            <h1>Summary by members</h1>
+            <div id="divLines" class="flexboxCards">${result.join('')}</div>
+        `
         _that.modifyCardBorderColor()
     }
 }
@@ -258,16 +260,9 @@ function handleSubmitMember(id) {
     })
 }
 
-function getSummaryAndRefresh() {
-    getData(`${phpServing}?summary1=1`, (res) => {
-        summaryObject1 = res
-        handleRefresh()
-    })
-}
-
 function pullMembersList() {
     getData(`${phpServing}?membersList=1`, (res) => {
-        let data=res.map(x=>{
+        let data = res.map(x => {
             return `<option value="${x.id}">${x.name}</option>`
         })
         memid.innerHTML = data.join('')
@@ -276,15 +271,9 @@ function pullMembersList() {
 
 
 function handleRefresh() {
-    // searchBtn.html('Please Wait...')
-    let oldval = searchBtn.html()
+    let byname = document.getElementById('idSearchBox').value
     report1.innerHTML = '<h1>please wait, loading...</h1>'
-    // let txt = idSearchBox.value.toLowerCase()
-    getData(`${phpServing}?expensesGroup=1`, success.group, error)
-    if (typeof curObj.submit !== "undefined") {
-        curObj.submit.html(curObj.submitText)
-        curObj.submit = undefined
-    }
+    getData(`${phpServing}?expensesGroup=1&name=${byname}`, success.group, error)
 }
 
 function handlePullExpenses(_this) {
@@ -338,7 +327,7 @@ function handleAdminCheck() {
 
 function searchByKeyword(e) {
     if (e.keyCode === 13) {
-        getSummaryAndRefresh()
+        handleRefresh()
         e.preventDefault()
     }
 }
@@ -364,7 +353,7 @@ function onInit() {
     preparePeriod()
     pullMembersList()
     handleDefaultView()
-    getSummaryAndRefresh()
+    handleRefresh()
 }
 
 document.addEventListener("DOMContentLoaded", onInit)

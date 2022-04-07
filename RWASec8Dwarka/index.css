@@ -215,10 +215,6 @@ input {
     font-size: 30px;
 }
 
-.flexgrid {
-    display: grid;
-}
-
 .bl {
     font-weight: bolder;
 }
@@ -228,7 +224,7 @@ input {
 }
 
 .card {
-    /*border-top: 3px solid #0c5460;*/
+    border-top: 3px solid #0c5460;
     /*box-shadow: 0 4px 4px 0;*/
     /*max-width: 200px;*/
     /*height: 100px;*/
@@ -353,9 +349,7 @@ input {
 
 .carddiv {
     text-align: left;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+    min-height: 200px;
     overflow: auto;
     position: relative;
 }

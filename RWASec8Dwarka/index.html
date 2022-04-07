@@ -10,15 +10,8 @@
 
 <div class="header">
     <img class="logo" src="images/icon.jpeg">
-    <h1>D Block, Sector8 Dwarka - Expense Register</h1>
+    <div class="right size30 bl">D Block, Sector8 Dwarka - Expense Register</div>
 </div>
-
-<!--<div>-->
-<!--&lt;!&ndash;    <button class="btn blue textwhite" id="btnUnlock" onclick="handleUnlock(this.id)">Add Amount</button>&ndash;&gt;-->
-<!--&lt;!&ndash;    <button class="btn purple textwhite" id="btnGrid" onclick="changeView('grid')">Grid</button>&ndash;&gt;-->
-<!--&lt;!&ndash;    <button class="btn purple textwhite" id="btnCard" onclick="changeView('card')">Card</button>&ndash;&gt;-->
-<!--&lt;!&ndash;    <button class="btn green textwhite" id="btnSummary" onclick="cardClick('summaryCard')">SUMMARY</button>&ndash;&gt;-->
-<!--</div>-->
 
 <div class="right">
     <button class="btn red" onclick="handleEntryType('admin')">Admin</button>
@@ -32,7 +25,7 @@
 
 <div id="search1">
     <input class="searchText" id="idSearchBox" onkeypress="searchByKeyword(event)"
-           placeholder="enter search keyword by name,remarks,amount(>0|<0),month/years etc"
+           placeholder="search by name"
            type="text">
     <button class="btn green textwhite" id="idSearchBtn" onclick="handleRefresh()">Search</button>
     <button class="btn red" id="idPullExpenses" onclick="handlePullExpenses(this)">Pull Expenses</button>
@@ -67,6 +60,14 @@
     </div>
 </div>
 
+<footer>
+    <div class="right green">
+        <div>created by Devendra Prasad</div>
+        <div>+91 9582797772, devendraprasad1984@gmail.com</div>
+        <div>Sector 8 D Block, RWA Member</div>
+        <div class="purple">Key Contacts: Mr Amit, Mr Anant, Mr Anish, Mr Devendra</div>
+    </div>
+</footer>
 
 <script src="./libs/jquery.min.js"></script>
 <script crossorigin="anonymous"
