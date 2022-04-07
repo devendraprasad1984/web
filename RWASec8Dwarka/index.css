@@ -18,7 +18,7 @@
     object-fit: cover;
     background-repeat: no-repeat;
     background-size: cover;
-    width: 99%;
+    /*width: 99%;*/
 }
 
 .imgbg:before {
@@ -41,9 +41,9 @@
 }
 
 
-.container div {
-    margin: 3px;
-}
+/*.container div {*/
+/*    margin: 3px;*/
+/*}*/
 
 input, select {
     font-size: 20px;
@@ -148,12 +148,12 @@ input {
     color: orangered;
 }
 
-.row {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-around;
-}
+/*.row {*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*    flex-direction: row;*/
+/*    justify-content: space-around;*/
+/*}*/
 
 .wid70 {
     width: 70%;
@@ -189,8 +189,8 @@ input {
     padding: 20px;
 }
 
-.formInputs * {
-    padding: 20px;
+.formInputs input, .formInputs select {
+    padding: 10px;
     margin-bottom: 5px;
 }
 
@@ -339,14 +339,6 @@ input {
     font-size: 14px;
 }
 
-
-/*@media (min-width:300px) and (max-width:750px) {*/
-/*    .flexbox {*/
-/*        display: grid;*/
-/*        grid-template-columns: none;*/
-/*    }*/
-/*}*/
-
 .carddiv {
     text-align: left;
     min-height: 200px;
@@ -366,5 +358,13 @@ input {
 
 .swal-modal {
     height: auto;
-    width: 60%;
+    width: 95%;
+}
+
+
+footer{
+    bottom: 0;
+    margin-top: 5em;
+    position: fixed;
+    width: 100%;
 }

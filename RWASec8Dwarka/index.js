@@ -118,7 +118,7 @@ let success = {
             title: isaved ? "Action Processed" : res.status !== undefined ? res.status : "Not processed.",
             icon: isaved ? "success" : "error",
             button: 'Ok',
-        }).then(flag => getSummaryAndRefresh())
+        }).then(flag => handleRefresh())
     },
     getSummaryCard: function (balance = 0, total = 0, expenses = 0) {
         return `

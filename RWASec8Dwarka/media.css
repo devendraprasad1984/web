@@ -1,0 +1,9 @@
+@media screen and (max-width: 600px) {
+    .wid30 {
+        width: 60%;
+    }
+
+    .wid70 {
+        width: 40%;
+    }
+}
