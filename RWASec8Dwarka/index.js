@@ -97,7 +97,7 @@ let success = {
     alert: function (res) {
         let isaved = res.status === 'success' ? true : false;
         swal({
-            title: isaved ? "Action Processed" : "Not Processed",
+            title: isaved ? "Action Processed" : res.status !== undefined ? res.status : "Not processed.",
             icon: isaved ? "success" : "error",
             button: 'Ok',
         }).then(flag => getSummaryAndRefresh());
@@ -157,7 +157,7 @@ let success = {
             return `
                 <div id="card${i}" class="card" xtype="+" onclick="cardClick(this)">
                     <h1>${x.name.toUpperCase()}</h1>
-                    <h3>code: <span class="txtpurple">${x.memkey} - ${x.memid}</span></h3>
+                    <h3>unique code: <span class="txtpurple">${x.memkey} (${x.memid})</span></h3>
                     <div class="size14">Total Contributions ${rsSymbol} <span class="txtgreen size20">${Math.abs(x.amount)}</span></div>
                 </div>
             `
