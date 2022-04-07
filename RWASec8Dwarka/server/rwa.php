@@ -6,10 +6,14 @@ require_once './helper.php';
 global $success, $failed;
 try{
     if(isset($_POST['save'])) handleSave($_POST);
-    if(isset($_GET['expenses'])) handleExpensesReport($_GET);
-    if(isset($_GET['summary1'])) handleSummary1($_GET);
+    if(isset($_POST['saveExpense'])) handleSaveExpense($_POST);
+    if(isset($_POST['addMember'])) handleSaveMember($_POST);
+    if(isset($_GET['membersList'])) handlePullMembersList($_GET);
+    if(isset($_GET['expensesOnly'])) handleExpensesOnly($_GET);
+    if(isset($_GET['expensesByMember'])) handleExpensesByMember($_GET);
+    if(isset($_GET['expensesGroup'])) handleExpensesGroupByMemId($_GET);
     if(isset($_POST['delete'])) handleDelete($_POST);
 }catch (Exception $ex){
-//    ChromePhp::error($ex->getMessage());
+    ChromePhp::error($ex->getMessage());
     echo $failed;
 }
