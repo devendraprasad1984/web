@@ -15,8 +15,9 @@ let rsSymbol = '₹'
 let entryform = document.getElementById('entryform')
 let membersform = document.getElementById('membersform')
 let report1 = document.getElementById('report1')
-let defaultEntryType = 'member' //member or admin
+let defaultEntryType = 'admin' //member or admin
 let adminform = document.getElementById('adminform')
+let currentReportType = 'summary'
 
 
 function handleEntryType(type) {
@@ -87,7 +88,7 @@ let partDateTime = (strDateTime) => {
     let sdateArr = strDateTime.split(' ');
     let sDate = sdateArr[0];
     let sTime = sdateArr[1];
-    return '<span><span style="color: ' + colorx + '">' + sDate + '</span><span class="time">' + sTime + '</span></span>';
+    return '<span><span style="color: ' + colorx + '">' + sDate + '</span> <span class="">' + sTime + '</span></span>';
 }
 
 let success = {
@@ -102,45 +103,35 @@ let success = {
             button: 'Ok',
         }).then(flag => getSummaryAndRefresh());
     },
-    getSummaryCard: function (balance, total) {
+    getSummaryCard: function (balance = 0, total = 0, expenses = 0) {
         return `
             <div id="summaryFundCard" xtype="+" onclick="cardClick(this)" class="column card size14 bl">
-            <div>Adhoc in hand (miscellaneous balance):  ${rsSymbol} <span class="txtgreen size20">${balance}</span></div>
-            <div>Current Fund Value (credit-debit):  ${rsSymbol} <span class="txtgreen size20">${total}</span></div>
+            <div>Adhoc in hand (miscellaneous balance): <span class="red size30">${rsSymbol}${balance}</span></div>
+            <div>Current Fund Value (credit-debit): <span class="red size30">${rsSymbol}${total + expenses}</span></div>
             </div>        
         `
     },
     displayRows: function (res) {
         let _that = success
-        if (res.status !== undefined)
-            if (res.status.indexOf('failed') !== -1) {
-                report1.innerHTML = `<div>No Data Found. ${res.status}</div>`
-                return
-            }
-
         let result = [];
         let total = 0;
-        //for all cards group by memid
         result = res.map((x, i) => {
             total += parseFloat(x.amount);
             let isnegative = x.amount < 0 ? true : false;
-            return '<div id="card' + i + '" class="card" onclick="cardClick(this)" xtype="' + (isnegative ? '-' : '+') + '">' +
-                // '<span><img src="' + imgObj[x.name] + '" class="imgdrop"/></span>' +
-                `<h1>${x.memid.toUpperCase()}</h1>` +
-                '<div class="flex">' +
-                '<span class=" ' + (isnegative ? 'red' : '') + '">' + rsSymbol + Math.abs(x.amount) + ' (' + x.remarks + ')</span>' +
-                '<span class="time">' + partDateTime(x.when) + ' <span style="color:' + colorx + '">' + x.date + '</span></span>' +
-                '</div>' +
-
-                '<div style="float: right">' +
-                '<button class="btn red" onclick="handleDelete(' + x.id.trim() + ')">Delete</button>' +
-                '</div>' +
-                '</div>';
+            return `
+            <div class='row'>
+                <span>${x.remarks}</span>
+                <span>${rsSymbol}${Math.abs(x.amount)}</span>
+                <span>${partDateTime(x.when)}</span>
+            </div>
+            `
         });
-        //for summary card
-        result.splice(0, 0, _that.getSummaryCard(0, total));
-        report1.innerHTML = rowx + '<div id="divLines" class="flexboxCards">' + result.join('') + '</div>';
-        _that.modifyCardBorderColor()
+        report1.innerHTML = `
+            <div class="right">
+                <button class="btn green" onclick="">Export PDF</button>
+            </div>
+            <div id="divLines" class="white flexgrid">${result.join('')}</div>
+        `;
     },
     group: function (res) {
         let _that = success
@@ -151,19 +142,25 @@ let success = {
             }
 
         let result = [];
-        let total = 0
+        let total = 0, expenses = 0
         result = res.map((x, i) => {
             total += parseFloat(x.amount)
+            if (x.memid !== null)
+                if (x.memid.toLowerCase() === 'expenses') {
+                    expenses = parseFloat(x.amount)
+                    return null
+                }
             return `
                 <div id="card${i}" class="card" xtype="+" onclick="cardClick(this)">
                     <h1>${x.name.toUpperCase()}</h1>
-                    <h3>unique code: <span class="txtpurple">${x.memkey} (${x.memid})</span></h3>
-                    <div class="size14">Total Contributions ${rsSymbol} <span class="txtgreen size20">${Math.abs(x.amount)}</span></div>
+                    <h3>unique code: <span class="txtpurple">${x.memkey} ${x.memid === null ? '' : '(' + x.memid + ')'}</span></h3>
+                    <div class="right"><span class=" txtgreen size30">${rsSymbol}${Math.abs(x.amount)}</span></div>
                 </div>
             `
         });
-        result.splice(0, 0, _that.getSummaryCard(0, total));
-        report1.innerHTML = '<div id="divLines" class="flexboxCards">' + result.join('') + '</div>';
+        console.log('total', expenses, total)
+        result.splice(0, 0, _that.getSummaryCard(0, total, expenses));
+        report1.innerHTML = `<div id="divLines" class="flexboxCards">${result.join('')}</div>`;
         _that.modifyCardBorderColor()
     }
 }
@@ -227,6 +224,19 @@ function handleSubmit(id) {
     });
 }
 
+
+function handleSubmitExpense(id) {
+    let cur = $('#' + id);
+    let oldval = cur.html();
+    cur.html('please wait...');
+    data = {};
+    data['saveExpense'] = 1;
+    data['amount'] = amountexpense.value;
+    data['reason'] = reason.value === "" ? "regular maintenance" : reason.value;
+    postData(phpServing, data, success.alert, error);
+    cur.html(oldval)
+}
+
 function handleSubmitMember(id) {
     let cur = $('#' + id);
     let oldval = cur.html();
@@ -270,6 +280,20 @@ function handleRefresh() {
         curObj.submit.html(curObj.submitText);
         curObj.submit = undefined;
     }
+}
+
+function handlePullExpenses(_this) {
+    let cur = document.getElementById(_this.id)
+    currentReportType = (currentReportType === 'expenses' ? 'summary' : "expenses")
+    if (currentReportType === 'summary') {
+        cur.innerHTML = 'Pull Expenses'
+        handleRefresh()
+        return
+    }
+    cur.innerHTML = 'Pull Summary'
+    getData(`${phpServing}?expensesOnly=1`, (res) => {
+        success.displayRows(res)
+    }, error);
 }
 
 function preparePeriod() {
