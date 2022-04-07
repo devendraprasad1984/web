@@ -15,7 +15,7 @@ let rsSymbol = '₹'
 let entryform = document.getElementById('entryform')
 let membersform = document.getElementById('membersform')
 let report1 = document.getElementById('report1')
-let defaultEntryType = 'member' //member or admin
+let defaultEntryType = 'admin' //member or admin
 let adminform = document.getElementById('adminform')
 let currentReportType = 'summary'
 
@@ -123,8 +123,9 @@ let success = {
     getSummaryCard: function (balance = 0, total = 0, expenses = 0) {
         return `
             <div id="summaryFundCard" xtype="+" class="column card size14 bl">
-            <div>Adhoc in hand (miscellaneous balance): <span class="red size30">${rsSymbol}${balance}</span></div>
-            <div>Current Fund Value (credit-debit): <span class="red size30">${rsSymbol}${total + expenses}</span></div>
+            <div>Adhoc in hand (miscellaneous balance): <span class="green size30">${rsSymbol}${balance}</span></div>
+            <div>Current Fund Value (credit-debit): <span class="green size30">${rsSymbol}${total + expenses}</span></div>
+            <div>Total: <span class="txtpurple size30">${rsSymbol}${total + expenses + balance}</span></div>
             </div>        
         `
     },

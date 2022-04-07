@@ -37,7 +37,7 @@
 
     <div class="column wid30 height650">
         <div class=" column formInputs hide" id="entryform">
-            <h2 class="">Add Contribution <span class="btn green" onclick="handleFormsToggle(this, true)">Add Member</span></h2>
+            <h2 class="green pad20">Add Contribution <span class="btn purple" onclick="handleFormsToggle(this, true)">Add Member</span></h2>
             <select id="memid"></select>
             <select id="time"></select>
             <input class="input-right" id="amount" placeholder="enter your amount" type="text" value="200" width="50px">
@@ -45,15 +45,15 @@
             <button class="btn red" id="btnSubmit" onclick="handleSubmit(this.id)">Add Contribution</button>
 
             <br/>
-            <h2 class="">Add Expenses</h2>
+            <h2 class="green pad20">Add Expenses</h2>
             <input id="amountexpense" placeholder="enter amount" type="text" width="50px">
             <input id="reason" placeholder="Reason: where this money is spent on" type="text" width="150px">
             <button class="btn red" id="btnSaveExpense" onclick="handleSubmitExpense(this.id)">Save Expenses</button>
         </div>
         <div class="column formInputs hide" id="membersform">
-            <h2 class="">Add New Member <span class="btn green" onclick="handleFormsToggle(this, false)">Admin Section</span>
+            <h2 class="green pad20">Add New Member <span class="btn purple" onclick="handleFormsToggle(this, false)">Admin Section</span>
             </h2>
-            <input id="memberid" placeholder="enter mobile number or D155-Devendra" type="text" width="150px">
+            <input id="memberid" placeholder="enter unique key eg mobile or name-address combination" type="text" width="150px">
             <input id="name" placeholder="enter member name" type="text" width="150px">
             <input id="address" placeholder="eg D155 sector 8 dwarka" type="text" width="150px">
             <button class="btn txtgreen" id="btnSaveMember" onclick="handleSubmitMember(this.id)">Add Member</button>

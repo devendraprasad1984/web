@@ -144,7 +144,8 @@ function handleExpensesGroupByMemId($data)
         where type='member' $searchByNameQur 
         group by e.memid,m.name,memkey
         union all
-        select 'expenses','','',sum(coalesce(amount,0)) as amt from expenses where amount < 0
+        select 'expenses','z_expenses','',sum(coalesce(amount,0)) as amt from expenses where amount < 0
+        order by name
     ";
     $rows = returnDataset($qur);
     echo(json_encode($rows));

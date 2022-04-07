@@ -6,6 +6,11 @@
     --linear2: all 2s linear;
 }
 
+html, body{
+    width: 99%;
+    margin-left: 10px;
+}
+
 * {
     color: #414040;
     padding: 0;
@@ -75,7 +80,6 @@ input {
 
 .btn {
     border: 1px solid transparent;
-    /*display: inline-block;*/
     font-weight: bold;
     text-align: center;
     white-space: nowrap;
@@ -89,8 +93,7 @@ input {
     line-height: 1.5;
     border-radius: .25rem;
     cursor: pointer;
-    opacity: 0.95;
-    /*transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out*/
+    /*opacity: 0.95;*/
 }
 
 .btn:hover {
@@ -157,10 +160,12 @@ input {
 
 .wid70 {
     width: 70%;
+    padding: 5px;
 }
 
 .wid30 {
     width: 30%;
+    padding: 5px;
 }
 
 .height450 {
@@ -344,6 +349,11 @@ input {
     min-height: 200px;
     overflow: auto;
     position: relative;
+}
+
+span{
+    margin-left: 2px;
+    margin-right: 2px;
 }
 
 .carddiv > span {
