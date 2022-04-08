@@ -122,9 +122,11 @@ let success = {
     },
     getSummaryCard: function (balance = 0, total = 0, expenses = 0) {
         return `
-            <div id="summaryFundCard" xtype="+" class="column card size14 bl">
-            <div>Adhoc in hand (miscellaneous balance): <span class="green size30">${rsSymbol}${balance}</span></div>
-            <div>Current Fund Value (credit-debit): <span class="green size30">${rsSymbol}${total + expenses}</span></div>
+            <div id="summaryFundCard" xtype="+" class="right column card size14 bl">
+            <div>Adhoc in hand (miscellaneous balance): <span class=" size30">${rsSymbol}${balance}</span></div>
+            <div>Credit: <span class="txtgreen size30">${rsSymbol}${total}</span></div>
+            <div>Debit: <span class="red size30">${rsSymbol}${Math.abs(expenses)}</span></div>
+            <div>(credit-debit): <span class="size30">${rsSymbol}${total + expenses}</span></div>
             <div>Total: <span class="txtpurple size30">${rsSymbol}${total + expenses + balance}</span></div>
             </div>        
         `

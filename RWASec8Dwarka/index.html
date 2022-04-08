@@ -8,16 +8,13 @@
     <link href="./index.css" rel="stylesheet">
 </head>
 <body class="imgbg">
-<header class="header">
+<header class="header row">
     <img class="logo" src="images/icon.jpeg">
     <div class="right size30 bl margin10l">D Block, Sector8 Dwarka - Expense Register</div>
+    <button class="btn red" onclick="handleEntryType('admin')">Admin</button>
 </header>
 
 <div class="container">
-    <div class="right">
-        <button class="btn red" onclick="handleEntryType('admin')">Admin</button>
-    </div>
-
     <div class="hide" id="adminform">
         <input id="adminId" placeholder="admin name" type="text"/>
         <input id="adminPwd" placeholder="admin password" type="password"/>
@@ -25,9 +22,7 @@
     </div>
 
     <div id="search1">
-        <input class="searchText" id="idSearchBox" onkeypress="searchByKeyword(event)"
-               placeholder="search by name"
-               type="text">
+        <input class="searchText" id="idSearchBox" onkeypress="searchByKeyword(event)" placeholder="search by name" type="text" />
         <button class="btn green textwhite" id="idSearchBtn" onclick="handleRefresh()">Search</button>
         <button class="btn red" id="idPullExpenses" onclick="handlePullExpenses(this)">Pull Expenses</button>
     </div>
