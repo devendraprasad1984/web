@@ -3,7 +3,7 @@ require_once './ChromePHP.php';
 require_once './headers.php';
 require_once './helper.php';
 
-global $success, $failed;
+global $success, $conn, $failed;
 try{
     if(isset($_POST['save'])) handleSave($_POST);
     if(isset($_POST['saveExpense'])) handleSaveExpense($_POST);
@@ -13,7 +13,9 @@ try{
     if(isset($_GET['expensesByMember'])) handleExpensesByMember($_GET);
     if(isset($_GET['expensesGroup'])) handleExpensesGroupByMemId($_GET);
     if(isset($_POST['delete'])) handleDelete($_POST);
+    if($conn) mysqli_close($conn);
 }catch (Exception $ex){
-    ChromePhp::error($ex->getMessage());
+    if($conn) mysqli_close($conn);
+//    ChromePhp::error($ex->getMessage());
     echo $failed;
 }

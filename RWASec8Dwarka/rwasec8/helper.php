@@ -30,7 +30,6 @@ function returnDataset($qur)
     $sql = $conn->query($qur);
     $rows = $sql->fetch_all(MYSQLI_ASSOC);
     mysqli_free_result($sql);
-    mysqli_close($conn);
     return $rows;
 }
 
@@ -46,7 +45,7 @@ function handleSave($data)
     $sql = "INSERT INTO expenses(memid,date,amount,remarks,iploc) values('$memid','$time','$amount','$remarks','$ip')";
     $result = $conn->query($sql);
     echo $success;
-    mysqli_close($conn);
+//    mysqli_close($conn);
 }
 
 function handleSaveExpense($data)
@@ -55,12 +54,12 @@ function handleSaveExpense($data)
     $amount = $conn->real_escape_string($data['amount']);
     $remarks = $conn->real_escape_string($data['reason']);
     $amount = 0 - $amount;
-    $adminid = '15';
-
+    $adminRow = returnDataset("select id from members where memkey='admin' and type='admin'");
+    $adminid = $adminRow[0]['id'];
     $sql = "INSERT INTO expenses(memid,amount,remarks) values('$adminid','$amount','$remarks')";
     $result = $conn->query($sql);
     echo $success;
-    mysqli_close($conn);
+//    mysqli_close($conn);
 }
 
 
@@ -72,8 +71,7 @@ function handleSaveMember($data)
     $address = $conn->real_escape_string($data['address']);
     $pic = '';
 
-    $selsql = "select count(*) as count from members where memkey='$memid'";
-    $result = $conn->query($selsql)->fetch_all(MYSQLI_ASSOC);
+    $result = returnDataset("select count(*) as count from members where memkey='$memid'");
     $count = $result[0]['count'];
     if ($count == 1) {
         echo $recordExists;
@@ -82,18 +80,7 @@ function handleSaveMember($data)
         $result = $conn->query($sql);
         echo $success;
     }
-    mysqli_close($conn);
-}
-
-function handleDelete($data)
-{
-    global $success, $conn;
-    $id = $conn->real_escape_string($data['id']);
-
-    $sql = "delete from expenses where id=$id";
-    $result = $conn->query($sql);
-    echo $success;
-    mysqli_close($conn);
+//    mysqli_close($conn);
 }
 
 //function handleExpensesReport($data)
@@ -134,7 +121,7 @@ function handleExpensesGroupByMemId($data)
 {
     global $conn;
     $name = $conn->real_escape_string($data['name']);
-    $searchByNameQur="";
+    $searchByNameQur = "";
     if ($name <> '') {
         $searchByNameQur = " and (name like '%$name%' OR memkey like '%$name%')";
     }
