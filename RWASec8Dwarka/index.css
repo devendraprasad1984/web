@@ -150,6 +150,10 @@ input {
     padding-right: 5px;
 }
 
+.center{
+    text-align: center;
+}
+
 .red {
     color: orangered;
 }
@@ -375,8 +379,13 @@ span{
 .swal-modal {
     height: auto;
     width: 95%;
+    /*transition: none;*/
+    /*animation: none;*/
 }
-
+/*.swal-overlay{*/
+/*    transition: none;*/
+/*    animation: none;*/
+/*}*/
 
 footer{
     bottom: 0;
