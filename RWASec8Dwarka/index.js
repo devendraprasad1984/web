@@ -71,12 +71,12 @@ function memberCardClick(cur, id) {
     }
 
     getData(`${phpServing}?expensesByMember=1&id=${id}`, (res) => {
-        let rows = res.map(x => {
+        let rows = res.map((x, i) => {
             return `
                 <div class="row flex">
-                    <span>${x.remarks}</span>
+                    <span>${(i + 1)} ${x.remarks}</span>
                     <span>${rsSymbol}${x.amount}</span>
-                    <span>${ partDateTime(x.when)}</span>
+                    <span>${partDateTime(x.when)}</span>
                 </div>
             `
         })
@@ -84,7 +84,7 @@ function memberCardClick(cur, id) {
         xdiv.id = 'openCardId'
         let cardBaseElements = document.getElementById(cardid).innerHTML
         let txnData = `
-            <div class="size30">your contributions so far...</div>
+            <div class="size30">your contributions so far (descending order)...</div>
             <div class="height450">${rows.join('')}</div>
         `
         xdiv.innerHTML = cardBaseElements + '<br/>' + txnData
@@ -140,8 +140,8 @@ let success = {
             let isnegative = x.amount < 0 ? true : false
             return `
             <div class='row'>
-                <span>${x.remarks}</span>
-                <span class="right">${rsSymbol}${Math.abs(x.amount)}</span>
+                <span class="">${(i + 1)} - ${x.remarks}</span>
+                <span class="bl right">${rsSymbol}${Math.abs(x.amount)}</span>
                 <span>${partDateTime(x.when)}</span>
             </div>
             `
@@ -180,7 +180,7 @@ let success = {
                 }
             total += parseFloat(x.amount)
             return `
-                <div id="card${i}" class="card" xtype="+" onclick="memberCardClick(this,${x.memid})">
+                <div id="card${i}" class="card" xtype="+" onclick=${x.amount > 0 ? `memberCardClick(this,${x.memid})` : ""}>
                     <h1>${x.name.toUpperCase()}</h1>
                     <h3>unique code: <span class="txtpurple">${x.memkey} ${x.memid === null ? '' : '(' + x.memid + ')'}</span></h3>
                     <div class="right"><span class=" txtgreen size30">${rsSymbol}${Math.abs(x.amount)}</span></div>
