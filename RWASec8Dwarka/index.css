@@ -243,7 +243,6 @@ input {
     padding: 10px;
     margin: 10px;
     cursor: pointer;
-    opacity: 0.9;
 }
 
 .row {
@@ -285,6 +284,7 @@ input {
 
 .white {
     background-color: white;
+    opacity: 0.9;
 }
 
 .txtpurple {
