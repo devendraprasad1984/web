@@ -75,7 +75,7 @@ function memberCardClick(cur, id) {
             return `
                 <div class="row flex">
                     <span>${x.remarks}</span>
-                    <span>${x.amount}</span>
+                    <span>${rsSymbol}${x.amount}</span>
                     <span>${ partDateTime(x.when)}</span>
                 </div>
             `
@@ -139,17 +139,25 @@ let success = {
             return `
             <div class='row'>
                 <span>${x.remarks}</span>
-                <span>${rsSymbol}${Math.abs(x.amount)}</span>
+                <span class="right">${rsSymbol}${Math.abs(x.amount)}</span>
                 <span>${partDateTime(x.when)}</span>
             </div>
             `
         })
         report1.innerHTML = `
+        <div class="white">
             <h1>Expenses made so far</h1>
             <div class="right">
                 <button class="btn green" onclick="">Export PDF</button>
             </div>
-            <div id="divLines" class="white">${result.join('')}</div>
+            <br/>
+            <div class='row bl green'>
+                <span>Total Expenditure</span>
+                <span class="right">${rsSymbol}${Math.abs(total)}</span>
+                <span></span>
+            </div>
+            <div id="divLines">${result.join('')}</div>
+        </div>
         `
     },
     group: function (res) {
