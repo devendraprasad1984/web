@@ -30,7 +30,7 @@ function returnDataset($qur)
     $sql = $conn->query($qur);
     $rows = $sql->fetch_all(MYSQLI_ASSOC);
     mysqli_free_result($sql);
-    return $rows;
+    return json_encode($rows);
 }
 
 function handleSave($data)
@@ -55,7 +55,8 @@ function handleSaveExpense($data)
     $remarks = $conn->real_escape_string($data['reason']);
     $amount = 0 - $amount;
     $adminRow = returnDataset("select id from members where memkey='admin' and type='admin'");
-    $adminid = $adminRow[0]['id'];
+    $decoded = json_decode($adminRow);
+    $adminid = $decoded[0]->id;
     $sql = "INSERT INTO expenses(memid,amount,remarks) values('$adminid','$amount','$remarks')";
     $result = $conn->query($sql);
     echo $success;
@@ -72,7 +73,7 @@ function handleSaveMember($data)
     $pic = '';
 
     $result = returnDataset("select count(*) as count from members where memkey='$memid'");
-    $count = $result[0]['count'];
+    $count = json_decode($result)[0]->count;
     if ($count == 1) {
         echo $recordExists;
     } else {
@@ -83,25 +84,18 @@ function handleSaveMember($data)
 //    mysqli_close($conn);
 }
 
-//function handlePullMembersList($data)
-//{
-//    $qur = "select id,concat(memkey,'  ',name) as name from members where type='member' order by name";
-//    $rows = returnDataset($qur);
-//    echo(json_encode($rows));
-//}
-
 function handleExpensesOnly($data)
 {
     $qur = "select * from expenses where amount<0 order by `when` desc";
     $rows = returnDataset($qur);
-    echo(json_encode($rows));
+    echo $rows;
 }
 
 function handleExpensesByMember($data)
 {
     $qur = "select * from expenses where memid='${data['id']}' order by `when` desc";
     $rows = returnDataset($qur);
-    echo(json_encode($rows));
+    echo($rows);
 }
 
 function handleExpensesGroupByMemId($data)
@@ -116,12 +110,51 @@ function handleExpensesGroupByMemId($data)
         select m.id,m.name,m.memkey,A.amount from (
            select m.id, sum(coalesce(amount, 0)) as amount
            from expenses e right outer join members m on e.memid = m.id
-           where type = 'member' $searchByNameQur
+           where type = 'member' and isactive=1  $searchByNameQur
            group by m.id
         ) A inner join members m ON A.id=m.id
         union all
         select 'expenses','z_expenses','',sum(coalesce(amount,0)) as amt from expenses where amount < 0
         order by name    ";
     $rows = returnDataset($qur);
-    echo(json_encode($rows));
+    echo $rows;
 }
+
+
+function handleLogin($data)
+{
+    global $failed, $conn;
+    $id = $conn->real_escape_string($data['id']);
+    $pass = $conn->real_escape_string($data['pwd']);
+    $rows = returnDataset("select id,username,type,`when` from admin where username='$id' and password='$pass'");
+    if (json_decode($rows, true)) {
+        echo $rows;
+    } else {
+        echo $failed;
+    }
+}
+
+function handleLoginGet($data)
+{
+    global $failed, $conn, $success;
+    $id = $conn->real_escape_string($data['id']);
+    $user = $conn->real_escape_string($data['user']);
+    $rows = returnDataset("select id,username,type,`when` from admin where id='$id' and username='$user'");
+    if (json_decode($rows, true)) {
+        echo $success;
+    } else {
+        echo $failed;
+    }
+}
+
+function handlePasswordChange($data)
+{
+    global $success, $conn;
+    $id = $conn->real_escape_string($data['id']);
+    $username = $conn->real_escape_string($data['user']);
+    $password = $conn->real_escape_string($data['pwd']);
+    $sql = "update admin set password='$password' where id='$id' and username='$username'";
+    $result = $conn->query($sql);
+    echo $success;
+}
+

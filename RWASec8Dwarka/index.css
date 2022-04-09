@@ -72,7 +72,7 @@ input, select {
 }
 
 .purple {
-    background-color: #c5b7ed;
+    background-color: #b099e5;
 }
 
 input {
@@ -179,12 +179,16 @@ input {
     height: 450px;
     overflow: auto;
     position: relative;
+    padding: 5px;
+    margin: 5px;
 }
 
 .height650 {
     height: 650px;
     overflow: auto;
     position: relative;
+    padding: 5px;
+    margin: 5px;
 }
 
 .wid100 {
@@ -392,12 +396,12 @@ input {
 
 .swal-modal {
     height: auto;
-    width: 95%;
+    width: 90%;
 }
 
 #footer, footer, .footer {
     bottom: 0;
-    position: fixed;
+    /*position: fixed;*/
     /*display: inline;*/
     width: 100%;
 }
@@ -432,14 +436,15 @@ input {
     font-size: 30px;
 }
 
-/* The Close Button */
-/*.close {*/
-/*    !*float: right;*!*/
-/*    font-weight: bold;*/
-/*}*/
-
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #085c12;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }

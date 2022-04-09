@@ -18,9 +18,10 @@
         <div class="size30">RWA, D Block, Sector8, Dwarka</div>
         <div class="size20">Ledger Anytime Anywhere!</div>
     </div>
-<!--    <div class="right wid70">-->
-<!--        <button class="btn red" onclick="handleEntryType('admin')">Admin</button>-->
-<!--    </div>-->
+    <div>
+        <button id="logoutBtn" class="btn red" onclick="handleLogout()">Logout</button>
+        <button id="updatePasswordBtn" class="btn green" onclick="handleChangePassword()">Update Password</button>
+    </div>
 </header>
 
 <div id="container" class="container hide">
@@ -65,10 +66,10 @@
             <input id="adminId" placeholder="admin name" type="text"/>
             <input id="adminPwd" placeholder="admin password" type="password"/>
         </div>
-        <h1>No Password for Members Login</h1>
         <div class="column">
-            <button class="btn green" id="idAdminLogin" onclick="handleAdminCheck()">Admin Login</button>
-            <button class="btn purple" id="idLoginMember" onclick="handleMemberLogin()">Member Login</button>
+            <button class="btn" id="idAdminLogin" onclick="handleAdminCheck()">Admin Login</button>
+            <h1 class="purple">No Password for Members Login</h1>
+            <button class="btn red" id="idLoginMember" onclick="handleMemberLogin()">Member Login</button>
         </div>
     </div>
 

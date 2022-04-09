@@ -1,43 +1,37 @@
-let summaryObject1 = {}
 let colors = ['violet', 'green', 'gray', 'goldenrod', 'purple', 'mediumseagreen', 'blue', '#8b7bce', "#85179b"]
-let imgObj = {
-    anish: 'images/anish.png'
-    , dp: 'images/dp.png'
-    , dev: 'images/dev.png'
-    , ajay: 'images/ajay.png'
-}
-// let curObj = {}
-// let searchBtn = $('#idSearchBtn')
 let colorx = '#428bdb'
 let serverPrefix = "http://localhost:8080/rwasec8"
 let phpServing = `${serverPrefix}/rwa.php`
 let rsSymbol = '₹'
-// let entryform = document.getElementById('entryform')
 let container = document.getElementById('container')
 let adminSection = document.getElementById('adminSection')
-let membersform = document.getElementById('membersform')
 let report1 = document.getElementById('report1')
-let defaultEntryType = 'member' //member or admin
 let adminform = document.getElementById('adminform')
+let logoutBtn = document.getElementById('logoutBtn')
 let currentReportType = 'summary'
 let loginModal = document.getElementById('loginModal')
-
-
-function handleEntryType(type) {
-    adminform.classList.add('show')
-    adminform.classList.remove('hide')
-    defaultEntryType = type
-    loginModal.style.display = 'block'
+let appEnum = {
+    isAdmin: 'isAdmin',
+    loginName: 'loginName',
+    userid: 'userid',
+    isLogin: 'isLogin',
+    member: 'member',
+    admin: 'admin',
+    logout: 'Logout',
+    login: 'Login'
 }
+let defaultEntryType = appEnum.member //member or admin
 
-function postData(url, data = {}, success, error) {
+function postData(url, data = {}, success, err) {
     $.ajax({
         type: "POST",
         url: url,
         dataType: 'json',
         data,
         success,
-        error
+        error: function (xhr, status, errTxt) {
+            err(errTxt)
+        }
     })
     // const requestPayload = {
     //     method: 'POST',
@@ -103,11 +97,11 @@ function getAddContributionForm(id) {
         timePeriods = preparePeriod()
     return `
         <h2 class='green'>Add Contribution for this month / Reversal</h2>
-        <form id="contriform" class="formInputs">
+        <form id="contriform" action="#" class="formInputs">
             <select id="time" class="wid200px">${timePeriods}</select>
             <input class="input-right wid200px" id="amount" placeholder="enter your amount" type="text" value="200" />
             <input id="remarks" placeholder="eg regular maintenance" type="text" class="wid200px"/>
-            <button class="btn red" id="btnSubmit" onclick="handleSubmit(e,'contriform',${id})">Save</button>
+            <button class="btn red" id="btnSubmit" onclick="handleSubmit('contriform',${id})">Save</button>
         </form>
     `
     // return componentContributionForm
@@ -119,7 +113,7 @@ function memberCardClick(cur, id) {
         cardid = cur
     }
 
-    let contributionForm = defaultEntryType === 'admin' && getAddContributionForm(id)
+    let contributionForm = defaultEntryType === appEnum.admin ? getAddContributionForm(id) : ""
     getData(`${phpServing}?expensesByMember=1&id=${id}`, (res) => {
         let rows = res.map((x, i) => {
             return `
@@ -159,7 +153,7 @@ let partDateTime = (strDateTime) => {
     return '<span><span style="color: ' + colorx + '">' + sDate + '</span> <span class="">' + sTime + '</span></span>'
 }
 
-let success = {
+const config = {
     modifyCardBorderColor: function () {
         Array.from($('.card')).map((x, i) => x.style.borderTop = '5px solid ' + (x.getAttribute('xtype') === '+' ? getRandomBorderColor() : 'red'))
     },
@@ -189,7 +183,7 @@ let success = {
         `
     },
     displayRows: function (res) {
-        let _that = success
+        let _that = config
         let result = []
         let total = 0
         result = res.map((x, i) => {
@@ -220,7 +214,7 @@ let success = {
         `
     },
     group: function (res) {
-        let _that = success
+        let _that = config
         if (res.status !== undefined)
             if (res.status.indexOf('failed') !== -1) {
                 report1.innerHTML = `<div>No Data Found. ${res.status}</div>`
@@ -250,6 +244,15 @@ let success = {
             <div id="divLines" class="flexboxCards">${result.join('')}</div>
         `
         _that.modifyCardBorderColor()
+    },
+    setByKeyToLocal: function (key, value) {
+        localStorage.setItem(key, value)
+    },
+    getByKeyFromLocal: function (key) {
+        return localStorage.getItem(key)
+    },
+    removeByKeyFromLocal: function (key) {
+        return localStorage.removeItem(key)
     }
 }
 
@@ -257,12 +260,12 @@ function error(err) {
     swal({
         title: "some error contact admin",
         button: 'Ok',
-        content: JSON.stringify(err)
+        text: err.toString()
     })
-    console.error(err)
+    // console.error(err)
 }
 
-function handleSubmit(e,formName, id) {
+function handleSubmit(formName, id) {
     let cur = $('#' + id)
     let oldval = cur.html()
     cur.html('please wait...')
@@ -273,9 +276,8 @@ function handleSubmit(e,formName, id) {
     data['time'] = parentForm.time.value
     data['amount'] = parentForm.amount.value
     data['remarks'] = parentForm.remarks.value === "" ? "regular maintenance" : parentForm.remarks.value
-    postData(phpServing, data, success.alert, error)
+    postData(phpServing, data, config.alert, error)
     cur.html(oldval)
-    e.preventDefault()
 }
 
 
@@ -287,7 +289,7 @@ function handleSubmitExpense(id) {
     data['saveExpense'] = 1
     data['amount'] = amountexpense.value
     data['reason'] = reason.value === "" ? "regular maintenance" : reason.value
-    postData(phpServing, data, success.alert, error)
+    postData(phpServing, data, config.alert, error)
     cur.html(oldval)
 }
 
@@ -309,7 +311,7 @@ function handleSubmitMember(id) {
         }
     ).then((flag) => {
         if (flag === true) {
-            postData(phpServing, data, success.alert, error)
+            postData(phpServing, data, config.alert, error)
             cur.html(oldval)
         } else {
             cur.html(oldval)
@@ -330,7 +332,7 @@ function pullMembersList() {
 function handleRefresh() {
     let byname = document.getElementById('idSearchBox').value
     report1.innerHTML = '<h1>please wait, loading...</h1>'
-    getData(`${phpServing}?expensesGroup=1&name=${byname}`, success.group, error)
+    getData(`${phpServing}?expensesGroup=1&name=${byname}`, config.group, error)
 }
 
 function handlePullExpenses(_this) {
@@ -343,7 +345,7 @@ function handlePullExpenses(_this) {
     }
     cur.innerHTML = 'Pull Summary'
     getData(`${phpServing}?expensesOnly=1`, (res) => {
-        success.displayRows(res)
+        config.displayRows(res)
     }, error)
 }
 
@@ -363,18 +365,32 @@ function preparePeriod() {
 }
 
 function handleAdminCheck() {
-    let id = document.getElementById('adminId')
-    let pwd = document.getElementById('adminPwd')
-    if (1 === 1) {
-        handleEntryType('admin')
+    let id = document.getElementById('adminId').value
+    let pwd = document.getElementById('adminPwd').value
+    postData(phpServing, {loginCheck: 1, id, pwd}, (res) => {
+        if (res.status !== undefined)
+            if (res.status.indexOf('failed') !== -1) {
+                error('Login failed')
+                return
+            }
+        config.setByKeyToLocal(appEnum.isAdmin, true)
+        config.setByKeyToLocal(appEnum.isLogin, true)
+        config.setByKeyToLocal(appEnum.loginName, id)
+        config.setByKeyToLocal(appEnum.userid, res[0].id)
+        defaultEntryType = appEnum.admin
+        logoutBtn.innerHTML = `Logout (${res[0].username})`
         onInit()
-        adminform.classList.add('hide')
-        adminform.classList.remove('show')
-    }
+    }, error)
 }
 
 function handleMemberLogin() {
     loginModal.style.display = 'none'
+    adminSection.style.display = 'none'
+    config.setByKeyToLocal(appEnum.isAdmin, false)
+    config.setByKeyToLocal(appEnum.isLogin, false)
+    config.removeByKeyFromLocal(appEnum.loginName)
+    config.removeByKeyFromLocal(appEnum.userid)
+    defaultEntryType = appEnum.member
     onInit()
 }
 
@@ -386,10 +402,10 @@ function searchByKeyword(e) {
 }
 
 function handleDefaultView() {
-    if (defaultEntryType === 'member') {
+    if (defaultEntryType === appEnum.member) {
         report1.classList.add('wid100')
         report1.classList.remove('wid70')
-    } else if (defaultEntryType === 'admin') {
+    } else if (defaultEntryType === appEnum.admin) {
         report1.classList.add('wid70')
         report1.classList.remove('wid100')
     }
@@ -401,12 +417,51 @@ function onInit() {
     handleDefaultView()
     handleRefresh()
     container.style.display = 'block'
-    document.getElementById('footer').style.postion = 'relative'
-    if (defaultEntryType === 'admin')
+    if (defaultEntryType === appEnum.admin)
         adminSection.style.display = 'block'
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    loginModal.style.display = 'block'
-    adminSection.style.display = 'none'
-})
+function doPrelimCheck() {
+    let isLogin = config.getByKeyFromLocal(appEnum.isLogin)
+    let isAdmin = config.getByKeyFromLocal(appEnum.isAdmin)
+    let userid = config.getByKeyFromLocal(appEnum.userid)
+    let username = config.getByKeyFromLocal(appEnum.loginName)
+    report1.innerHTML = ""
+    logoutBtn.innerHTML = `${appEnum.logout} (member)`
+    if (isLogin === "true" && isAdmin === "true") {
+        getData(`${phpServing}?loginCheck=1&id=${userid}&user=${username}`, (res) => {
+            loginModal.style.display = 'none'
+            adminSection.style.display = 'block'
+            logoutBtn.innerHTML = `${appEnum.logout} (${username})`
+            onInit()
+        }, (er) => {
+            adminSection.style.display = 'none'
+            loginModal.style.display = 'block'
+            error(er)
+        })
+    } else if (isAdmin === "false" && isLogin === "false") {
+        loginModal.style.display = 'block'
+        adminSection.style.display = 'none'
+    } else {
+        loginModal.style.display = 'block'
+        adminSection.style.display = 'none'
+    }
+}
+
+function handleLogout() {
+    Object.values(appEnum).forEach(x => config.removeByKeyFromLocal(x))
+    doPrelimCheck()
+    logoutBtn.innerHTML = appEnum.login
+}
+
+function handleChangePassword() {
+    if (defaultEntryType === appEnum.member) return
+    let newPassword = prompt('Enter new password')
+    if (newPassword === undefined || newPassword === null || newPassword === '') return;
+    let id = config.getByKeyFromLocal(appEnum.userid)
+    let user = config.getByKeyFromLocal(appEnum.loginName)
+    postData(phpServing, {passwordChange: 1, id, user, pwd: newPassword}, config.alert, error)
+}
+
+
+document.addEventListener("DOMContentLoaded", doPrelimCheck)
