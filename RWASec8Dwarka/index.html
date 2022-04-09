@@ -32,9 +32,8 @@
         <button class="btn red right" id="idPullExpenses" onclick="handlePullExpenses(this)">Pull Expenses</button>
     </div>
 
-    <div class="row">
-        <div class="wid70" id="report1"></div>
-        <div class="column wid30 height650 hide" id="adminSection">
+    <div class="row flex">
+        <div class="column wid30 hide marginud" id="adminSection">
             <div class="column formInputs" id="expenseform">
                 <h2 class="green pad20">Add Expenses <span class="btn purple"
                                                            onclick="handleFormsToggle({show:'membersform', hide:'expenseform'})">Add Member</span>
@@ -56,6 +55,7 @@
                 </button>
             </div>
         </div>
+        <div class="wid70" id="report1"></div>
     </div>
 </div>
 
@@ -68,7 +68,7 @@
         </div>
         <div class="column">
             <button class="btn" id="idAdminLogin" onclick="handleAdminCheck()">Admin Login</button>
-            <h1 class="purple">No Password for Members Login</h1>
+            <h3 class="purple">No Password for Members Login</h3>
             <button class="btn red" id="idLoginMember" onclick="handleMemberLogin()">Member Login</button>
         </div>
     </div>

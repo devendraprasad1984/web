@@ -86,7 +86,9 @@ function handleSaveMember($data)
 
 function handleExpensesOnly($data)
 {
-    $qur = "select * from expenses where amount<0 order by `when` desc";
+    $qur = "
+        select * from expenses where amount<0 order by `when` desc
+    ";
     $rows = returnDataset($qur);
     echo $rows;
 }
@@ -115,7 +117,10 @@ function handleExpensesGroupByMemId($data)
         ) A inner join members m ON A.id=m.id
         union all
         select 'expenses','z_expenses','',sum(coalesce(amount,0)) as amt from expenses where amount < 0
-        order by name    ";
+        union all
+        select 'credits','z_credits','',sum(coalesce(amount,0)) as amt from expenses where amount > 0
+        order by name
+        ";
     $rows = returnDataset($qur);
     echo $rows;
 }

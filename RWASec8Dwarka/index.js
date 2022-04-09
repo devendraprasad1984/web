@@ -229,7 +229,10 @@ const config = {
                     expenses = parseFloat(x.amount)
                     return null
                 }
-            total += parseFloat(x.amount)
+            if (x.id.toLowerCase() === 'credits') {
+                total = parseFloat(x.amount)
+                return null
+            }
             return `
                 <div id="card${i}" class="card" xtype="+" onclick="memberCardClick(this,${x.id})">
                     <h1 class="ellipsis" title="${x.name.toUpperCase()}">${x.name.toUpperCase()}</h1>
@@ -440,8 +443,9 @@ function doPrelimCheck() {
             error(er)
         })
     } else if (isAdmin === "false" && isLogin === "false") {
-        loginModal.style.display = 'block'
+        loginModal.style.display = 'none'
         adminSection.style.display = 'none'
+        onInit()
     } else {
         loginModal.style.display = 'block'
         adminSection.style.display = 'none'

@@ -6,7 +6,7 @@
         padding: 5px;
         margin: 0;
     }
-    .row{
+    .flex{
         flex-wrap: wrap;
     }
     .row > span {
@@ -24,9 +24,6 @@
     .searchText{
         width: 100%;
     }
-    .height450{
-        height: 250px;
-    }
     h1{
         font-size: 1.5rem;
     }
@@ -35,5 +32,8 @@
     }
     h3{
         font-size: 1rem;
+    }
+    .modal-content {
+        width: 100%;
     }
 }
