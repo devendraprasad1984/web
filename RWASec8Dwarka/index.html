@@ -34,27 +34,15 @@
         <div class="wid70" id="report1"></div>
 
         <div class="column wid30 height650">
-            <div class=" column formInputs hide" id="entryform">
-                <h2 class="green pad20">Add Contribution <span class="btn purple"
-                                                               onclick="handleFormsToggle(this, true)">Add Member</span>
-                </h2>
-                <select id="memid"></select>
-                <select id="time"></select>
-                <input class="input-right" id="amount" placeholder="enter your amount" type="text" value="200"
-                       width="50px">
-                <input id="remarks" placeholder="eg regular maintenance" type="text" width="150px">
-                <button class="btn red" id="btnSubmit" onclick="handleSubmit(this.id)">Add Contribution</button>
-
-                <br/>
-                <h2 class="green pad20">Add Expenses</h2>
+            <div id="expenseform" class="column formInputs">
+                <h2 class="green pad20">Add Expenses <span class="btn purple"onclick="handleFormsToggle({show:'membersform', hide:'expenseform'})">Add Member</span></h2>
                 <input id="amountexpense" placeholder="enter amount" type="text" width="50px">
                 <input id="reason" placeholder="Reason: where this money is spent on" type="text" width="150px">
-                <button class="btn red" id="btnSaveExpense" onclick="handleSubmitExpense(this.id)">Save Expenses
-                </button>
+                <button class="btn red" id="btnSaveExpense" onclick="handleSubmitExpense(this.id)">Save Expenses</button>
             </div>
             <div class="column formInputs hide" id="membersform">
                 <h2 class="green pad20">Add New Member <span class="btn purple"
-                                                             onclick="handleFormsToggle(this, false)">Admin Section</span>
+                                                             onclick="handleFormsToggle({show:'expenseform', hide:'membersform'})">Expense Form</span>
                 </h2>
                 <input id="memberid" placeholder="enter unique key eg mobile or name-address combination" type="text"
                        width="150px">
@@ -77,16 +65,17 @@
 </footer>
 
 <script src="./libs/jquery.min.js"></script>
-<script crossorigin="anonymous"
-        integrity="sha512-C2RveGuPIWqkaLAluvoxyiaN1XYNe5ss11urhZWZYBUA9Ydgj+hfGKPcxCzTwut1/fmjEZR7Ac35f2aycT8Ogw=="
-        src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.2.0/d3.min.js"></script>
-<link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css"
-      integrity="sha512-f8gN/IhfI+0E9Fc/LKtjVq4ywfhYAVeMGKsECzDUHcFJ5teVwvKTqizm+5a84FINhfrgdvjX8hEJbem2io1iTA=="
-      rel="stylesheet"/>
-<script crossorigin="anonymous"
-        integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
-        src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-<script src="index.js"></script>
+<!--<script crossorigin="anonymous"-->
+<!--        integrity="sha512-C2RveGuPIWqkaLAluvoxyiaN1XYNe5ss11urhZWZYBUA9Ydgj+hfGKPcxCzTwut1/fmjEZR7Ac35f2aycT8Ogw=="-->
+<!--        src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.2.0/d3.min.js"></script>-->
+<!--<link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css"-->
+<!--      integrity="sha512-f8gN/IhfI+0E9Fc/LKtjVq4ywfhYAVeMGKsECzDUHcFJ5teVwvKTqizm+5a84FINhfrgdvjX8hEJbem2io1iTA=="-->
+<!--      rel="stylesheet"/>-->
+<!--<script crossorigin="anonymous"-->
+<!--        integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="-->
+<!--        src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>-->
+<script src="./libs/sweetalert.min.js"></script>
+<script src="./index.js"></script>
 
 </body>
 </html>

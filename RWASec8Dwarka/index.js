@@ -6,13 +6,13 @@ let imgObj = {
     , dev: 'images/dev.png'
     , ajay: 'images/ajay.png'
 }
-let curObj = {}
-let searchBtn = $('#idSearchBtn')
+// let curObj = {}
+// let searchBtn = $('#idSearchBtn')
 let colorx = '#428bdb'
 let serverPrefix = "http://localhost:8080/rwasec8"
 let phpServing = `${serverPrefix}/rwa.php`
 let rsSymbol = '₹'
-let entryform = document.getElementById('entryform')
+// let entryform = document.getElementById('entryform')
 let membersform = document.getElementById('membersform')
 let report1 = document.getElementById('report1')
 let defaultEntryType = 'admin' //member or admin
@@ -39,12 +39,15 @@ function postData(url = '', data = {}, success, error) {
     })
 }
 
-function handleFormsToggle(_this, isShow = false) {
-    membersform.classList.remove(isShow ? 'hide' : 'show')
-    membersform.classList.add(!isShow ? 'hide' : 'show')
-
-    entryform.classList.remove(!isShow ? 'hide' : 'show')
-    entryform.classList.add(isShow ? 'hide' : 'show')
+function handleFormsToggle({show, hide}) {
+    let showForm = document.getElementById(show)
+    let hideForm = document.getElementById(hide)
+    showForm.classList.remove('show')
+    hideForm.classList.remove('show')
+    showForm.classList.add('hide')
+    hideForm.classList.add('hide')
+    // [showForm, hideForm].forEach(x=>x.classList.add('hide'))
+    showForm.classList.add('show')
 }
 
 function getData(url = '', success, error) {
@@ -64,17 +67,39 @@ function getRandomBorderColor() {
     return colors[num]
 }
 
+// let componentContributionForm = ""
+let timePeriods = ''
+
+function getAddContributionForm(id) {
+    //singleton implementation
+    // if (componentContributionForm !== '') return componentContributionForm
+    if (timePeriods === '')
+        timePeriods = preparePeriod()
+    return `
+        <h2>Contribution Details for this month</h2>
+        <form id="contriform" class="row formInputs">
+            <select id="time" width="150px">${timePeriods}</select>
+            <input class="input-right" id="amount" placeholder="enter your amount" type="text" value="200" width="50px" />
+            <input id="remarks" placeholder="eg regular maintenance" type="text" width="150px" />
+            <button class="btn red" id="btnSubmit" onclick="handleSubmit('contriform',${id})">Save</button>
+        </form>
+    `
+    // return componentContributionForm
+}
+
 function memberCardClick(cur, id) {
     let cardid = cur.id
     if (typeof cur === 'string') {
         cardid = cur
     }
 
+    let contributionForm = getAddContributionForm(id)
     getData(`${phpServing}?expensesByMember=1&id=${id}`, (res) => {
         let rows = res.map((x, i) => {
             return `
                 <div class="row flex">
                     <span>${(i + 1)} ${x.remarks}</span>
+                    <span>${x.date}</span>
                     <span>${rsSymbol}${x.amount}</span>
                     <span>${partDateTime(x.when)}</span>
                 </div>
@@ -84,10 +109,10 @@ function memberCardClick(cur, id) {
         xdiv.id = 'openCardId'
         let cardBaseElements = document.getElementById(cardid).innerHTML
         let txnData = `
-            <div class="size30">your contributions so far (descending order)...</div>
+            <div class="size30">Previous Contributions</div>
             <div class="height450">${rows.join('')}</div>
         `
-        xdiv.innerHTML = cardBaseElements + '<br/>' + txnData
+        xdiv.innerHTML = cardBaseElements.toString() + contributionForm.toString() + txnData.toString()
         xdiv.className = 'carddiv'
         Array.from(xdiv.children).map(a => a.classList.remove('amt'))
         swal({
@@ -173,16 +198,16 @@ let success = {
         let result = []
         let total = 0, expenses = 0
         result = res.map((x, i) => {
-            if (x.memid !== null)
-                if (x.memid.toLowerCase() === 'expenses') {
+            if (x.id !== null)
+                if (x.id.toLowerCase() === 'expenses') {
                     expenses = parseFloat(x.amount)
                     return null
                 }
             total += parseFloat(x.amount)
             return `
-                <div id="card${i}" class="card" xtype="+" onclick=${x.amount > 0 ? `memberCardClick(this,${x.memid})` : ""}>
+                <div id="card${i}" class="card" xtype="+" onclick="memberCardClick(this,${x.id})">
                     <h1>${x.name.toUpperCase()}</h1>
-                    <h3>unique code: <span class="txtpurple">${x.memkey} ${x.memid === null ? '' : '(' + x.memid + ')'}</span></h3>
+                    <h3>unique code: <span class="txtpurple">${x.memkey} ${x.id === null ? '' : '(' + x.id + ')'}</span></h3>
                     <div class="right"><span class=" txtgreen size30">${rsSymbol}${Math.abs(x.amount)}</span></div>
                 </div>
             `
@@ -200,36 +225,30 @@ function error(err) {
     swal({
         title: "some error contact admin",
         button: 'Ok',
+        content: JSON.stringify(err)
     })
     console.error(err)
 }
 
-function handleSubmit(id) {
+function handleSubmit(formName, id) {
     let cur = $('#' + id)
     let oldval = cur.html()
     cur.html('please wait...')
+    let parentForm = document.getElementById(formName)
     data = {}
     data['save'] = 1
-    data['memid'] = memid.value
-    data['time'] = time.value
-    data['amount'] = amount.value
-    data['remarks'] = remarks.value === "" ? "regular maintenance" : remarks.value
+    data['memid'] = id
+    data['time'] = parentForm.time.value
+    data['amount'] = parentForm.amount.value
+    data['remarks'] = parentForm.remarks.value === "" ? "regular maintenance" : parentForm.remarks.value
+    postData(phpServing, data, success.alert, error)
 
-    swal(
-        {
-            title: "Are you sure to save.",
-            text: '"' + data['name'] + '" has entered amount "' + data['amount'] + '" for month of "' + data['time'] + '" and this is what it is for "' + data['remarks'] + '"',
-            buttons: ['No', 'Yes'],
-        }
-    ).then((flag) => {
-        if (flag === true) {
-            curObj.submit = cur
-            curObj.submitText = oldval
-            postData(phpServing, data, success.alert, error)
-        } else {
-            cur.html(oldval)
-        }
-    })
+    // swal(
+    //     {
+    //         title: "Are you sure to save.",
+    //         text: '"' + data['name'] + '" has entered amount "' + data['amount'] + '" for month of "' + data['time'] + '" and this is what it is
+    // for "' + data['remarks'] + '"', buttons: ['No', 'Yes'], } ).then((flag) => { if (flag === true) { // curObj.submit = cur // curObj.submitText
+    // = oldval postData(phpServing, data, success.alert, error) } else { cur.html(oldval) } })
 }
 
 
@@ -313,7 +332,7 @@ function preparePeriod() {
             return xelem
         }).join(''))
     }
-    time.innerHTML = years.join('')
+    return years.join('')
 }
 
 function handleAdminCheck() {
@@ -348,21 +367,21 @@ function handleDefaultView() {
         report1.classList.add('wid100')
         report1.classList.remove('wid70')
 
-        entryform.classList.add('hide')
-        entryform.classList.remove('show')
+        // entryform.classList.add('hide')
+        // entryform.classList.remove('show')
     } else if (defaultEntryType === 'admin') {
         report1.classList.add('wid70')
         report1.classList.remove('wid100')
 
-        entryform.classList.add('show')
-        entryform.classList.remove('hide')
+        // entryform.classList.add('show')
+        // entryform.classList.remove('hide')
     }
 }
 
 //initialise
 function onInit() {
-    preparePeriod()
-    pullMembersList()
+    // preparePeriod()
+    // pullMembersList()
     handleDefaultView()
     handleRefresh()
 }

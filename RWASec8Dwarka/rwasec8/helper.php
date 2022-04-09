@@ -83,25 +83,12 @@ function handleSaveMember($data)
 //    mysqli_close($conn);
 }
 
-//function handleExpensesReport($data)
+//function handlePullMembersList($data)
 //{
-//    $search = $data['by'];
-//    $qur = "select * from expenses";
-//    if ($search == '>0' || $search == '<0')
-//        $qur .= " where amount" . $search;
-//    else
-//        $qur .= " where (concat('@',memid) like '%$search%' or date like '%$search%' or amount like '%$search%' or remarks like '%$search%')";
-//    $qur .= " order by  str_to_date(concat('01 ', `date`), '%d %M %Y') desc ,`when` desc";
+//    $qur = "select id,concat(memkey,'  ',name) as name from members where type='member' order by name";
 //    $rows = returnDataset($qur);
 //    echo(json_encode($rows));
 //}
-
-function handlePullMembersList($data)
-{
-    $qur = "select id,concat(memkey,'  ',name) as name from members where type='member' order by name";
-    $rows = returnDataset($qur);
-    echo(json_encode($rows));
-}
 
 function handleExpensesOnly($data)
 {
@@ -126,14 +113,15 @@ function handleExpensesGroupByMemId($data)
         $searchByNameQur = " and (name like '%$name%' OR memkey like '%$name%')";
     }
     $qur = "
-        select memid,name,memkey,sum(coalesce(amount,0)) as amount from expenses e
-        right outer join members m on e.memid=m.id
-        where type='member' $searchByNameQur 
-        group by e.memid,m.name,memkey
+        select m.id,m.name,m.memkey,A.amount from (
+           select m.id, sum(coalesce(amount, 0)) as amount
+           from expenses e right outer join members m on e.memid = m.id
+           where type = 'member' $searchByNameQur
+           group by m.id
+        ) A inner join members m ON A.id=m.id
         union all
         select 'expenses','z_expenses','',sum(coalesce(amount,0)) as amt from expenses where amount < 0
-        order by name
-    ";
+        order by name    ";
     $rows = returnDataset($qur);
     echo(json_encode($rows));
 }
