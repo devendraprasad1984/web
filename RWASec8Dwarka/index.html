@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <!--    <meta http-equiv="refresh" content="30">-->
     <meta content="width=device-width, initial-scale=0.9" name="viewport"/>
     <title>RWA - D Block Expense Register</title>
     <link href="images/icon.jpeg" rel="icon" type="image/png">
@@ -13,40 +12,28 @@
     <meta content="D Block, RWA, Sector 8, Dwarka, Delhi 110077 devendra prasad (+919582797772)" name="description"/>
 </head>
 <body class="imgbg">
-<header class="header row">
+<header class="row">
     <img class="logo" src="images/icon.jpeg">
     <div class="bl center">
         <div class="size30">RWA, D Block, Sector8, Dwarka</div>
         <div class="size20">Ledger Anytime Anywhere!</div>
     </div>
-    <div class="right wid100">
-        <button class="btn red" onclick="handleEntryType('admin')">Admin</button>
-    </div>
+<!--    <div class="right wid70">-->
+<!--        <button class="btn red" onclick="handleEntryType('admin')">Admin</button>-->
+<!--    </div>-->
 </header>
 
-<div class="container">
-    <div class="hide row" id="adminform">
-        <input id="adminId" placeholder="admin name" type="text"/>
-        <input id="adminPwd" placeholder="admin password" type="password"/>
-        <div class="right wid100">
-            <button class="btn red" id="idAdminLogin" onclick="handleAdminCheck()">Login</button>
-        </div>
-    </div>
-
+<div id="container" class="container hide">
     <div class="row" id="search1">
         <input class="searchText" id="idSearchBox" onkeypress="searchByKeyword(event)" placeholder="search by name"
                type="text"/>
         <button class="btn green textwhite" id="idSearchBtn" onclick="handleRefresh()">Search</button>
         <button class="btn red right" id="idPullExpenses" onclick="handlePullExpenses(this)">Pull Expenses</button>
-<!--        <div class="right wid100">-->
-<!--            <button class="btn red right" id="idPullExpenses" onclick="handlePullExpenses(this)">Pull Expenses</button>-->
-<!--        </div>-->
     </div>
 
     <div class="row">
         <div class="wid70" id="report1"></div>
-
-        <div class="column wid30 height650">
+        <div class="column wid30 height650 hide" id="adminSection">
             <div class="column formInputs" id="expenseform">
                 <h2 class="green pad20">Add Expenses <span class="btn purple"
                                                            onclick="handleFormsToggle({show:'membersform', hide:'expenseform'})">Add Member</span>
@@ -71,7 +58,24 @@
     </div>
 </div>
 
-<footer>
+<div id="loginModal" class="modal wid30">
+    <div class="modal-content">
+        <div class="modal-header textwhite bl">Enter Login Details...</div>
+        <div class="column" id="adminform">
+            <input id="adminId" placeholder="admin name" type="text"/>
+            <input id="adminPwd" placeholder="admin password" type="password"/>
+        </div>
+        <h1>No Password for Members Login</h1>
+        <div class="column">
+            <button class="btn green" id="idAdminLogin" onclick="handleAdminCheck()">Admin Login</button>
+            <button class="btn purple" id="idLoginMember" onclick="handleMemberLogin()">Member Login</button>
+        </div>
+    </div>
+
+</div>
+
+
+<footer id="footer">
     <div class="right green">
         <div>created by Devendra Prasad</div>
         <div class="bl">(M)+91 9582797772 / devendraprasad1984@gmail.com</div>

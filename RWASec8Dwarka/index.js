@@ -1,5 +1,5 @@
 let summaryObject1 = {}
-let colors = ['violet', 'green', 'gray', 'goldenrod', 'purple','mediumseagreen', 'blue', '#8b7bce',"#85179b"]
+let colors = ['violet', 'green', 'gray', 'goldenrod', 'purple', 'mediumseagreen', 'blue', '#8b7bce', "#85179b"]
 let imgObj = {
     anish: 'images/anish.png'
     , dp: 'images/dp.png'
@@ -13,22 +13,24 @@ let serverPrefix = "http://localhost:8080/rwasec8"
 let phpServing = `${serverPrefix}/rwa.php`
 let rsSymbol = '₹'
 // let entryform = document.getElementById('entryform')
+let container = document.getElementById('container')
+let adminSection = document.getElementById('adminSection')
 let membersform = document.getElementById('membersform')
 let report1 = document.getElementById('report1')
-let defaultEntryType = 'admin' //member or admin
+let defaultEntryType = 'member' //member or admin
 let adminform = document.getElementById('adminform')
 let currentReportType = 'summary'
+let loginModal = document.getElementById('loginModal')
 
 
 function handleEntryType(type) {
     adminform.classList.add('show')
     adminform.classList.remove('hide')
-
-    // handleFormsToggle(undefined, true)
     defaultEntryType = type
+    loginModal.style.display = 'block'
 }
 
-function postData(url = '', data = {}, success, error) {
+function postData(url, data = {}, success, error) {
     $.ajax({
         type: "POST",
         url: url,
@@ -37,6 +39,23 @@ function postData(url = '', data = {}, success, error) {
         success,
         error
     })
+    // const requestPayload = {
+    //     method: 'POST',
+    //     body: JSON.stringify(data),
+    //     referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin,
+    //                                    // strict-origin-when-cross-origin, unsafe-url
+    //     // credentials: 'same-origin', // include, *same-origin, omit
+    //     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    //     // mode: 'cors', // no-cors, *cors, same-origin
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    // }
+    // fetch(url, requestPayload).then(r => r.json()).then(data => {
+    //     success(data)
+    // }).catch(e => {
+    //     error(r)
+    // })
 }
 
 function handleFormsToggle({show, hide}) {
@@ -50,13 +69,20 @@ function handleFormsToggle({show, hide}) {
     showForm.classList.add('show')
 }
 
-function getData(url = '', success, error) {
-    $.ajax({
-        type: "GET",
-        url: url,
-        dataType: 'json',
-        success,
-        error
+function getData(url, success, error) {
+    // $.ajax({
+    //     type: "GET",
+    //     url: url,
+    //     dataType: 'json',
+    //     success,
+    //     error
+    // })
+    fetch(url).then(r => r.json()).then(d => {
+        if (success === undefined) return
+        success(d)
+    }).catch(e => {
+        if (error === undefined) return
+        error(e)
     })
 }
 
@@ -81,7 +107,7 @@ function getAddContributionForm(id) {
             <select id="time" class="wid200px">${timePeriods}</select>
             <input class="input-right wid200px" id="amount" placeholder="enter your amount" type="text" value="200" />
             <input id="remarks" placeholder="eg regular maintenance" type="text" class="wid200px"/>
-            <button class="btn red" id="btnSubmit" onclick="handleSubmit('contriform',${id})">Save</button>
+            <button class="btn red" id="btnSubmit" onclick="handleSubmit(e,'contriform',${id})">Save</button>
         </form>
     `
     // return componentContributionForm
@@ -93,7 +119,7 @@ function memberCardClick(cur, id) {
         cardid = cur
     }
 
-    let contributionForm = getAddContributionForm(id)
+    let contributionForm = defaultEntryType === 'admin' && getAddContributionForm(id)
     getData(`${phpServing}?expensesByMember=1&id=${id}`, (res) => {
         let rows = res.map((x, i) => {
             return `
@@ -236,7 +262,7 @@ function error(err) {
     console.error(err)
 }
 
-function handleSubmit(formName, id) {
+function handleSubmit(e,formName, id) {
     let cur = $('#' + id)
     let oldval = cur.html()
     cur.html('please wait...')
@@ -248,13 +274,8 @@ function handleSubmit(formName, id) {
     data['amount'] = parentForm.amount.value
     data['remarks'] = parentForm.remarks.value === "" ? "regular maintenance" : parentForm.remarks.value
     postData(phpServing, data, success.alert, error)
-
-    // swal(
-    //     {
-    //         title: "Are you sure to save.",
-    //         text: '"' + data['name'] + '" has entered amount "' + data['amount'] + '" for month of "' + data['time'] + '" and this is what it is
-    // for "' + data['remarks'] + '"', buttons: ['No', 'Yes'], } ).then((flag) => { if (flag === true) { // curObj.submit = cur // curObj.submitText
-    // = oldval postData(phpServing, data, success.alert, error) } else { cur.html(oldval) } })
+    cur.html(oldval)
+    e.preventDefault()
 }
 
 
@@ -346,19 +367,15 @@ function handleAdminCheck() {
     let pwd = document.getElementById('adminPwd')
     if (1 === 1) {
         handleEntryType('admin')
-        handleDefaultView()
+        onInit()
         adminform.classList.add('hide')
         adminform.classList.remove('show')
-    } else {
-        handleEntryType('member')
-        adminform.classList.add('show')
-        adminform.classList.remove('hide')
-        swal({
-            title: 'Error logging in',
-            text: 'Wrong admin id or password',
-            button: 'Close'
-        })
     }
+}
+
+function handleMemberLogin() {
+    loginModal.style.display = 'none'
+    onInit()
 }
 
 function searchByKeyword(e) {
@@ -372,24 +389,24 @@ function handleDefaultView() {
     if (defaultEntryType === 'member') {
         report1.classList.add('wid100')
         report1.classList.remove('wid70')
-
-        // entryform.classList.add('hide')
-        // entryform.classList.remove('show')
     } else if (defaultEntryType === 'admin') {
         report1.classList.add('wid70')
         report1.classList.remove('wid100')
-
-        // entryform.classList.add('show')
-        // entryform.classList.remove('hide')
     }
 }
 
 //initialise
 function onInit() {
-    // preparePeriod()
-    // pullMembersList()
+    loginModal.style.display = 'none'
     handleDefaultView()
     handleRefresh()
+    container.style.display = 'block'
+    document.getElementById('footer').style.postion = 'relative'
+    if (defaultEntryType === 'admin')
+        adminSection.style.display = 'block'
 }
 
-document.addEventListener("DOMContentLoaded", onInit)
+document.addEventListener("DOMContentLoaded", function () {
+    loginModal.style.display = 'block'
+    adminSection.style.display = 'none'
+})
