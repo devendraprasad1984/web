@@ -1,9 +1,39 @@
 @media screen and (max-width: 600px) {
-    .wid30 {
-        width: 60%;
+    .wid30, .wid70{
+        width: 100%;
     }
-
-    .wid70 {
-        width: 40%;
+    .pad20{
+        padding: 5px;
+        margin: 0;
+    }
+    .row{
+        flex-wrap: wrap;
+    }
+    .row > span {
+        width: auto;
+    }
+    .size30{
+        font-size: 20px;
+    }
+    .size20{
+        font-size: 15px;
+    }
+    .size14{
+        font-size: 10px;
+    }
+    .searchText{
+        width: 100%;
+    }
+    .height450{
+        height: 250px;
+    }
+    h1{
+        font-size: 1.5rem;
+    }
+    h2{
+        font-size: 1.3rem;
+    }
+    h3{
+        font-size: 1rem;
     }
 }

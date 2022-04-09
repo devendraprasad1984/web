@@ -2,43 +2,59 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
+    <!--    <meta http-equiv="refresh" content="30">-->
+    <meta content="width=device-width, initial-scale=0.9" name="viewport"/>
     <title>RWA - D Block Expense Register</title>
     <link href="images/icon.jpeg" rel="icon" type="image/png">
-    <link href="./media.css" rel="stylesheet">
     <link href="./index.css" rel="stylesheet">
+    <link href="./media.css" rel="stylesheet">
+
+    <meta content="D Block, RWA, Sector 8, Dwarka, Delhi 110077 devendra prasad (+919582797772)" name="title"/>
+    <meta content="D Block, RWA, Sector 8, Dwarka, Delhi 110077 devendra prasad (+919582797772)" name="description"/>
 </head>
 <body class="imgbg">
 <header class="header row">
     <img class="logo" src="images/icon.jpeg">
-    <div class="bl margin10l center">
+    <div class="bl center">
         <div class="size30">RWA, D Block, Sector8, Dwarka</div>
-        <div class="size20">Legder Anytime Anywhere!</div>
+        <div class="size20">Ledger Anytime Anywhere!</div>
     </div>
-    <button class="btn red" onclick="handleEntryType('admin')">Admin</button>
+    <div class="right wid100">
+        <button class="btn red" onclick="handleEntryType('admin')">Admin</button>
+    </div>
 </header>
 
 <div class="container">
-    <div class="hide" id="adminform">
+    <div class="hide row" id="adminform">
         <input id="adminId" placeholder="admin name" type="text"/>
         <input id="adminPwd" placeholder="admin password" type="password"/>
-        <button class="btn red" id="idAdminLogin" onclick="handleAdminCheck()">Login</button>
+        <div class="right wid100">
+            <button class="btn red" id="idAdminLogin" onclick="handleAdminCheck()">Login</button>
+        </div>
     </div>
 
-    <div id="search1">
-        <input class="searchText" id="idSearchBox" onkeypress="searchByKeyword(event)" placeholder="search by name" type="text" />
+    <div class="row" id="search1">
+        <input class="searchText" id="idSearchBox" onkeypress="searchByKeyword(event)" placeholder="search by name"
+               type="text"/>
         <button class="btn green textwhite" id="idSearchBtn" onclick="handleRefresh()">Search</button>
-        <button class="btn red" id="idPullExpenses" onclick="handlePullExpenses(this)">Pull Expenses</button>
+        <button class="btn red right" id="idPullExpenses" onclick="handlePullExpenses(this)">Pull Expenses</button>
+<!--        <div class="right wid100">-->
+<!--            <button class="btn red right" id="idPullExpenses" onclick="handlePullExpenses(this)">Pull Expenses</button>-->
+<!--        </div>-->
     </div>
 
     <div class="row">
         <div class="wid70" id="report1"></div>
 
         <div class="column wid30 height650">
-            <div id="expenseform" class="column formInputs">
-                <h2 class="green pad20">Add Expenses <span class="btn purple"onclick="handleFormsToggle({show:'membersform', hide:'expenseform'})">Add Member</span></h2>
+            <div class="column formInputs" id="expenseform">
+                <h2 class="green pad20">Add Expenses <span class="btn purple"
+                                                           onclick="handleFormsToggle({show:'membersform', hide:'expenseform'})">Add Member</span>
+                </h2>
                 <input id="amountexpense" placeholder="enter amount" type="text" width="50px">
                 <input id="reason" placeholder="Reason: where this money is spent on" type="text" width="150px">
-                <button class="btn red" id="btnSaveExpense" onclick="handleSubmitExpense(this.id)">Save Expenses</button>
+                <button class="btn red" id="btnSaveExpense" onclick="handleSubmitExpense(this.id)">Save Expenses
+                </button>
             </div>
             <div class="column formInputs hide" id="membersform">
                 <h2 class="green pad20">Add New Member <span class="btn purple"
@@ -46,8 +62,8 @@
                 </h2>
                 <input id="memberid" placeholder="enter unique key eg mobile or name-address combination" type="text"
                        width="150px">
-                <input id="name" placeholder="enter member name" type="text" width="150px">
-                <input id="address" placeholder="eg D155 sector 8 dwarka" type="text" width="150px">
+                <input id="name" placeholder="enter member name" type="text">
+                <input id="address" placeholder="eg D155 sector 8 dwarka" type="text">
                 <button class="btn txtgreen" id="btnSaveMember" onclick="handleSubmitMember(this.id)">Add Member
                 </button>
             </div>
@@ -58,8 +74,8 @@
 <footer>
     <div class="right green">
         <div>created by Devendra Prasad</div>
-        <div>+91 9582797772, devendraprasad1984@gmail.com</div>
-        <div>D155 2nd floor, D Block, Sector 8 , RWA Member</div>
+        <div class="bl">(M)+91 9582797772 / devendraprasad1984@gmail.com</div>
+        <div class="size14">(Residence) D155 2nd floor, D Block, Sector 8, Dwarka, Delhi 110077</div>
         <div class="purple">Key Contacts: Mr Amit, Mr Anant, Mr Anish, Mr Devendra</div>
     </div>
 </footer>

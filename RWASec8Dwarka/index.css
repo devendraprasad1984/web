@@ -9,7 +9,7 @@
 * {
     color: #414040;
     padding: 0;
-    margin: 0;
+    margin: 1px 1px 0px 1px;
     box-sizing: border-box;
 }
 
@@ -39,12 +39,17 @@
     /*-o-transition: var(--linear2);*/
 }
 
-.container {
-    width: 98%;
-    margin-top: 1rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    margin-bottom: 5em;
+/*.container {*/
+/*    width: 98%;*/
+/*    margin-top: 1rem;*/
+/*    margin-left: 1rem;*/
+/*    margin-right: 1rem;*/
+/*    margin-bottom: 5em;*/
+/*}*/
+
+h1,h2,h3{
+    padding: 5px;
+    margin: 3px;
 }
 
 input, select {
@@ -189,7 +194,8 @@ input {
 .column {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    flex: 1 1 auto;
+    flex-wrap: wrap;
 }
 
 .pad20 {
@@ -208,6 +214,12 @@ input {
     padding: 10px;
     margin-bottom: 5px;
 }
+.inputNumber{
+
+}
+.wid200px{
+    width: 200px;
+}
 
 .flexboxCards {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -221,6 +233,7 @@ input {
 .size14 {
     font-size: 14px;
 }
+
 .size16 {
     font-size: 16px;
 }
@@ -242,7 +255,7 @@ input {
 }
 
 .card {
-    border-top: 3px solid #0c5460;
+    border-top: 5px solid #85179b;
     background-color: white;
     padding: 10px;
     margin: 10px;
@@ -254,16 +267,19 @@ input {
     align-content: flex-start;
     align-items: flex-start;
     flex-direction: row;
-    flex-wrap: wrap;
+    /*flex-wrap: wrap;*/
     justify-content: space-between;
+}
+
+.ellipsis{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .row > span {
     min-width: 250px;
     width: 250px;
-    text-overflow: ellipsis;
-    word-break: break-all;
-    text-wrap: normal;
 }
 
 .card:hover {
@@ -362,11 +378,6 @@ input {
     position: relative;
 }
 
-span {
-    margin-left: 2px;
-    margin-right: 2px;
-}
-
 .carddiv > span {
     padding: 5px;
     font-size: 35px;
@@ -380,18 +391,11 @@ span {
 .swal-modal {
     height: auto;
     width: 95%;
-    /*transition: none;*/
-    /*animation: none;*/
 }
-
-/*.swal-overlay{*/
-/*    transition: none;*/
-/*    animation: none;*/
-/*}*/
 
 footer {
     bottom: 0;
-    position: fixed;
-    display: inline;
+    /*position: fixed;*/
+    /*display: inline;*/
     width: 100%;
 }

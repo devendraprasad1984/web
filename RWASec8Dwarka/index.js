@@ -1,5 +1,5 @@
 let summaryObject1 = {}
-let colors = ['pink', 'green', 'gray', 'goldenrod', 'navy', 'blue', 'magenta']
+let colors = ['violet', 'green', 'gray', 'goldenrod', 'purple','mediumseagreen', 'blue', '#8b7bce',"#85179b"]
 let imgObj = {
     anish: 'images/anish.png'
     , dp: 'images/dp.png'
@@ -62,9 +62,9 @@ function getData(url = '', success, error) {
 
 function getRandomBorderColor() {
     let ln = colors.length
-    let num = Math.round(Math.random() * ln, 0)
+    let num = Math.floor(Math.random() * ln, 0)
     // console.log(ln,num,colors[num])
-    return colors[num]
+    return num < 0 || num === undefined ? "#85179b" : colors[num]
 }
 
 // let componentContributionForm = ""
@@ -76,11 +76,11 @@ function getAddContributionForm(id) {
     if (timePeriods === '')
         timePeriods = preparePeriod()
     return `
-        <h2>Contribution Details for this month</h2>
-        <form id="contriform" class="row formInputs">
-            <select id="time" width="150px">${timePeriods}</select>
-            <input class="input-right" id="amount" placeholder="enter your amount" type="text" value="200" width="50px" />
-            <input id="remarks" placeholder="eg regular maintenance" type="text" width="150px" />
+        <h2 class='green'>Add Contribution for this month / Reversal</h2>
+        <form id="contriform" class="formInputs">
+            <select id="time" class="wid200px">${timePeriods}</select>
+            <input class="input-right wid200px" id="amount" placeholder="enter your amount" type="text" value="200" />
+            <input id="remarks" placeholder="eg regular maintenance" type="text" class="wid200px"/>
             <button class="btn red" id="btnSubmit" onclick="handleSubmit('contriform',${id})">Save</button>
         </form>
     `
@@ -135,7 +135,7 @@ let partDateTime = (strDateTime) => {
 
 let success = {
     modifyCardBorderColor: function () {
-        Array.from($('.card')).map((x, i) => x.style.borderTop = '3px solid ' + (x.getAttribute('xtype') === '+' ? 'green' : 'red'))
+        Array.from($('.card')).map((x, i) => x.style.borderTop = '5px solid ' + (x.getAttribute('xtype') === '+' ? getRandomBorderColor() : 'red'))
     },
     alert: function (res) {
         let isaved = res.status === 'success' ? true : false
@@ -178,8 +178,8 @@ let success = {
             `
         })
         report1.innerHTML = `
-        <div class="white">
-            <h1>Expenses made so far</h1>
+        <div class="white height450">
+            <h1 class='green'>Expenses made so far</h1>
             <div class="right">
                 <button class="btn green" onclick="">Export PDF</button>
             </div>
@@ -212,7 +212,7 @@ let success = {
             total += parseFloat(x.amount)
             return `
                 <div id="card${i}" class="card" xtype="+" onclick="memberCardClick(this,${x.id})">
-                    <h1>${x.name.toUpperCase()}</h1>
+                    <h1 class="ellipsis" title="${x.name.toUpperCase()}">${x.name.toUpperCase()}</h1>
                     <h3>unique code: <span class="txtpurple">${x.memkey} ${x.id === null ? '' : '(' + x.id + ')'}</span></h3>
                     <div class="right"><span class=" txtgreen size30">${rsSymbol}${Math.abs(x.amount)}</span></div>
                 </div>
@@ -220,7 +220,7 @@ let success = {
         })
         result.splice(0, 0, _that.getSummaryCard(0, total, expenses))
         report1.innerHTML = `
-            <h1>Summary by members</h1>
+            <h1 class='green'>Summary by members</h1>
             <div id="divLines" class="flexboxCards">${result.join('')}</div>
         `
         _that.modifyCardBorderColor()
