@@ -1,38 +1,54 @@
 @media screen and (max-width: 600px) {
-    .wid30, .wid70{
+    .wid30, .wid70 {
         width: 100%;
     }
-    .pad20{
+
+    .pad20 {
         padding: 5px;
         margin: 0;
     }
-    .flex{
+
+    .flex {
         flex-wrap: wrap;
     }
+
     .row > span {
         width: auto;
     }
-    .size30{
+
+    .size30 {
         font-size: 20px;
     }
-    .size20{
+
+    .size20 {
         font-size: 15px;
     }
-    .size14{
+
+    .size14 {
         font-size: 10px;
     }
-    .searchText{
+
+    .searchText {
         width: 100%;
     }
-    h1{
+
+    .card {
+        padding: 0;
+        margin: 0;
+    }
+
+    h1 {
         font-size: 1.5rem;
     }
-    h2{
+
+    h2 {
         font-size: 1.3rem;
     }
-    h3{
+
+    h3 {
         font-size: 1rem;
     }
+
     .modal-content {
         width: 100%;
     }

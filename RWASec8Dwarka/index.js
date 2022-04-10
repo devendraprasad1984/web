@@ -99,7 +99,7 @@ function getAddContributionForm(id) {
         <h2 class='green'>Add Contribution for this month / Reversal</h2>
         <form id="contriform" action="#" class="formInputs">
             <select id="time" class="wid200px">${timePeriods}</select>
-            <input class="input-right wid200px" id="amount" placeholder="enter your amount" type="text" value="200" />
+            <input class="input-right wid200px amount" id="amount" placeholder="enter your amount" type="number" value="200" min="200" max="5000"/>
             <input id="remarks" placeholder="eg regular maintenance" type="text" class="wid200px"/>
             <button class="btn red" id="btnSubmit" onclick="handleSubmit('contriform',${id})">Save</button>
         </form>
@@ -409,20 +409,15 @@ function searchByKeyword(e) {
     }
 }
 
-function handleDefaultView() {
-    if (defaultEntryType === appEnum.member) {
-        report1.classList.add('wid100')
-        report1.classList.remove('wid70')
-    } else if (defaultEntryType === appEnum.admin) {
-        report1.classList.add('wid70')
-        report1.classList.remove('wid100')
-    }
-}
-
 //initialise
 function onInit() {
     loginModal.style.display = 'none'
-    handleDefaultView()
+    let isAdmin = config.getByKeyFromLocal(appEnum.isAdmin)
+    if (isAdmin === 'true') {
+        defaultEntryType = appEnum.admin
+    } else {
+        defaultEntryType = appEnum.member
+    }
     handleRefresh()
     container.style.display = 'block'
     if (defaultEntryType === appEnum.admin)
