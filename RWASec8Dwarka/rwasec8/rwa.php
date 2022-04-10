@@ -8,7 +8,6 @@ try{
     if(isset($_POST['save'])) handleSave($_POST);
     if(isset($_POST['saveExpense'])) handleSaveExpense($_POST);
     if(isset($_POST['addMember'])) handleSaveMember($_POST);
-    if(isset($_GET['membersList'])) handlePullMembersList($_GET);
     if(isset($_GET['expensesOnly'])) handleExpensesOnly($_GET);
     if(isset($_GET['expensesByMember'])) handleExpensesByMember($_GET);
     if(isset($_GET['expensesGroup'])) handleExpensesGroupByMemId($_GET);

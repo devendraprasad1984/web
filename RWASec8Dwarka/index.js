@@ -165,10 +165,13 @@ const config = {
             button: 'Ok',
         }).then(flag => handleRefresh())
     },
-    getSummaryCard: function (balance = 0, total = 0, expenses = 0) {
+    getSummaryCard: function (balance = 0, total = 0, expenses = 0, membersCount = 0) {
         return `
-            <div id="summaryFundCard" xtype="+" class="right column card size14 bl">
+            <div id="summaryFundCard" xtype="+" class="right column card size14 bl bggray">
                 <div>Adhoc in hand (miscellaneous balance): <span class=" size14">${rsSymbol}${balance}</span></div>
+                <div class="right">
+                    <div>Total Members: <span class="size30 txtgreen">${membersCount}</span></div>
+                </div>
                 <div class="row">
                     <div class="column">
                         <span class="txtgreen size14">CR: ${rsSymbol}${total}</span>
@@ -222,17 +225,19 @@ const config = {
             }
 
         let result = []
-        let total = 0, expenses = 0
+        let total = 0, expenses = 0, membersCount = 0
         result = res.map((x, i) => {
-            if (x.id !== null)
-                if (x.id.toLowerCase() === 'expenses') {
-                    expenses = parseFloat(x.amount)
-                    return null
-                }
-            if (x.id.toLowerCase() === 'credits') {
+            if (x.id.toLowerCase() === 'expenses') {
+                expenses = parseFloat(x.amount)
+                return null
+            } else if (x.id.toLowerCase() === 'credits') {
                 total = parseFloat(x.amount)
                 return null
+            } else if (x.id.toLowerCase() === 'members') {
+                membersCount = parseFloat(x.amount)
+                return null
             }
+
             return `
                 <div id="card${i}" class="card" xtype="+" onclick="memberCardClick(this,${x.id})">
                     <h1 class="ellipsis" title="${x.name.toUpperCase()}">${x.name.toUpperCase()}</h1>
@@ -241,7 +246,7 @@ const config = {
                 </div>
             `
         })
-        result.splice(0, 0, _that.getSummaryCard(0, total, expenses))
+        result.splice(0, 0, _that.getSummaryCard(0, total, expenses, membersCount))
         report1.innerHTML = `
             <h1 class='green'>Summary by members</h1>
             <div id="divLines" class="flexboxCards">${result.join('')}</div>

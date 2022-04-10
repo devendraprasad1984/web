@@ -119,6 +119,8 @@ function handleExpensesGroupByMemId($data)
         select 'expenses','z_expenses','',sum(coalesce(amount,0)) as amt from expenses where amount < 0
         union all
         select 'credits','z_credits','',sum(coalesce(amount,0)) as amt from expenses where amount > 0
+        union all
+        select 'members','z_members','',count(*) from members where type='member'
         order by name
         ";
     $rows = returnDataset($qur);
