@@ -42,7 +42,7 @@ function handleSave($data)
     $remarks = $conn->real_escape_string($data['remarks']);
     $ip = 'ip & location';
 
-    $sql = "INSERT INTO expenses(memid,date,amount,remarks,iploc) values('$memid','$time','$amount','$remarks','$ip')";
+    $sql = "INSERT INTO rwa_expenses(memid,date,amount,remarks,iploc) values('$memid','$time','$amount','$remarks','$ip')";
     $result = $conn->query($sql);
     echo $success;
 //    mysqli_close($conn);
@@ -54,10 +54,10 @@ function handleSaveExpense($data)
     $amount = $conn->real_escape_string($data['amount']);
     $remarks = $conn->real_escape_string($data['reason']);
     $amount = 0 - $amount;
-    $adminRow = returnDataset("select id from members where memkey='admin' and type='admin'");
+    $adminRow = returnDataset("select id from rwa_members where memkey='admin' and type='admin'");
     $decoded = json_decode($adminRow);
     $adminid = $decoded[0]->id;
-    $sql = "INSERT INTO expenses(memid,amount,remarks) values('$adminid','$amount','$remarks')";
+    $sql = "INSERT INTO rwa_expenses(memid,amount,remarks) values('$adminid','$amount','$remarks')";
     $result = $conn->query($sql);
     echo $success;
 //    mysqli_close($conn);
@@ -72,12 +72,12 @@ function handleSaveMember($data)
     $address = $conn->real_escape_string($data['address']);
     $pic = '';
 
-    $result = returnDataset("select count(*) as count from members where memkey='$memid'");
+    $result = returnDataset("select count(*) as count from rwa_members where memkey='$memid'");
     $count = json_decode($result)[0]->count;
     if ($count == 1) {
         echo $recordExists;
     } else {
-        $sql = "INSERT INTO members(memkey,name,address,pic) values('$memid','$name','$address','$pic')";
+        $sql = "INSERT INTO rwa_members(memkey,name,address,pic) values('$memid','$name','$address','$pic')";
         $result = $conn->query($sql);
         echo $success;
     }
@@ -87,7 +87,7 @@ function handleSaveMember($data)
 function handleExpensesOnly($data)
 {
     $qur = "
-        select * from expenses where amount<0 order by `when` desc
+        select * from rwa_expenses where amount<0 order by `when` desc
     ";
     $rows = returnDataset($qur);
     echo $rows;
@@ -95,7 +95,7 @@ function handleExpensesOnly($data)
 
 function handleExpensesByMember($data)
 {
-    $qur = "select * from expenses where memid='${data['id']}' order by `when` desc";
+    $qur = "select * from rwa_expenses where memid='${data['id']}' order by `when` desc";
     $rows = returnDataset($qur);
     echo($rows);
 }
@@ -111,16 +111,16 @@ function handleExpensesGroupByMemId($data)
     $qur = "
         select m.id,m.name,m.memkey,A.amount from (
            select m.id, sum(coalesce(amount, 0)) as amount
-           from expenses e right outer join members m on e.memid = m.id
+           from rwa_expenses e right outer join rwa_members m on e.memid = m.id
            where type = 'member' and isactive=1  $searchByNameQur
            group by m.id
-        ) A inner join members m ON A.id=m.id
+        ) A inner join rwa_members m ON A.id=m.id
         union all
-        select 'expenses','z_expenses','',sum(coalesce(amount,0)) as amt from expenses where amount < 0
+        select 'expenses','z_expenses','',sum(coalesce(amount,0)) as amt from rwa_expenses where amount < 0
         union all
-        select 'credits','z_credits','',sum(coalesce(amount,0)) as amt from expenses where amount > 0
+        select 'credits','z_credits','',sum(coalesce(amount,0)) as amt from rwa_expenses where amount > 0
         union all
-        select 'members','z_members','',count(*) from members where type='member'
+        select 'members','z_members','',count(*) from rwa_members where type='member'
         order by name
         ";
     $rows = returnDataset($qur);
@@ -133,7 +133,7 @@ function handleLogin($data)
     global $failed, $conn;
     $id = $conn->real_escape_string($data['id']);
     $pass = $conn->real_escape_string($data['pwd']);
-    $rows = returnDataset("select id,username,type,`when` from admin where username='$id' and password='$pass'");
+    $rows = returnDataset("select id,username,type,`when` from rwa_admin where username='$id' and password='$pass'");
     if (json_decode($rows, true)) {
         echo $rows;
     } else {
@@ -146,7 +146,7 @@ function handleLoginGet($data)
     global $failed, $conn, $success;
     $id = $conn->real_escape_string($data['id']);
     $user = $conn->real_escape_string($data['user']);
-    $rows = returnDataset("select id,username,type,`when` from admin where id='$id' and username='$user'");
+    $rows = returnDataset("select id,username,type,`when` from rwa_admin where id='$id' and username='$user'");
     if (json_decode($rows, true)) {
         echo $success;
     } else {
@@ -160,7 +160,7 @@ function handlePasswordChange($data)
     $id = $conn->real_escape_string($data['id']);
     $username = $conn->real_escape_string($data['user']);
     $password = $conn->real_escape_string($data['pwd']);
-    $sql = "update admin set password='$password' where id='$id' and username='$username'";
+    $sql = "update rwa_admin set password='$password' where id='$id' and username='$username'";
     $result = $conn->query($sql);
     echo $success;
 }

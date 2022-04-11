@@ -386,6 +386,7 @@ function handleAdminCheck() {
         config.setByKeyToLocal(appEnum.loginName, id)
         config.setByKeyToLocal(appEnum.userid, res[0].id)
         defaultEntryType = appEnum.admin
+        report1.classList.add('wid70')
         logoutBtn.innerHTML = `Logout (${res[0].username})`
         onInit()
     }, error)
@@ -399,6 +400,7 @@ function handleMemberLogin() {
     config.removeByKeyFromLocal(appEnum.loginName)
     config.removeByKeyFromLocal(appEnum.userid)
     defaultEntryType = appEnum.member
+    report1.classList.add('wid100')
     onInit()
 }
 
@@ -437,6 +439,7 @@ function doPrelimCheck() {
             adminSection.style.display = 'block'
             logoutBtn.innerHTML = `${appEnum.logout} (${username})`
             onInit()
+            report1.classList.add('wid70')
         }, (er) => {
             adminSection.style.display = 'none'
             loginModal.style.display = 'block'
@@ -445,10 +448,12 @@ function doPrelimCheck() {
     } else if (isAdmin === "false" && isLogin === "false") {
         loginModal.style.display = 'none'
         adminSection.style.display = 'none'
+        report1.classList.add('wid100')
         onInit()
     } else {
         loginModal.style.display = 'block'
         adminSection.style.display = 'none'
+        report1.classList.add('wid100')
     }
 }
 
