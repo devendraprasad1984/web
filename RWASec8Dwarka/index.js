@@ -1,6 +1,8 @@
 let colors = ['violet', 'green', 'gray', 'goldenrod', 'purple', 'mediumseagreen', 'blue', '#8b7bce', "#85179b"]
 let colorx = '#428bdb'
-let serverPrefix = "http://localhost:8080/rwasec8"
+let isLocal = window.location.href.indexOf('localhost') !== -1
+let server = isLocal ? "http://localhost:8080" : "https://dpresume.com/rwa8"
+let serverPrefix = `${server}/rwasec8`
 let phpServing = `${serverPrefix}/rwa.php`
 let rsSymbol = '₹'
 let container = document.getElementById('container')
@@ -96,7 +98,7 @@ function getAddContributionForm(id) {
     if (timePeriods === '')
         timePeriods = preparePeriod()
     return `
-        <h2 class='green'>Add Contribution for this month / Reversal</h2>
+        <div class='green size35'>Add Contribution for this month / Reversal</div>
         <form id="contriform" action="#" class="formInputs">
             <select id="time" class="wid200px">${timePeriods}</select>
             <input class="input-right wid200px amount" id="amount" placeholder="enter your amount" type="number" value="200" min="200" max="5000"/>
@@ -117,7 +119,7 @@ function memberCardClick(cur, id) {
     getData(`${phpServing}?expensesByMember=1&id=${id}`, (res) => {
         let rows = res.map((x, i) => {
             return `
-                <div class="row flex">
+                <div class="row">
                     <span>${(i + 1)} ${x.remarks}</span>
                     <span>${x.date}</span>
                     <span>${rsSymbol}${x.amount}</span>
@@ -201,8 +203,8 @@ const config = {
             `
         })
         report1.innerHTML = `
-        <div class="white height450">
-            <h1 class='green'>Expenses made so far</h1>
+        <div class="">
+            <div class='green size35'>Expenses made so far</div>
             <div class="right">
                 <button class="btn green" onclick="">Export PDF</button>
             </div>
@@ -212,7 +214,7 @@ const config = {
                 <span class="right">${rsSymbol}${Math.abs(total)}</span>
                 <span></span>
             </div>
-            <div id="divLines">${result.join('')}</div>
+            <div id="divLines" class=" height450">${result.join('')}</div>
         </div>
         `
     },
@@ -248,7 +250,8 @@ const config = {
         })
         result.splice(0, 0, _that.getSummaryCard(0, total, expenses, membersCount))
         report1.innerHTML = `
-            <h1 class='green'>Summary by members</h1>
+            <div class='green size35'>Summary by members <button class="btn" onClick="handleLeaderBoard()">${!isLeader ? "Leader Board By" +
+            " Amount Paid": "Board By Name"}</button></div>
             <div id="divLines" class="flexboxCards">${result.join('')}</div>
         `
         _that.modifyCardBorderColor()
@@ -339,8 +342,15 @@ function pullMembersList() {
 
 function handleRefresh() {
     let byname = document.getElementById('idSearchBox').value
-    report1.innerHTML = '<h1>please wait, loading...</h1>'
-    getData(`${phpServing}?expensesGroup=1&name=${byname}`, config.group, error)
+    report1.innerHTML = '<div class="size35">please wait, loading...</div>'
+    getData(`${phpServing}?expensesGroup=1&name=${byname}&byname=1`, config.group, error)
+}
+
+let isLeader = false
+
+function handleLeaderBoard() {
+    isLeader = !isLeader
+    getData(`${phpServing}?expensesGroup=1&name=&${isLeader ? 'byleader=1' : 'byname=1'}`, config.group, error)
 }
 
 function handlePullExpenses(_this) {
@@ -352,7 +362,7 @@ function handlePullExpenses(_this) {
         return
     }
     cur.innerHTML = 'Pull Summary'
-    getData(`${phpServing}?expensesOnly=1`, (res) => {
+    getData(`${phpServing}?expensesOnly=1&byname=1`, (res) => {
         config.displayRows(res)
     }, error)
 }

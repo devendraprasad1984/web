@@ -104,6 +104,8 @@ function handleExpensesGroupByMemId($data)
 {
     global $conn;
     $name = $conn->real_escape_string($data['name']);
+    $orderBy=isset($data['byname']) ? " name " : " amount desc";
+
     $searchByNameQur = "";
     if ($name <> '') {
         $searchByNameQur = " and (name like '%$name%' OR memkey like '%$name%')";
@@ -121,7 +123,7 @@ function handleExpensesGroupByMemId($data)
         select 'credits','z_credits','',sum(coalesce(amount,0)) as amt from rwa_expenses where amount > 0
         union all
         select 'members','z_members','',count(*) from rwa_members where type='member'
-        order by name
+        order by $orderBy
         ";
     $rows = returnDataset($qur);
     echo $rows;

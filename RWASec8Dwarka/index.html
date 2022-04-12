@@ -10,22 +10,25 @@
 
     <meta content="D Block, RWA, Sector 8, Dwarka, Delhi 110077 devendra prasad (+919582797772)" name="title"/>
     <meta content="D Block, RWA, Sector 8, Dwarka, Delhi 110077 devendra prasad (+919582797772)" name="description"/>
+
+<!--    <script src="https://unpkg.com/lodash@4.17.20"></script>-->
 </head>
-<body class="imgbg">
+<body class="">
+
 <header class="row">
-    <img loading="lazy" class="logo" src="images/icon.jpeg">
-    <div class="bl center">
+    <img class="logo" loading="lazy" src="images/icon.jpeg">
+    <div class="bl center column">
         <div class="size30">RWA, D Block, Sector8, Dwarka</div>
         <div class="size20">Ledger Anytime Anywhere!</div>
-        <div class="size14 bl">RWA Registration Number: </div>
+        <div class="size14 bl">RWA Registration Number:</div>
     </div>
     <div>
-        <button id="logoutBtn" class="btn red" onclick="handleLogout()">Logout</button>
-        <button id="updatePasswordBtn" class="btn green" onclick="handleChangePassword()">Update Password</button>
+        <button class="btn red" id="logoutBtn" onclick="handleLogout()">Logout</button>
+        <button class="btn green" id="updatePasswordBtn" onclick="handleChangePassword()">Update Password</button>
     </div>
 </header>
 
-<div id="container" class="container hide">
+<div class="container hide" id="container">
     <div class="row" id="search1">
         <input class="searchText" id="idSearchBox" onkeypress="searchByKeyword(event)" placeholder="search by name"
                type="text"/>
@@ -60,7 +63,7 @@
     </div>
 </div>
 
-<div id="loginModal" class="modal wid30">
+<div class="modal wid30" id="loginModal">
     <div class="modal-content">
         <div class="modal-header textwhite bl">Enter Login Details...</div>
         <div class="column" id="adminform">
@@ -77,14 +80,14 @@
 </div>
 
 
-<footer id="footer" class="white card">
+<footer class="white card" id="footer">
     <div class="right">
         <div class="bl">created by Devendra Prasad, Tech Lead Software Engineer</div>
         <div class="bl">(M)+91 9582797772 / devendraprasad1984@gmail.com</div>
         <div class="size14">(Residence) D155 2nd floor, D Block, Sector 8, Dwarka, Delhi 110077</div>
         <br/><br/>
         <div class="">Key Contacts: Mr Amit, Mr Anant, Mr Anish, Mr Devendra</div>
-        <div>Treasurer: Mr Amit, +91 , Mr Anant: , Secretary: </div>
+        <div>Treasurer: Mr Amit, +91 , Mr Anant: , Secretary:</div>
     </div>
 </footer>
 
@@ -100,6 +103,7 @@
 <!--        src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>-->
 <script src="./libs/sweetalert.min.js"></script>
 <script src="./index.js"></script>
+<!--<script src="./dist/index.js"></script>-->
 
 </body>
 </html>
