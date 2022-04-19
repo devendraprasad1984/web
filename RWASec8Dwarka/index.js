@@ -20,7 +20,9 @@ let appEnum = {
     member: 'member',
     admin: 'admin',
     logout: 'Logout',
-    login: 'Login'
+    login: 'Login',
+    none: 'none',
+    block: 'block'
 }
 let defaultEntryType = appEnum.member //member or admin
 
@@ -230,20 +232,21 @@ const config = {
         let total = 0, expenses = 0, membersCount = 0
         result = res.map((x, i) => {
             if (x.id.toLowerCase() === 'expenses') {
-                expenses = parseFloat(x.amount)
+                expenses = parseFloat(x.amount || 0)
                 return null
             } else if (x.id.toLowerCase() === 'credits') {
-                total = parseFloat(x.amount)
+                total = parseFloat(x.amount || 0)
                 return null
             } else if (x.id.toLowerCase() === 'members') {
-                membersCount = parseFloat(x.amount)
+                membersCount = parseFloat(x.amount || 0)
                 return null
             }
 
             return `
                 <div id="card${i}" class="card" xtype="+" onclick="memberCardClick(this,${x.id})">
-                    <h1 class="ellipsis" title="${x.name.toUpperCase()}">${x.name.toUpperCase()}</h1>
-                    <h3>unique code: <span class="txtpurple">${x.memkey} ${x.id === null ? '' : '(' + x.id + ')'}</span></h3>
+                    <div class="size30 bl ellipsis" title="${x.name}">${x.name}</div>
+                    <div class="size20 bl row">code: <span class="txtpurple">${x.memkey}</span> <span class="right time">${x.when}</span></div>
+                    <div class="size14">address: ${x.address}</div>
                     <div class="right"><span class=" txtgreen size30">${rsSymbol}${Math.abs(x.amount)}</span></div>
                 </div>
             `
@@ -251,7 +254,7 @@ const config = {
         result.splice(0, 0, _that.getSummaryCard(0, total, expenses, membersCount))
         report1.innerHTML = `
             <div class='green size35'>Summary by members <button class="btn" onClick="handleLeaderBoard()">${!isLeader ? "Leader Board By" +
-            " Amount Paid": "Board By Name"}</button></div>
+            " Amount Paid" : "Board By Name"}</button></div>
             <div id="divLines" class="flexboxCards">${result.join('')}</div>
         `
         _that.modifyCardBorderColor()
@@ -383,9 +386,9 @@ function preparePeriod() {
 }
 
 function handleAdminCheck() {
-    let id = document.getElementById('adminId').value
+    let user = document.getElementById('adminId').value
     let pwd = document.getElementById('adminPwd').value
-    postData(phpServing, {loginCheck: 1, id, pwd}, (res) => {
+    postData(phpServing, {loginCheck: 1, user, pwd}, (res) => {
         if (res.status !== undefined)
             if (res.status.indexOf('failed') !== -1) {
                 error('Login failed')
@@ -393,7 +396,7 @@ function handleAdminCheck() {
             }
         config.setByKeyToLocal(appEnum.isAdmin, true)
         config.setByKeyToLocal(appEnum.isLogin, true)
-        config.setByKeyToLocal(appEnum.loginName, id)
+        config.setByKeyToLocal(appEnum.loginName, user)
         config.setByKeyToLocal(appEnum.userid, res[0].id)
         defaultEntryType = appEnum.admin
         report1.classList.add('wid70')
@@ -403,8 +406,8 @@ function handleAdminCheck() {
 }
 
 function handleMemberLogin() {
-    loginModal.style.display = 'none'
-    adminSection.style.display = 'none'
+    loginModal.style.display = appEnum.none
+    adminSection.style.display = appEnum.none
     config.setByKeyToLocal(appEnum.isAdmin, false)
     config.setByKeyToLocal(appEnum.isLogin, false)
     config.removeByKeyFromLocal(appEnum.loginName)
@@ -423,7 +426,7 @@ function searchByKeyword(e) {
 
 //initialise
 function onInit() {
-    loginModal.style.display = 'none'
+    loginModal.style.display = appEnum.none
     let isAdmin = config.getByKeyFromLocal(appEnum.isAdmin)
     if (isAdmin === 'true') {
         defaultEntryType = appEnum.admin
@@ -431,46 +434,57 @@ function onInit() {
         defaultEntryType = appEnum.member
     }
     handleRefresh()
-    container.style.display = 'block'
+    container.style.display = appEnum.block
     if (defaultEntryType === appEnum.admin)
-        adminSection.style.display = 'block'
+        adminSection.style.display = appEnum.block
 }
 
-function doPrelimCheck() {
+function doPrelimCheck(callback = undefined, isLogout = false) {
     let isLogin = config.getByKeyFromLocal(appEnum.isLogin)
     let isAdmin = config.getByKeyFromLocal(appEnum.isAdmin)
-    let userid = config.getByKeyFromLocal(appEnum.userid)
+    let id = config.getByKeyFromLocal(appEnum.userid)
     let username = config.getByKeyFromLocal(appEnum.loginName)
     report1.innerHTML = ""
     logoutBtn.innerHTML = `${appEnum.logout} (member)`
     if (isLogin === "true" && isAdmin === "true") {
-        getData(`${phpServing}?loginCheck=1&id=${userid}&user=${username}`, (res) => {
-            loginModal.style.display = 'none'
-            adminSection.style.display = 'block'
+        getData(`${phpServing}?loginCheck=1&id=${id}&user=${username}`, (res) => {
+            loginModal.style.display = appEnum.none
+            adminSection.style.display = appEnum.block
             logoutBtn.innerHTML = `${appEnum.logout} (${username})`
-            onInit()
             report1.classList.add('wid70')
+            if (callback !== undefined)
+                callback(res.status === 'success' ? true : false)
         }, (er) => {
-            adminSection.style.display = 'none'
-            loginModal.style.display = 'block'
+            adminSection.style.display = appEnum.none
+            loginModal.style.display = appEnum.block
             error(er)
         })
     } else if (isAdmin === "false" && isLogin === "false") {
-        loginModal.style.display = 'none'
-        adminSection.style.display = 'none'
+        adminSection.style.display = appEnum.none
+        loginModal.style.display = appEnum.block
         report1.classList.add('wid100')
-        onInit()
+        let isMemberLoggingOut = isLogout && logoutBtn.innerHTML.toLowerCase().indexOf(appEnum.member) !== -1
+        if (!isMemberLoggingOut) onInit()
     } else {
-        loginModal.style.display = 'block'
-        adminSection.style.display = 'none'
+        loginModal.style.display = appEnum.block
+        adminSection.style.display = appEnum.none
         report1.classList.add('wid100')
     }
 }
 
 function handleLogout() {
-    Object.values(appEnum).forEach(x => config.removeByKeyFromLocal(x))
-    doPrelimCheck()
-    logoutBtn.innerHTML = appEnum.login
+    let isMemberLoggingOut = logoutBtn.innerHTML.toLowerCase().indexOf(appEnum.member) !== -1
+    doPrelimCheck(function (val) {
+        if (!val) return
+        let id = config.getByKeyFromLocal(appEnum.userid)
+        let username = config.getByKeyFromLocal(appEnum.loginName)
+        getData(`${phpServing}?logout=1&id=${id}&user=${username}`, (res) => {
+            Object.values(appEnum).forEach(x => config.removeByKeyFromLocal(x))
+            logoutBtn.innerHTML = appEnum.login
+            adminSection.style.display = appEnum.none
+            loginModal.style.display = appEnum.block
+        }, err => error(err))
+    }, true)
 }
 
 function handleChangePassword() {
@@ -482,5 +496,16 @@ function handleChangePassword() {
     postData(phpServing, {passwordChange: 1, id, user, pwd: newPassword}, config.alert, error)
 }
 
+function handleBackup(type = 'csv') {
+    switch (type) {
+        case 'csv':
+            break
+        default:
+            break
+    }
+}
 
-document.addEventListener("DOMContentLoaded", doPrelimCheck)
+
+document.addEventListener("DOMContentLoaded", () => doPrelimCheck(val => {
+    val && onInit()
+}, false))

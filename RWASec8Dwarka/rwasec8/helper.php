@@ -104,13 +104,14 @@ function handleExpensesGroupByMemId($data)
 {
     global $conn;
     $name = $conn->real_escape_string($data['name']);
-    $orderBy=isset($data['byname']) ? " name " : " amount desc";
+    $orderBy = isset($data['byname']) ? " name " : " amount desc";
 
     $searchByNameQur = "";
     if ($name <> '') {
-        $searchByNameQur = " and (name like '%$name%' OR memkey like '%$name%')";
+        $searchByNameQur = " and (name like '%$name%' OR memkey like '%$name%' OR address like '%$name%')";
     }
     $qur = "
+    select b.id, b.name, b.memkey, b.amount,a.when,a.address from rwa_members a right join (
         select m.id,m.name,m.memkey,A.amount from (
            select m.id, sum(coalesce(amount, 0)) as amount
            from rwa_expenses e right outer join rwa_members m on e.memid = m.id
@@ -123,6 +124,7 @@ function handleExpensesGroupByMemId($data)
         select 'credits','z_credits','',sum(coalesce(amount,0)) as amt from rwa_expenses where amount > 0
         union all
         select 'members','z_members','',count(*) from rwa_members where type='member'
+       ) b on a.id=b.id
         order by $orderBy
         ";
     $rows = returnDataset($qur);
@@ -133,22 +135,34 @@ function handleExpensesGroupByMemId($data)
 function handleLogin($data)
 {
     global $failed, $conn;
-    $id = $conn->real_escape_string($data['id']);
+    $user = $conn->real_escape_string($data['user']);
     $pass = $conn->real_escape_string($data['pwd']);
-    $rows = returnDataset("select id,username,type,`when` from rwa_admin where username='$id' and password='$pass'");
+    $rows = returnDataset("select id,username,type,`when` from rwa_admin where username='$user' and password='$pass' and signin=0");
     if (json_decode($rows, true)) {
+        $sql = "update rwa_admin set signin=1 where username='$user' and signin=0";
+        $result = $conn->query($sql);
         echo $rows;
     } else {
         echo $failed;
     }
 }
 
-function handleLoginGet($data)
+function handleLogout($data)
+{
+    global $conn, $success, $failed;
+    $id = $conn->real_escape_string($data['id']);
+    $user = $conn->real_escape_string($data['user']);
+    $sql = "update rwa_admin set signin=0 where id='$id' and username='$user' and signin=1";
+    $result = $conn->query($sql);
+    echo $success;
+}
+
+function loginCheck($data)
 {
     global $failed, $conn, $success;
     $id = $conn->real_escape_string($data['id']);
     $user = $conn->real_escape_string($data['user']);
-    $rows = returnDataset("select id,username,type,`when` from rwa_admin where id='$id' and username='$user'");
+    $rows = returnDataset("select id,username,type,`when` from rwa_admin where id='$id' and username='$user' and signin=1");
     if (json_decode($rows, true)) {
         echo $success;
     } else {

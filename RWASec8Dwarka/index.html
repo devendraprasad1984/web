@@ -38,6 +38,8 @@
 
     <div class="row flex">
         <div class="column wid30 hide marginud" id="adminSection">
+            <button class="btn" id="btnBackupCSV" onclick="handleBackup('csv')">Back up CSV</button>
+
             <div class="column formInputs" id="expenseform">
                 <h2 class="green pad20">Add Expenses <span class="btn purple"
                                                            onclick="handleFormsToggle({show:'membersform', hide:'expenseform'})">Add Member</span>
@@ -51,10 +53,9 @@
                 <h2 class="green pad20">Add New Member <span class="btn purple"
                                                              onclick="handleFormsToggle({show:'expenseform', hide:'membersform'})">Expense Form</span>
                 </h2>
-                <input id="memberid" placeholder="enter unique key eg mobile or name-address combination" type="text"
-                       width="150px">
-                <input id="name" placeholder="enter member name" type="text">
-                <input id="address" placeholder="eg D155 sector 8 dwarka" type="text">
+                <input id="name" placeholder="Enter NAME" type="text" required />
+                <input type="tel" id="memberid" placeholder="Enter MOBILE Number 999 999 9999" pattern="^\d{3}-\d{3}-\d{4}$" title="enter valid phone number" width="150px" required />
+                <input id="address" placeholder="Enter ADDRESS" type="text" />
                 <button class="btn txtgreen" id="btnSaveMember" onclick="handleSubmitMember(this.id)">Add Member
                 </button>
             </div>
