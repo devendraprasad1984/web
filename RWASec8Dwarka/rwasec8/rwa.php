@@ -15,6 +15,9 @@ try{
     if(isset($_GET['logout'])) handleLogout($_GET);
     if(isset($_GET['loginCheck'])) loginCheck($_GET);
     if(isset($_POST['passwordChange'])) handlePasswordChange($_POST);
+    if(isset($_GET['backupJSON'])) backupJSON($_GET);
+
+
     if($conn) mysqli_close($conn);
 }catch (Exception $ex){
     if($conn) mysqli_close($conn);

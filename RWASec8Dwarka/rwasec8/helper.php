@@ -181,3 +181,16 @@ function handlePasswordChange($data)
     echo $success;
 }
 
+
+function backupJSON($data)
+{
+    $members = returnDataset('select * from rwa_members order by id');
+    $admin = returnDataset('select * from rwa_admin order by id');
+    $expenses = returnDataset('select * from rwa_expenses order by id');
+    $data = json_encode(array(
+        "members" => json_decode($members),
+        "admin" => json_decode($admin),
+        "expenses" => json_decode($expenses)
+    ));
+    echo $data;
+}

@@ -499,6 +499,10 @@ function handleChangePassword() {
 function handleBackup(type = 'csv') {
     switch (type) {
         case 'csv':
+            getData(`${phpServing}?backupJSON=1`, (res) => {
+                console.log('data', res)
+            }, err => error(err))
+
             break
         default:
             break
