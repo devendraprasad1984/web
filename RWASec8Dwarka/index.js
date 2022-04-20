@@ -510,6 +510,12 @@ function handleBackup(type = 'csv') {
 }
 
 
-document.addEventListener("DOMContentLoaded", () => doPrelimCheck(val => {
-    val && onInit()
-}, false))
+document.addEventListener("DOMContentLoaded", () => {
+        getData(`${phpServing}?config=1`, res => {
+            console.log('config', res)
+            doPrelimCheck(val => {
+                val && onInit()
+            }, false)
+        }, error)
+    }
+)
