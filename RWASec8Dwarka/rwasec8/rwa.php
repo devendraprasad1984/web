@@ -5,17 +5,21 @@ require_once './helper.php';
 
 global $success, $conn, $failed;
 try{
+    //POST calls
     if(isset($_POST['save'])) handleSave($_POST);
     if(isset($_POST['saveExpense'])) handleSaveExpense($_POST);
     if(isset($_POST['addMember'])) handleSaveMember($_POST);
+    if(isset($_POST['loginCheck'])) handleLogin($_POST);
+    if(isset($_POST['passwordChange'])) handlePasswordChange($_POST);
+    if(isset($_POST['deleteMember'])) handleDeleteMember($_POST);
+
+    //GET Calls
+    if(isset($_GET['logout'])) handleLogout($_GET);
+    if(isset($_GET['loginCheck'])) loginCheck($_GET);
+    if(isset($_GET['backupJSON'])) backupJSON($_GET);
     if(isset($_GET['expensesOnly'])) handleExpensesOnly($_GET);
     if(isset($_GET['expensesByMember'])) handleExpensesByMember($_GET);
     if(isset($_GET['expensesGroup'])) handleExpensesGroupByMemId($_GET);
-    if(isset($_POST['loginCheck'])) handleLogin($_POST);
-    if(isset($_GET['logout'])) handleLogout($_GET);
-    if(isset($_GET['loginCheck'])) loginCheck($_GET);
-    if(isset($_POST['passwordChange'])) handlePasswordChange($_POST);
-    if(isset($_GET['backupJSON'])) backupJSON($_GET);
     if(isset($_GET['config'])) handleGetConfig($_GET);
 
 

@@ -25,6 +25,7 @@ let appEnum = {
     block: 'block'
 }
 let defaultEntryType = appEnum.member //member or admin
+// document.location.reload(false)
 
 function postData(url, data = {}, success, err) {
     $.ajax({
@@ -117,7 +118,7 @@ function memberCardClick(cur, id) {
         cardid = cur
     }
 
-    let contributionForm = defaultEntryType === appEnum.admin ? getAddContributionForm(id) : ""
+    let contributionForm = config.isAdmin() ? getAddContributionForm(id) : ""
     getData(`${phpServing}?expensesByMember=1&id=${id}`, (res) => {
         let rows = res.map((x, i) => {
             return `
@@ -150,6 +151,18 @@ function memberCardClick(cur, id) {
     }, error)
 }
 
+function handleDeleteUser(e, id) {
+    let adminId = config.getByKeyFromLocal(appEnum.userid)
+    let adminUser = config.getByKeyFromLocal(appEnum.loginName)
+    postData(phpServing, {deleteMember: 1, id, admin: adminUser, adminId}, res => {
+        if (res.status === 'success') {
+            onInit()
+        }
+    }, error)
+    e.stopPropagation()
+    e.preventDefault()
+}
+
 let partDateTime = (strDateTime) => {
     let sdateArr = strDateTime.split(' ')
     let sDate = new Date(sdateArr[0]).toLocaleDateString()
@@ -158,6 +171,7 @@ let partDateTime = (strDateTime) => {
 }
 
 const config = {
+    isAdmin: () => defaultEntryType === appEnum.admin,
     modifyCardBorderColor: function () {
         Array.from($('.card')).map((x, i) => x.style.borderTop = '5px solid ' + (x.getAttribute('xtype') === '+' ? getRandomBorderColor() : 'red'))
     },
@@ -244,10 +258,10 @@ const config = {
 
             return `
                 <div id="card${i}" class="card" xtype="+" onclick="memberCardClick(this,${x.id})">
-                    <div class="size30 bl ellipsis" title="${x.name}">${x.name}</div>
+                    <div class="size30 bl ellipsis row" title="${x.name}"><span>${x.name}</span> ${_that.isAdmin() ? `<button class='btn red' onclick="handleDeleteUser(event, ${x.id})">Delete</button>` : ''}</div>
                     <div class="size20 bl row">code: <span class="txtpurple">${x.memkey}</span> <span class="right time">${x.when}</span></div>
                     <div class="size14">address: ${x.address}</div>
-                    <div class="right"><span class=" txtgreen size30">${rsSymbol}${Math.abs(x.amount)}</span></div>
+                    <div class="right"><span class="size20 bl">${rsSymbol}${Math.abs(x.amount)}</span></div>
                 </div>
             `
         })
@@ -435,7 +449,7 @@ function onInit() {
     }
     handleRefresh()
     container.style.display = appEnum.block
-    if (defaultEntryType === appEnum.admin)
+    if (config.isAdmin())
         adminSection.style.display = appEnum.block
 }
 
@@ -488,7 +502,7 @@ function handleLogout() {
 }
 
 function handleChangePassword() {
-    if (defaultEntryType === appEnum.member) return
+    if (!config.isAdmin()) return
     let newPassword = prompt('Enter new password')
     if (newPassword === undefined || newPassword === null || newPassword === '') return;
     let id = config.getByKeyFromLocal(appEnum.userid)
@@ -509,13 +523,34 @@ function handleBackup(type = 'csv') {
     }
 }
 
+function scrollTo(e) {
+    let scrollpos = Math.floor(sessionStorage.getItem('scrollpos'))
+    if (scrollpos) {
+        window.scrollTo({
+            top: 100,
+            left: 100,
+            behavior: 'smooth'
+        })
+        e.stopPropagation()
+        e.preventDefault()
+    }
+}
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("scroll", function (e) {
+    var top = window.pageYOffset || document.documentElement.scrollTop
+    sessionStorage.setItem('scrollpos', top);
+})
+
+document.addEventListener("DOMContentLoaded", (e) => {
+        // scrollTo(e)
         getData(`${phpServing}?config=1`, res => {
             console.log('config', res)
             doPrelimCheck(val => {
                 val && onInit()
             }, false)
         }, error)
+        e.stopPropagation()
+        e.preventDefault()
     }
 )
+

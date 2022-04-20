@@ -137,7 +137,7 @@ function handleLogin($data)
     global $failed, $conn;
     $user = $conn->real_escape_string($data['user']);
     $pass = $conn->real_escape_string($data['pwd']);
-    $rows = returnDataset("select id,username,type,`when` from rwa_admin where username='$user' and password='$pass' and signin=0");
+    $rows = returnDataset("select id,username,type,`when` from rwa_admin where username='$user' and password='$pass'");
     if (json_decode($rows, true)) {
         $sql = "update rwa_admin set signin=1 where username='$user' and signin=0";
         $result = $conn->query($sql);
@@ -177,6 +177,16 @@ function handlePasswordChange($data)
     $username = $conn->real_escape_string($data['user']);
     $password = $conn->real_escape_string($data['pwd']);
     $sql = "update rwa_admin set password='$password' where id='$id' and username='$username'";
+    $result = $conn->query($sql);
+    echo $success;
+}
+
+function handleDeleteMember($data){
+    global $success, $conn;
+    $id = $conn->real_escape_string($data['id']);
+    $admin = $conn->real_escape_string($data['admin']);
+    $adminId = $conn->real_escape_string($data['adminId']);
+    $sql = "update rwa_members set isActive=0 where id='$id'";
     $result = $conn->query($sql);
     echo $success;
 }
