@@ -39,27 +39,28 @@
     </div>
 
     <div class="row flex">
-        <div class="column wid30 hide marginud" id="adminSection">
-            <button class="btn" id="btnBackupCSV" onclick="handleBackup('csv')">Back up CSV</button>
-
+        <div class="wid30 hide" id="adminSection">
             <div class="column formInputs" id="expenseform">
-                <h2 class="green pad20">Add Expenses <span class="btn purple"
+                <div class="size30 green pad20">Add Expenses <span class="btn purple"
                                                            onclick="handleFormsToggle({show:'membersform', hide:'expenseform'})">Add Member</span>
-                </h2>
+                </div>
                 <input id="amountexpense" placeholder="enter amount" type="number" width="50px">
                 <input id="reason" placeholder="Reason: where this money is spent on" type="text" width="150px">
                 <button class="btn red" id="btnSaveExpense" onclick="handleSubmitExpense(this.id)">Save Expenses
                 </button>
             </div>
             <div class="column formInputs hide" id="membersform">
-                <h2 class="green pad20">Add New Member <span class="btn purple"
+                <div class="size30 green pad20">Add New Member <span class="btn purple"
                                                              onclick="handleFormsToggle({show:'expenseform', hide:'membersform'})">Expense Form</span>
-                </h2>
+                </div>
                 <input id="name" placeholder="Enter NAME" type="text" required />
                 <input type="tel" id="memberid" placeholder="Enter MOBILE Number 999 999 9999" pattern="^\d{3}-\d{3}-\d{4}$" title="enter valid phone number" width="150px" required />
                 <input id="address" placeholder="Enter ADDRESS" type="text" />
                 <button class="btn txtgreen" id="btnSaveMember" onclick="handleSubmitMember(this.id)">Add Member
                 </button>
+            </div>
+            <div class="column marginud">
+                <button class="btn" id="btnBackupCSV" onclick="handleBackup('csv')">Back up CSV</button>
             </div>
         </div>
         <div class="" id="report1"></div>

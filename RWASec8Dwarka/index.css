@@ -43,7 +43,7 @@ body,.card {
 * {
     color: #414040;
     padding: 0;
-    /*margin: 2px 2px 0px 2px;*/
+    margin-bottom: 3px;
     box-sizing: border-box;
 }
 
@@ -228,6 +228,7 @@ input {
     flex-direction: column;
     flex: 1 1 auto;
     flex-wrap: wrap;
+    /*margin-top: 5px;*/
 }
 
 .pad20 {
@@ -279,6 +280,7 @@ input {
 
 .size30 {
     font-size: 30px;
+    font-weight: bolder;
 }
 
 .size35 {

@@ -87,7 +87,9 @@ function handleSaveMember($data)
 function handleExpensesOnly($data)
 {
     $qur = "
-        select * from rwa_expenses where amount<0 order by `when` desc
+        select a.* from rwa_expenses a
+        inner join rwa_members b on b.id=a.memid and a.amount<0 and b.isactive=1
+        order by `when` desc
     ";
     $rows = returnDataset($qur);
     echo $rows;
@@ -104,14 +106,20 @@ function handleExpensesGroupByMemId($data)
 {
     global $conn;
     $name = $conn->real_escape_string($data['name']);
-    $orderBy = isset($data['byname']) ? " name " : " amount desc";
+    $isAddressSet=isset($data['byaddress']);
+    $orderBy = "";
+    $orderBy = isset($data['byname']) ? " name " : $orderBy;
+    $orderBy = isset($data['byleader']) ? " amount desc " : $orderBy;
+    $orderBy = $isAddressSet ? " address " : $orderBy;
+    $nameField = $isAddressSet ? "a.address" : "b.name";
+    $addrField = $isAddressSet ? "b.name" : "a.address";
 
     $searchByNameQur = "";
     if ($name <> '') {
         $searchByNameQur = " and (name like '%$name%' OR memkey like '%$name%' OR address like '%$name%')";
     }
     $qur = "
-    select b.id, b.name, b.memkey, b.amount,a.when,a.address from rwa_members a right join (
+    select b.id, $nameField as name, b.memkey, b.amount,a.when,$addrField as address from rwa_members a right join (
         select m.id,m.name,m.memkey,A.amount from (
            select m.id, sum(coalesce(amount, 0)) as amount
            from rwa_expenses e right outer join rwa_members m on e.memid = m.id
@@ -181,7 +189,8 @@ function handlePasswordChange($data)
     echo $success;
 }
 
-function handleDeleteMember($data){
+function handleDeleteMember($data)
+{
     global $success, $conn;
     $id = $conn->real_escape_string($data['id']);
     $admin = $conn->real_escape_string($data['admin']);
@@ -205,7 +214,8 @@ function backupJSON($data)
     echo $data;
 }
 
-function handleGetConfig($data){
+function handleGetConfig($data)
+{
     $config = returnDataset('select `key`,`value` from config where isactive=1');
     echo $config;
 }

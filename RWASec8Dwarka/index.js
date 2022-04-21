@@ -259,16 +259,18 @@ const config = {
             return `
                 <div id="card${i}" class="card" xtype="+" onclick="memberCardClick(this,${x.id})">
                     <div class="size30 bl ellipsis row" title="${x.name}"><span>${x.name}</span> ${_that.isAdmin() ? `<button class='btn transition  red' onclick="handleDeleteUser(event, ${x.id})">Delete</button>` : ''}</div>
-                    <div class="size20 bl row">code: <span class="txtpurple">${x.memkey}</span> <span class="right time">${x.when}</span></div>
-                    <div class="size14">address: ${x.address}</div>
+                    <div class="size20 bl row"><span class="txtpurple">${x.memkey}</span> <span class="right time">${x.when}</span></div>
+                    <div class="size14">${x.address}</div>
                     <div class="right"><span class="size20 bl">${rsSymbol}${Math.abs(x.amount)}</span></div>
                 </div>
             `
         })
         result.splice(0, 0, _that.getSummaryCard(0, total, expenses, membersCount))
         report1.innerHTML = `
-            <div class='green size35'>Summary by members <button class="btn" onClick="handleLeaderBoard()">${!isLeader ? "Leader Board By" +
-            " Amount Paid" : "Board By Name"}</button></div>
+            <div class='green size35'>Summary by members 
+            <button class="btn" onClick="handleLeaderBoard()">${!isLeader ? "Leader Board By Amount Paid" : "Board By Name"}</button>
+            <button class="btn" onClick="handleBoardAddress()">By Address</button>
+            </div>
             <div id="divLines" class="flexboxCards">${result.join('')}</div>
         `
         _that.modifyCardBorderColor()
@@ -368,6 +370,10 @@ let isLeader = false
 function handleLeaderBoard() {
     isLeader = !isLeader
     getData(`${phpServing}?expensesGroup=1&name=&${isLeader ? 'byleader=1' : 'byname=1'}`, config.group, error)
+}
+
+function handleBoardAddress() {
+    getData(`${phpServing}?expensesGroup=1&name=&byaddress=1}`, config.group, error)
 }
 
 function handlePullExpenses(_this) {
