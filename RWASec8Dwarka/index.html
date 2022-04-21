@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <meta content="width=device-width, initial-scale=0.9" name="viewport"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>RWA - D Block Expense Register</title>
     <link href="images/icon.jpeg" rel="icon" type="image/png">
     <link href="./index.css" rel="stylesheet">
@@ -13,7 +14,7 @@
 
 <!--    <script src="https://unpkg.com/lodash@4.17.20"></script>-->
 </head>
-<body class="">
+<body class="" cz-shortcut-listen="true">
 
 <header class="row">
     <img class="logo" loading="lazy" src="images/icon.jpeg">
@@ -33,7 +34,7 @@
     <div class="row" id="search1">
         <input class="searchText" id="idSearchBox" onkeypress="searchByKeyword(event)" placeholder="search by name"
                type="text"/>
-        <button class="btn green textwhite" id="idSearchBtn" onclick="handleRefresh()">Search</button>
+        <button class="btn" id="idSearchBtn" onclick="handleRefresh()">Search</button>
         <button class="btn red right" id="idPullExpenses" onclick="handlePullExpenses(this)">Pull Expenses</button>
     </div>
 

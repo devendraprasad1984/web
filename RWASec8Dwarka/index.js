@@ -106,7 +106,7 @@ function getAddContributionForm(id) {
             <select id="time" class="wid200px">${timePeriods}</select>
             <input class="input-right wid200px amount" id="amount" placeholder="enter your amount" type="number" value="200" min="200" max="5000"/>
             <input id="remarks" placeholder="eg regular maintenance" type="text" class="wid200px"/>
-            <button class="btn red" id="btnSubmit" onclick="handleSubmit('contriform',${id})">Save</button>
+            <button class="btn transition  red" id="btnSubmit" onclick="handleSubmit('contriform',${id})">Save</button>
         </form>
     `
     // return componentContributionForm
@@ -222,7 +222,7 @@ const config = {
         <div class="">
             <div class='green size35'>Expenses made so far</div>
             <div class="right">
-                <button class="btn green" onclick="">Export PDF</button>
+                <button class="btn transition  green" onclick="">Export PDF</button>
             </div>
             <br/>
             <div class='row bl green'>
@@ -258,7 +258,7 @@ const config = {
 
             return `
                 <div id="card${i}" class="card" xtype="+" onclick="memberCardClick(this,${x.id})">
-                    <div class="size30 bl ellipsis row" title="${x.name}"><span>${x.name}</span> ${_that.isAdmin() ? `<button class='btn red' onclick="handleDeleteUser(event, ${x.id})">Delete</button>` : ''}</div>
+                    <div class="size30 bl ellipsis row" title="${x.name}"><span>${x.name}</span> ${_that.isAdmin() ? `<button class='btn transition  red' onclick="handleDeleteUser(event, ${x.id})">Delete</button>` : ''}</div>
                     <div class="size20 bl row">code: <span class="txtpurple">${x.memkey}</span> <span class="right time">${x.when}</span></div>
                     <div class="size14">address: ${x.address}</div>
                     <div class="right"><span class="size20 bl">${rsSymbol}${Math.abs(x.amount)}</span></div>
