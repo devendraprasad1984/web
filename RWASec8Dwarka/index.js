@@ -25,6 +25,9 @@ let appEnum = {
     block: 'block'
 }
 let defaultEntryType = appEnum.member //member or admin
+let scrollToTopBtn = document.getElementById('scrollToTopBtn')
+var rootElement = document.documentElement
+
 // document.location.reload(false)
 
 function postData(url, data = {}, success, err) {
@@ -542,12 +545,28 @@ function scrollTo(e) {
     }
 }
 
-document.addEventListener("scroll", function (e) {
-    var top = window.pageYOffset || document.documentElement.scrollTop
-    sessionStorage.setItem('scrollpos', top);
-})
+function handleScroll() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        scrollToTopBtn.style.display = "block";
+    } else {
+        scrollToTopBtn.style.display = "none";
+    }
+}
+
+function scrollToTop() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+
+document.addEventListener("scroll", handleScroll)
+
+// document.addEventListener("scroll", function (e) {
+//     var top = window.pageYOffset || document.documentElement.scrollTop
+//     sessionStorage.setItem('scrollpos', top);
+// })
 
 document.addEventListener("DOMContentLoaded", (e) => {
+        scrollToTopBtn.addEventListener("click", scrollToTop)
         // scrollTo(e)
         getData(`${phpServing}?config=1`, res => {
             console.log('config', res)

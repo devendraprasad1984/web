@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>RWA - D Block Expense Register</title>
     <link href="images/icon.jpeg" rel="icon" type="image/png">
@@ -12,7 +12,7 @@
     <meta content="D Block, RWA, Sector 8, Dwarka, Delhi 110077 devendra prasad (+919582797772)" name="title"/>
     <meta content="D Block, RWA, Sector 8, Dwarka, Delhi 110077 devendra prasad (+919582797772)" name="description"/>
 
-<!--    <script src="https://unpkg.com/lodash@4.17.20"></script>-->
+    <!--    <script src="https://unpkg.com/lodash@4.17.20"></script>-->
 </head>
 <body class="" cz-shortcut-listen="true">
 
@@ -42,7 +42,7 @@
         <div class="wid30 hide" id="adminSection">
             <div class="column formInputs" id="expenseform">
                 <div class="size30 green pad20">Add Expenses <span class="btn purple"
-                                                           onclick="handleFormsToggle({show:'membersform', hide:'expenseform'})">Add Member</span>
+                                                                   onclick="handleFormsToggle({show:'membersform', hide:'expenseform'})">Add Member</span>
                 </div>
                 <input id="amountexpense" placeholder="enter amount" type="number" width="50px">
                 <input id="reason" placeholder="Reason: where this money is spent on" type="text" width="150px">
@@ -51,11 +51,12 @@
             </div>
             <div class="column formInputs hide" id="membersform">
                 <div class="size30 green pad20">Add New Member <span class="btn purple"
-                                                             onclick="handleFormsToggle({show:'expenseform', hide:'membersform'})">Expense Form</span>
+                                                                     onclick="handleFormsToggle({show:'expenseform', hide:'membersform'})">Expense Form</span>
                 </div>
-                <input id="name" placeholder="Enter NAME" type="text" required />
-                <input type="tel" id="memberid" placeholder="Enter MOBILE Number 999 999 9999" pattern="^\d{3}-\d{3}-\d{4}$" title="enter valid phone number" width="150px" required />
-                <input id="address" placeholder="Enter ADDRESS" type="text" />
+                <input id="name" placeholder="Enter NAME" required type="text"/>
+                <input id="memberid" pattern="^\d{3}-\d{3}-\d{4}$" placeholder="Enter MOBILE Number 999 999 9999"
+                       required title="enter valid phone number" type="tel" width="150px"/>
+                <input id="address" placeholder="Enter ADDRESS" type="text"/>
                 <button class="btn txtgreen" id="btnSaveMember" onclick="handleSubmitMember(this.id)">Add Member
                 </button>
             </div>
@@ -82,7 +83,9 @@
     </div>
 
 </div>
-
+<div>
+    <button id="scrollToTopBtn">Top</button>
+</div>
 
 <footer class="white card" id="footer">
     <div class="right">

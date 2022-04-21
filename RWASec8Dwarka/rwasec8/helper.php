@@ -195,7 +195,8 @@ function handleDeleteMember($data)
     $id = $conn->real_escape_string($data['id']);
     $admin = $conn->real_escape_string($data['admin']);
     $adminId = $conn->real_escape_string($data['adminId']);
-    $sql = "update rwa_members set isActive=0 where id='$id'";
+//    $sql = "update rwa_members set isActive=0 where id='$id'";
+    $sql = "delete from rwa_members where id='$id'";
     $result = $conn->query($sql);
     echo $success;
 }
