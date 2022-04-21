@@ -1,4 +1,4 @@
-create table config
+create table rwa_config
 (
     `key` varchar(30) null,
     value varchar(250) null,
@@ -47,6 +47,8 @@ create table rwa_expenses
 );
 
 
+alter table rwa_admin add column signin int default 0;
+alter table rwa_members add column isactive int default 1;
 
 
 insert into rwa_members(memkey, name, address, type)

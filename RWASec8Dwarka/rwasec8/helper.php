@@ -217,6 +217,6 @@ function backupJSON($data)
 
 function handleGetConfig($data)
 {
-    $config = returnDataset('select `key`,`value` from config where isactive=1');
+    $config = returnDataset('select `key`,`value` from rwa_config where isactive=1');
     echo $config;
 }

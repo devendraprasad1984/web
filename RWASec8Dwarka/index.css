@@ -33,7 +33,7 @@ html {
     -webkit-text-size-adjust: 100%;
 }
 
-body, .card {
+body {
     animation-name: rainbow;
     animation-duration: 20s;
     animation-iteration-count: infinite;
@@ -263,7 +263,7 @@ input {
 }
 
 .flexboxCards {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     display: grid;
 }
 
@@ -281,11 +281,11 @@ input {
 }
 
 .size20 {
-    font-size: 20px;
+    font-size: 17px;
 }
 
 .size30 {
-    font-size: 30px;
+    font-size: 22px;
     font-weight: bolder;
 }
 
