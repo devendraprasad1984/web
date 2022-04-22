@@ -437,7 +437,7 @@ function handleMemberLogin() {
     config.removeByKeyFromLocal(appEnum.userid)
     defaultEntryType = appEnum.member
     report1.classList.add('wid100')
-    onInit()
+    doPrelimCheck()
 }
 
 function searchByKeyword(e) {
@@ -468,31 +468,41 @@ function doPrelimCheck(callback = undefined, isLogout = false) {
     let id = config.getByKeyFromLocal(appEnum.userid)
     let username = config.getByKeyFromLocal(appEnum.loginName)
     report1.innerHTML = ""
-    logoutBtn.innerHTML = `${appEnum.logout} (member)`
     if (isLogin === "true" && isAdmin === "true") {
         getData(`${phpServing}?loginCheck=1&id=${id}&user=${username}`, (res) => {
             loginModal.style.display = appEnum.none
             adminSection.style.display = appEnum.block
             logoutBtn.innerHTML = `${appEnum.logout} (${username})`
             report1.classList.add('wid70')
+            let isResponseOk = (res.status === 'success' ? true : false)
+            if (!isResponseOk) {
+                adminSection.style.display = appEnum.none
+                loginModal.style.display = appEnum.block
+                // error('login is failed, try again')
+            }
             if (callback !== undefined)
-                callback(res.status === 'success' ? true : false)
+                callback(isResponseOk)
         }, (er) => {
             adminSection.style.display = appEnum.none
             loginModal.style.display = appEnum.block
             error(er)
         })
     } else if (isAdmin === "false" && isLogin === "false") {
+        logoutBtn.innerHTML = isLogout ? appEnum.login : `${appEnum.logout} (member)`
         adminSection.style.display = appEnum.none
         loginModal.style.display = appEnum.block
         report1.classList.add('wid100')
-        let isMemberLoggingOut = isLogout && logoutBtn.innerHTML.toLowerCase().indexOf(appEnum.member) !== -1
-        if (!isMemberLoggingOut) onInit()
+        if (!isLogout) onInit()
+        isLogout && loginCleanup()
     } else {
         loginModal.style.display = appEnum.block
         adminSection.style.display = appEnum.none
         report1.classList.add('wid100')
     }
+}
+
+function loginCleanup() {
+    Object.values(appEnum).forEach(x => config.removeByKeyFromLocal(x))
 }
 
 function handleLogout() {
@@ -502,7 +512,7 @@ function handleLogout() {
         let id = config.getByKeyFromLocal(appEnum.userid)
         let username = config.getByKeyFromLocal(appEnum.loginName)
         getData(`${phpServing}?logout=1&id=${id}&user=${username}`, (res) => {
-            Object.values(appEnum).forEach(x => config.removeByKeyFromLocal(x))
+            loginCleanup()
             logoutBtn.innerHTML = appEnum.login
             adminSection.style.display = appEnum.none
             loginModal.style.display = appEnum.block

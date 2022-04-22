@@ -473,11 +473,15 @@ input {
 
 /* Modal Content/Box */
 .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 30%; /* Could be more or less, depending on screen size */
+    background-color: white;
+    /*margin: 15% auto;*/
+    border: 2px solid #444343;
+    width: 60%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
 }
 
 .marginud {
@@ -487,9 +491,8 @@ input {
 
 .modal-header {
     background-color: #451076;
-    opacity: 0.9;
+    opacity: 0.8;
     width: 100%;
-    font-size: 30px;
 }
 
 ::-webkit-scrollbar {
