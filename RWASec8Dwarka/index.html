@@ -57,7 +57,10 @@
                 <input id="memberid" pattern="^\d{3}-\d{3}-\d{4}$" placeholder="Enter MOBILE Number 999 999 9999"
                        required title="enter valid phone number, this is unique. Once set, cant be altered" type="tel" width="150px"/>
                 <input id="address" title="ADDRESS" placeholder="Enter ADDRESS" type="text"/>
-                <button class="btn txtgreen" id="btnSaveMember" onclick="handleSubmitMember(this.id)">Save</button>
+                <div class="right">
+                    <button class="btn txtgreen" id="btnSaveMember" onclick="handleSubmitMember(this.id)">Save</button>
+                    <button class="btn" id="btnResetMemberForm" onclick="resetMemberForm()">Reset</button>
+                </div>
             </div>
             <div class="column marginud">
                 <button class="btn" id="btnBackupJOSN" onclick="handleBackup('json')">Backup JSON</button>

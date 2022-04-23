@@ -243,28 +243,25 @@ const config = {
         let total = 0
         result = res.map((x, i) => {
             total += parseFloat(x.amount)
-            let isnegative = x.amount < 0 ? true : false
             return `
-            <div class='row'>
-                <span class="">${(i + 1)} - ${x.remarks}</span>
+            <div class='row line'>
+                <span class="min-content">${(i + 1)} - ${x.remarks}</span>
                 <span class="bl right">${rsSymbol}${Math.abs(x.amount)}</span>
-                <span>${partDateTime(x.when)}</span>
+                <span class="time">${partDateTime(x.when)}</span>
             </div>
+            <hr/>
             `
         })
         report1.innerHTML = `
         <div class="">
             <div class='green size35'>Expenses made so far</div>
-            <div class="right">
-                <button class="btn transition  green" onclick="">Export PDF</button>
-            </div>
             <br/>
-            <div class='row bl green'>
-                <span>Total Expenditure</span>
+            <div class='row line bl green'>
+                <span class="min-content">Total Expenditure</span>
                 <span class="right">${rsSymbol}${Math.abs(total)}</span>
                 <span></span>
             </div>
-            <div id="divLines" class=" height450">${result.join('')}</div>
+            <div id="divLines" class=" height650">${result.join('')}</div>
         </div>
         `
     },

@@ -40,7 +40,7 @@ body {
     animation-direction: normal;
 }
 
-a{
+a {
     color: #3737c9;
     text-decoration: underline;
     padding: 2px;
@@ -328,6 +328,15 @@ input {
     justify-content: space-between;
 }
 
+.line {
+    flex: 2 1 auto;
+}
+
+.min-content {
+    width: -moz-min-content;
+    width: 80%;
+}
+
 .ellipsis {
     overflow: hidden;
     white-space: nowrap;
@@ -336,7 +345,7 @@ input {
 
 .row > span {
     min-width: 100px;
-    width: 250px;
+    /*width: 250px !important;*/
 }
 
 .card:hover {
