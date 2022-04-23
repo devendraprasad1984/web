@@ -12,6 +12,7 @@ try{
     if(isset($_POST['loginCheck'])) handleLogin($_POST);
     if(isset($_POST['passwordChange'])) handlePasswordChange($_POST);
     if(isset($_POST['deleteMember'])) handleDeleteMember($_POST);
+    if(isset($_POST['deleteExpense'])) handleDeleteExpense($_POST);
 
     //GET Calls
     if(isset($_GET['logout'])) handleLogout($_GET);

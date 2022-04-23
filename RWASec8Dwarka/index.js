@@ -191,7 +191,35 @@ let partDateTime = (strDateTime) => {
     let sdateArr = strDateTime.split(' ')
     let sDate = new Date(sdateArr[0]).toLocaleDateString()
     let sTime = sdateArr[1]
-    return '<span><span style="color: ' + colorx + '">' + sDate + '</span> <span class="">' + sTime + '</span></span>'
+    return `<div class="time">
+        <spandisplayrow>${sDate}</span>
+    </div>`
+}
+
+function searchExpenses(text = undefined) {
+    let searchSuffix = `&search=${text}`
+    if (text === undefined) searchSuffix = ""
+    getData(`${phpServing}?expensesOnly=1${searchSuffix}`, (res) => {
+        config.displayRows(res)
+    }, error)
+}
+
+function handleExpensesSearch(e, _this) {
+    if (e.keyCode === 13) {
+        let searchText = _this.value
+        config.searchExpense = searchText
+        searchExpenses(searchText)
+    }
+}
+
+function handleExpensesDelete(id) {
+    postData(phpServing, {deleteExpense: 1, id}, res => {
+        if (res.status === 'success') {
+            searchExpenses()
+        } else {
+            error('failed to delete')
+        }
+    }, error)
 }
 
 const config = {
@@ -244,21 +272,25 @@ const config = {
         result = res.map((x, i) => {
             total += parseFloat(x.amount)
             return `
-            <div class='row line'>
+            <div class='row line size14'>
                 <span class="min-content">${(i + 1)} - ${x.remarks}</span>
                 <span class="bl right">${rsSymbol}${Math.abs(x.amount)}</span>
-                <span class="time">${partDateTime(x.when)}</span>
+                <span>${partDateTime(x.when)}</span>
+                ${_that.isAdmin() ? `<a class="red" onclick="handleExpensesDelete(${x.id})">delete</a>` : ''}
             </div>
             <hr/>
             `
         })
         report1.innerHTML = `
         <div class="">
-            <div class='green size35'>Expenses made so far</div>
-            <br/>
+            <div class='green size30'>Expenses made so far</div>
+            <div>
+                <input type='text' value="${_that.searchExpense || ''}" placeholder="search expenses" class="wid100" onkeydown="handleExpensesSearch(event, this)" />
+            </div>
             <div class='row line bl green'>
                 <span class="min-content">Total Expenditure</span>
                 <span class="right">${rsSymbol}${Math.abs(total)}</span>
+                <span></span>
                 <span></span>
             </div>
             <div id="divLines" class=" height650">${result.join('')}</div>
@@ -293,8 +325,10 @@ const config = {
                 <div id="card${i}" class="card" xtype="+" onclick="memberCardClick(this,${x.id})">
                     <div class="size25 bl ellipsis row" title="${x.name}">
                         <span>${x.name}</span> 
-                        ${_that.isAdmin() ? `<a onclick="handleEditMember(event, ${memObj})">Edit</a>` : ''}
-                        ${_that.isAdmin() ? `<button class='btn transition  red' onclick="handleDeleteMember(event, ${x.id})">Delete</button>` : ''}
+                        <div class='right'>
+                            ${_that.isAdmin() ? `<a onclick="handleEditMember(event, ${memObj})">Edit</a>` : ''}
+                            ${_that.isAdmin() ? `<button class='btn transition  red' onclick="handleDeleteMember(event, ${x.id})">Delete</button>` : ''}
+                        </div>
                     </div>
                     <div class="size20 bl row"><span class="txtpurple">${x.memkey}</span> <span class="right time">${x.when}</span></div>
                     <div class="size14">${x.address}</div>
@@ -416,9 +450,7 @@ function handlePullExpenses(_this) {
         return
     }
     cur.innerHTML = 'Pull Summary'
-    getData(`${phpServing}?expensesOnly=1&byname=1`, (res) => {
-        config.displayRows(res)
-    }, error)
+    searchExpenses()
 }
 
 function preparePeriod() {

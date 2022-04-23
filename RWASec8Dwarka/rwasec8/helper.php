@@ -7,7 +7,7 @@ $res = [];
 //$loggedIn = false;
 $success = json_encode(array('status' => 'success'));
 $failed = json_encode(array('status' => 'failed, not allowed'));
-$recordExists = json_encode(array('status' => 'success','msg' => 'Record already exists and Updated'));
+$recordExists = json_encode(array('status' => 'success', 'msg' => 'Record already exists and Updated'));
 
 $server = $_SERVER['REMOTE_ADDR'];
 if ($server == '::1' or $server == 'localhost' or $server == '127.0.0.1') {
@@ -88,9 +88,20 @@ function handleSaveMember($data)
 
 function handleExpensesOnly($data)
 {
+    $searchQur = "";
+    if (isset($data['search'])) {
+        $search = $data['search'];
+        $searchQur = " where 
+        (a.date like '%$search%')
+        OR (a.amount like '%$search%')
+        OR (a.remarks like '%$search%')
+        OR (a.`when` like '%$search%')
+        ";
+    }
     $qur = "
         select a.* from rwa_expenses a
         inner join rwa_members b on b.id=a.memid and a.amount<0 and b.isactive=1
+        $searchQur
         order by `when` desc
     ";
     $rows = returnDataset($qur);
@@ -108,7 +119,7 @@ function handleExpensesGroupByMemId($data)
 {
     global $conn;
     $name = $conn->real_escape_string($data['name']);
-    $isAddressSet=isset($data['byaddress']);
+    $isAddressSet = isset($data['byaddress']);
     $orderBy = "";
     $orderBy = isset($data['byname']) ? " name " : $orderBy;
     $orderBy = isset($data['byleader']) ? " amount desc " : $orderBy;
@@ -199,6 +210,15 @@ function handleDeleteMember($data)
     $adminId = $conn->real_escape_string($data['adminId']);
 //    $sql = "update rwa_members set isActive=0 where id='$id'";
     $sql = "delete from rwa_members where id='$id'";
+    $result = $conn->query($sql);
+    echo $success;
+}
+
+function handleDeleteExpense($data)
+{
+    global $success, $conn;
+    $id = $conn->real_escape_string($data['id']);
+    $sql = "delete from rwa_expenses where id='$id'";
     $result = $conn->query($sql);
     echo $success;
 }

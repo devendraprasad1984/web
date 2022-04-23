@@ -44,6 +44,7 @@ a {
     color: #3737c9;
     text-decoration: underline;
     padding: 2px;
+    cursor: pointer;
 }
 
 body {
