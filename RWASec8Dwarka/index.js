@@ -184,6 +184,7 @@ function handleEditMember(e, obj) {
     memidInput.value = id
     config.get('address').value = address
     memidInput.disabled = true
+    scrollToTop()
 }
 
 let partDateTime = (strDateTime) => {
