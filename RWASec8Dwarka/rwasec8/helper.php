@@ -7,7 +7,7 @@ $res = [];
 //$loggedIn = false;
 $success = json_encode(array('status' => 'success'));
 $failed = json_encode(array('status' => 'failed, not allowed'));
-$recordExists = json_encode(array('status' => 'Record already exists, cannot add more'));
+$recordExists = json_encode(array('status' => 'success','msg' => 'Record already exists and Updated'));
 
 $server = $_SERVER['REMOTE_ADDR'];
 if ($server == '::1' or $server == 'localhost' or $server == '127.0.0.1') {
@@ -75,6 +75,8 @@ function handleSaveMember($data)
     $result = returnDataset("select count(*) as count from rwa_members where memkey='$memid'");
     $count = json_decode($result)[0]->count;
     if ($count == 1) {
+        $sql = "update rwa_members set name='$name',address='$address' where memkey='$memid' ";
+        $result = $conn->query($sql);
         echo $recordExists;
     } else {
         $sql = "INSERT INTO rwa_members(memkey,name,address,pic) values('$memid','$name','$address','$pic')";

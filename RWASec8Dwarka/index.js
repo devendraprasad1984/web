@@ -8,10 +8,10 @@ let rsSymbol = '₹'
 let container = document.getElementById('container')
 let adminSection = document.getElementById('adminSection')
 let report1 = document.getElementById('report1')
-let adminform = document.getElementById('adminform')
 let logoutBtn = document.getElementById('logoutBtn')
 let currentReportType = 'summary'
 let loginModal = document.getElementById('loginModal')
+let membersform = document.getElementById('membersform')
 let appEnum = {
     isAdmin: 'isAdmin',
     loginName: 'loginName',
@@ -26,7 +26,15 @@ let appEnum = {
 }
 let defaultEntryType = appEnum.member //member or admin
 let scrollToTopBtn = document.getElementById('scrollToTopBtn')
-var rootElement = document.documentElement
+let toast = window.toastr
+// toast.options.showEasing = 'easeOutBounce' //slideDown easeOutBounce slideUp easeInBack swing
+toast.options.preventDuplicates = true;
+toast.options.escapeHtml = true
+toast.options.closeButton = true
+toast.options.closeDuration = 200
+// toast.options.timeOut = 200 //set to 0 or remove it
+// toast.options.extendedTimeOut = 300
+toast.options.progressBar = true
 
 // document.location.reload(false)
 
@@ -154,7 +162,7 @@ function memberCardClick(cur, id) {
     }, error)
 }
 
-function handleDeleteUser(e, id) {
+function handleDeleteMember(e, id) {
     let adminId = config.getByKeyFromLocal(appEnum.userid)
     let adminUser = config.getByKeyFromLocal(appEnum.loginName)
     postData(phpServing, {deleteMember: 1, id, admin: adminUser, adminId}, res => {
@@ -166,6 +174,18 @@ function handleDeleteUser(e, id) {
     e.preventDefault()
 }
 
+function handleEditMember(e, obj) {
+    e.stopPropagation()
+    e.preventDefault()
+    handleFormsToggle({show: 'membersform', hide: 'expenseform'})
+    let {id, name, address} = obj
+    let memidInput = config.get('memberid')
+    config.get('name').value = name
+    memidInput.value = id
+    config.get('address').value = address
+    memidInput.disabled = true
+}
+
 let partDateTime = (strDateTime) => {
     let sdateArr = strDateTime.split(' ')
     let sDate = new Date(sdateArr[0]).toLocaleDateString()
@@ -174,17 +194,27 @@ let partDateTime = (strDateTime) => {
 }
 
 const config = {
+    get: (id) => document.getElementById(id),
     isAdmin: () => defaultEntryType === appEnum.admin,
     modifyCardBorderColor: function () {
         Array.from($('.card')).map((x, i) => x.style.borderTop = '5px solid ' + (x.getAttribute('xtype') === '+' ? getRandomBorderColor() : 'red'))
     },
     alert: function (res) {
+        toast.options.onHidden = handleRefresh
+        toast.options.onclick = handleRefresh
+        toast.options.onCloseClick = handleRefresh
+
         let isaved = res.status === 'success' ? true : false
-        swal({
-            title: isaved ? "Action Processed" : res.status !== undefined ? res.status : "Not processed.",
-            icon: isaved ? "success" : "error",
-            button: 'Ok',
-        }).then(flag => handleRefresh())
+        if (isaved) {
+            toast.success(res.msg || 'Processed')
+        } else {
+            toast.error(res.msg || 'Processed')
+        }
+        // swal({
+        //     title: isaved ? "Processed" : res.msg !== undefined ? res.msg || "" : "Not processed.",
+        //     icon: isaved ? "success" : "error",
+        //     button: 'Ok'
+        // }).then(flag => handleRefresh())
     },
     getSummaryCard: function (balance = 0, total = 0, expenses = 0, membersCount = 0) {
         return `
@@ -259,9 +289,15 @@ const config = {
                 return null
             }
 
+            let memObj = JSON.stringify({name: x.name, id: x.memkey, address: x.address}).split('"').join("&quot;")
+
             return `
                 <div id="card${i}" class="card" xtype="+" onclick="memberCardClick(this,${x.id})">
-                    <div class="size30 bl ellipsis row" title="${x.name}"><span>${x.name}</span> ${_that.isAdmin() ? `<button class='btn transition  red' onclick="handleDeleteUser(event, ${x.id})">Delete</button>` : ''}</div>
+                    <div class="size25 bl ellipsis row" title="${x.name}">
+                        <span>${x.name}</span> 
+                        ${_that.isAdmin() ? `<a onclick="handleEditMember(event, ${memObj})">Edit</a>` : ''}
+                        ${_that.isAdmin() ? `<button class='btn transition  red' onclick="handleDeleteMember(event, ${x.id})">Delete</button>` : ''}
+                    </div>
                     <div class="size20 bl row"><span class="txtpurple">${x.memkey}</span> <span class="right time">${x.when}</span></div>
                     <div class="size14">${x.address}</div>
                     <div class="right"><span class="size20 bl">${rsSymbol}${Math.abs(x.amount)}</span></div>
@@ -271,7 +307,7 @@ const config = {
         result.splice(0, 0, _that.getSummaryCard(0, total, expenses, membersCount))
         report1.innerHTML = `
             <div class='green size35'>Summary by members 
-            <button class="btn" onClick="handleLeaderBoard()">${!isLeader ? "Leader Board By Amount Paid" : "Board By Name"}</button>
+            <button class="btn" onClick="handleLeaderBoard()">${!isLeader ? "By Leader" : "By Names"}</button>
             <button class="btn" onClick="handleBoardAddress()">By Address</button>
             </div>
             <div id="divLines" class="flexboxCards">${result.join('')}</div>
@@ -326,30 +362,24 @@ function handleSubmitExpense(id) {
     cur.html(oldval)
 }
 
+function resetMemberForm() {
+    config.get('name').value = ''
+    config.get('address').value = ''
+    config.get('memberid').value = ''
+    config.get('memberid').disabled = false
+}
+
 function handleSubmitMember(id) {
     let cur = $('#' + id)
-    let oldval = cur.html()
-    cur.html('please wait...')
     data = {}
     data['addMember'] = 1
     data['memberid'] = document.getElementById('memberid').value
     data['name'] = document.getElementById('name').value
     data['address'] = document.getElementById('address').value
-
-    swal(
-        {
-            title: "Are you sure to add new member.",
-            text: `Adding ${data.memberid} - ${data.name} to RWA group sector 8 D Block Dwarka`,
-            buttons: ['No', 'Yes'],
-        }
-    ).then((flag) => {
-        if (flag === true) {
-            postData(phpServing, data, config.alert, error)
-            cur.html(oldval)
-        } else {
-            cur.html(oldval)
-        }
-    })
+    postData(phpServing, data, res => {
+        resetMemberForm()
+        config.alert(res)
+    }, error)
 }
 
 function pullMembersList() {
@@ -531,11 +561,16 @@ function handleChangePassword() {
 
 function handleBackup(type = 'csv') {
     switch (type) {
+        case 'json':
+            getData(`${phpServing}?backupJSON=1`, (res) => {
+                download(JSON.stringify(res), `backup_rwa_${new Date().toLocaleDateString()}.json`)
+            }, err => error(err))
+            break
         case 'csv':
             getData(`${phpServing}?backupJSON=1`, (res) => {
-                console.log('data', res)
+                let csvData = json2csv(res)
+                download(csvData, `backup_rwa_${new Date().toLocaleDateString()}.csv`)
             }, err => error(err))
-
             break
         default:
             break
@@ -589,3 +624,31 @@ document.addEventListener("DOMContentLoaded", (e) => {
     }
 )
 
+function download(content, fileName, contentType = "text/plain") {
+    let a = document.createElement("a");
+    let file = new Blob([content], {type: contentType});
+    a.href = URL.createObjectURL(file);
+    a.download = fileName;
+    a.click();
+}
+
+function json2csv(data) {
+    // let json = data
+    let csv = ""
+    let sep = '\r\n'
+    let line = '-'.repeat(80)
+    let replacer = function (key, value) { return value === null ? '' : value }
+    for (let f of Object.keys(data)) {
+        let obj = data[f]
+        csv += f
+        let flds = Object.keys(obj[0])
+        csv += sep + line + sep
+        csv += flds + sep
+        Object.values(obj).map(x => {
+            let vals = Object.values(x).join(',')
+            csv += vals + sep
+        })
+        csv += line + sep
+    }
+    return csv
+}

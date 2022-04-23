@@ -40,6 +40,12 @@ body {
     animation-direction: normal;
 }
 
+a{
+    color: #3737c9;
+    text-decoration: underline;
+    padding: 2px;
+}
+
 body {
     min-height: 100vh;
     display: flex;
@@ -575,4 +581,13 @@ input.amount:out-of-range {
 /*override sweet alert animation while display*/
 @keyframes showSweetAlert {
 
+}
+
+
+#toast-container {
+    opacity: 0.9 !important;
+}
+
+.toast-message {
+    color: white !important;
 }
