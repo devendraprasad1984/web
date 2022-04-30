@@ -133,11 +133,12 @@ function memberCardClick(cur, id) {
     getData(`${phpServing}?expensesByMember=1&id=${id}`, (res) => {
         let rows = res.map((x, i) => {
             return `
-                <div class="row">
-                    <span>${(i + 1)} ${x.remarks}</span>
-                    <span>${x.date}</span>
-                    <span>${rsSymbol}${x.amount}</span>
-                    <span>${partDateTime(x.when)}</span>
+                <div class="col size12">
+                    <div class='wid100 bl'>${x.date} - ${partDateTime(x.when)}</div>
+                    <div class='row margin10L'>
+                        <span>${x.remarks}</span>
+                        <span>${rsSymbol}${x.amount}</span>
+                    </div>
                 </div>
             `
         })
@@ -178,11 +179,12 @@ function handleEditMember(e, obj) {
     e.stopPropagation()
     e.preventDefault()
     handleFormsToggle({show: 'membersform', hide: 'expenseform'})
-    let {id, name, address} = obj
+    let {id, name, address, sort} = obj
     let memidInput = config.get('memberid')
     config.get('name').value = name
     memidInput.value = id
     config.get('address').value = address
+    config.get('addresssort').value = sort
     memidInput.disabled = true
     scrollToTop()
 }
@@ -191,9 +193,7 @@ let partDateTime = (strDateTime) => {
     let sdateArr = strDateTime.split(' ')
     let sDate = new Date(sdateArr[0]).toLocaleDateString()
     let sTime = sdateArr[1]
-    return `<div class="time">
-        <spandisplayrow>${sDate}</span>
-    </div>`
+    return `<span>${sDate}</span>`
 }
 
 function searchExpenses(text = undefined) {
@@ -239,16 +239,11 @@ const config = {
         } else {
             toast.error(res.msg || 'Processed')
         }
-        // swal({
-        //     title: isaved ? "Processed" : res.msg !== undefined ? res.msg || "" : "Not processed.",
-        //     icon: isaved ? "success" : "error",
-        //     button: 'Ok'
-        // }).then(flag => handleRefresh())
     },
     getSummaryCard: function (balance = 0, total = 0, expenses = 0, membersCount = 0) {
+        // <div>Adhoc in hand (miscellaneous balance): <span className=" size14">${rsSymbol}${balance}</span></div>
         return `
             <div id="summaryFundCard" xtype="+" class="right column card size14 bl bggray">
-                <div>Adhoc in hand (miscellaneous balance): <span class=" size14">${rsSymbol}${balance}</span></div>
                 <div class="right">
                     <div>Total Members: <span class="size30 txtgreen">${membersCount}</span></div>
                 </div>
@@ -262,6 +257,7 @@ const config = {
                         <span class="txtpurple size16">Total: ${rsSymbol}${total + expenses + balance}</span>
                     </div>
                 </div>
+                <button class='btn' onClick="searchExpenses()">Expenses Summary</button>
             </div>        
         `
     },
@@ -272,18 +268,25 @@ const config = {
         result = res.map((x, i) => {
             total += parseFloat(x.amount)
             return `
-            <div class='row line size14'>
-                <span class="min-content">${(i + 1)} - ${x.remarks}</span>
+            <div class='col line size12'>
+                <div class='row size12'>
+                    <span>${partDateTime(x.when)}</span>
+                    ${_that.isAdmin() ? `<a class="red" onclick="handleExpensesDelete(${x.id})">delete</a>` : ''}
+                 </div>
+             <div class='row'>
+                <span class="min-content">${x.remarks}</span>
                 <span class="bl right">${rsSymbol}${Math.abs(x.amount)}</span>
-                <span>${partDateTime(x.when)}</span>
-                ${_that.isAdmin() ? `<a class="red" onclick="handleExpensesDelete(${x.id})">delete</a>` : ''}
+             </div>
             </div>
             <hr/>
             `
         })
         report1.innerHTML = `
         <div class="">
-            <div class='green size30'>Expenses made so far</div>
+            <div class='green size30'>
+                <span>Expenses made so far</span>
+                <button class="btn" onclick="handleRefresh()">Home</button>
+            </div>
             <div>
                 <input type='text' value="${_that.searchExpense || ''}" placeholder="search expenses" class="wid100" onkeydown="handleExpensesSearch(event, this)" />
             </div>
@@ -291,7 +294,7 @@ const config = {
                 <span class="min-content">Total Expenditure</span>
                 <span class="right">${rsSymbol}${Math.abs(total)}</span>
                 <span></span>
-                <span></span>
+                ${_that.isAdmin() ? `<span></span>`:''}
             </div>
             <div id="divLines" class=" height650">${result.join('')}</div>
         </div>
@@ -319,12 +322,12 @@ const config = {
                 return null
             }
 
-            let memObj = JSON.stringify({name: x.name, id: x.memkey, address: x.address}).split('"').join("&quot;")
+            let memObj = JSON.stringify({name: x.name, id: x.memkey, address: x.address, sort: x.address_number_sort}).split('"').join("&quot;")
 
             return `
                 <div id="card${i}" class="card" xtype="+" onclick="memberCardClick(this,${x.id})">
-                    <div class="size25 bl ellipsis row" title="${x.name}">
-                        <span>${x.name}</span> 
+                    <div class="size25 bl row" title="${x.name}">
+                        <span class='ellipsis'>${x.name}</span>
                         <div class='right'>
                             ${_that.isAdmin() ? `<a onclick="handleEditMember(event, ${memObj})">Edit</a>` : ''}
                             ${_that.isAdmin() ? `<button class='btn transition  red' onclick="handleDeleteMember(event, ${x.id})">Delete</button>` : ''}
@@ -333,6 +336,7 @@ const config = {
                     <div class="size20 bl row"><span class="txtpurple">${x.memkey}</span> <span class="right time">${x.when}</span></div>
                     <div class="size14">${x.address}</div>
                     <div class="right"><span class="size20 bl">${rsSymbol}${Math.abs(x.amount)}</span></div>
+                    <div><span class="size12 bl ${x.type!=='member'?'green':''}">${x.type}</span></div>
                 </div>
             `
         })
@@ -398,6 +402,7 @@ function resetMemberForm() {
     config.get('name').value = ''
     config.get('address').value = ''
     config.get('memberid').value = ''
+    config.get('addresssort').value = ''
     config.get('memberid').disabled = false
 }
 
@@ -408,9 +413,11 @@ function handleSubmitMember(id) {
     data['memberid'] = document.getElementById('memberid').value
     data['name'] = document.getElementById('name').value
     data['address'] = document.getElementById('address').value
+    data['address_number_sort'] = document.getElementById('addresssort').value
     postData(phpServing, data, res => {
         resetMemberForm()
-        config.alert(res)
+        handleRefresh()
+        // config.alert(res)
     }, error)
 }
 
@@ -439,18 +446,6 @@ function handleLeaderBoard() {
 
 function handleBoardAddress() {
     getData(`${phpServing}?expensesGroup=1&name=&byaddress=1}`, config.group, error)
-}
-
-function handlePullExpenses(_this) {
-    let cur = document.getElementById(_this.id)
-    currentReportType = (currentReportType === 'expenses' ? 'summary' : "expenses")
-    if (currentReportType === 'summary') {
-        cur.innerHTML = 'Pull Expenses'
-        handleRefresh()
-        return
-    }
-    cur.innerHTML = 'Pull Summary'
-    searchExpenses()
 }
 
 function preparePeriod() {

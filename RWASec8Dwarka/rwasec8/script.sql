@@ -55,3 +55,5 @@ insert into rwa_members(memkey, name, address, type)
 values ('admin', 'admin', 'admin', 'admin');
 
 
+
+alter table rwa_members add column address_number_sort float;

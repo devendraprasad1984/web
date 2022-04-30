@@ -35,7 +35,6 @@
         <input class="searchText" id="idSearchBox" onkeypress="searchByKeyword(event)" placeholder="search by name"
                type="text"/>
         <button class="btn" id="idSearchBtn" onclick="handleRefresh()">Search</button>
-        <button class="btn red right" id="idPullExpenses" onclick="handlePullExpenses(this)">Pull Expenses</button>
     </div>
 
     <div class="row flex">
@@ -57,6 +56,7 @@
                 <input id="memberid" pattern="^\d{3}-\d{3}-\d{4}$" placeholder="Enter MOBILE Number 999 999 9999"
                        required title="enter valid phone number, this is unique. Once set, cant be altered" type="tel" width="150px"/>
                 <input id="address" title="ADDRESS" placeholder="Enter ADDRESS" type="text"/>
+                <input id="addresssort" title="address number only for sorting" placeholder="Number Address" type="number"/>
                 <div class="right">
                     <button class="btn txtgreen" id="btnSaveMember" onclick="handleSubmitMember(this.id)">Save</button>
                     <button class="btn" id="btnResetMemberForm" onclick="resetMemberForm()">Reset</button>
