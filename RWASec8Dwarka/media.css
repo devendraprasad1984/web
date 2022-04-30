@@ -12,9 +12,9 @@
         flex-wrap: wrap;
     }
 
-    .row > span {
-        width: auto;
-    }
+    /*.row > span {*/
+    /*    width: auto;*/
+    /*}*/
 
     .size30 {
         font-size: 20px;
