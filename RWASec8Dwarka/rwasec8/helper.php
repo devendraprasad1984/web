@@ -227,9 +227,15 @@ function handleDeleteExpense($data)
 
 function backupJSON($data)
 {
+    $expensesQur = '
+        select a.id, rm.name, date, amount, remarks, a.`when`
+        from rwa_expenses a
+        inner join rwa_members rm on a.memid = rm.id
+        order by a.id desc    
+    ';
     $members = returnDataset('select * from rwa_members order by id');
     $admin = returnDataset('select * from rwa_admin order by id');
-    $expenses = returnDataset('select * from rwa_expenses order by id');
+    $expenses = returnDataset($expensesQur);
     $data = json_encode(array(
         "members" => json_decode($members),
         "admin" => json_decode($admin),

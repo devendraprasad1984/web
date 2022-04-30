@@ -9,9 +9,10 @@
     <link href="./index.css" rel="stylesheet">
     <link href="./media.css" rel="stylesheet">
 
-    <meta content="D Block, RWA, Sector 8, Dwarka, Delhi 110077 devendra prasad (+919582797772)" name="title"/>
-    <meta content="D Block, RWA, Sector 8, Dwarka, Delhi 110077 devendra prasad (+919582797772)" name="description"/>
+    <meta content="D Block, RWA, Sector 8, Dwarka, Delhi 110077 devendra prasad (+919582797772) dpresume.com" name="title"/>
+    <meta content="D Block, RWA, Sector 8, Dwarka, Delhi 110077 devendra prasad (+919582797772) dpresume.com" name="description"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.1/xlsx.full.min.js"></script>
     <!--    <script src="https://unpkg.com/lodash@4.17.20"></script>-->
 </head>
 <body class="" cz-shortcut-listen="true">
@@ -62,9 +63,10 @@
                     <button class="btn" id="btnResetMemberForm" onclick="resetMemberForm()">Reset</button>
                 </div>
             </div>
-            <div class="column marginud">
+            <div class="row marginud flex">
                 <button class="btn" id="btnBackupJOSN" onclick="handleBackup('json')">Backup JSON</button>
                 <button class="btn" id="btnBackupCSV" onclick="handleBackup('csv')">Backup CSV</button>
+                <button class="btn" id="btnBackupXls" onclick="handleBackup('xls')">Backup EXCEL</button>
             </div>
         </div>
         <div class="" id="report1"></div>

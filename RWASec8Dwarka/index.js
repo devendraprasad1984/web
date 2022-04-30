@@ -80,13 +80,6 @@ function handleFormsToggle({show, hide}) {
 }
 
 function getData(url, success, error) {
-    // $.ajax({
-    //     type: "GET",
-    //     url: url,
-    //     dataType: 'json',
-    //     success,
-    //     error
-    // })
     fetch(url).then(r => r.json()).then(d => {
         if (success === undefined) return
         success(d)
@@ -334,7 +327,7 @@ const config = {
                     <div class="size20 bl row"><span class="txtpurple">${x.memkey}</span> <span class="right time">${x.when}</span></div>
                     <div class="size14">${x.address}</div>
                     <div class="right"><span class="size20 bl">${rsSymbol}${Math.abs(x.amount)}</span></div>
-                    <div><span class="size12 bl ${x.type!=='member'?'green':''}">${x.type}</span></div>
+                    <div><span class="size12 bl ${x.type !== 'member' ? 'green' : ''}">${x.type}</span></div>
                 </div>
             `
         })
@@ -595,6 +588,12 @@ function handleBackup(type = 'csv') {
                 download(csvData, `backup_rwa_${new Date().toLocaleDateString()}.csv`)
             }, err => error(err))
             break
+        case 'xls':
+            getData(`${phpServing}?backupJSON=1`, (res) => {
+                let filename = `backup_rwa_${new Date().toLocaleDateString()}.xls`
+                json2xls(res, filename)
+            }, err => error(err))
+            break
         default:
             break
     }
@@ -674,4 +673,13 @@ function json2csv(data) {
         csv += line + sep
     }
     return csv
+}
+
+function json2xls(data, filename) {
+    let wsMembers = XLSX.utils.json_to_sheet(data.members);
+    let wsExpenses = XLSX.utils.json_to_sheet(data.expenses);
+    let wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, wsMembers, "members");
+    XLSX.utils.book_append_sheet(wb, wsExpenses, "expenses");
+    XLSX.writeFile(wb, filename);
 }
