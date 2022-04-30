@@ -269,7 +269,7 @@ const config = {
             total += parseFloat(x.amount)
             return `
             <div class='col line size12'>
-                <div class='row size12'>
+                <div class='row'>
                     <span>${partDateTime(x.when)}</span>
                     ${_that.isAdmin() ? `<a class="red" onclick="handleExpensesDelete(${x.id})">delete</a>` : ''}
                  </div>
@@ -293,8 +293,6 @@ const config = {
             <div class='row line bl green'>
                 <span class="min-content">Total Expenditure</span>
                 <span class="right">${rsSymbol}${Math.abs(total)}</span>
-                <span></span>
-                ${_that.isAdmin() ? `<span></span>`:''}
             </div>
             <div id="divLines" class=" height650">${result.join('')}</div>
         </div>

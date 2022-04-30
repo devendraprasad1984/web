@@ -70,16 +70,17 @@ function handleSaveMember($data)
     $memid = $conn->real_escape_string($data['memberid']);
     $name = $conn->real_escape_string($data['name']);
     $address = $conn->real_escape_string($data['address']);
+    $address_number_sort = $conn->real_escape_string($data['address_number_sort']);
     $pic = '';
 
     $result = returnDataset("select count(*) as count from rwa_members where memkey='$memid'");
     $count = json_decode($result)[0]->count;
     if ($count == 1) {
-        $sql = "update rwa_members set name='$name',address='$address' where memkey='$memid' ";
+        $sql = "update rwa_members set name='$name',address='$address',address_number_sort='$address_number_sort' where memkey='$memid' ";
         $result = $conn->query($sql);
         echo $recordExists;
     } else {
-        $sql = "INSERT INTO rwa_members(memkey,name,address,pic) values('$memid','$name','$address','$pic')";
+        $sql = "INSERT INTO rwa_members(memkey,name,address,address_number_sort,pic) values('$memid','$name','$address','$address_number_sort','$pic')";
         $result = $conn->query($sql);
         echo $success;
     }
@@ -123,28 +124,28 @@ function handleExpensesGroupByMemId($data)
     $orderBy = "";
     $orderBy = isset($data['byname']) ? " name " : $orderBy;
     $orderBy = isset($data['byleader']) ? " amount desc " : $orderBy;
-    $orderBy = $isAddressSet ? " address " : $orderBy;
+    $orderBy = $isAddressSet ? " b.address_number_sort asc" : $orderBy;
     $nameField = $isAddressSet ? "a.address" : "b.name";
     $addrField = $isAddressSet ? "b.name" : "a.address";
 
     $searchByNameQur = "";
     if ($name <> '') {
-        $searchByNameQur = " and (name like '%$name%' OR memkey like '%$name%' OR address like '%$name%')";
+        $searchByNameQur = " and (name like '%$name%' OR memkey like '%$name%' OR address like '%$name%' OR address_number_sort like '%$name%')";
     }
     $qur = "
-    select b.id, $nameField as name, b.memkey, b.amount,a.when,$addrField as address from rwa_members a right join (
-        select m.id,m.name,m.memkey,A.amount from (
+    select b.id, $nameField as name,b.type, b.memkey,b.address_number_sort, b.amount,a.when,$addrField as address from rwa_members a right join (
+        select m.id,m.name,m.type,m.memkey,round(m.address_number_sort,1) as address_number_sort,A.amount from (
            select m.id, sum(coalesce(amount, 0)) as amount
            from rwa_expenses e right outer join rwa_members m on e.memid = m.id
-           where type = 'member' and isactive=1  $searchByNameQur
+           where type<>'admin' and isactive=1  $searchByNameQur
            group by m.id
         ) A inner join rwa_members m ON A.id=m.id
         union all
-        select 'expenses','z_expenses','',sum(coalesce(amount,0)) as amt from rwa_expenses where amount < 0
+        select 'expenses','z_expenses','','','',sum(coalesce(amount,0)) as amt from rwa_expenses where amount < 0
         union all
-        select 'credits','z_credits','',sum(coalesce(amount,0)) as amt from rwa_expenses where amount > 0
+        select 'credits','z_credits','','','',sum(coalesce(amount,0)) as amt from rwa_expenses where amount > 0
         union all
-        select 'members','z_members','',count(*) from rwa_members where type='member'
+        select 'members','z_members','','','',count(*) from rwa_members where type<>'admin'
        ) b on a.id=b.id
         order by $orderBy
         ";
