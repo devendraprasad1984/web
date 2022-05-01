@@ -169,14 +169,30 @@ function memberCardClick(cur, id) {
     }, error)
 }
 
+function deleteSwal(callback) {
+    swal({
+        icon: 'warning',
+        title: "Sure To Delete?",
+        buttons: ['No, Cancel', 'Yes, Please'],
+        dangerMode: true,
+    }).then((isConfirm) => {
+        if (isConfirm) {
+            callback()
+        }
+    })
+
+}
+
 function handleDeleteMember(e, id) {
     let adminId = config.getByKeyFromLocal(appEnum.userid)
     let adminUser = config.getByKeyFromLocal(appEnum.loginName)
-    postData(phpServing, {deleteMember: 1, id, admin: adminUser, adminId}, res => {
-        if (res.status === 'success') {
-            onInit()
-        }
-    }, error)
+    deleteSwal(() => {
+        postData(phpServing, {deleteMember: 1, id, admin: adminUser, adminId}, res => {
+            if (res.status === 'success') {
+                onInit()
+            }
+        }, error)
+    })
     e.stopPropagation()
     e.preventDefault()
 }
@@ -219,17 +235,19 @@ function handleExpensesSearch(e, _this) {
 }
 
 function handleExpensesDelete(id, {cur, memberId}, type) {
-    postData(phpServing, {deleteExpense: 1, id}, res => {
-        if (res.status === 'success') {
-            if (type === 'expense') searchExpenses()
-            if (type === 'memberCard') {
-                handleRefresh()
-                memberCardClick(cur, memberId)
+    deleteSwal(() => {
+        postData(phpServing, {deleteExpense: 1, id}, res => {
+            if (res.status === 'success') {
+                if (type === 'expense') searchExpenses()
+                if (type === 'memberCard') {
+                    handleRefresh()
+                    memberCardClick(cur, memberId)
+                }
+            } else {
+                error('failed to delete')
             }
-        } else {
-            error('failed to delete')
-        }
-    }, error)
+        }, error)
+    })
 }
 
 const config = {
