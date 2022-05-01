@@ -241,7 +241,7 @@ function handleExpensesDelete(id, {cur, memberId}, type) {
                 if (type === 'expense') searchExpenses()
                 if (type === 'memberCard') {
                     handleRefresh()
-                    memberCardClick(cur, memberId)
+                    // memberCardClick(cur, memberId)
                 }
             } else {
                 error('failed to delete')
@@ -296,11 +296,12 @@ const config = {
         let total = 0
         result = res.map((x, i) => {
             total += parseFloat(x.amount)
+            let obj= _that.prepareJSONForParam({cur:'',memberId:''})
             return `
             <div class='col line size12'>
                 <div class='row'>
                     <span>${partDateTime(x.when)}</span>
-                    ${_that.isAdmin() ? `<a class="red" onclick="handleExpensesDelete(${x.id},null,'expense')">delete</a>` : ''}
+                    ${_that.isAdmin() ? `<a class="red" onclick="handleExpensesDelete(${x.id},${obj},'expense')">delete</a>` : ''}
                  </div>
              <div class='row'>
                 <span class="min-content">${x.remarks}</span>
@@ -373,15 +374,15 @@ const config = {
                             ${profileIcon !== '' ? `<span class='profileIcon'>${profileIcon}</span>` : ''} 
                             <span>${x.name}</span>
                         </div>
-                        <div class='right'>
-                            ${_that.isAdmin() ? `<a onclick="handleEditMember(event, ${memObj})">Edit</a>` : ''}
-                            ${_that.isAdmin() ? `<button class='btn transition  red' onclick="handleDeleteMember(event, ${x.id})">Delete</button>` : ''}
-                        </div>
+                        <span class="size20 bl right">${rsSymbol}${Math.abs(x.amount)}</span>
                     </div>
                     <div class="size20 bl row"><span class="txtpurple">${x.memkey}</span> <span class="right time">${x.when}</span></div>
                     <div class="size14">${x.address}</div>
-                    <div class="right"><span class="size20 bl">${rsSymbol}${Math.abs(x.amount)}</span></div>
-                    <div><span class="size12 bl ${x.type !== 'member' ? 'green' : ''}">${x.type}</span></div>
+                    <div><span class="size12 bl ${x.type !== 'member' ? 'green' : ''}">${x.type} (sort by:${x.address_number_sort})</span></div>
+                    <div class='row bl'>
+                        ${_that.isAdmin() ? `<a onclick="handleEditMember(event, ${memObj})">Edit</a>` : ''}
+                        ${_that.isAdmin() ? `<button class='btn transition  red' onclick="handleDeleteMember(event, ${x.id})">Delete</button>` : ''}
+                    </div>
                 </div>
             `
         })
