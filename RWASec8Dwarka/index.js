@@ -19,12 +19,18 @@ let appEnum = {
     isLogin: 'isLogin',
     member: 'member',
     admin: 'admin',
+    president: 'president',
+    treasurer: 'treasurer',
     logout: 'Logout',
     login: 'Login',
     none: 'none',
-    block: 'block'
+    block: 'block',
+    byname: 'byname',
+    byamount: 'byamount',
+    byaddress: 'byaddress',
 }
 let defaultEntryType = appEnum.member //member or admin
+let curRefreshType = appEnum.byname
 let scrollToTopBtn = document.getElementById('scrollToTopBtn')
 let toast = window.toastr
 // toast.options.showEasing = 'easeOutBounce' //slideDown easeOutBounce slideUp easeInBack swing
@@ -250,6 +256,26 @@ function handleExpensesDelete(id, {cur, memberId}, type) {
     })
 }
 
+function getIconByMemberType(type){
+    let ret = ''
+    let basePath='images'
+    function getImage(name){
+        return `<img class='icon-logo' src='${basePath}/${name}' />`
+    }
+    switch (type){
+        case appEnum.president:
+            ret = getImage('crown.png')
+            break
+        case appEnum.treasurer:
+            ret = getImage('treasurer.jpg')
+            break
+        case appEnum.member:
+            ret = getImage('member.png')
+            break
+    }
+    return ret
+}
+
 const config = {
     get: (id) => document.getElementById(id),
     isAdmin: () => defaultEntryType === appEnum.admin,
@@ -296,7 +322,7 @@ const config = {
         let total = 0
         result = res.map((x, i) => {
             total += parseFloat(x.amount)
-            let obj= _that.prepareJSONForParam({cur:'',memberId:''})
+            let obj = _that.prepareJSONForParam({cur: '', memberId: ''})
             return `
             <div class='col line size12'>
                 <div class='row'>
@@ -377,21 +403,25 @@ const config = {
                         <span class="size20 bl right">${rsSymbol}${Math.abs(x.amount)}</span>
                     </div>
                     <div class="size20 bl row"><span class="txtpurple">${x.memkey}</span> <span class="right time">${x.when}</span></div>
-                    <div class="size14">${x.address}</div>
-                    <div><span class="size12 bl ${x.type !== 'member' ? 'green' : ''}">${x.type} (sort by:${x.address_number_sort})</span></div>
+                    <div class="size14 row">
+                        <span>${x.address}</span>
+                    </div>
+                    <div><span class="size12 bl">${x.type} (sort by:${x.address_number_sort})</span></div>
                     <div class='row bl'>
                         ${_that.isAdmin() ? `<a onclick="handleEditMember(event, ${memObj})">Edit</a>` : ''}
+                        <span>${getIconByMemberType(x.type)}</span>
                         ${_that.isAdmin() ? `<button class='btn transition  red' onclick="handleDeleteMember(event, ${x.id})">Delete</button>` : ''}
                     </div>
                 </div>
             `
         })
         result.splice(0, 0, _that.getSummaryCard(0, total, expenses, membersCount))
+        let curSelBtn = 'current'
         report1.innerHTML = `
-            <div class='green size35'>Summary
-            <button class="btn" onClick="handleLeaderBoard('byname')">Name</button>
-            <button class="btn" onClick="handleLeaderBoard('byamount')">Amount</button>
-            <button class="btn" onClick="handleLeaderBoard('byaddress')">Address</button>
+            <div class='green size35'>Summary By
+            <button class="btn ${curRefreshType === appEnum.byname ? curSelBtn : ''}" onClick="handleLeaderBoard('${appEnum.byname}')">Name</button>
+            <button class="btn ${curRefreshType === appEnum.byamount ? curSelBtn : ''}" onClick="handleLeaderBoard('${appEnum.byamount}')">Amount</button>
+            <button class="btn ${curRefreshType === appEnum.byaddress ? curSelBtn : ''}" onClick="handleLeaderBoard('${appEnum.byaddress}')">Address</button>
             </div>
             <div id="divLines" class="flexboxCards">${result.join('')}</div>
         `
@@ -476,15 +506,20 @@ function pullMembersList() {
     })
 }
 
+function refreshDataByType(type) {
+    let search = document.getElementById('idSearchBox').value
+    getData(`${phpServing}?expensesGroup=1&name=${search}&${type}=1`, config.group, error)
+}
 
 function handleRefresh() {
-    let byname = document.getElementById('idSearchBox').value
     report1.innerHTML = '<div class="size35">please wait, loading...</div>'
-    getData(`${phpServing}?expensesGroup=1&name=${byname}&byname=1`, config.group, error)
+    refreshDataByType(curRefreshType)
 }
 
 function handleLeaderBoard(type) {
-    getData(`${phpServing}?expensesGroup=1&name=&${type}=1`, config.group, error)
+    curRefreshType = type
+    config.setByKeyToLocal('cursel', type)
+    refreshDataByType(type)
 }
 
 function preparePeriod() {
@@ -684,7 +719,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
         scrollToTopBtn.addEventListener("click", scrollToTop)
         // scrollTo(e)
         getData(`${phpServing}?config=1`, res => {
-            console.log('config', res)
+            // console.log('config', res)
+            curRefreshType = config.getByKeyFromLocal('cursel') || 'byname'
             doPrelimCheck(val => {
                 val && onInit()
             }, false)

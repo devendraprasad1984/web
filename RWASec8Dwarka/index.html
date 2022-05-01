@@ -76,11 +76,14 @@
                     <button class="btn" id="btnResetMemberForm" onclick="resetMemberForm()">Reset</button>
                 </div>
             </div>
-            <div class="row marginud flex">
-                <button class="btn" id="btnBackupJOSN" onclick="handleBackup('json')">Backup JSON</button>
-                <button class="btn" id="btnBackupCSV" onclick="handleBackup('csv')">Backup CSV</button>
-                <button class="btn" id="btnBackupXls" onclick="handleBackup('xls')">Backup EXCEL</button>
-            </div>
+            <fieldset>
+                <legend>Backup</legend>
+                <div class="row marginud flex">
+                    <button class="btn" id="btnBackupJOSN" onclick="handleBackup('json')">JSON</button>
+                    <button class="btn" id="btnBackupCSV" onclick="handleBackup('csv')">CSV</button>
+                    <button class="btn" id="btnBackupXls" onclick="handleBackup('xls')">EXCEL</button>
+                </div>
+            </fieldset>
         </div>
         <div class="" id="report1"></div>
     </div>
