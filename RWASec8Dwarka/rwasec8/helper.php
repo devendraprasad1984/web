@@ -231,15 +231,25 @@ function backupJSON($data)
         select a.id, rm.name, date, amount, remarks, a.`when`
         from rwa_expenses a
         inner join rwa_members rm on a.memid = rm.id
+        where amount<0
+        order by a.id desc    
+    ';
+    $collectionQur = '
+        select a.id, rm.name, date, amount, remarks, a.`when`
+        from rwa_expenses a
+        inner join rwa_members rm on a.memid = rm.id
+        where amount>0
         order by a.id desc    
     ';
     $members = returnDataset('select * from rwa_members order by id');
     $admin = returnDataset('select * from rwa_admin order by id');
     $expenses = returnDataset($expensesQur);
+    $collection = returnDataset($collectionQur);
     $data = json_encode(array(
         "members" => json_decode($members),
         "admin" => json_decode($admin),
-        "expenses" => json_decode($expenses)
+        "expenses" => json_decode($expenses),
+        "collection" => json_decode($collection)
     ));
     echo $data;
 }

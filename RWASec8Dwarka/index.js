@@ -344,7 +344,7 @@ const config = {
             let nameSplitArr = x.name.split(' ')
             let profileIcon
             try {
-                profileIcon = nameSplitArr.map(x => x[0]).join('')
+                profileIcon = nameSplitArr.map(x => x[0].toUpperCase()).join('')
             } catch (e) {
                 profileIcon = x.name[0]
             }
@@ -369,9 +369,10 @@ const config = {
         })
         result.splice(0, 0, _that.getSummaryCard(0, total, expenses, membersCount))
         report1.innerHTML = `
-            <div class='green size35'>Summary by members 
-            <button class="btn" onClick="handleLeaderBoard()">${!isLeader ? "Leaderboard" : "By Names"}</button>
-            <button class="btn" onClick="handleBoardAddress()">By Address</button>
+            <div class='green size35'>Summary
+            <button class="btn" onClick="handleLeaderBoard('byname')">Name</button>
+            <button class="btn" onClick="handleLeaderBoard('byamount')">Amount</button>
+            <button class="btn" onClick="handleLeaderBoard('byaddress')">Address</button>
             </div>
             <div id="divLines" class="flexboxCards">${result.join('')}</div>
         `
@@ -463,15 +464,8 @@ function handleRefresh() {
     getData(`${phpServing}?expensesGroup=1&name=${byname}&byname=1`, config.group, error)
 }
 
-let isLeader = false
-
-function handleLeaderBoard() {
-    isLeader = !isLeader
-    getData(`${phpServing}?expensesGroup=1&name=&${isLeader ? 'byleader=1' : 'byname=1'}`, config.group, error)
-}
-
-function handleBoardAddress() {
-    getData(`${phpServing}?expensesGroup=1&name=&byaddress=1}`, config.group, error)
+function handleLeaderBoard(type) {
+    getData(`${phpServing}?expensesGroup=1&name=&${type}=1`, config.group, error)
 }
 
 function preparePeriod() {

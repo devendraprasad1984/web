@@ -53,11 +53,24 @@
                 <div class="size30 green pad20">Add New Member <span class="btn purple"
                                                                      onclick="handleFormsToggle({show:'expenseform', hide:'membersform'})">Expense Form</span>
                 </div>
-                <input id="name" title="NAME" placeholder="Enter NAME" required type="text"/>
-                <input id="memberid" pattern="^\d{3}-\d{3}-\d{4}$" placeholder="Enter MOBILE Number 999 999 9999"
-                       required title="enter valid phone number, this is unique. Once set, cant be altered" type="tel" width="150px"/>
-                <input id="address" title="ADDRESS" placeholder="Enter ADDRESS" type="text"/>
-                <input id="addresssort" title="address number only for sorting" placeholder="Number Address" type="number"/>
+                <fieldset>
+                    <legend>Name</legend>
+                    <input id="name" title="NAME" placeholder="Enter NAME" required type="text"/>
+                </fieldset>
+                <fieldset>
+                    <legend>Mobile</legend>
+                    <input id="memberid" pattern="^\d{3}-\d{3}-\d{4}$" placeholder="Enter MOBILE Number 999 999 9999"
+                           required title="enter valid phone number, this is unique. Once set, cant be altered" type="tel" width="150px"/>
+                </fieldset>
+                <fieldset>
+                    <legend>Address</legend>
+                    <input id="address" title="ADDRESS" placeholder="Enter ADDRESS" type="text"/>
+                </fieldset>
+                <fieldset>
+                    <legend>address number (sort)</legend>
+                    <input id="addresssort" title="address number only for sorting" placeholder="Number Address" type="number"/>
+                </fieldset>
+
                 <div class="right">
                     <button class="btn txtgreen" id="btnSaveMember" onclick="handleSubmitMember(this.id)">Save</button>
                     <button class="btn" id="btnResetMemberForm" onclick="resetMemberForm()">Reset</button>
