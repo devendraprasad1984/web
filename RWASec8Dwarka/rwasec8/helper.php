@@ -122,18 +122,18 @@ function handleExpensesGroupByMemId($data)
     $name = $conn->real_escape_string($data['name']);
     $isAddressSet = isset($data['byaddress']);
     $orderBy = "";
-    $orderBy = isset($data['byname']) ? " name " : $orderBy;
-    $orderBy = isset($data['byleader']) ? " amount desc " : $orderBy;
+    $orderBy = isset($data['byname']) ? " b.name asc" : $orderBy;
+    $orderBy = isset($data['byamount']) ? " b.amount desc " : $orderBy;
     $orderBy = $isAddressSet ? " b.address_number_sort asc" : $orderBy;
-    $nameField = $isAddressSet ? "a.address" : "b.name";
-    $addrField = $isAddressSet ? "b.name" : "a.address";
+//    $nameField = $isAddressSet ? "a.address" : "b.name";
+//    $addrField = $isAddressSet ? "b.name" : "a.address";
 
     $searchByNameQur = "";
     if ($name <> '') {
         $searchByNameQur = " and (name like '%$name%' OR memkey like '%$name%' OR address like '%$name%' OR address_number_sort like '%$name%')";
     }
     $qur = "
-    select b.id, $nameField as name,b.type, b.memkey,b.address_number_sort, b.amount,a.when,$addrField as address from rwa_members a right join (
+    select b.id, b.name as name,b.type, b.memkey,b.address_number_sort, b.amount,a.when,a.address as address from rwa_members a right join (
         select m.id,m.name,m.type,m.memkey,round(m.address_number_sort,1) as address_number_sort,A.amount from (
            select m.id, sum(coalesce(amount, 0)) as amount
            from rwa_expenses e right outer join rwa_members m on e.memid = m.id
