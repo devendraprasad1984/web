@@ -373,15 +373,15 @@ const config = {
                             ${profileIcon !== '' ? `<span class='profileIcon'>${profileIcon}</span>` : ''} 
                             <span>${x.name}</span>
                         </div>
-                        <div class='right'>
-                            ${_that.isAdmin() ? `<a onclick="handleEditMember(event, ${memObj})">Edit</a>` : ''}
-                            ${_that.isAdmin() ? `<button class='btn transition  red' onclick="handleDeleteMember(event, ${x.id})">Delete</button>` : ''}
-                        </div>
+                        <span class="size20 bl right">${rsSymbol}${Math.abs(x.amount)}</span>
                     </div>
                     <div class="size20 bl row"><span class="txtpurple">${x.memkey}</span> <span class="right time">${x.when}</span></div>
                     <div class="size14">${x.address}</div>
-                    <div class="right"><span class="size20 bl">${rsSymbol}${Math.abs(x.amount)}</span></div>
-                    <div><span class="size12 bl ${x.type !== 'member' ? 'green' : ''}">${x.type}</span></div>
+                    <div><span class="size12 bl ${x.type !== 'member' ? 'green' : ''}">${x.type} (sort by:${x.address_number_sort})</span></div>
+                    <div class='row bl'>
+                        ${_that.isAdmin() ? `<a onclick="handleEditMember(event, ${memObj})">Edit</a>` : ''}
+                        ${_that.isAdmin() ? `<button class='btn transition  red' onclick="handleDeleteMember(event, ${x.id})">Delete</button>` : ''}
+                    </div>
                 </div>
             `
         })

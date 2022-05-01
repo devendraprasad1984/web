@@ -124,7 +124,7 @@ function handleExpensesGroupByMemId($data)
     $orderBy = "";
     $orderBy = isset($data['byname']) ? " b.name asc" : $orderBy;
     $orderBy = isset($data['byamount']) ? " b.amount desc " : $orderBy;
-    $orderBy = $isAddressSet ? " b.address_number_sort asc" : $orderBy;
+    $orderBy = $isAddressSet ? " cast(b.address_number_sort as UNSIGNED) asc" : $orderBy;
 //    $nameField = $isAddressSet ? "a.address" : "b.name";
 //    $addrField = $isAddressSet ? "b.name" : "a.address";
 
