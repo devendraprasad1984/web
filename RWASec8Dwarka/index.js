@@ -99,50 +99,62 @@ function getRandomBorderColor() {
 // let componentContributionForm = ""
 let timePeriods = ''
 
-function getAddContributionForm(id) {
+function getAddContributionForm({cur, id}) {
     //singleton implementation
     // if (componentContributionForm !== '') return componentContributionForm
     if (timePeriods === '')
         timePeriods = preparePeriod()
+    let obj = config.prepareJSONForParam({cur, id})
     return `
-        <div class='green size35'>Add Contribution for this month / Reversal</div>
+        <div class='green size25'>Add Contribution for this month / Reversal</div>
         <form id="contriform" action="#" class="formInputs">
             <select id="time" class="wid200px">${timePeriods}</select>
             <input class="input-right wid200px amount" id="amount" placeholder="enter your amount" type="number" value="200" min="200" max="5000"/>
             <input id="remarks" placeholder="eg regular maintenance" type="text" class="wid200px"/>
-            <button class="btn transition  red" id="btnSubmit" onclick="handleSubmit('contriform',${id})">Save</button>
+            <button class="btn transition  red" id="btnSubmit" onclick="handleSubmit('contriform',${obj})">Save</button>
         </form>
     `
-    // return componentContributionForm
 }
 
 function memberCardClick(cur, id) {
-    let cardid = cur.id
-    if (typeof cur === 'string') {
-        cardid = cur
-    }
-
-    let contributionForm = config.isAdmin() ? getAddContributionForm(id) : ""
+    let contributionForm = config.isAdmin() ? getAddContributionForm({cur, id}) : ""
     getData(`${phpServing}?expensesByMember=1&id=${id}`, (res) => {
         let rows = res.map((x, i) => {
             return `
                 <div class="col size12">
                     <div class='wid100 bl'>${x.date} - ${partDateTime(x.when)}</div>
                     <div class='row margin10L'>
-                        <span>${x.remarks}</span>
+                        <span class='wid80'>${x.remarks}</span>
                         <span>${rsSymbol}${x.amount}</span>
+                        ${config.isAdmin() ? `<a class="red" onclick="handleExpensesDelete(${x.id},${config.prepareJSONForParam({
+                cur,
+                memberId: id
+            })},'memberCard');">delete</a>` : ''}
                     </div>
                 </div>
             `
         })
         let xdiv = document.createElement('div')
         xdiv.id = 'openCardId'
-        let cardBaseElements = document.getElementById(cardid).innerHTML
+        // let cardBaseElements = document.getElementById(cardid).innerHTML
         let txnData = `
             <div class="size30">Previous Contributions</div>
             <div class="height450">${rows.join('')}</div>
+        `;
+        let baseHeader = `
+            <div class='row center'>
+                <h2>Member View</h2>
+            </div>
+            <div class='row'>
+                <h2>Hello, ${cur.name}</h2>
+                <h1>${cur.amount}</h1>
+            </div>
+            <div class='size12 row'>
+                <span>${cur.address}</span>
+                <span>${cur.type}</span>
+            </div>
         `
-        xdiv.innerHTML = cardBaseElements.toString() + contributionForm.toString() + txnData.toString()
+        xdiv.innerHTML = baseHeader + contributionForm.toString() + txnData.toString()
         xdiv.className = 'carddiv'
         Array.from(xdiv.children).map(a => a.classList.remove('amt'))
         swal({
@@ -152,6 +164,7 @@ function memberCardClick(cur, id) {
             xdiv.remove()
             let overlayContainer = Array.from(document.getElementsByClassName('swal-overlay'))
             overlayContainer.map(x => x.remove())
+            handleRefresh()
         })
     }, error)
 }
@@ -205,10 +218,14 @@ function handleExpensesSearch(e, _this) {
     }
 }
 
-function handleExpensesDelete(id) {
+function handleExpensesDelete(id, {cur, memberId}, type) {
     postData(phpServing, {deleteExpense: 1, id}, res => {
         if (res.status === 'success') {
-            searchExpenses()
+            if (type === 'expense') searchExpenses()
+            if (type === 'memberCard') {
+                handleRefresh()
+                memberCardClick(cur, memberId)
+            }
         } else {
             error('failed to delete')
         }
@@ -221,6 +238,7 @@ const config = {
     modifyCardBorderColor: function () {
         Array.from($('.card')).map((x, i) => x.style.borderTop = '5px solid ' + (x.getAttribute('xtype') === '+' ? getRandomBorderColor() : 'red'))
     },
+    prepareJSONForParam: (obj) => JSON.stringify(obj).split('"').join("&quot;"),
     alert: function (res) {
         toast.options.onHidden = handleRefresh
         toast.options.onclick = handleRefresh
@@ -264,7 +282,7 @@ const config = {
             <div class='col line size12'>
                 <div class='row'>
                     <span>${partDateTime(x.when)}</span>
-                    ${_that.isAdmin() ? `<a class="red" onclick="handleExpensesDelete(${x.id})">delete</a>` : ''}
+                    ${_that.isAdmin() ? `<a class="red" onclick="handleExpensesDelete(${x.id},null,'expense')">delete</a>` : ''}
                  </div>
              <div class='row'>
                 <span class="min-content">${x.remarks}</span>
@@ -313,12 +331,30 @@ const config = {
                 return null
             }
 
-            let memObj = JSON.stringify({name: x.name, id: x.memkey, address: x.address, sort: x.address_number_sort}).split('"').join("&quot;")
-
+            let memObj = _that.prepareJSONForParam(
+                {
+                    name: x.name,
+                    id: x.memkey,
+                    address: x.address,
+                    sort: x.address_number_sort,
+                    amount: x.amount,
+                    type: x.type
+                }
+            )
+            let nameSplitArr = x.name.split(' ')
+            let profileIcon
+            try {
+                profileIcon = nameSplitArr.map(x => x[0]).join('')
+            } catch (e) {
+                profileIcon = x.name[0]
+            }
             return `
-                <div id="card${i}" class="card" xtype="+" onclick="memberCardClick(this,${x.id})">
+                <div id="card${i}" class="card" xtype="+" onclick="memberCardClick(${memObj},${x.id})">
                     <div class="size25 bl row" title="${x.name}">
-                        <span class='ellipsis'>${x.name}</span>
+                        <div class='ellipsis'>
+                            ${profileIcon !== '' ? `<span class='profileIcon'>${profileIcon}</span>` : ''} 
+                            <span>${x.name}</span>
+                        </div>
                         <div class='right'>
                             ${_that.isAdmin() ? `<a onclick="handleEditMember(event, ${memObj})">Edit</a>` : ''}
                             ${_that.isAdmin() ? `<button class='btn transition  red' onclick="handleDeleteMember(event, ${x.id})">Delete</button>` : ''}
@@ -334,7 +370,7 @@ const config = {
         result.splice(0, 0, _that.getSummaryCard(0, total, expenses, membersCount))
         report1.innerHTML = `
             <div class='green size35'>Summary by members 
-            <button class="btn" onClick="handleLeaderBoard()">${!isLeader ? "By Leader" : "By Names"}</button>
+            <button class="btn" onClick="handleLeaderBoard()">${!isLeader ? "Leaderboard" : "By Names"}</button>
             <button class="btn" onClick="handleBoardAddress()">By Address</button>
             </div>
             <div id="divLines" class="flexboxCards">${result.join('')}</div>
@@ -361,19 +397,18 @@ function error(err) {
     // console.error(err)
 }
 
-function handleSubmit(formName, id) {
-    let cur = $('#' + id)
-    let oldval = cur.html()
-    cur.html('please wait...')
+function handleSubmit(formName, {id, cur}) {
     let parentForm = document.getElementById(formName)
-    data = {}
+    let data = {}
     data['save'] = 1
     data['memid'] = id
     data['time'] = parentForm.time.value
     data['amount'] = parentForm.amount.value
     data['remarks'] = parentForm.remarks.value === "" ? "regular maintenance" : parentForm.remarks.value
-    postData(phpServing, data, config.alert, error)
-    cur.html(oldval)
+    postData(phpServing, data, (res) => {
+        handleRefresh()
+        memberCardClick({...cur, amount: parseInt(cur.amount) + parseInt(data['amount'])}, id)
+    }, error)
 }
 
 
@@ -676,10 +711,14 @@ function json2csv(data) {
 }
 
 function json2xls(data, filename) {
-    let wsMembers = XLSX.utils.json_to_sheet(data.members);
-    let wsExpenses = XLSX.utils.json_to_sheet(data.expenses);
+    let wsMembers = XLSX.utils.json_to_sheet(data.members || []);
+    let wsExpenses = XLSX.utils.json_to_sheet(data.expenses || []);
+    let wsCollection = XLSX.utils.json_to_sheet(data.collection || []);
+
     let wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, wsMembers, "members");
     XLSX.utils.book_append_sheet(wb, wsExpenses, "expenses");
+    XLSX.utils.book_append_sheet(wb, wsCollection, "collection");
+
     XLSX.writeFile(wb, filename);
 }

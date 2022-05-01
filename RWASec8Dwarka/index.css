@@ -53,11 +53,16 @@ body {
     flex-direction: column;
 }
 
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
 * {
-    color: #414040;
+    color: #242323;
     padding: 0;
     margin-bottom: 3px;
-    box-sizing: border-box;
 }
 
 .imgbg {
@@ -94,7 +99,8 @@ body {
 }
 
 h1, h2, h3 {
-    padding: 5px;
+    padding: 0;
+    margin: 0;
 }
 
 input, select {
@@ -192,7 +198,26 @@ input {
 }
 
 .center {
-    text-align: center;
+    text-align: center !important;
+    justify-content: center !important;
+    align-content: center !important;
+    align-items: center !important;
+}
+
+.profileIcon {
+    vertical-align: middle;
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    padding: 5px;
+    color: white;
+    position: relative;
+    margin: 0;
+    background: radial-gradient(
+            ellipse at top,
+            rgb(81, 38, 191) 0%,
+            rgb(203, 64, 185) 70%
+    );
 }
 
 .red {
@@ -208,6 +233,11 @@ input {
 
 .wid70 {
     width: 70%;
+    padding: 5px;
+}
+
+.wid80 {
+    width: 80%;
     padding: 5px;
 }
 
@@ -255,6 +285,7 @@ input {
 .pad10L {
     padding-left: 10px;
 }
+
 .margin10L {
     margin-left: 10px;
 }
@@ -276,7 +307,7 @@ input {
     width: 200px;
 }
 
-.flex{
+.flex {
     flex-wrap: wrap;
 }
 
@@ -290,7 +321,7 @@ input {
     color: gray;
 }
 
-.size10{
+.size10 {
     font-size: 10px;
 }
 
@@ -304,10 +335,17 @@ input {
 
 .size16 {
     font-size: 16px;
+    font-weight: bolder;
 }
 
 .size20 {
     font-size: 17px;
+    font-weight: bolder;
+}
+
+.size25 {
+    font-size: 23px;
+    font-weight: bolder;
 }
 
 .size30 {
