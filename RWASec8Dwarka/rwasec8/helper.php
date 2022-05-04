@@ -80,7 +80,7 @@ function handleSaveMember($data)
         $result = $conn->query($sql);
         echo $recordExists;
     } else {
-        $sql = "INSERT INTO rwa_members(memkey,name,address,address_number_sort,pic) values('$memid','$name','$address','$address_number_sort','$pic')";
+        $sql = "INSERT INTO rwa_members(memkey,name,address,address_number_sort,pic,type) values('$memid','$name','$address','$address_number_sort','$pic','member')";
         $result = $conn->query($sql);
         echo $success;
     }
