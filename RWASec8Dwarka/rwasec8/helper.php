@@ -179,6 +179,12 @@ function handleLogout($data)
     echo $success;
 }
 
+function handleKeyContacts($data){
+    $keyContacts = returnDataset('select memkey,name,type from rwa_members where type<>"admin" and type<>"member"');
+    echo $keyContacts;
+}
+
+
 function loginCheck($data)
 {
     global $failed, $conn, $success;

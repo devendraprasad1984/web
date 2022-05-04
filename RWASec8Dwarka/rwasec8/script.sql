@@ -57,3 +57,4 @@ values ('admin', 'admin', 'admin', 'admin');
 
 
 alter table rwa_members add column address_number_sort float;
+alter table rwa_members modify column type varchar(100);

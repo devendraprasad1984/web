@@ -202,11 +202,29 @@ input {
     height: 100px;
     width: 100px;
 }
-
+.icon2 {
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
 .right {
     text-align: right;
     padding-right: 5px;
 }
+
+.left {
+    text-align: left !important;
+    justify-content: flex-start !important;
+    align-content: flex-start !important;
+    align-items: flex-start !important;
+}
+
+.middle {
+    vertical-align: middle !important;
+    align-items: center !important;
+    align-content: center !important;
+}
+
 
 .center {
     text-align: center !important;
@@ -317,10 +335,6 @@ fieldset > input {
     padding-left: 10px;
 }
 
-.margin10L {
-    margin-left: 10px;
-}
-
 .margin10l {
     margin-left: 10px;
 }
@@ -328,6 +342,12 @@ fieldset > input {
 .formInputs input, .formInputs select {
     padding: 10px;
     margin-bottom: 5px;
+}
+.rwacard{
+    background: linear-gradient(279.56deg, rgb(238, 194, 63) -52.57%, rgb(185, 133, 234) 126.35%);
+}
+.rwacard *{
+    color: white !important;
 }
 
 .inputNumber {
@@ -339,6 +359,7 @@ fieldset > input {
 }
 
 .flex {
+    display: flex;
     flex-wrap: wrap;
 }
 
@@ -549,7 +570,8 @@ fieldset > input {
 
 .swal-modal {
     height: auto;
-    width: 90%;
+    min-width: 50%;
+    width: auto;
 }
 
 #footer, footer, .footer {

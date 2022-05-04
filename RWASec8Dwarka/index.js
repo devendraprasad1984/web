@@ -9,7 +9,6 @@ let container = document.getElementById('container')
 let adminSection = document.getElementById('adminSection')
 let report1 = document.getElementById('report1')
 let logoutBtn = document.getElementById('logoutBtn')
-let currentReportType = 'summary'
 let loginModal = document.getElementById('loginModal')
 let membersform = document.getElementById('membersform')
 let appEnum = {
@@ -142,7 +141,6 @@ function memberCardClick(cur, id) {
         })
         let xdiv = document.createElement('div')
         xdiv.id = 'openCardId'
-        // let cardBaseElements = document.getElementById(cardid).innerHTML
         let txnData = `
             <div class="size30">Previous Contributions</div>
             <div class="height450">${rows.join('')}</div>
@@ -162,16 +160,8 @@ function memberCardClick(cur, id) {
         `
         xdiv.innerHTML = baseHeader + contributionForm.toString() + txnData.toString()
         xdiv.className = 'carddiv'
-        Array.from(xdiv.children).map(a => a.classList.remove('amt'))
-        swal({
-            content: xdiv,
-            button: 'Close'
-        }).then(flag => {
-            xdiv.remove()
-            let overlayContainer = Array.from(document.getElementsByClassName('swal-overlay'))
-            overlayContainer.map(x => x.remove())
-            handleRefresh()
-        })
+        // Array.from(xdiv.children).map(a => a.classList.remove('amt'))
+        config.prepareSwal(xdiv)
     }, error)
 }
 
@@ -256,13 +246,15 @@ function handleExpensesDelete(id, {cur, memberId}, type) {
     })
 }
 
-function getIconByMemberType(type){
+function getIconByMemberType(type) {
     let ret = ''
-    let basePath='images'
-    function getImage(name){
+    let basePath = 'images'
+
+    function getImage(name) {
         return `<img class='icon-logo' src='${basePath}/${name}' />`
     }
-    switch (type){
+
+    switch (type) {
         case appEnum.president:
             ret = getImage('crown.png')
             break
@@ -272,11 +264,25 @@ function getIconByMemberType(type){
         case appEnum.member:
             ret = getImage('member.png')
             break
+        default:
+            ret = getImage('member.png')
+            break
     }
     return ret
 }
 
 const config = {
+    prepareSwal: (xdiv) => {
+        swal({
+            content: xdiv,
+            button: 'Close'
+        }).then(flag => {
+            xdiv.remove()
+            let overlayContainer = Array.from(document.getElementsByClassName('swal-overlay'))
+            overlayContainer.map(x => x.remove())
+            config.isAdmin() && handleRefresh()
+        })
+    },
     get: (id) => document.getElementById(id),
     isAdmin: () => defaultEntryType === appEnum.admin,
     modifyCardBorderColor: function () {
@@ -442,6 +448,8 @@ function error(err) {
     swal({
         title: "some error contact admin",
         button: 'Ok',
+        icon: 'warning',
+        dangerMode: true,
         text: err.toString()
     })
     // console.error(err)
@@ -567,6 +575,29 @@ function handleMemberLogin() {
     defaultEntryType = appEnum.member
     report1.classList.add('wid100')
     doPrelimCheck()
+}
+
+function handleGetContacts() {
+    getData(`${phpServing}?keycontacts=1`, res => {
+        let xdiv = document.createElement('div')
+        let elem = res.map(x => {
+            return `
+                <div class='row middle flex'>
+                    <span class=''>${getIconByMemberType(x.type)}</span>                
+                    <span class='wid30'>${x.name}</span>
+                    <span class='wid30'>${x.type}</span>
+                    <span class='wid30'>${x.memkey}</span>
+                </div>
+            `
+        }).join('')
+        let baseHeader = `
+             <h2>Key RWA Members - Governing Body</h2>
+        `
+        xdiv.innerHTML = `
+            <div class='left height450 rwacard'>${baseHeader+elem}</div>
+        `
+        config.prepareSwal(xdiv)
+    }, error)
 }
 
 function searchByKeyword(e) {
