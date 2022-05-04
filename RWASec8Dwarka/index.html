@@ -9,30 +9,39 @@
     <link href="./index.css" rel="stylesheet">
     <link href="./media.css" rel="stylesheet">
 
-    <meta content="D Block, RWA, Sector 8, Dwarka, Delhi 110077 devendra prasad (+919582797772) dpresume.com" name="title"/>
-    <meta content="D Block, RWA, Sector 8, Dwarka, Delhi 110077 devendra prasad (+919582797772) dpresume.com" name="description"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.1/xlsx.full.min.js"></script>
+    <meta content="D Block, RWA, Sector 8, Dwarka, Delhi 110077 devendra prasad (+919582797772) dpresume.com"
+          name="title"/>
+    <meta content="D Block, RWA, Sector 8, Dwarka, Delhi 110077 devendra prasad (+919582797772) dpresume.com"
+          name="description"/>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css"
+          integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ=="
+          referrerpolicy="no-referrer" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.1/xlsx.full.min.js" type="text/javascript"></script>
     <!--    <script src="https://unpkg.com/lodash@4.17.20"></script>-->
 </head>
 <body class="" cz-shortcut-listen="true">
 
-<header class="row">
+<div class="row">
     <img class="logo" loading="lazy" src="images/icon.jpeg">
     <div class="bl left column margin10l">
-        <div class="size30">RWA, D Block, Sector8, Dwarka</div>
-        <div class="size20">Ledger Anytime Anywhere!</div>
-        <div class="size14">RWA Registration Number:</div>
-        <div class="size14">
-            <img src="./images/wa.png" alt="whatsapp" class="icon2" />
-            <img src="./images/contacts.png" alt="key_contacts" onclick="handleGetContacts()" class="icon2" />
-        </div>
+        <div class="size30">RWA</div>
+        <div class="size14">Registration Number:</div>
     </div>
     <div class="right">
         <button class="btn red" id="logoutBtn" onclick="handleLogout()">Logout</button>
         <button class="btn green" id="updatePasswordBtn" onclick="handleChangePassword()">Update Password</button>
     </div>
-</header>
+</div>
+<div class="row">
+    <div class="column">
+        <div class="size14 bl">D Block, Sector 8, Dwarka, Delhi</div>
+        <div class="size12 bl">RWA Ledger Anytime Anywhere!</div>
+    </div>
+    <div class="row right">
+        <img alt="whatsapp" class="icon2" src="./images/wa.png"/>
+        <img alt="key_contacts" class="icon2" onclick="handleGetContacts()" src="./images/contacts.png"/>
+    </div>
+</div>
 
 <div class="container hide" id="container">
     <div class="row" id="search1">
@@ -58,20 +67,22 @@
                 </div>
                 <fieldset>
                     <legend>Name</legend>
-                    <input id="name" title="NAME" placeholder="Enter NAME" required type="text"/>
+                    <input id="name" placeholder="Enter NAME" required title="NAME" type="text"/>
                 </fieldset>
                 <fieldset>
                     <legend>Mobile</legend>
                     <input id="memberid" pattern="^\d{3}-\d{3}-\d{4}$" placeholder="Enter MOBILE Number 999 999 9999"
-                           required title="enter valid phone number, this is unique. Once set, cant be altered" type="tel" width="150px"/>
+                           required title="enter valid phone number, this is unique. Once set, cant be altered"
+                           type="tel" width="150px"/>
                 </fieldset>
                 <fieldset>
                     <legend>Address</legend>
-                    <input id="address" title="ADDRESS" placeholder="Enter ADDRESS" type="text"/>
+                    <input id="address" placeholder="Enter ADDRESS" title="ADDRESS" type="text"/>
                 </fieldset>
                 <fieldset>
                     <legend>address number (sort)</legend>
-                    <input id="addresssort" title="address number only for sorting" placeholder="Number Address" type="number"/>
+                    <input id="addresssort" placeholder="Number Address" title="address number only for sorting"
+                           type="number"/>
                 </fieldset>
 
                 <div class="right">
@@ -119,7 +130,9 @@
 </footer>
 
 <script src="./libs/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script crossorigin="anonymous"
+        integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ=="
+        referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 <script src="./libs/sweetalert.min.js"></script>
 <script src="./index.js"></script>
 </body>

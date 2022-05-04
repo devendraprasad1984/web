@@ -583,10 +583,10 @@ function handleGetContacts() {
         let elem = res.map(x => {
             return `
                 <div class='row middle flex'>
-                    <span class=''>${getIconByMemberType(x.type)}</span>                
-                    <span class='wid30'>${x.name}</span>
-                    <span class='wid30'>${x.type}</span>
-                    <span class='wid30'>${x.memkey}</span>
+                    <span style="width: 30px">${getIconByMemberType(x.type)}</span>                
+                    <span style="width: 80px">${x.name}</span>
+                    <span style="width: 80px">${x.type}</span>
+                    <span style="width: 90px">${x.memkey}</span>
                 </div>
             `
         }).join('')

@@ -62,7 +62,7 @@ body {
 * {
     color: #242323;
     padding: 0;
-    margin-bottom: 3px;
+    /*margin-bottom: 3px;*/
 }
 
 .imgbg {
@@ -570,7 +570,7 @@ fieldset > input {
 
 .swal-modal {
     height: auto;
-    min-width: 50%;
+    min-width: 60%;
     width: auto;
 }
 

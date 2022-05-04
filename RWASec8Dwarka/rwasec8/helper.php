@@ -180,7 +180,7 @@ function handleLogout($data)
 }
 
 function handleKeyContacts($data){
-    $keyContacts = returnDataset('select memkey,name,type from rwa_members where type<>"admin" and type<>"member"');
+    $keyContacts = returnDataset('select memkey,name,type from rwa_members where type<>"admin" and type<>"member" order by name');
     echo $keyContacts;
 }
 
