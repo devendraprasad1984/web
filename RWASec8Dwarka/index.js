@@ -151,7 +151,7 @@ function memberCardClick(cur, id) {
             </div>
             <div class='row'>
                 <h2>Hello, ${cur.name}</h2>
-                <h1>${cur.amount}</h1>
+                <h1>${rsSymbol} ${cur.amount}</h1>
             </div>
             <div class='size12 row'>
                 <span>${cur.address}</span>
@@ -318,7 +318,9 @@ const config = {
                         <span class="txtpurple size16">Total: ${rsSymbol}${total + expenses + balance}</span>
                     </div>
                 </div>
-                <button class='btn' onClick="searchExpenses()">Expenses Summary</button>
+                <div class='bottom'>
+                    <button class='btn' onClick="searchExpenses()">Expenses Summary</button>
+                </div>
             </div>        
         `
     },
@@ -582,11 +584,12 @@ function handleGetContacts() {
         let xdiv = document.createElement('div')
         let elem = res.map(x => {
             return `
-                <div class='row middle flex'>
-                    <span style="width: 30px">${getIconByMemberType(x.type)}</span>                
-                    <span style="width: 80px">${x.name}</span>
-                    <span style="width: 80px">${x.type}</span>
-                    <span style="width: 90px">${x.memkey}</span>
+                <div class='rowgrid middle'>
+                    <span>${getIconByMemberType(x.type)}</span>                
+                    <span>${x.name}</span>
+                    <span>${x.type}</span>
+                    <span>${x.memkey}</span>
+                    <span onClick="handleClickContactMe()" class="btn primary">Contact</span>
                 </div>
             `
         }).join('')
@@ -594,7 +597,55 @@ function handleGetContacts() {
              <h2>Key RWA Members - Governing Body</h2>
         `
         xdiv.innerHTML = `
-            <div class='left height450 rwacard'>${baseHeader+elem}</div>
+            <div class='left height450 rwacard'>${baseHeader + elem}</div>
+        `
+        config.prepareSwal(xdiv)
+    }, error)
+}
+
+const getWAReminderMessage = (name) => {
+    return `Hello Sir/Madam, ${name}, We from RWA hereby request you to submit your dues asap for smooth functioning of RWA. Your cooperation is crucial. Regards From RWA Sector 8 D Block Managing Group`
+}
+
+
+function handleSendWA(phone, message) {
+    console.log(phone, message)
+}
+
+function handleRemindAllWA(listOfDefaulters) {
+    listOfDefaulters.forEach(x => handleSendWA(x.memkey, getWAReminderMessage(x.name)))
+}
+
+function handleShowReminders() {
+    getData(`${phpServing}?showReminders=1`, res => {
+        let xdiv = document.createElement('div')
+        let elem = res.map(x => {
+            let phone = x.memkey
+            return `
+                <div class='rowgrid marginud'>
+                    <span>${x.name}</span>
+                    <span>${x.memkey}</span>
+                    <span>${x.lastSubmitted}</span>
+                    <span onClick="handleSendWA('${phone}','${getWAReminderMessage(x.name)}')" class="btn primary">Remind</span>
+                </div>
+            `
+        })
+        let header = `<div className='rowgrid'>
+                <span>Name</span>
+                <span>Phone Number</span>
+                <span>Last Contribution In</span>
+            </div>`
+
+        elem.splice(0, 0, header)
+        let resObj = config.prepareJSONForParam(res)
+        let baseHeader = `
+             <h2>Group Reminder</h2>
+             <div class='right'>
+                <span class='btn' onClick="handleRemindAllWA(${resObj})">Remind All</span>
+             </div>
+        `
+        xdiv.innerHTML = `
+            <div class='left height450 rwacard'>${baseHeader + elem.join('')}</div>
         `
         config.prepareSwal(xdiv)
     }, error)

@@ -185,6 +185,26 @@ function handleKeyContacts($data){
 }
 
 
+function handleShowRemindersInfo($data){
+    $paymentDefaulters = returnDataset('
+        select a.id,
+               a.name,
+               a.memkey,
+               a.type,
+               b.memid,
+               substr(b.date, 1, 3) as lastSubmitted,
+               substr(monthname(curdate()),1,3) as curMonth
+        from rwa_members a
+                 inner join rwa_expenses b on a.id = b.memid
+        where type <> "admin" and type <> "member"
+          and (substr(b.date, 1, 3) <> substr(monthname(curdate()),1,3))
+        order by name;
+    
+    ');
+    echo $paymentDefaulters;
+}
+
+
 function loginCheck($data)
 {
     global $failed, $conn, $success;

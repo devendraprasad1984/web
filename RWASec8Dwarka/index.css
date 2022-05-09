@@ -33,11 +33,12 @@ html {
     -webkit-text-size-adjust: 100%;
 }
 
-body {
+.rainbow {
     animation-name: rainbow;
     animation-duration: 20s;
     animation-iteration-count: infinite;
     animation-direction: normal;
+    padding: 10px;
 }
 
 a {
@@ -132,7 +133,7 @@ input {
 }
 
 .btn {
-    background: linear-gradient(279.56deg, rgb(231, 252, 241) -52.57%, rgb(186, 233, 239) 126.35%);
+    background: linear-gradient(279.56deg, rgb(167, 207, 243) -52.57%, rgb(225, 173, 248) 126.35%) !important;
     color: #222;
     border: 1px solid transparent;
     font-weight: bold;
@@ -202,11 +203,13 @@ input {
     height: 100px;
     width: 100px;
 }
+
 .icon2 {
     height: 30px;
     width: 30px;
     cursor: pointer;
 }
+
 .right {
     text-align: right;
     padding-right: 5px;
@@ -250,7 +253,7 @@ input {
 }
 
 .red {
-    color: #f8723c;
+    color: #ce1876;
 }
 
 fieldset {
@@ -343,10 +346,12 @@ fieldset > input {
     padding: 10px;
     margin-bottom: 5px;
 }
-.rwacard{
+
+.rwacard {
     background: linear-gradient(279.56deg, rgb(238, 194, 63) -52.57%, rgb(185, 133, 234) 126.35%);
 }
-.rwacard *{
+
+.rwacard * {
     color: white !important;
 }
 
@@ -411,7 +416,7 @@ fieldset > input {
     padding: 0 0 5px 10px;
 }
 
-.bl {
+.bl, .bl > *, .bl > span {
     font-weight: bolder;
 }
 
@@ -429,6 +434,10 @@ fieldset > input {
     z-index: 1;
 }
 
+.card * {
+    margin-top: 2px;
+}
+
 .row {
     display: flex;
     align-content: flex-start;
@@ -437,6 +446,13 @@ fieldset > input {
     /*flex-wrap: wrap;*/
     justify-content: space-between;
 }
+
+.rowgrid {
+    display: grid;
+    grid-auto-columns: auto;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+
 
 .line {
     flex: 2 1 auto;
@@ -453,6 +469,10 @@ fieldset > input {
     text-overflow: ellipsis;
 }
 
+label{
+    font-weight: bolder;
+}
+
 /*.row > span {*/
 /*    !*min-width: 100px;*!*/
 /*    !*width: 250px !important;*!*/
@@ -467,9 +487,21 @@ fieldset > input {
     font-size: 16px;
 }
 
-.green {
-    background-color: #5dd4b3;
+.bottom {
+    position: relative;
+    bottom: 0;
+    /*margin: auto;*/
 }
+
+
+.green {
+    background-color: #5dd4b3 !important;
+}
+
+.primary {
+    background-color: #2c99c4 !important;
+}
+
 
 .bggray {
     background-color: #ffffc1;
@@ -546,7 +578,7 @@ fieldset > input {
 
 
 .searchText {
-    width: 50%;
+    width: 100%;
     padding: 5px;
     margin: 5px;
 }

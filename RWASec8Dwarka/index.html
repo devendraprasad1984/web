@@ -21,7 +21,7 @@
 </head>
 <body class="" cz-shortcut-listen="true">
 
-<div class="row">
+<div class="row rainbow">
     <img class="logo" loading="lazy" src="images/icon.jpeg">
     <div class="bl left column margin10l">
         <div class="size30">RWA</div>
@@ -53,38 +53,38 @@
 
     <div class="row flex">
         <div class="wid30 hide" id="adminSection">
+            <div class="row">
+                <span class="btn marginud" onClick="handleShowReminders()">Show Reminders</span>
+            </div>
             <div class="column formInputs" id="expenseform">
                 <div class="size30 green pad20">Add Expenses <span class="btn purple"
                                                                    onclick="handleFormsToggle({show:'membersform', hide:'expenseform'})">Add Member</span>
                 </div>
-                <input id="amountexpense" placeholder="enter amount" type="number" width="50px">
-                <input id="reason" placeholder="Reason: where this money is spent on" type="text" width="150px">
-                <button class="btn red" id="btnSaveExpense" onclick="handleSubmitExpense(this.id)">Save Expenses
-                </button>
+                <label for="amountexpense">Amount</label>
+                <input id="amountexpense" name="amountexpense" placeholder="enter amount" type="number" width="50px">
+                <label for="reason">Where it was spent on?</label>
+                <input id="reason" name="reason" placeholder="Reason: where this money is spent on" type="text"
+                       width="150px">
+                <div class="right">
+                    <button class="btn" id="btnSaveExpense" onclick="handleSubmitExpense(this.id)">Save Expenses
+                    </button>
+                </div>
             </div>
             <div class="column formInputs hide" id="membersform">
                 <div class="size30 green pad20">Add New Member <span class="btn purple"
                                                                      onclick="handleFormsToggle({show:'expenseform', hide:'membersform'})">Expense Form</span>
                 </div>
-                <fieldset>
-                    <legend>Name</legend>
-                    <input id="name" placeholder="Enter NAME" required title="NAME" type="text"/>
-                </fieldset>
-                <fieldset>
-                    <legend>Mobile</legend>
-                    <input id="memberid" pattern="^\d{3}-\d{3}-\d{4}$" placeholder="Enter MOBILE Number 999 999 9999"
-                           required title="enter valid phone number, this is unique. Once set, cant be altered"
-                           type="tel" width="150px"/>
-                </fieldset>
-                <fieldset>
-                    <legend>Address</legend>
-                    <input id="address" placeholder="Enter ADDRESS" title="ADDRESS" type="text"/>
-                </fieldset>
-                <fieldset>
-                    <legend>address number (sort)</legend>
-                    <input id="addresssort" placeholder="Number Address" title="address number only for sorting"
-                           type="number"/>
-                </fieldset>
+                <label for="">Name</label>
+                <input id="name" placeholder="Enter NAME" required title="NAME" type="text"/>
+                <label>Mobile Phone Number(without spaces)</label>
+                <input id="memberid" pattern="^\d{3}-\d{3}-\d{4}$" placeholder="Enter MOBILE Number 999 999 9999"
+                       required title="enter valid phone number, this is unique. Once set, cant be altered"
+                       type="tel" width="150px"/>
+                <label>Address</label>
+                <input id="address" placeholder="Enter ADDRESS" title="ADDRESS" type="text"/>
+                <label>address number (sort)</label>
+                <input id="addresssort" placeholder="Number Address" title="address number only for sorting"
+                       type="number"/>
 
                 <div class="right">
                     <button class="btn txtgreen" id="btnSaveMember" onclick="handleSubmitMember(this.id)">Save</button>
@@ -93,7 +93,7 @@
             </div>
             <fieldset>
                 <legend>Backup</legend>
-                <div class="row marginud flex">
+                <div class="row margin10l pad10">
                     <button class="btn" id="btnBackupJOSN" onclick="handleBackup('json')">JSON</button>
                     <button class="btn" id="btnBackupCSV" onclick="handleBackup('csv')">CSV</button>
                     <button class="btn" id="btnBackupXls" onclick="handleBackup('xls')">EXCEL</button>
@@ -133,7 +133,8 @@
 <script src="./libs/jquery.min.js"></script>
 <script crossorigin="anonymous"
         integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ=="
-        referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+        referrerpolicy="no-referrer"
+        src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 <script src="./libs/sweetalert.min.js"></script>
 <script src="./index.js"></script>
 </body>

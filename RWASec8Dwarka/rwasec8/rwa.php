@@ -15,6 +15,7 @@ try{
     if(isset($_POST['deleteExpense'])) handleDeleteExpense($_POST);
 
     //GET Calls
+    if(isset($_GET['showReminders'])) handleShowRemindersInfo($_GET);
     if(isset($_GET['keycontacts'])) handleKeyContacts($_GET);
     if(isset($_GET['logout'])) handleLogout($_GET);
     if(isset($_GET['loginCheck'])) loginCheck($_GET);
