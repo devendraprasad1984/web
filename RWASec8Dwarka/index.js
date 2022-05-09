@@ -589,7 +589,7 @@ function handleGetContacts() {
                     <span>${x.name}</span>
                     <span>${x.type}</span>
                     <span>${x.memkey}</span>
-                    <span onClick="handleClickContactMe()" class="btn primary">Contact</span>
+                    <a onClick="handleClickContactMe()">Contact</a>
                 </div>
             `
         }).join('')
@@ -630,22 +630,23 @@ function handleShowReminders() {
                 </div>
             `
         })
-        let header = `<div className='rowgrid'>
+        let header = `<div class='rowgrid bl'>
                 <span>Name</span>
-                <span>Phone Number</span>
-                <span>Last Contribution In</span>
+                <span>Phone</span>
+                <span>Last</span>
+                <span></span>
             </div>`
 
         elem.splice(0, 0, header)
         let resObj = config.prepareJSONForParam(res)
         let baseHeader = `
-             <h2>Group Reminder</h2>
+             <h2>Group WA Reminder for Monthly Contribution</h2>
              <div class='right'>
                 <span class='btn' onClick="handleRemindAllWA(${resObj})">Remind All</span>
              </div>
         `
         xdiv.innerHTML = `
-            <div class='left height450 rwacard'>${baseHeader + elem.join('')}</div>
+            <div class='left height450'>${baseHeader + elem.join('')}</div>
         `
         config.prepareSwal(xdiv)
     }, error)

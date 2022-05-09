@@ -450,7 +450,7 @@ fieldset > input {
 .rowgrid {
     display: grid;
     grid-auto-columns: auto;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
 }
 
 
