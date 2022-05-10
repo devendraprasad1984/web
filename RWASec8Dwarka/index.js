@@ -43,6 +43,188 @@ toast.options.progressBar = true
 
 // document.location.reload(false)
 
+
+
+const config = {
+    prepareSwal: (xdiv) => {
+        swal({
+            content: xdiv,
+            button: 'Close'
+        }).then(flag => {
+            xdiv.remove()
+            let overlayContainer = Array.from(document.getElementsByClassName('swal-overlay'))
+            overlayContainer.map(x => x.remove())
+            config.isAdmin() && handleRefresh()
+        })
+    },
+    get: (id) => document.getElementById(id),
+    isAdmin: () => defaultEntryType === appEnum.admin,
+    modifyCardBorderColor: function () {
+        Array.from($('.card')).map((x, i) => x.style.borderTop = '5px solid ' + (x.getAttribute('xtype') === '+' ? getRandomBorderColor() : 'red'))
+    },
+    prepareJSONForParam: (obj) => JSON.stringify(obj).split('"').join("&quot;"),
+    alert: function (res) {
+        toast.options.onHidden = handleRefresh
+        toast.options.onclick = handleRefresh
+        toast.options.onCloseClick = handleRefresh
+
+        let isaved = res.status === 'success' ? true : false
+        if (isaved) {
+            toast.success(res.msg || 'Processed')
+        } else {
+            toast.error(res.msg || 'Processed')
+        }
+    },
+    getSummaryCard: function (balance = 0, total = 0, expenses = 0, membersCount = 0) {
+        // <div>Adhoc in hand (miscellaneous balance): <span className=" size14">${rsSymbol}${balance}</span></div>
+        return `
+            <div id="summaryFundCard" xtype="+" class="right column card size14 bl bggray">
+                <div class="right">
+                    <div>Total Members: <span class="size30 txtgreen">${membersCount}</span></div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <span class="txtgreen size14">CR: ${rsSymbol}${total}</span>
+                        <span class="red size14">DR: ${rsSymbol}${Math.abs(expenses)}</span>
+                    </div>
+                    <div class="column">
+                        <span class="size14">CR-DR: ${rsSymbol}${total + expenses}</span>
+                        <span class="txtpurple size16">Total: ${rsSymbol}${total + expenses + balance}</span>
+                    </div>
+                </div>
+                <div class='bottom'>
+                    <button class='btn' onClick="searchExpenses()">Expenses Summary</button>
+                </div>
+            </div>        
+        `
+    },
+    displayRows: function (res) {
+        let _that = config
+        let result = []
+        let total = 0
+        result = res.map((x, i) => {
+            total += parseFloat(x.amount)
+            let obj = _that.prepareJSONForParam({cur: '', memberId: ''})
+            return `
+            <div class='col line size12'>
+                <div class='row'>
+                    <span>${partDateTime(x.when)}</span>
+                    ${_that.isAdmin() ? `<a class="red" onclick="handleExpensesDelete(${x.id},${obj},'expense')">delete</a>` : ''}
+                 </div>
+             <div class='row'>
+                <span class="min-content">${x.remarks}</span>
+                <span class="bl right">${rsSymbol}${Math.abs(x.amount)}</span>
+             </div>
+            </div>
+            <hr/>
+            `
+        })
+        report1.innerHTML = `
+        <div class="">
+            <div class='green size30'>
+                <span>Expenses made so far</span>
+                <button class="btn" onclick="handleRefresh()">Home</button>
+            </div>
+            <div>
+                <input type='text' value="${_that.searchExpense || ''}" placeholder="search expenses" class="wid100" onkeydown="handleExpensesSearch(event, this)" />
+            </div>
+            <div class='row line bl green'>
+                <span class="min-content">Total Expenditure</span>
+                <span class="right">${rsSymbol}${Math.abs(total)}</span>
+            </div>
+            <div id="divLines" class=" height650">${result.join('')}</div>
+        </div>
+        `
+    },
+    group: function (res) {
+        let _that = config
+        if (res.status !== undefined)
+            if (res.status.indexOf('failed') !== -1) {
+                report1.innerHTML = `<div>No Data Found. ${res.status}</div>`
+                return
+            }
+
+        let result = []
+        let total = 0, expenses = 0, membersCount = 0
+        result = res.map((x, i) => {
+            if (x.id.toLowerCase() === 'expenses') {
+                expenses = parseFloat(x.amount || 0)
+                return null
+            } else if (x.id.toLowerCase() === 'credits') {
+                total = parseFloat(x.amount || 0)
+                return null
+            } else if (x.id.toLowerCase() === 'members') {
+                membersCount = parseFloat(x.amount || 0)
+                return null
+            }
+
+            let memObj = _that.prepareJSONForParam(
+                {
+                    name: x.name,
+                    id: x.memkey,
+                    address: x.address,
+                    sort: x.address_number_sort,
+                    amount: x.amount,
+                    type: x.type
+                }
+            )
+            const randomColor = "#"+((1<<24)*Math.random()|0).toString(16);
+            let nameSplitArr = x.name.split(' ')
+            let profileIcon
+            try {
+                profileIcon = nameSplitArr.map(x => x[0].toUpperCase()).join('')
+            } catch (e) {
+                profileIcon = x.name[0]
+            }
+            // document.documentElement.style.setProperty('--main-bg-color', randomColor);
+            return `
+                <div id="card${i}" class="card" xtype="+" onclick="memberCardClick(${memObj},${x.id})">
+                    <div class="size25 bl row" title="${x.name}">
+                        <div class='ellipsis'>
+                            ${profileIcon !== '' ? `<span class='profileIcon' style="background-color: ${randomColor}">${profileIcon}</span>` : ''} 
+                            <span>${x.name}</span>
+                        </div>
+                        <span class="size20 bl right">${rsSymbol}${Math.abs(x.amount)}</span>
+                    </div>
+                    <div class="size20 bl row"><span class="txtpurple">${x.memkey}</span> <span class="right time">${x.when}</span></div>
+                    <div class="size14 row">
+                        <span>${x.address}</span>
+                    </div>
+                    <div><span class="size12 bl">${x.type} (sort by:${x.address_number_sort})</span></div>
+                    <div class='row bl'>
+                        ${_that.isAdmin() ? `<a onclick="handleEditMember(event, ${memObj})">Edit</a>` : ''}
+                        <span>${getIconByMemberType(x.type)}</span>
+                        ${_that.isAdmin() ? `<button class='btn transition  red' onclick="handleDeleteMember(event, ${x.id})">Delete</button>` : ''}
+                    </div>
+                </div>
+            `
+        })
+        result.splice(0, 0, _that.getSummaryCard(0, total, expenses, membersCount))
+        let curSelBtn = 'current'
+        report1.innerHTML = `
+            <div class='green size35'>Summary By
+            <button class="btn ${curRefreshType === appEnum.byname ? curSelBtn : ''}" onClick="handleLeaderBoard('${appEnum.byname}')">Name</button>
+            <button class="btn ${curRefreshType === appEnum.byamount ? curSelBtn : ''}" onClick="handleLeaderBoard('${appEnum.byamount}')">Amount</button>
+            <button class="btn ${curRefreshType === appEnum.byaddress ? curSelBtn : ''}" onClick="handleLeaderBoard('${appEnum.byaddress}')">Address</button>
+            </div>
+            <div id="divLines" class="flexboxCards">${result.join('')}</div>
+        `
+        _that.modifyCardBorderColor()
+    },
+    setByKeyToLocal: function (key, value) {
+        localStorage.setItem(key, value)
+    },
+    getByKeyFromLocal: function (key) {
+        return localStorage.getItem(key)
+    },
+    removeByKeyFromLocal: function (key) {
+        return localStorage.removeItem(key)
+    }
+}
+
+
+
+
 function postData(url, data = {}, success, err) {
     $.ajax({
         type: "POST",
@@ -271,180 +453,6 @@ function getIconByMemberType(type) {
     return ret
 }
 
-const config = {
-    prepareSwal: (xdiv) => {
-        swal({
-            content: xdiv,
-            button: 'Close'
-        }).then(flag => {
-            xdiv.remove()
-            let overlayContainer = Array.from(document.getElementsByClassName('swal-overlay'))
-            overlayContainer.map(x => x.remove())
-            config.isAdmin() && handleRefresh()
-        })
-    },
-    get: (id) => document.getElementById(id),
-    isAdmin: () => defaultEntryType === appEnum.admin,
-    modifyCardBorderColor: function () {
-        Array.from($('.card')).map((x, i) => x.style.borderTop = '5px solid ' + (x.getAttribute('xtype') === '+' ? getRandomBorderColor() : 'red'))
-    },
-    prepareJSONForParam: (obj) => JSON.stringify(obj).split('"').join("&quot;"),
-    alert: function (res) {
-        toast.options.onHidden = handleRefresh
-        toast.options.onclick = handleRefresh
-        toast.options.onCloseClick = handleRefresh
-
-        let isaved = res.status === 'success' ? true : false
-        if (isaved) {
-            toast.success(res.msg || 'Processed')
-        } else {
-            toast.error(res.msg || 'Processed')
-        }
-    },
-    getSummaryCard: function (balance = 0, total = 0, expenses = 0, membersCount = 0) {
-        // <div>Adhoc in hand (miscellaneous balance): <span className=" size14">${rsSymbol}${balance}</span></div>
-        return `
-            <div id="summaryFundCard" xtype="+" class="right column card size14 bl bggray">
-                <div class="right">
-                    <div>Total Members: <span class="size30 txtgreen">${membersCount}</span></div>
-                </div>
-                <div class="row">
-                    <div class="column">
-                        <span class="txtgreen size14">CR: ${rsSymbol}${total}</span>
-                        <span class="red size14">DR: ${rsSymbol}${Math.abs(expenses)}</span>
-                    </div>
-                    <div class="column">
-                        <span class="size14">CR-DR: ${rsSymbol}${total + expenses}</span>
-                        <span class="txtpurple size16">Total: ${rsSymbol}${total + expenses + balance}</span>
-                    </div>
-                </div>
-                <div class='bottom'>
-                    <button class='btn' onClick="searchExpenses()">Expenses Summary</button>
-                </div>
-            </div>        
-        `
-    },
-    displayRows: function (res) {
-        let _that = config
-        let result = []
-        let total = 0
-        result = res.map((x, i) => {
-            total += parseFloat(x.amount)
-            let obj = _that.prepareJSONForParam({cur: '', memberId: ''})
-            return `
-            <div class='col line size12'>
-                <div class='row'>
-                    <span>${partDateTime(x.when)}</span>
-                    ${_that.isAdmin() ? `<a class="red" onclick="handleExpensesDelete(${x.id},${obj},'expense')">delete</a>` : ''}
-                 </div>
-             <div class='row'>
-                <span class="min-content">${x.remarks}</span>
-                <span class="bl right">${rsSymbol}${Math.abs(x.amount)}</span>
-             </div>
-            </div>
-            <hr/>
-            `
-        })
-        report1.innerHTML = `
-        <div class="">
-            <div class='green size30'>
-                <span>Expenses made so far</span>
-                <button class="btn" onclick="handleRefresh()">Home</button>
-            </div>
-            <div>
-                <input type='text' value="${_that.searchExpense || ''}" placeholder="search expenses" class="wid100" onkeydown="handleExpensesSearch(event, this)" />
-            </div>
-            <div class='row line bl green'>
-                <span class="min-content">Total Expenditure</span>
-                <span class="right">${rsSymbol}${Math.abs(total)}</span>
-            </div>
-            <div id="divLines" class=" height650">${result.join('')}</div>
-        </div>
-        `
-    },
-    group: function (res) {
-        let _that = config
-        if (res.status !== undefined)
-            if (res.status.indexOf('failed') !== -1) {
-                report1.innerHTML = `<div>No Data Found. ${res.status}</div>`
-                return
-            }
-
-        let result = []
-        let total = 0, expenses = 0, membersCount = 0
-        result = res.map((x, i) => {
-            if (x.id.toLowerCase() === 'expenses') {
-                expenses = parseFloat(x.amount || 0)
-                return null
-            } else if (x.id.toLowerCase() === 'credits') {
-                total = parseFloat(x.amount || 0)
-                return null
-            } else if (x.id.toLowerCase() === 'members') {
-                membersCount = parseFloat(x.amount || 0)
-                return null
-            }
-
-            let memObj = _that.prepareJSONForParam(
-                {
-                    name: x.name,
-                    id: x.memkey,
-                    address: x.address,
-                    sort: x.address_number_sort,
-                    amount: x.amount,
-                    type: x.type
-                }
-            )
-            let nameSplitArr = x.name.split(' ')
-            let profileIcon
-            try {
-                profileIcon = nameSplitArr.map(x => x[0].toUpperCase()).join('')
-            } catch (e) {
-                profileIcon = x.name[0]
-            }
-            return `
-                <div id="card${i}" class="card" xtype="+" onclick="memberCardClick(${memObj},${x.id})">
-                    <div class="size25 bl row" title="${x.name}">
-                        <div class='ellipsis'>
-                            ${profileIcon !== '' ? `<span class='profileIcon'>${profileIcon}</span>` : ''} 
-                            <span>${x.name}</span>
-                        </div>
-                        <span class="size20 bl right">${rsSymbol}${Math.abs(x.amount)}</span>
-                    </div>
-                    <div class="size20 bl row"><span class="txtpurple">${x.memkey}</span> <span class="right time">${x.when}</span></div>
-                    <div class="size14 row">
-                        <span>${x.address}</span>
-                    </div>
-                    <div><span class="size12 bl">${x.type} (sort by:${x.address_number_sort})</span></div>
-                    <div class='row bl'>
-                        ${_that.isAdmin() ? `<a onclick="handleEditMember(event, ${memObj})">Edit</a>` : ''}
-                        <span>${getIconByMemberType(x.type)}</span>
-                        ${_that.isAdmin() ? `<button class='btn transition  red' onclick="handleDeleteMember(event, ${x.id})">Delete</button>` : ''}
-                    </div>
-                </div>
-            `
-        })
-        result.splice(0, 0, _that.getSummaryCard(0, total, expenses, membersCount))
-        let curSelBtn = 'current'
-        report1.innerHTML = `
-            <div class='green size35'>Summary By
-            <button class="btn ${curRefreshType === appEnum.byname ? curSelBtn : ''}" onClick="handleLeaderBoard('${appEnum.byname}')">Name</button>
-            <button class="btn ${curRefreshType === appEnum.byamount ? curSelBtn : ''}" onClick="handleLeaderBoard('${appEnum.byamount}')">Amount</button>
-            <button class="btn ${curRefreshType === appEnum.byaddress ? curSelBtn : ''}" onClick="handleLeaderBoard('${appEnum.byaddress}')">Address</button>
-            </div>
-            <div id="divLines" class="flexboxCards">${result.join('')}</div>
-        `
-        _that.modifyCardBorderColor()
-    },
-    setByKeyToLocal: function (key, value) {
-        localStorage.setItem(key, value)
-    },
-    getByKeyFromLocal: function (key) {
-        return localStorage.getItem(key)
-    },
-    removeByKeyFromLocal: function (key) {
-        return localStorage.removeItem(key)
-    }
-}
 
 function error(err) {
     swal({
