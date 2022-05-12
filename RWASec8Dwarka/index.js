@@ -89,9 +89,10 @@ const config = {
                     </div>
                     <div class="column">
                         <span class="size14">CR-DR: ${rsSymbol}${total + expenses}</span>
-                        <span class="txtpurple size16">Total: ${rsSymbol}${total + expenses + balance}</span>
+                        <span class="txtpurple size16">Total: ${rsSymbol}${currencyFormat(total + expenses + balance)}</span>
                     </div>
                 </div>
+                <div class="size10">${inWords(total + expenses + balance)}</div>
                 <div class='bottom'>
                     <button class='btn' onClick="searchExpenses()">Expenses Summary</button>
                 </div>
@@ -203,9 +204,9 @@ const config = {
         let curSelBtn = 'current'
         report1.innerHTML = `
             <div class='green size35'>Summary By
-            <button class="btn ${curRefreshType === appEnum.byname ? curSelBtn : ''}" onClick="handleLeaderBoard('${appEnum.byname}')">Name</button>
-            <button class="btn ${curRefreshType === appEnum.byamount ? curSelBtn : ''}" onClick="handleLeaderBoard('${appEnum.byamount}')">Amount</button>
-            <button class="btn ${curRefreshType === appEnum.byaddress ? curSelBtn : ''}" onClick="handleLeaderBoard('${appEnum.byaddress}')">Address</button>
+            <a class="${curRefreshType === appEnum.byname ? curSelBtn : ''}" onClick="handleLeaderBoard('${appEnum.byname}')">Name</a>
+            <a class="${curRefreshType === appEnum.byamount ? curSelBtn : ''}" onClick="handleLeaderBoard('${appEnum.byamount}')">Amount</a>
+            <a class="${curRefreshType === appEnum.byaddress ? curSelBtn : ''}" onClick="handleLeaderBoard('${appEnum.byaddress}')">Address</a>
             </div>
             <div id="divLines" class="flexboxCards">${result.join('')}</div>
         `

@@ -43,7 +43,8 @@ html {
 }
 
 a {
-    color: #3737c9;
+    font-size: 20px;
+    color: #a537c9;
     text-decoration: underline;
     padding: 2px;
     cursor: pointer;
@@ -134,8 +135,9 @@ input {
 }
 
 .btn {
-    background: linear-gradient(279.56deg, rgb(167, 207, 243) -52.57%, rgb(225, 173, 248) 126.35%) !important;
-    color: #222;
+    /*background: linear-gradient(279.56deg, rgb(167, 207, 243) -52.57%, rgb(225, 173, 248) 126.35%) !important;*/
+    background-color: #2c99c4;
+    color: white;
     border: 1px solid transparent;
     font-weight: bold;
     text-align: center;
@@ -241,22 +243,16 @@ input {
     vertical-align: middle;
     width: 100px;
     height: 100px;
-    /*border-radius: 20px;*/
-    padding: 5px;
-    color: white;
+    padding: 10px;
     position: relative;
     margin: 0;
-    opacity: 0.6;
-    /*background-color: var(--main-bg-color);*/
-    /*background: radial-gradient(*/
-    /*        ellipse at top,*/
-    /*        rgb(81, 38, 191) 0%,*/
-    /*        rgb(203, 64, 185) 70%*/
-    /*);*/
+    opacity: 0.7;
+    color: #959a95;
 }
 
 .red {
-    color: #ce1876;
+    color: white;
+    background-color: #cb0d8e;
 }
 
 fieldset {
@@ -498,7 +494,10 @@ label{
 
 
 .green {
-    background-color: #5dd4b3 !important;
+    /*background-color: #5dd4b3 !important;*/
+    color: white;
+    background-color: #8ee5b6 !important;
+
 }
 
 .primary {
