@@ -85,7 +85,7 @@ const config = {
                 <div class="row">
                     <div class="column">
                         <span class="txtgreen size14">CR: ${rsSymbol}${total}</span>
-                        <span class="red size14">DR: ${rsSymbol}${Math.abs(expenses)}</span>
+                        <span class="txtred size14">DR: ${rsSymbol}${Math.abs(expenses)}</span>
                     </div>
                     <div class="column">
                         <span class="size14">CR-DR: ${rsSymbol}${total + expenses}</span>
@@ -107,17 +107,12 @@ const config = {
             total += parseFloat(x.amount)
             let obj = _that.prepareJSONForParam({cur: '', memberId: ''})
             return `
-            <div class='col line size12'>
-                <div class='row'>
-                    <span>${partDateTime(x.when)}</span>
-                    ${_that.isAdmin() ? `<a class="red" onclick="handleExpensesDelete(${x.id},${obj},'expense')">delete</a>` : ''}
-                 </div>
-             <div class='row'>
-                <span class="min-content">${x.remarks}</span>
+            <div class='rowgridExpense size12 hover'>
+                <span>${partDateTime(x.when)}</span>
+                <span class="min-content ellipsis">${x.remarks}</span>
                 <span class="bl right">${rsSymbol}${Math.abs(x.amount)}</span>
-             </div>
+                ${_that.isAdmin() ? `<span class="click bl pad5 red" onclick="handleExpensesDelete(${x.id},${obj},'expense')">delete</a>` : ''}
             </div>
-            <hr/>
             `
         })
         report1.innerHTML = `
@@ -129,11 +124,11 @@ const config = {
             <div>
                 <input type='text' value="${_that.searchExpense || ''}" placeholder="search expenses" class="wid100" onkeydown="handleExpensesSearch(event, this)" />
             </div>
-            <div class='row line bl green'>
+            <div class='row bl green'>
                 <span class="min-content">Total Expenditure</span>
                 <span class="right">${rsSymbol}${Math.abs(total)}</span>
             </div>
-            <div id="divLines" class=" height650">${result.join('')}</div>
+            <div id="" class=" height650">${result.join('')}</div>
         </div>
         `
     },
@@ -170,20 +165,19 @@ const config = {
                 }
             )
             const randomColor = "#"+((1<<24)*Math.random()|0).toString(16);
-            let nameSplitArr = x.name.split(' ')
-            let profileIcon
-            try {
-                profileIcon = nameSplitArr.map(x => x[0].toUpperCase()).join('')
-            } catch (e) {
-                profileIcon = x.name[0]
-            }
+            // let nameSplitArr = x.name.split(' ')
+            // let profileIcon
+            // try {
+            //     profileIcon = nameSplitArr.map(x => x[0].toUpperCase()).join('')
+            // } catch (e) {
+            //     profileIcon = x.name[0]
+            // }
             // document.documentElement.style.setProperty('--main-bg-color', randomColor);
             return `
                 <div id="card${i}" class="card" xtype="+" onclick="memberCardClick(${memObj},${x.id})">
                     <div class="size25 bl row" title="${x.name}">
-                        <div class='ellipsis'>
-                            ${profileIcon !== '' ? `<span class='profileIcon' style="background-color: ${randomColor}">${profileIcon}</span>` : ''} 
-                            <span>${x.name}</span>
+                        <div class='ellipsis'> 
+                            <span style="color: ${randomColor}">${x.name}</span>
                         </div>
                         <span class="size20 bl right">${rsSymbol}${Math.abs(x.amount)}</span>
                     </div>
@@ -195,7 +189,7 @@ const config = {
                     <div class='row bl'>
                         ${_that.isAdmin() ? `<a onclick="handleEditMember(event, ${memObj})">Edit</a>` : ''}
                         <span>${getIconByMemberType(x.type)}</span>
-                        ${_that.isAdmin() ? `<button class='btn transition  red' onclick="handleDeleteMember(event, ${x.id})">Delete</button>` : ''}
+                        ${_that.isAdmin() ? `<button class='btn red' onclick="handleDeleteMember(event, ${x.id})">Delete</button>` : ''}
                     </div>
                 </div>
             `
@@ -210,7 +204,7 @@ const config = {
             </div>
             <div id="divLines" class="flexboxCards">${result.join('')}</div>
         `
-        _that.modifyCardBorderColor()
+        // _that.modifyCardBorderColor()
     },
     setByKeyToLocal: function (key, value) {
         localStorage.setItem(key, value)
@@ -309,12 +303,12 @@ function memberCardClick(cur, id) {
     getData(`${phpServing}?expensesByMember=1&id=${id}`, (res) => {
         let rows = res.map((x, i) => {
             return `
-                <div class="col size12">
-                    <div class='wid100 bl'>${x.date} - ${partDateTime(x.when)}</div>
-                    <div class='row margin10L'>
+                <div class="col size12 line">
+                    <div class='wid100 bl'>When: ${partDateTime(x.when)} contribution paid for <span class="txtpurple">${x.date}</span></div>
+                    <div class='row'>
                         <span class='wid80'>${x.remarks}</span>
                         <span>${rsSymbol}${x.amount}</span>
-                        ${config.isAdmin() ? `<a class="red" onclick="handleExpensesDelete(${x.id},${config.prepareJSONForParam({
+                        ${config.isAdmin() ? `<a class="btn red" onclick="handleExpensesDelete(${x.id},${config.prepareJSONForParam({
                 cur,
                 memberId: id
             })},'memberCard');">delete</a>` : ''}
@@ -342,7 +336,7 @@ function memberCardClick(cur, id) {
             </div>
         `
         xdiv.innerHTML = baseHeader + contributionForm.toString() + txnData.toString()
-        xdiv.className = 'carddiv'
+        xdiv.className = 'carddiv membercard'
         // Array.from(xdiv.children).map(a => a.classList.remove('amt'))
         config.prepareSwal(xdiv)
     }, error)

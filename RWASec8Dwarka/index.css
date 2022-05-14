@@ -107,7 +107,8 @@ h1, h2, h3 {
 }
 
 input, select {
-    font-size: 20px;
+    font-size: 16px;
+    border-radius: 10px;
 }
 
 .input-inline {
@@ -252,7 +253,16 @@ input {
 
 .red {
     color: white;
-    background-color: #cb0d8e;
+    background-color: #f67e7e;
+}
+
+div.hover {
+    padding: 4px;
+}
+
+.red:hover, .btn:hover, div.hover:hover {
+    background-color: #c4c0c0;
+    color: white;
 }
 
 fieldset {
@@ -325,8 +335,16 @@ fieldset > input {
     /*margin-top: 5px;*/
 }
 
+.pad5 {
+    padding: 5px;
+}
+
 .pad20 {
     padding: 10px;
+}
+
+.margin20 {
+    margin: 10px;
 }
 
 .pad10 {
@@ -346,16 +364,20 @@ fieldset > input {
     margin-bottom: 5px;
 }
 
+.click {
+    cursor: pointer;
+}
+
 .rwacard {
-    background: linear-gradient(279.56deg, rgb(238, 194, 63) -52.57%, rgb(185, 133, 234) 126.35%);
+    background: linear-gradient(279.56deg, rgb(156, 225, 246) -52.57%, rgb(222, 189, 253) 126.35%);
 }
 
-.rwacard * {
-    color: white !important;
+.membercard {
+    background: linear-gradient(200deg, rgb(206, 206, 253) -60%, rgb(230, 248, 242) 126.35%);
 }
 
-.inputNumber {
-
+.line {
+    border-top: 1px solid #222;
 }
 
 .wid200px {
@@ -424,13 +446,14 @@ fieldset > input {
 }
 
 .card {
-    border-top: 5px solid #85179b;
+    /*border-top: 5px solid #85179b;*/
+    border: 1px solid #222;
+    border-radius: 10px;
     background-color: white;
     padding: 15px;
     margin: 10px;
     cursor: pointer;
-    opacity: 1;
-    z-index: 1;
+    opacity: 0.9;
 }
 
 .card * {
@@ -439,11 +462,11 @@ fieldset > input {
 
 .row {
     display: flex;
-    align-content: flex-start;
-    align-items: flex-start;
+    /*align-content: center;*/
+    /*align-items: center;*/
     flex-direction: row;
-    /*flex-wrap: wrap;*/
     justify-content: space-between;
+    vertical-align: middle;
 }
 
 .rowgrid {
@@ -451,7 +474,13 @@ fieldset > input {
     grid-auto-columns: auto;
     grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
 }
-
+.rowgridExpense{
+    display: grid;
+    grid-auto-columns: auto;
+    grid-auto-flow: column;
+    justify-content: space-between;
+    grid-template-columns: 1fr 5fr 1fr auto;
+}
 
 .line {
     flex: 2 1 auto;
@@ -468,7 +497,7 @@ fieldset > input {
     text-overflow: ellipsis;
 }
 
-label{
+label {
     font-weight: bolder;
 }
 
@@ -479,6 +508,8 @@ label{
 
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    background-color: #efe9f8;
+    opacity: 0.6;
 }
 
 .amt {
@@ -494,8 +525,6 @@ label{
 
 
 .green {
-    /*background-color: #5dd4b3 !important;*/
-    color: white;
     background-color: #8ee5b6 !important;
 
 }
@@ -510,7 +539,11 @@ label{
 }
 
 .txtgreen {
-    color: #258930;
+    color: #35d046;
+}
+
+.txtred {
+    color: #de4141;
 }
 
 .textwhite {
@@ -586,6 +619,7 @@ label{
 }
 
 .carddiv {
+    padding: 10px;
     text-align: left;
     min-height: 200px;
     overflow: auto;
@@ -744,4 +778,10 @@ input.amount:out-of-range {
 
 .toast-message {
     color: white !important;
+}
+
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: rgba(178, 173, 241, 0.46);
+    opacity: 1;
 }
