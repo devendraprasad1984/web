@@ -109,7 +109,7 @@ const config = {
             return `
             <div class='rowgridExpense size12 hover'>
                 <span>${partDateTime(x.when)}</span>
-                <span class="min-content ellipsis">${x.remarks}</span>
+                <span class="min-content">${x.remarks}</span>
                 <span class="bl right">${rsSymbol}${Math.abs(x.amount)}</span>
                 ${_that.isAdmin() ? `<span class="click bl pad5 red" onclick="handleExpensesDelete(${x.id},${obj},'expense')">delete</a>` : ''}
             </div>
