@@ -8,6 +8,7 @@ let rsSymbol = '₹'
 let container = document.getElementById('container')
 let adminSection = document.getElementById('adminSection')
 let report1 = document.getElementById('report1')
+let membertype = document.getElementById('membertype')
 let footer = document.getElementById('footer')
 let logoutBtn = document.getElementById('logoutBtn')
 let loginModal = document.getElementById('loginModal')
@@ -28,7 +29,9 @@ let appEnum = {
     byname: 'byname',
     byamount: 'byamount',
     byaddress: 'byaddress',
+    byexpense: 'byexpense',
 }
+let generalDbConfig = undefined
 let defaultEntryType = appEnum.member //member or admin
 let curRefreshType = appEnum.byname
 let scrollToTopBtn = document.getElementById('scrollToTopBtn')
@@ -44,6 +47,14 @@ toast.options.progressBar = true
 hamburger = '&#8801;'
 
 // document.location.reload(false)
+
+
+function handleHome() {
+    report1.classList.remove('row')
+    report1.classList.remove('flex')
+    handleLeaderBoard(appEnum.byname)
+    handleRefresh()
+}
 
 
 const config = {
@@ -104,7 +115,7 @@ const config = {
                 </div>
                 <div class="size10">${inWords(total + expenses)}</div>
                 <div class='bottom'>
-                    <button class='btn' onClick="searchExpenses()">Expenses Summary</button>
+                    <button class='btn' onClick="handleLeaderBoard('${appEnum.byexpense}'); searchExpenses()">Expenses Summary</button>
                 </div>
             </div>        
         `
@@ -124,17 +135,18 @@ const config = {
             </div>
             `
         })
-        return `<div class="">
+
+        return `<div class='wid30'>
             <div class='green size30'>
                 <span>By Month Summary</span>
-                <button class="btn" onclick="handleRefresh()">Home</button>
+                <button class="btn" onClick="handleHome()">Home</button>
             </div>
-            <div class='row bl red textwhite'>
+            <div class='row bl green txtpurple'>
                 <span class="min-content">Balance</span>
                 <span class="right">${rsSymbol}${Math.abs(total)}</span>
             </div>
             <div class="right size12 bl">${inWords(Math.abs(total))}</div>
-            <div>${result.join('')}</div>
+            <div class="monthlySummaryContainer">${result.join('')}</div>
         </div>`
     },
     displayRows: function (res) {
@@ -153,19 +165,17 @@ const config = {
             </div>
             `
         })
-        return `<div class="">
-            <div class='green size30'>
+        return `<div class='wid70'>
+            <div class='red size30'>
                 <span>Expenses made so far</span>
             </div>
-            <div>
-                <input type='text' value="${_that.searchExpense || ''}" placeholder="search expenses" class="wid100" onkeydown="handleExpensesSearch(event, this)" />
-            </div>
-            <div class='row bl green'>
+            <div class='row bl red'>
                 <span class="min-content">Total Expenditure</span>
                 <span class="right">${rsSymbol}${Math.abs(total)}</span>
             </div>
+            <input type='text' value="${_that.searchExpense || ''}" placeholder="search expenses" class="wid100" onkeydown="handleExpensesSearch(event, this)" />
             <div class="right size12 bl">${inWords(Math.abs(total))}</div>
-            <div>${result.join('')}</div>
+            <div class="summaryContainer">${result.join('')}</div>
         </div>
         `
     },
@@ -342,7 +352,7 @@ function memberCardClick(cur, id) {
         let baseHeader = `
             <div class='row center'>
                 <div class="size30">
-                    <span>${getIconByMemberType('member')}</span>
+                    <span>${getIconByMemberType(cur.type || 'member')}</span>
                     <span>Member View</span> 
                 </div>
             </div>
@@ -396,12 +406,13 @@ function handleEditMember(e, obj) {
     e.stopPropagation()
     e.preventDefault()
     handleFormsToggle({show: 'membersform', hide: 'expenseform'})
-    let {id, name, address, sort} = obj
+    let {id, name, address, sort, type} = obj
     let memidInput = config.get('memberid')
     config.get('name').value = name
     memidInput.value = id
     config.get('address').value = address
     config.get('addresssort').value = sort
+    config.get('membertype').value = type
     memidInput.disabled = true
     scrollToTop()
 }
@@ -429,6 +440,9 @@ function searchExpenses(text = undefined) {
         }, error)
     })
     Promise.all([expenseMonthSummaryPromise, expenseSummaryPromise]).then(values => {
+        report1.style.height = '100%'
+        report1.classList.add('row')
+        report1.classList.add('flex')
         report1.innerHTML = values.join('')
     })
 }
@@ -543,6 +557,7 @@ function handleSubmitMember(id) {
     data['memberid'] = document.getElementById('memberid').value
     data['name'] = document.getElementById('name').value
     data['address'] = document.getElementById('address').value
+    data['type'] = membertype.value
     data['address_number_sort'] = document.getElementById('addresssort').value
     postData(phpServing, data, res => {
         resetMemberForm()
@@ -561,8 +576,13 @@ function pullMembersList() {
 }
 
 function refreshDataByType(type) {
-    let search = document.getElementById('idSearchBox').value
-    getData(`${phpServing}?expensesGroup=1&name=${search}&${type}=1`, config.group, error)
+    let isRefreshExpense = type === appEnum.byexpense
+    if (!isRefreshExpense) {
+        let search = document.getElementById('idSearchBox').value
+        getData(`${phpServing}?expensesGroup=1&name=${search}&${type}=1`, config.group, error)
+    } else {
+        searchExpenses()
+    }
 }
 
 function handleRefresh() {
@@ -638,7 +658,7 @@ function handleGetContacts() {
             `
         }).join('')
         let baseHeader = `
-             <h2>Key RWA Members - Governing Body</h2>
+             <div class='size25'>Key RWA Members - Governing Body (${res.length} members)</div>
         `
         xdiv.innerHTML = `
             <div class='left height450 rwacard'>${baseHeader + elem}</div>
@@ -711,16 +731,10 @@ function searchByKeyword(e) {
 //initialise
 function onInit() {
     loginModal.style.display = appEnum.none
-    config.isAdmin()
-    // let isAdmin = config.getByKeyFromLocal(appEnum.isAdmin)
-    // if (isAdmin === 'true') {
-    //     defaultEntryType = appEnum.admin
-    // } else {
-    //     defaultEntryType = appEnum.member
-    // }
+    let isAdmin = config.isAdmin()
     handleRefresh()
     container.style.display = appEnum.block
-    if (config.isAdmin())
+    if (isAdmin)
         adminSection.style.display = appEnum.block
 }
 
@@ -849,13 +863,21 @@ document.addEventListener("scroll", handleScroll)
 //     sessionStorage.setItem('scrollpos', top);
 // })
 
+function prepareMemberTypesList() {
+    if (generalDbConfig) {
+        let memList = generalDbConfig.filter(x => x.key === 'member_type').map(x => `<option value="${x.value}">${x.value}</option>`)
+        membertype.innerHTML = memList.join('')
+    }
+}
+
 document.addEventListener("DOMContentLoaded", (e) => {
         scrollToTopBtn.addEventListener("click", scrollToTop)
         // footer.classList.add('bottomFixed')
         // footer.classList.remove('bottomFixed')
         // scrollTo(e)
         getData(`${phpServing}?config=1`, res => {
-            // console.log('config', res)
+            generalDbConfig = res
+            prepareMemberTypesList()
             curRefreshType = config.getByKeyFromLocal('cursel') || 'byname'
             doPrelimCheck(val => {
                 val && onInit()

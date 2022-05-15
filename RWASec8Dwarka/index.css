@@ -382,7 +382,7 @@ fieldset > input {
 /*}*/
 
 .flexboxCards {
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     display: grid;
 }
 
@@ -548,7 +548,7 @@ label {
 }
 
 .txtpurple {
-    color: #5229a6;
+    color: #5229a6 !important;
 }
 
 .blue {
@@ -635,8 +635,8 @@ label {
 }
 
 .bottomFixed{
-    bottom: 0;
-    position: fixed;
+    /*bottom: 0;*/
+    /*position: fixed;*/
 }
 
 #footer, footer, .footer {
@@ -784,4 +784,18 @@ input.amount:out-of-range {
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: rgba(178, 173, 241, 0.46);
     opacity: 1;
+}
+
+
+.monthlySummaryContainer{
+    min-height: 150px;
+    max-height: 250px;
+    overflow: auto;
+    position: relative;
+}
+.summaryContainer{
+    min-height: 350px;
+    max-height: 550px;
+    overflow: auto;
+    position: relative;
 }

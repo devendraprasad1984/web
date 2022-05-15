@@ -58,3 +58,13 @@ values ('admin', 'admin', 'admin', 'admin');
 
 alter table rwa_members add column address_number_sort float;
 alter table rwa_members modify column type varchar(100);
+
+
+INSERT INTO rwa_config (`key`, value) VALUES ('member_type', 'member');
+INSERT INTO rwa_config (`key`, value) VALUES ('member_type', 'coordinator');
+INSERT INTO rwa_config (`key`, value) VALUES ('member_type', 'president');
+INSERT INTO rwa_config (`key`, value) VALUES ('member_type', 'exec committee');
+INSERT INTO rwa_config (`key`, value) VALUES ('member_type', 'gen secretary');
+INSERT INTO rwa_config (`key`, value) VALUES ('member_type', 'secretary');
+INSERT INTO rwa_config (`key`, value) VALUES ('member_type', 'treasurer');
+INSERT INTO rwa_config (`key`, value) VALUES ('member_type', 'vice president');

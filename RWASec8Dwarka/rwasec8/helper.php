@@ -70,17 +70,18 @@ function handleSaveMember($data)
     $memid = $conn->real_escape_string($data['memberid']);
     $name = $conn->real_escape_string($data['name']);
     $address = $conn->real_escape_string($data['address']);
+    $type = $conn->real_escape_string($data['type']);
     $address_number_sort = $conn->real_escape_string($data['address_number_sort']);
     $pic = '';
 
     $result = returnDataset("select count(*) as count from rwa_members where memkey='$memid'");
     $count = json_decode($result)[0]->count;
     if ($count == 1) {
-        $sql = "update rwa_members set name='$name',address='$address',address_number_sort='$address_number_sort' where memkey='$memid' ";
+        $sql = "update rwa_members set name='$name',address='$address',type='$type',address_number_sort='$address_number_sort' where memkey='$memid' ";
         $result = $conn->query($sql);
         echo $recordExists;
     } else {
-        $sql = "INSERT INTO rwa_members(memkey,name,address,address_number_sort,pic,type) values('$memid','$name','$address','$address_number_sort','$pic','member')";
+        $sql = "INSERT INTO rwa_members(memkey,name,address,address_number_sort,pic,type) values('$memid','$name','$address','$address_number_sort','$pic','$type')";
         $result = $conn->query($sql);
         echo $success;
     }

@@ -84,7 +84,7 @@
                 <div class="size30 green pad20">Add New Member <span class="btn purple"
                                                                      onclick="handleFormsToggle({show:'expenseform', hide:'membersform'})">Expense Form</span>
                 </div>
-                <label for="">Name</label>
+                <label>Name</label>
                 <input id="name" placeholder="Enter NAME" required title="NAME" type="text"/>
                 <label>Mobile Phone Number(without spaces)</label>
                 <input id="memberid" pattern="^\d{3}-\d{3}-\d{4}$" placeholder="Enter MOBILE Number 999 999 9999"
@@ -95,6 +95,8 @@
                 <label>address number (sort)</label>
                 <input id="addresssort" placeholder="Number Address" title="address number only for sorting"
                        type="number"/>
+                <label>Member Type</label>
+                <select id="membertype"></select>
 
                 <div class="right">
                     <button class="btn" id="btnSaveMember" onclick="handleSubmitMember(this.id)">Save</button>
