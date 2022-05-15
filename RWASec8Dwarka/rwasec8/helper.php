@@ -109,6 +109,23 @@ function handleExpensesOnly($data)
     echo $rows;
 }
 
+function showExpensesByMonth($data)
+{
+    $qur = "
+        select 'Monthly Collection' as remarks,date,sum(amount) as amount
+            from rwa_expenses
+            where amount >0
+            group by date
+            Union All
+            select 'Monthly Expenses',concat(MONTHNAME(`when`),' ',year(`when`)) as date,sum(amount) as amount
+            from rwa_expenses
+            where amount < 0
+            group by concat(MONTHNAME(`when`),' ',year(`when`))
+    ";
+    $rows = returnDataset($qur);
+    echo $rows;
+}
+
 function handleExpensesByMember($data)
 {
     $qur = "select * from rwa_expenses where memid='${data['id']}' order by `when` desc";
@@ -179,13 +196,15 @@ function handleLogout($data)
     echo $success;
 }
 
-function handleKeyContacts($data){
+function handleKeyContacts($data)
+{
     $keyContacts = returnDataset('select memkey,name,type from rwa_members where type<>"admin" and type<>"member" order by name');
     echo $keyContacts;
 }
 
 
-function handleShowRemindersInfo($data){
+function handleShowRemindersInfo($data)
+{
     $paymentDefaulters = returnDataset('
         select a.id,
                a.name,

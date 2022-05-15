@@ -21,6 +21,7 @@ try{
     if(isset($_GET['loginCheck'])) loginCheck($_GET);
     if(isset($_GET['backupJSON'])) backupJSON($_GET);
     if(isset($_GET['expensesOnly'])) handleExpensesOnly($_GET);
+    if(isset($_GET['expensesByMonth'])) showExpensesByMonth($_GET);
     if(isset($_GET['expensesByMember'])) handleExpensesByMember($_GET);
     if(isset($_GET['expensesGroup'])) handleExpensesGroupByMemId($_GET);
     if(isset($_GET['config'])) handleGetConfig($_GET);
