@@ -384,10 +384,10 @@ fieldset > input {
     width: 200px;
 }
 
-.flex {
-    display: flex;
-    flex-wrap: wrap;
-}
+/*.flex {*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*}*/
 
 .flexboxCards {
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -538,12 +538,12 @@ label {
     background-color: #ffffc1;
 }
 
-.txtgreen {
-    color: #35d046;
+.txtgreen, .txtgreen * {
+    color: #35d046 !important;
 }
 
-.txtred {
-    color: #de4141;
+.txtred, .txtred * {
+    color: #de4141 !important;
 }
 
 .textwhite {

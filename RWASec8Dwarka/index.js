@@ -99,6 +99,34 @@ const config = {
             </div>        
         `
     },
+    displayMonthlyRows: function(res){
+        let _that = config
+        let result = []
+        let total = 0
+        result = res.map((x, i) => {
+            total += parseFloat(x.amount)
+            let rowColor = x.remarks.toLowerCase().indexOf('expenses') !==-1 ? 'txtred':'txtgreen'
+            return `
+            <div class='rowgridExpense bl hover ${rowColor}'>
+                <span>${x.date}</span>
+                <span class="min-content">${x.remarks}</span>
+                <span class="bl right">${rsSymbol}${Math.abs(x.amount)}</span>
+            </div>
+            `
+        })
+        // report1.innerHTML = `
+        return `<div class="">
+            <div class='green size30'>
+                <span>By Month Summary</span>
+                <button class="btn" onclick="handleRefresh()">Home</button>
+            </div>
+            <div class='margin20 row bl red'>
+                <span class="min-content">Total Expenditure</span>
+                <span class="right">${rsSymbol}${Math.abs(total)}</span>
+            </div>
+            <div>${result.join('')}</div>
+        </div>`
+    },
     displayRows: function (res) {
         let _that = config
         let result = []
@@ -115,11 +143,10 @@ const config = {
             </div>
             `
         })
-        report1.innerHTML = `
-        <div class="">
+        // report1.innerHTML = `
+        return `<div class="">
             <div class='green size30'>
                 <span>Expenses made so far</span>
-                <button class="btn" onclick="handleRefresh()">Home</button>
             </div>
             <div>
                 <input type='text' value="${_that.searchExpense || ''}" placeholder="search expenses" class="wid100" onkeydown="handleExpensesSearch(event, this)" />
@@ -128,7 +155,7 @@ const config = {
                 <span class="min-content">Total Expenditure</span>
                 <span class="right">${rsSymbol}${Math.abs(total)}</span>
             </div>
-            <div id="" class=" height650">${result.join('')}</div>
+            <div>${result.join('')}</div>
         </div>
         `
     },
@@ -304,10 +331,10 @@ function memberCardClick(cur, id) {
         let rows = res.map((x, i) => {
             return `
                 <div class="col size12 line">
-                    <div class='wid100 bl'>When: ${partDateTime(x.when)} contribution paid for <span class="txtpurple">${x.date}</span></div>
+                    <div class='wid100 bl'>received on ${partDateTime(x.when)} for <span class="txtpurple">${x.date}</span></div>
                     <div class='row'>
-                        <span class='wid80'>${x.remarks}</span>
-                        <span>${rsSymbol}${x.amount}</span>
+                        <span class='min-content'>${x.remarks}</span>
+                        <span class="bl">${rsSymbol}${x.amount}</span>
                         ${config.isAdmin() ? `<a class="btn red" onclick="handleExpensesDelete(${x.id},${config.prepareJSONForParam({
                 cur,
                 memberId: id
@@ -324,7 +351,10 @@ function memberCardClick(cur, id) {
         `;
         let baseHeader = `
             <div class='row center'>
-                <h2>Member View</h2>
+                <div class="size30">
+                    <span>${getIconByMemberType('member')}</span>
+                    <span>Member View</span> 
+                </div>
             </div>
             <div class='row'>
                 <h2>Hello, ${cur.name}</h2>
@@ -394,9 +424,22 @@ let partDateTime = (strDateTime) => {
 function searchExpenses(text = undefined) {
     let searchSuffix = `&search=${text}`
     if (text === undefined) searchSuffix = ""
-    getData(`${phpServing}?expensesOnly=1${searchSuffix}`, (res) => {
-        config.displayRows(res)
-    }, error)
+    let expenseMonthSummaryPromise = new Promise((resolve, reject)=>{
+        getData(`${phpServing}?expensesByMonth=1`, (res) => {
+            let summary = config.displayMonthlyRows(res)
+            resolve(summary)
+        }, error)
+    })
+    let expenseSummaryPromise = new Promise((resolve, reject)=>{
+        getData(`${phpServing}?expensesOnly=1${searchSuffix}`, (res) => {
+            let summary = config.displayRows(res)
+            resolve(summary)
+        }, error)
+    })
+    Promise.all([expenseMonthSummaryPromise, expenseSummaryPromise]).then(values=>{
+        report1.classList.add('height650')
+        report1.innerHTML = values.join('')
+    })
 }
 
 function handleExpensesSearch(e, _this) {
@@ -439,10 +482,10 @@ function getIconByMemberType(type) {
             ret = getImage('treasurer.jpg')
             break
         case appEnum.member:
-            ret = getImage('member.png')
+            ret = getImage('member.jpeg')
             break
         default:
-            ret = getImage('member.png')
+            ret = getImage('member.jpeg')
             break
     }
     return ret
