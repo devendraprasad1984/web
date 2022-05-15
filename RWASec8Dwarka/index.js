@@ -8,6 +8,7 @@ let rsSymbol = '₹'
 let container = document.getElementById('container')
 let adminSection = document.getElementById('adminSection')
 let report1 = document.getElementById('report1')
+let footer = document.getElementById('footer')
 let logoutBtn = document.getElementById('logoutBtn')
 let loginModal = document.getElementById('loginModal')
 let membersform = document.getElementById('membersform')
@@ -42,7 +43,6 @@ toast.options.closeDuration = 200
 toast.options.progressBar = true
 
 // document.location.reload(false)
-
 
 
 const config = {
@@ -89,41 +89,41 @@ const config = {
                     </div>
                     <div class="column">
                         <span class="size14">CR-DR: ${rsSymbol}${total + expenses}</span>
-                        <span class="txtpurple size16">Total: ${rsSymbol}${currencyFormat(total + expenses + balance)}</span>
+                        <span class="txtpurple size16">Total: ${rsSymbol}${total + expenses}</span>
                     </div>
                 </div>
-                <div class="size10">${inWords(total + expenses + balance)}</div>
+                <div class="size10">${inWords(total + expenses)}</div>
                 <div class='bottom'>
                     <button class='btn' onClick="searchExpenses()">Expenses Summary</button>
                 </div>
             </div>        
         `
     },
-    displayMonthlyRows: function(res){
+    displayMonthlyRows: function (res) {
         let _that = config
         let result = []
         let total = 0
         result = res.map((x, i) => {
             total += parseFloat(x.amount)
-            let rowColor = x.remarks.toLowerCase().indexOf('expenses') !==-1 ? 'txtred':'txtgreen'
+            let rowColor = x.remarks.toLowerCase().indexOf('expenses') !== -1 ? 'txtred' : ''
             return `
-            <div class='rowgridExpense bl hover ${rowColor}'>
+            <div class='rowgridExpense bl size12 hover ${rowColor}'>
                 <span>${x.date}</span>
                 <span class="min-content">${x.remarks}</span>
                 <span class="bl right">${rsSymbol}${Math.abs(x.amount)}</span>
             </div>
             `
         })
-        // report1.innerHTML = `
         return `<div class="">
             <div class='green size30'>
                 <span>By Month Summary</span>
                 <button class="btn" onclick="handleRefresh()">Home</button>
             </div>
-            <div class='margin20 row bl red'>
-                <span class="min-content">Total Expenditure</span>
+            <div class='row bl red textwhite'>
+                <span class="min-content">Balance</span>
                 <span class="right">${rsSymbol}${Math.abs(total)}</span>
             </div>
+            <div class="right size12 bl">${inWords(Math.abs(total))}</div>
             <div>${result.join('')}</div>
         </div>`
     },
@@ -143,7 +143,6 @@ const config = {
             </div>
             `
         })
-        // report1.innerHTML = `
         return `<div class="">
             <div class='green size30'>
                 <span>Expenses made so far</span>
@@ -155,6 +154,7 @@ const config = {
                 <span class="min-content">Total Expenditure</span>
                 <span class="right">${rsSymbol}${Math.abs(total)}</span>
             </div>
+            <div class="right size12 bl">${inWords(Math.abs(total))}</div>
             <div>${result.join('')}</div>
         </div>
         `
@@ -191,15 +191,7 @@ const config = {
                     type: x.type
                 }
             )
-            const randomColor = "#"+((1<<24)*Math.random()|0).toString(16);
-            // let nameSplitArr = x.name.split(' ')
-            // let profileIcon
-            // try {
-            //     profileIcon = nameSplitArr.map(x => x[0].toUpperCase()).join('')
-            // } catch (e) {
-            //     profileIcon = x.name[0]
-            // }
-            // document.documentElement.style.setProperty('--main-bg-color', randomColor);
+            const randomColor = "#" + ((1 << 24) * Math.random() | 0).toString(16);
             return `
                 <div id="card${i}" class="card" xtype="+" onclick="memberCardClick(${memObj},${x.id})">
                     <div class="size25 bl row" title="${x.name}">
@@ -243,8 +235,6 @@ const config = {
         return localStorage.removeItem(key)
     }
 }
-
-
 
 
 function postData(url, data = {}, success, err) {
@@ -424,20 +414,19 @@ let partDateTime = (strDateTime) => {
 function searchExpenses(text = undefined) {
     let searchSuffix = `&search=${text}`
     if (text === undefined) searchSuffix = ""
-    let expenseMonthSummaryPromise = new Promise((resolve, reject)=>{
+    let expenseMonthSummaryPromise = new Promise((resolve, reject) => {
         getData(`${phpServing}?expensesByMonth=1`, (res) => {
             let summary = config.displayMonthlyRows(res)
             resolve(summary)
         }, error)
     })
-    let expenseSummaryPromise = new Promise((resolve, reject)=>{
+    let expenseSummaryPromise = new Promise((resolve, reject) => {
         getData(`${phpServing}?expensesOnly=1${searchSuffix}`, (res) => {
             let summary = config.displayRows(res)
             resolve(summary)
         }, error)
     })
-    Promise.all([expenseMonthSummaryPromise, expenseSummaryPromise]).then(values=>{
-        report1.classList.add('height650')
+    Promise.all([expenseMonthSummaryPromise, expenseSummaryPromise]).then(values => {
         report1.innerHTML = values.join('')
     })
 }
@@ -512,8 +501,11 @@ function handleSubmit(formName, {id, cur}) {
     data['amount'] = parentForm.amount.value
     data['remarks'] = parentForm.remarks.value === "" ? "regular maintenance" : parentForm.remarks.value
     postData(phpServing, data, (res) => {
-        handleRefresh()
-        memberCardClick({...cur, amount: parseInt(cur.amount) + parseInt(data['amount'])}, id)
+        if(res.status==='success'){
+            handleSendWA(id, `Thank you Mr/Ms ${cur.name} for your monthly contribution of ${rsSymbol} ${data['amount']}`)
+            memberCardClick({...cur, amount: parseInt(cur.amount) + parseInt(data['amount'])}, id)
+            handleRefresh()
+        }
     }, error)
 }
 
@@ -635,7 +627,7 @@ function handleGetContacts() {
                     <span>${x.name}</span>
                     <span>${x.type}</span>
                     <span>${x.memkey}</span>
-                    <a onClick="handleClickContactMe()">Contact</a>
+                    <a class='btn' onClick="handleSendWA('${x.memkey}','Hello Mr/Ms ${x.name}, I need a quick connect, when shall we meet')">Contact</a>
                 </div>
             `
         }).join('')
@@ -655,7 +647,12 @@ const getWAReminderMessage = (name) => {
 
 
 function handleSendWA(phone, message) {
-    console.log(phone, message)
+    // console.log(phone, message)
+    // https://web.whatsapp.com/send?phone=${number}
+    window.open(
+        `https://wa.me/+91${phone}?text=${encodeURI(message)}&app_absent=0`,
+        "_blank"
+    )
 }
 
 function handleRemindAllWA(listOfDefaulters) {
@@ -846,6 +843,8 @@ document.addEventListener("scroll", handleScroll)
 
 document.addEventListener("DOMContentLoaded", (e) => {
         scrollToTopBtn.addEventListener("click", scrollToTop)
+        // footer.classList.add('bottomFixed')
+        // footer.classList.remove('bottomFixed')
         // scrollTo(e)
         getData(`${phpServing}?config=1`, res => {
             // console.log('config', res)

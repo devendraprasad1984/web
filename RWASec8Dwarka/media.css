@@ -41,6 +41,11 @@
         width: 100%;
     }
 
+    .bottomFixed{
+        position: relative;
+    }
+
+
     .card {
         padding: 10px;
         margin: 5px;

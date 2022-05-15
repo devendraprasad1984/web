@@ -68,14 +68,6 @@ body {
     /*margin-bottom: 3px;*/
 }
 
-.imgbg {
-    background-image: url("./images/sec8park.jpg");
-    object-fit: contain;
-    background-repeat: no-repeat;
-    background-size: auto;
-    opacity: 0.8;
-}
-
 .imgbg:before {
     content: "";
     position: fixed;
@@ -546,8 +538,8 @@ label {
     color: #de4141 !important;
 }
 
-.textwhite {
-    color: white;
+.textwhite, .textwhite * {
+    color: white !important;
 }
 
 .white {
@@ -642,13 +634,16 @@ label {
     width: auto;
 }
 
+.bottomFixed{
+    bottom: 0;
+    position: fixed;
+}
+
 #footer, footer, .footer {
-    /*bottom: 0;*/
-    /*padding: 30px 10px 30px 20px; !*top right bottom left*!*/
-    /*position: fixed;*/
-    margin-top: auto;
-    /*width: 100%;*/
-    z-index: -1;
+    margin-top: 4em;
+    margin-bottom: 5px;
+    z-index: 1000;
+    width: 100%;
 }
 
 /* The Modal (background) */
