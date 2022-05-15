@@ -59,7 +59,16 @@ const config = {
         })
     },
     get: (id) => document.getElementById(id),
-    isAdmin: () => defaultEntryType === appEnum.admin,
+    isAdmin: () => {
+        let isAdmin = config.getByKeyFromLocal(appEnum.isAdmin)
+        if (isAdmin === 'true') {
+            defaultEntryType = appEnum.admin
+        } else {
+            defaultEntryType = appEnum.member
+        }
+
+        return defaultEntryType === appEnum.admin
+    },
     modifyCardBorderColor: function () {
         Array.from($('.card')).map((x, i) => x.style.borderTop = '5px solid ' + (x.getAttribute('xtype') === '+' ? getRandomBorderColor() : 'red'))
     },
@@ -255,26 +264,10 @@ function postData(url, data = {}, success, err) {
             err(errTxt)
         }
     })
-    // const requestPayload = {
-    //     method: 'POST',
-    //     body: JSON.stringify(data),
-    //     referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin,
-    //                                    // strict-origin-when-cross-origin, unsafe-url
-    //     // credentials: 'same-origin', // include, *same-origin, omit
-    //     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-    //     // mode: 'cors', // no-cors, *cors, same-origin
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    // }
-    // fetch(url, requestPayload).then(r => r.json()).then(data => {
-    //     success(data)
-    // }).catch(e => {
-    //     error(r)
-    // })
 }
 
 function handleFormsToggle({show, hide}) {
+    if (!config.isAdmin()) return
     let showForm = document.getElementById(show)
     let hideForm = document.getElementById(hide)
     showForm.classList.remove('show')
@@ -384,6 +377,7 @@ function deleteSwal(callback) {
 }
 
 function handleDeleteMember(e, id) {
+    if (!config.isAdmin()) return
     let adminId = config.getByKeyFromLocal(appEnum.userid)
     let adminUser = config.getByKeyFromLocal(appEnum.loginName)
     deleteSwal(() => {
@@ -398,6 +392,7 @@ function handleDeleteMember(e, id) {
 }
 
 function handleEditMember(e, obj) {
+    if (!config.isAdmin()) return
     e.stopPropagation()
     e.preventDefault()
     handleFormsToggle({show: 'membersform', hide: 'expenseform'})
@@ -447,6 +442,7 @@ function handleExpensesSearch(e, _this) {
 }
 
 function handleExpensesDelete(id, {cur, memberId}, type) {
+    if (!config.isAdmin()) return
     deleteSwal(() => {
         postData(phpServing, {deleteExpense: 1, id}, res => {
             if (res.status === 'success') {
@@ -500,6 +496,7 @@ function error(err) {
 }
 
 function handleSubmit(formName, {id, cur}) {
+    if (!config.isAdmin()) return
     let parentForm = document.getElementById(formName)
     let data = {}
     data['save'] = 1
@@ -518,6 +515,7 @@ function handleSubmit(formName, {id, cur}) {
 
 
 function handleSubmitExpense(id) {
+    if (!config.isAdmin()) return
     let cur = $('#' + id)
     let oldval = cur.html()
     cur.html('please wait...')
@@ -538,6 +536,7 @@ function resetMemberForm() {
 }
 
 function handleSubmitMember(id) {
+    if (!config.isAdmin()) return
     let cur = $('#' + id)
     data = {}
     data['addMember'] = 1
@@ -654,8 +653,6 @@ const getWAReminderMessage = (name) => {
 
 
 function handleSendWA(phone, message) {
-    // console.log(phone, message)
-    // https://web.whatsapp.com/send?phone=${number}
     window.open(
         `https://wa.me/+91${phone}?text=${encodeURI(message)}&app_absent=0`,
         "_blank"
@@ -667,6 +664,8 @@ function handleRemindAllWA(listOfDefaulters) {
 }
 
 function handleShowReminders() {
+    if (!config.isAdmin()) return
+
     getData(`${phpServing}?showReminders=1`, res => {
         let xdiv = document.createElement('div')
         let elem = res.map(x => {
@@ -712,12 +711,13 @@ function searchByKeyword(e) {
 //initialise
 function onInit() {
     loginModal.style.display = appEnum.none
-    let isAdmin = config.getByKeyFromLocal(appEnum.isAdmin)
-    if (isAdmin === 'true') {
-        defaultEntryType = appEnum.admin
-    } else {
-        defaultEntryType = appEnum.member
-    }
+    config.isAdmin()
+    // let isAdmin = config.getByKeyFromLocal(appEnum.isAdmin)
+    // if (isAdmin === 'true') {
+    //     defaultEntryType = appEnum.admin
+    // } else {
+    //     defaultEntryType = appEnum.member
+    // }
     handleRefresh()
     container.style.display = appEnum.block
     if (config.isAdmin())
@@ -792,6 +792,7 @@ function handleChangePassword() {
 }
 
 function handleBackup(type = 'csv') {
+    if (!config.isAdmin()) return
     switch (type) {
         case 'json':
             getData(`${phpServing}?backupJSON=1`, (res) => {
@@ -866,6 +867,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
 )
 
 function download(content, fileName, contentType = "text/plain") {
+    if (!config.isAdmin()) return
     let a = document.createElement("a");
     let file = new Blob([content], {type: contentType});
     a.href = URL.createObjectURL(file);
@@ -895,6 +897,7 @@ function json2csv(data) {
 }
 
 function json2xls(data, filename) {
+    if (!config.isAdmin()) return
     let wsMembers = XLSX.utils.json_to_sheet(data.members || []);
     let wsExpenses = XLSX.utils.json_to_sheet(data.expenses || []);
     let wsCollection = XLSX.utils.json_to_sheet(data.collection || []);
