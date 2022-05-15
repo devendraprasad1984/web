@@ -41,6 +41,7 @@ toast.options.closeDuration = 200
 // toast.options.timeOut = 200 //set to 0 or remove it
 // toast.options.extendedTimeOut = 300
 toast.options.progressBar = true
+hamburger = '&#8801;'
 
 // document.location.reload(false)
 
@@ -236,6 +237,12 @@ const config = {
     }
 }
 
+
+function handleHamburger() {
+    if (!config.isAdmin()) return
+    report1.style.width = '100%'
+    adminSection.style.display = adminSection.style.display === 'none' ? 'block' : 'none'
+}
 
 function postData(url, data = {}, success, err) {
     $.ajax({
@@ -501,7 +508,7 @@ function handleSubmit(formName, {id, cur}) {
     data['amount'] = parentForm.amount.value
     data['remarks'] = parentForm.remarks.value === "" ? "regular maintenance" : parentForm.remarks.value
     postData(phpServing, data, (res) => {
-        if(res.status==='success'){
+        if (res.status === 'success') {
             handleSendWA(id, `Thank you Mr/Ms ${cur.name} for your monthly contribution of ${rsSymbol} ${data['amount']}`)
             memberCardClick({...cur, amount: parseInt(cur.amount) + parseInt(data['amount'])}, id)
             handleRefresh()
