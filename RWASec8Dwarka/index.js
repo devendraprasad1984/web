@@ -691,18 +691,20 @@ function handleShowReminders() {
         let elem = res.map(x => {
             let phone = x.memkey
             return `
-                <div class='rowgrid marginud'>
+                <div class='row marginud'>
                     <span>${x.name}</span>
                     <span>${x.memkey}</span>
                     <span>${x.lastSubmitted}</span>
+                    <span>${x.amount}</span>
                     <span onClick="handleSendWA('${phone}','${getWAReminderMessage(x.name)}')" class="btn primary">Remind</span>
                 </div>
             `
         })
-        let header = `<div class='rowgrid bl'>
+        let header = `<div class='row bl'>
                 <span>Name</span>
                 <span>Phone</span>
-                <span>Last</span>
+                <span>Contribution Received for</span>
+                <span>Amount</span>
                 <span></span>
             </div>`
 
@@ -711,7 +713,7 @@ function handleShowReminders() {
         let baseHeader = `
              <h2>Group WA Reminder for Monthly Contribution</h2>
              <div class='right'>
-                <span class='btn' onClick="handleRemindAllWA(${resObj})">Remind All</span>
+                <span class='btn red' onClick="return; handleRemindAllWA(${resObj})">Remind All</span>
              </div>
         `
         xdiv.innerHTML = `
