@@ -691,7 +691,7 @@ function handleShowReminders() {
         let elem = res.map(x => {
             let phone = x.memkey
             return `
-                <div class='row marginud'>
+                <div class='rowgrid marginud'>
                     <span>${x.name}</span>
                     <span>${x.memkey}</span>
                     <span>${x.lastSubmitted}</span>
@@ -700,7 +700,7 @@ function handleShowReminders() {
                 </div>
             `
         })
-        let header = `<div class='row bl'>
+        let header = `<div class='rowgrid bl'>
                 <span>Name</span>
                 <span>Phone</span>
                 <span>Contribution Received for</span>

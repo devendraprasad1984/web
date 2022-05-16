@@ -207,21 +207,25 @@ function handleKeyContacts($data)
 function handleShowRemindersInfo($data)
 {
     $paymentDefaulters = returnDataset("
-                select a.id,
+        select a.id,
                a.name,
                a.memkey,
                a.type,
                b.memid,
                b.amount,
+               STR_TO_DATE(concat('01-',substr(b.date,1,3),'-',substr(b.date,5,8)), '%d-%b-%Y') as templDate,
+               MONTH(STR_TO_DATE(concat('01-',substr(b.date,1,3),'-',substr(b.date,5,8)), '%d-%b-%Y')) as monthNum,
+               MONTH(curdate()) as curMonthNum,
                substr(b.date, 1, 3) as lastSubmitted,
-               substr(monthname(curdate()),1,3) as curMonth
+               substr(monthname(curdate()),1,3) as curMonth,
+               b.`when`
         from rwa_members a
                  inner join rwa_expenses b on a.id = b.memid
         where type <> 'admin'
-          and (substr(b.date, 1, 3) <> substr(monthname(curdate()),1,3))
-            and coalesce(b.amount,0)<200
-        order by name;
-    ");
+        and MONTH(STR_TO_DATE(concat('01-',substr(b.date,1,3),'-',substr(b.date,5,8)), '%d-%b-%Y'))<MONTH(curdate())
+        and year(STR_TO_DATE(concat('01-',substr(b.date,1,3),'-',substr(b.date,5,8)), '%d-%b-%Y'))=year(curdate())
+        order by name
+       ");
     echo $paymentDefaulters;
 }
 
