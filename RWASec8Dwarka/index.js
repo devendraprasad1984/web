@@ -726,7 +726,7 @@ function handleShowReminders() {
         let header = `<div class='rowgrid bl'>
                 <span>Name</span>
                 <span>Phone</span>
-                <span>Month</span>
+                <span>Last Paid In</span>
                 <span>Amount</span>
                 <span></span>
             </div>`
