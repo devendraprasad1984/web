@@ -312,6 +312,7 @@ let timePeriods = ''
 function sendMemberContriUpdateWANow() {
     let idSendWANow = document.getElementById('idSendWANow')
     idSendWANow.checked = !idSendWANow.checked
+    config.setByKeyToLocal('wanow', idSendWANow.checked)
 }
 
 function getAddContributionForm({cur, id}) {
@@ -320,11 +321,12 @@ function getAddContributionForm({cur, id}) {
     if (timePeriods === '')
         timePeriods = preparePeriod()
     let obj = config.prepareJSONForParam({cur, id})
+    let wanow =Boolean(config.getByKeyFromLocal('wanow'))
     return `
         <div class='green size25'>Add Contribution for this month / Reversal</div>
         <form id="contriform" action="#" class="formInputs middle">
             <span onclick="sendMemberContriUpdateWANow()" class="click">
-                <input id="idSendWANow" type="checkbox" class="checkmark"/>
+                <input id="idSendWANow" type="checkbox" class="checkmark" ${wanow === true ? 'checked' : ''}/>
                 <label class="bl">Send WA Now</label>
             </span>
             <select id="time" class="wid200px">${timePeriods}</select>
@@ -349,7 +351,7 @@ function memberCardClick(cur, id) {
                 cur,
                 memberId: id
             })},'memberCard');">delete</a>` : ''}
-                <span class="btn primary" onclick="notifyMemberAboutContribution('${cur.id}','${cur.name+', for '+x.date}',${x.amount},true)">Notify</span>
+                <span class="btn primary" onclick="notifyMemberAboutContribution('${cur.id}','${cur.name + ', for ' + x.date}',${x.amount},true)">Notify</span>
                     </div>
                 </div>
             `
@@ -541,7 +543,7 @@ function handleSubmit(formName, {id, cur}) {
         if (res.status === 'success') {
             let idSendWANow = document.getElementById('idSendWANow')
             let sendNow = idSendWANow.checked || false
-            notifyMemberAboutContribution(id, cur.name+', for '+date['time'], data['amount'], sendNow)
+            notifyMemberAboutContribution(id, cur.name + ', for ' + data['time'], data['amount'], sendNow)
             memberCardClick({...cur, amount: parseInt(cur.amount) + parseInt(data['amount'])}, id)
             handleRefresh()
         }
