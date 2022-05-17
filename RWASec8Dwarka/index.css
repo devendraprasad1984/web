@@ -219,6 +219,8 @@ input {
 }
 
 .middle {
+    position: relative;
+    display: inline-block;
     vertical-align: middle !important;
     align-items: center !important;
     align-content: center !important;
@@ -319,7 +321,7 @@ fieldset > input {
     width: 100%;
 }
 
-.column {
+.column, .col {
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
@@ -340,7 +342,7 @@ fieldset > input {
 }
 
 .pad10 {
-    padding: 10px;
+    padding: 10px !important;
 }
 
 .pad10L {
@@ -454,11 +456,13 @@ fieldset > input {
 
 .row {
     display: flex;
-    /*align-content: center;*/
-    /*align-items: center;*/
     flex-direction: row;
     justify-content: space-between;
-    vertical-align: middle;
+    /*align-content: center;*/
+    /*align-items: center;*/
+}
+.row > *{
+    margin: 1px;
 }
 
 .rowgrid {
@@ -708,6 +712,22 @@ label {
 input:focus, select:focus {
     outline: none;
     border: 2px solid #894ac9;
+}
+input:checked{
+    background-color: #2196F3;
+}
+.checkmark {
+    /*position: absolute;*/
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
 }
 
 

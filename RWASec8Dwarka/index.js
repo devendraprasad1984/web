@@ -14,6 +14,7 @@ let logoutBtn = document.getElementById('logoutBtn')
 let loginModal = document.getElementById('loginModal')
 let membersform = document.getElementById('membersform')
 let appEnum = {
+    appLink: 'https://dpresume.com/rwa8',
     isAdmin: 'isAdmin',
     loginName: 'loginName',
     userid: 'userid',
@@ -308,6 +309,11 @@ function getRandomBorderColor() {
 // let componentContributionForm = ""
 let timePeriods = ''
 
+function sendMemberContriUpdateWANow() {
+    let idSendWANow = document.getElementById('idSendWANow')
+    idSendWANow.checked = !idSendWANow.checked
+}
+
 function getAddContributionForm({cur, id}) {
     //singleton implementation
     // if (componentContributionForm !== '') return componentContributionForm
@@ -316,7 +322,11 @@ function getAddContributionForm({cur, id}) {
     let obj = config.prepareJSONForParam({cur, id})
     return `
         <div class='green size25'>Add Contribution for this month / Reversal</div>
-        <form id="contriform" action="#" class="formInputs">
+        <form id="contriform" action="#" class="formInputs middle">
+            <span onclick="sendMemberContriUpdateWANow()" class="click">
+                <input id="idSendWANow" type="checkbox" class="checkmark"/>
+                <label class="bl">Send WA Now</label>
+            </span>
             <select id="time" class="wid200px">${timePeriods}</select>
             <input class="input-right wid200px amount" id="amount" placeholder="enter your amount" type="number" value="200" min="200" max="5000"/>
             <input id="remarks" placeholder="eg regular maintenance" type="text" class="wid200px"/>
@@ -330,15 +340,16 @@ function memberCardClick(cur, id) {
     getData(`${phpServing}?expensesByMember=1&id=${id}`, (res) => {
         let rows = res.map((x, i) => {
             return `
-                <div class="col size12 line">
+                <div class="size12 line marginud">
                     <div class='wid100 bl'>received on ${partDateTime(x.when)} for <span class="txtpurple">${x.date}</span></div>
-                    <div class='row'>
+                    <div class='row middle'>
                         <span class='min-content'>${x.remarks}</span>
                         <span class="bl">${rsSymbol}${x.amount}</span>
                         ${config.isAdmin() ? `<a class="btn red" onclick="handleExpensesDelete(${x.id},${config.prepareJSONForParam({
                 cur,
                 memberId: id
             })},'memberCard');">delete</a>` : ''}
+                <span class="btn primary" onclick="notifyMemberAboutContribution('${cur.id}','${cur.name+', for '+x.date}',${x.amount},true)">Notify</span>
                     </div>
                 </div>
             `
@@ -509,6 +520,14 @@ function error(err) {
     // console.error(err)
 }
 
+function notifyMemberAboutContribution(phone, name, amount, sendNow = false) {
+    if (sendNow == false) return
+    handleSendWA(phone, `Thank you Mr/Ms ${name} for your contribution of ${rsSymbol} ${amount} has been recorded.
+    ${'\n'}Team RWA Sector 8 D Block, Dwarka, Delhi 110077
+    ${'\n'}${appEnum.appLink}
+     `)
+}
+
 function handleSubmit(formName, {id, cur}) {
     if (!config.isAdmin()) return
     let parentForm = document.getElementById(formName)
@@ -520,7 +539,9 @@ function handleSubmit(formName, {id, cur}) {
     data['remarks'] = parentForm.remarks.value === "" ? "regular maintenance" : parentForm.remarks.value
     postData(phpServing, data, (res) => {
         if (res.status === 'success') {
-            handleSendWA(id, `Thank you Mr/Ms ${cur.name} for your monthly contribution of ${rsSymbol} ${data['amount']}`)
+            let idSendWANow = document.getElementById('idSendWANow')
+            let sendNow = idSendWANow.checked || false
+            notifyMemberAboutContribution(id, cur.name+', for '+date['time'], data['amount'], sendNow)
             memberCardClick({...cur, amount: parseInt(cur.amount) + parseInt(data['amount'])}, id)
             handleRefresh()
         }
