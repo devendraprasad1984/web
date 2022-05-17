@@ -717,8 +717,8 @@ function handleShowReminders() {
                 <div class='rowgrid marginud'>
                     <span>${x.name}</span>
                     <span>${x.memkey}</span>
-                    <span>${x.lastSubmitted}</span>
-                    <span>${x.amount}</span>
+                    <span>${x.last}</span>
+                    <span>${x.amount||0}</span>
                     <span onClick="handleSendWA('${phone}','${getWAReminderMessage(x.name)}')" class="btn primary">Remind</span>
                 </div>
             `
@@ -726,7 +726,7 @@ function handleShowReminders() {
         let header = `<div class='rowgrid bl'>
                 <span>Name</span>
                 <span>Phone</span>
-                <span>Contribution Received for</span>
+                <span>Month</span>
                 <span>Amount</span>
                 <span></span>
             </div>`
@@ -734,7 +734,7 @@ function handleShowReminders() {
         elem.splice(0, 0, header)
         let resObj = config.prepareJSONForParam(res)
         let baseHeader = `
-             <h2>Group WA Reminder for Monthly Contribution</h2>
+             <div class='size20 bl'>Reminder Info to (${res.length} member(s)) for payment of their current month dues</div>
              <div class='right'>
                 <span class='btn red' onClick="return; handleRemindAllWA(${resObj})">Remind All</span>
              </div>
