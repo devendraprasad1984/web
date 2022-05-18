@@ -468,7 +468,15 @@ fieldset > input {
 .rowgrid {
     display: grid;
     grid-auto-columns: auto;
+    grid-auto-flow: column;
     grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+.rowgrid>span{
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .rowgridExpense{
     display: grid;
@@ -497,10 +505,10 @@ label {
     font-weight: bolder;
 }
 
-/*.row > span {*/
-/*    !*min-width: 100px;*!*/
-/*    !*width: 250px !important;*!*/
-/*}*/
+.spanMinWidth, .spanMinWidth>span {
+    min-width: 100px;
+    width: 250px !important;
+}
 
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
@@ -635,7 +643,6 @@ label {
 .swal-modal {
     height: auto;
     min-width: 60%;
-    width: auto;
 }
 
 .bottomFixed{

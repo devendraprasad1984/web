@@ -321,7 +321,7 @@ function getAddContributionForm({cur, id}) {
     if (timePeriods === '')
         timePeriods = preparePeriod()
     let obj = config.prepareJSONForParam({cur, id})
-    let wanow =Boolean(config.getByKeyFromLocal('wanow'))
+    let wanow = Boolean(config.getByKeyFromLocal('wanow'))
     return `
         <div class='green size25'>Add Contribution for this month / Reversal</div>
         <form id="contriform" action="#" class="formInputs middle">
@@ -344,14 +344,17 @@ function memberCardClick(cur, id) {
             return `
                 <div class="size12 line marginud">
                     <div class='wid100 bl'>received on ${partDateTime(x.when)} for <span class="txtpurple">${x.date}</span></div>
-                    <div class='row middle'>
-                        <span class='min-content'>${x.remarks}</span>
-                        <span class="bl">${rsSymbol}${x.amount}</span>
-                        ${config.isAdmin() ? `<a class="btn red" onclick="handleExpensesDelete(${x.id},${config.prepareJSONForParam({
-                cur,
-                memberId: id
-            })},'memberCard');">delete</a>` : ''}
-                <span class="btn primary" onclick="notifyMemberAboutContribution('${cur.id}','${cur.name + ', for ' + x.date}',${x.amount},true)">Notify</span>
+                    <div class='row'>
+                        <span class='wid70'>${x.remarks}</span>
+                        <span class="bl wid20">${rsSymbol}${x.amount}</span>
+                        ${config.isAdmin() ?
+                `
+                    <span class='wid10'>
+                        <a class="btn red" onclick="handleExpensesDelete(${x.id},${config.prepareJSONForParam({cur, memberId: id})},'memberCard');">Delete</a>
+                        <a class="btn primary" onclick="notifyMemberAboutContribution('${cur.id}','${cur.name + ', for ' + x.date}',${x.amount},true)">Notify</a>
+                    </span>
+                `
+                : ''}
                     </div>
                 </div>
             `
@@ -523,6 +526,8 @@ function error(err) {
 }
 
 function notifyMemberAboutContribution(phone, name, amount, sendNow = false) {
+    if (!config.isAdmin()) return
+
     if (sendNow == false) return
     handleSendWA(phone, `Thank you Mr/Ms ${name} for your contribution of ${rsSymbol} ${amount} has been recorded.
     ${'\n'}Team RWA Sector 8 D Block, Dwarka, Delhi 110077
@@ -575,9 +580,16 @@ function resetMemberForm() {
 function handleSubmitMember(id) {
     if (!config.isAdmin()) return
     let cur = $('#' + id)
+    let phone = document.getElementById('memberid').value
+    let phoneRegEx = /^\d{10}$/
+    let isValidPhone = phone.match(phoneRegEx)
+    if(!isValidPhone){
+        toast.error('invalid phone number, kindly enter 10 digits only, no spaces.')
+        return
+    }
     data = {}
     data['addMember'] = 1
-    data['memberid'] = document.getElementById('memberid').value
+    data['memberid'] = phone
     data['name'] = document.getElementById('name').value
     data['address'] = document.getElementById('address').value
     data['type'] = membertype.value
@@ -718,17 +730,17 @@ function handleShowReminders() {
                     <span>${x.name}</span>
                     <span>${x.memkey}</span>
                     <span>${x.last}</span>
-                    <span>${x.amount||0}</span>
+                    <span>${x.amount || 0}</span>
                     <span onClick="handleSendWA('${phone}','${getWAReminderMessage(x.name)}')" class="btn primary">Remind</span>
                 </div>
             `
         })
-        let header = `<div class='rowgrid bl'>
+        let header = `<div class='row bl'>
                 <span>Name</span>
                 <span>Phone</span>
                 <span>Last Paid In</span>
                 <span>Amount</span>
-                <span></span>
+                <span>&nbsp;</span>
             </div>`
 
         elem.splice(0, 0, header)
