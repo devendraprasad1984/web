@@ -687,9 +687,21 @@ label {
     margin: 10px;
 }
 
-.marginud {
+.marginud , .marginud  > *{
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+textarea {
+    width: 100%;
+    height: 150px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: 4px solid #7a1891;
+    border-radius: 10px;
+    font-size: 15px;
+    resize: none;
 }
 
 .modal-header {
@@ -826,3 +838,29 @@ input.amount:out-of-range {
     overflow: auto;
     position: relative;
 }
+
+
+/*[title] {*/
+/*    display: block;*/
+/*    margin: 0 0 1em 0;*/
+/*}*/
+
+/*!**/
+/*  hiding, and styling, the elements we'll be creating*/
+/**!*/
+/*[title] + span.createdTooltip {*/
+/*    display: none;*/
+/*    border: 2px solid #f90;*/
+/*    background-color: rgba(255, 255, 255, 0.8);*/
+/*    padding: 0.2em 0.5em;*/
+/*    border-radius: 0.75em;*/
+/*}*/
+
+/*!**/
+/*  showing the created elements on hovering the element we want to*/
+/*  show tooltips for*/
+/**!*/
+/*[title]:hover + span.createdTooltip {*/
+/*    display: block;*/
+/*    position: absolute;*/
+/*}*/

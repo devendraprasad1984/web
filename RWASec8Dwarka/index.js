@@ -334,24 +334,71 @@ function getAddContributionForm({cur, id}) {
             <input id="remarks" placeholder="eg regular maintenance" type="text" class="wid200px"/>
             <button class="btn transition  red" id="btnSubmit" onclick="handleSubmit('contriform',${obj})">Save</button>
         </form>
+        <div class="column marginud">
+            <span class="bl">Notify by Selection Months</span>
+            <textarea id='memberWAArea' rows=5></textarea>
+            <div class="right">
+                <button class="btn red" onClick="handleCalculateAmount()">Check/Edit</button>
+                <button class="btn green" onClick="handleSendNotifyOne(${cur.id})">Send to WA</button>
+             </div>
+        </div>
     `
 }
 
+let memberRowSum = []
+const handleCalculateAmount = () => {
+    let _textObj = document.getElementById('memberWAArea')
+    let months = memberRowSum.map(x => x.month).join(', ')
+    let amount = memberRowSum.map(x => x.amount).reduce((x, i) => (x + i), 0)
+    if (months === '' || amount === 0) {
+        _textObj.innerHTML = ""
+    } else {
+        _textObj.innerHTML = `
+We have acknowledged receipt of ${rsSymbol}${amount} for month(s) of ${months}.
+Thanks and Regards
+Team RWA D Block, Sector 8, Dwarka, Delhi - 110077
+        `.trim()
+    }
+}
+const handleSendNotifyOne = (phone) => {
+    let message = document.getElementById('memberWAArea').innerHTML
+    if (message === '') return
+    handleSendWA(phone, message)
+}
+
+const handleMemberRowSum = (isChecked, memberRow) => {
+    let _obj = {}
+    _obj.id = memberRow.id
+    _obj.month = memberRow.date.split(' ')[0]
+    _obj.amount = parseFloat(memberRow.amount)
+    if (isChecked) {
+        let isFound = memberRowSum.filter(x => x.id === memberRow.id)[0]
+        if (isFound) {
+            isFound.amount = _obj.amount
+        } else {
+            memberRowSum.push(_obj)
+        }
+    } else {
+        memberRowSum = memberRowSum.filter(x => x.id !== memberRow.id)
+    }
+}
+
 function memberCardClick(cur, id) {
+    memberRowSum = []
     let contributionForm = config.isAdmin() ? getAddContributionForm({cur, id}) : ""
     getData(`${phpServing}?expensesByMember=1&id=${id}`, (res) => {
         let rows = res.map((x, i) => {
             return `
-                <div class="size12 line marginud">
+                <div class="size14 line marginud">
                     <div class='wid100 bl'>received on ${partDateTime(x.when)} for <span class="txtpurple">${x.date}</span></div>
                     <div class='row'>
+                        <span><input type='checkbox' class="checkmark red" onClick="handleMemberRowSum(this.checked,${config.prepareJSONForParam(x)})"/></span>
                         <span class='wid70'>${x.remarks}</span>
                         <span class="bl wid20">${rsSymbol}${x.amount}</span>
                         ${config.isAdmin() ?
                 `
                     <span class='wid10'>
                         <a class="btn red" onclick="handleExpensesDelete(${x.id},${config.prepareJSONForParam({cur, memberId: id})},'memberCard');">Delete</a>
-                        <a class="btn primary" onclick="notifyMemberAboutContribution('${cur.id}','${cur.name + ', for ' + x.date}',${x.amount},true)">Notify</a>
                     </span>
                 `
                 : ''}
@@ -583,7 +630,7 @@ function handleSubmitMember(id) {
     let phone = document.getElementById('memberid').value
     let phoneRegEx = /^\d{10}$/
     let isValidPhone = phone.match(phoneRegEx)
-    if(!isValidPhone){
+    if (!isValidPhone) {
         toast.error('invalid phone number, kindly enter 10 digits only, no spaces.')
         return
     }
