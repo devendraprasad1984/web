@@ -392,7 +392,7 @@ function memberCardClick(cur, id) {
                 <div class="size14 line marginud">
                     <div class='wid100 bl'>received on ${partDateTime(x.when)} for <span class="txtpurple">${x.date}</span></div>
                     <div class='row'>
-                        <span><input type='checkbox' class="checkmark red" onClick="handleMemberRowSum(this.checked,${config.prepareJSONForParam(x)})"/></span>
+                        ${config.isAdmin() ? `<span><input type='checkbox' class="checkmark red" onClick="handleMemberRowSum(this.checked,${config.prepareJSONForParam(x)})"/></span>`: ''}
                         <span class='wid70'>${x.remarks}</span>
                         <span class="bl wid20">${rsSymbol}${x.amount}</span>
                         ${config.isAdmin() ?
