@@ -316,6 +316,11 @@ function sendMemberContriUpdateWANow() {
 }
 
 function getAddContributionForm({cur, id}) {
+    // <span onclick="sendMemberContriUpdateWANow()" class="click">
+    //     <input id="idSendWANow" type="checkbox" class="checkmark" ${wanow === true ? 'checked' : ''}/>
+    //     <label class="bl">Send WA Now</label>
+    // </span>
+
     //singleton implementation
     // if (componentContributionForm !== '') return componentContributionForm
     if (timePeriods === '')
@@ -324,21 +329,15 @@ function getAddContributionForm({cur, id}) {
     let wanow = Boolean(config.getByKeyFromLocal('wanow'))
     return `
         <div class='green size25'>Add Contribution for this month / Reversal</div>
-        <form id="contriform" action="#" class="formInputs middle">
-            <span onclick="sendMemberContriUpdateWANow()" class="click">
-                <input id="idSendWANow" type="checkbox" class="checkmark" ${wanow === true ? 'checked' : ''}/>
-                <label class="bl">Send WA Now</label>
-            </span>
+        <form id="contriform" action="#" class="formInputs middle row">
             <select id="time" class="wid200px">${timePeriods}</select>
             <input class="input-right wid200px amount" id="amount" placeholder="enter your amount" type="number" value="200" min="200" max="5000"/>
             <input id="remarks" placeholder="eg regular maintenance" type="text" class="wid200px"/>
             <button class="btn transition  red" id="btnSubmit" onclick="handleSubmit('contriform',${obj})">Save</button>
         </form>
-        <div class="column marginud">
-            <span class="bl">Notify by Selection Months</span>
-            <textarea id='memberWAArea' rows=5></textarea>
+        <div class="column">
+            <textarea id='memberWAArea' class='pad10 size20' rows=5></textarea>
             <div class="right">
-                <button class="btn red" onClick="handleCalculateAmount()">Check/Edit</button>
                 <button class="btn green" onClick="handleSendNotifyOne(${cur.id})">Send to WA</button>
              </div>
         </div>
@@ -348,7 +347,7 @@ function getAddContributionForm({cur, id}) {
 let memberRowSum = []
 const handleCalculateAmount = () => {
     let _textObj = document.getElementById('memberWAArea')
-    let months = memberRowSum.map(x => x.month).join(', ')
+    let months = Array.from(new Set(memberRowSum.map(x => x.month))).join(', ')
     let amount = memberRowSum.map(x => x.amount).reduce((x, i) => (x + i), 0)
     if (months === '' || amount === 0) {
         _textObj.innerHTML = ""
@@ -389,28 +388,23 @@ function memberCardClick(cur, id) {
     getData(`${phpServing}?expensesByMember=1&id=${id}`, (res) => {
         let rows = res.map((x, i) => {
             return `
-                <div class="size14 line marginud">
-                    <div class='wid100 bl'>received on ${partDateTime(x.when)} for <span class="txtpurple">${x.date}</span></div>
-                    <div class='row'>
-                        ${config.isAdmin() ? `<span><input type='checkbox' class="checkmark red" onClick="handleMemberRowSum(this.checked,${config.prepareJSONForParam(x)})"/></span>`: ''}
-                        <span class='wid70'>${x.remarks}</span>
-                        <span class="bl wid20">${rsSymbol}${x.amount}</span>
-                        ${config.isAdmin() ?
-                `
-                    <span class='wid10'>
-                        <a class="btn red" onclick="handleExpensesDelete(${x.id},${config.prepareJSONForParam({cur, memberId: id})},'memberCard');">Delete</a>
-                    </span>
-                `
-                : ''}
-                    </div>
-                </div>
+            <div class='column size10'>
+            <div class='row'>
+                ${config.isAdmin() ? `<span onclick="handleCalculateAmount()"><input type='checkbox' class="checkmark red" onClick="handleMemberRowSum(this.checked,${config.prepareJSONForParam(x)})"/></span>`: ''}
+                <div><span class="txtpurple">${x.date}</span></div>
+                <div class="bl wid20">${rsSymbol}${x.amount}</div>
+                <div>${partDateTime(x.when)}</div>
+                <div class='right'>${config.isAdmin() ? `<a class="size10 badge red" onclick="handleExpensesDelete(${x.id},${config.prepareJSONForParam({cur, memberId: id})},'memberCard');">Delete</a>` : ''}</div>
+            </div>
+            <div>${x.remarks}</div>
+            </div>
             `
         })
         let xdiv = document.createElement('div')
         xdiv.id = 'openCardId'
         let txnData = `
-            <div class="size30">Previous Contributions</div>
-            <div class="height450">${rows.join('')}</div>
+            <div class="size25">Previous Contributions</div>
+            <div class="height250">${rows.join('')}</div>
         `;
         let baseHeader = `
             <div class='row center'>
