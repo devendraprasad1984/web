@@ -158,7 +158,7 @@ const config = {
             total += parseFloat(x.amount)
             let obj = _that.prepareJSONForParam({cur: '', memberId: ''})
             return `
-            <div class='rowgridExpense size12 hover'>
+            <div class='rowgridExpense size12 hover line'>
                 <span>${partDateTime(x.when)}</span>
                 <span class="min-content">${x.remarks}</span>
                 <span class="bl right">${rsSymbol}${Math.abs(x.amount)}</span>
