@@ -15,7 +15,8 @@ if ((isset($_POST['loggedIn']) && $_POST['loggedIn'] == 1)) {
     $loggedIn = true;
 }
 
-$server = $_SERVER['REMOTE_ADDR'];
+//$server = $_SERVER['REMOTE_ADDR'];
+$server = 'server';
 //    echo $server;
 if ($server == '::1' or $server == 'localhost' or $server == '127.0.0.1') {
     define('host', 'localhost:3306');
@@ -23,10 +24,14 @@ if ($server == '::1' or $server == 'localhost' or $server == '127.0.0.1') {
     define('pwd', '');
     define('db', 'ibdn');
 } else {
-    define('host', 'localhost:3306');
-    define('user', 'wp_p9ii9');
-    define('pwd', 'rbs1984#');
-    define('db', 'wp_8oy2w');
+//    define('host', 'localhost:3306');
+//    define('user', 'wp_p9ii9');
+//    define('pwd', 'rbs1984#');
+//    define('db', 'wp_8oy2w');
+    define('host', '103.228.112.82:3306');
+    define('user', 'cuhvjuka');
+    define('pwd', 'Geeks1984#');
+    define('db', 'cuhvjuka_dpreact');
 }
 
 $conn = new mysqli(host, user, pwd, db);

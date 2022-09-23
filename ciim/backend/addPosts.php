@@ -15,7 +15,7 @@ if($loggedIn) {
     if ($commentId == "" || $comment == "" || $userid == "") {
         echo('cannot insert, invalid dataset');
     } else {
-        $sql = "INSERT INTO xposts(parent_comment_id,comment,userid,date) VALUES ('" . $commentId . "','" . $comment . "','" . $userid . "','" . $date . "')";
+        $sql = "INSERT INTO ciim_xposts(parent_comment_id,comment,userid,date) VALUES ('" . $commentId . "','" . $comment . "','" . $userid . "','" . $date . "')";
         $result = $conn->query($sql);
         if (!$result) {
             $result = mysqli_error($conn);

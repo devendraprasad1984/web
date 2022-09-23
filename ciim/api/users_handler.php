@@ -12,7 +12,7 @@ try {
             $id = $conn->real_escape_string($_GET['id']);
             $where = "where id=$id";
         }
-        $sql = $conn->query("select id,name,email,createdon from users $where order by id desc");
+        $sql = $conn->query("select id,name,email,createdon from ciim_users $where order by id desc");
         $data = $sql->fetch_all(MYSQLI_ASSOC);
         exit(json_encode($data));
     } else if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['id']) == false) {
@@ -21,7 +21,7 @@ try {
             $email = $conn->real_escape_string($_POST['email']);
             $guid=returnGuid($email);
             $pwd = password_hash('password123', PASSWORD_BCRYPT);
-            $sql = $conn->query("insert into users(name,email,password,createdon,role,isapproved,guid) values('$name','$email','$pwd',now(),'admin',1,'$guid')");
+            $sql = $conn->query("insert into ciim_users(name,email,password,createdon,role,isapproved,guid) values('$name','$email','$pwd',now(),'admin',1,'$guid')");
             exit($success);
         } else {
             exit($failed);
@@ -42,13 +42,13 @@ try {
             }
 //            var_dump($allPairs['name']);
             if (isset($allPairs['name']) && isset($allPairs['email'])) {
-                $conn->query("update users set name='" . $allPairs['name'] . "', email='" . $allPairs['email'] . "' where id='$userid'");
+                $conn->query("update ciim_users set name='" . $allPairs['name'] . "', email='" . $allPairs['email'] . "' where id='$userid'");
                 exit($success);
             } else if (isset($allPairs['name'])) {
-                $conn->query("update users set name='" . $allPairs['name'] . " where id='$userid'");
+                $conn->query("update ciim_users set name='" . $allPairs['name'] . " where id='$userid'");
                 exit($success);
             } else if (isset($allPairs['email'])) {
-                $conn->query("update users set name='" . $allPairs['email'] . " where id='$userid'");
+                $conn->query("update ciim_users set name='" . $allPairs['email'] . " where id='$userid'");
                 exit($success);
             } else {
                 exit($failed);
@@ -60,7 +60,7 @@ try {
         if (isset($_GET['id'])) {
             $id = $conn->real_escape_string($_GET['id']);
             $where = "where id=$id and role<>'admin'";
-            $sql = $conn->query("delete from users $where");
+            $sql = $conn->query("delete from ciim_users $where");
             exit($success);
         } else {
             exit($failed);

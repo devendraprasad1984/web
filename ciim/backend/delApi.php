@@ -11,13 +11,13 @@ if($loggedIn && $_SESSION['role']=='admin') {
 
     if (isset($_POST['deletePost']) && $_POST['deletePost'] == 1) {
         $postid = isset($_POST['postid']) ? $_POST['postid'] : "";
-        $sql = "delete from xposts where comment_id='$postid'";
+        $sql = "delete from ciim_xposts where comment_id='$postid'";
         $isOk = true;
     }
 
     if (isset($_POST['deleteUser']) && $_POST['deleteUser'] == 1) {
         $userid = isset($_POST['userid']) ? $_POST['userid'] : "";
-        $sql = "delete from users where id='$userid'";
+        $sql = "delete from ciim_users where id='$userid'";
         $isOk = true;
     }
 

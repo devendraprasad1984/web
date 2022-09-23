@@ -22,9 +22,9 @@ function getAdminHome()
     try {
         global $conn;
         $rows = array();
-        $sql = $conn->query('select count(id) as num from users');
+        $sql = $conn->query('select count(id) as num from ciim_users');
         $rows['users'][] = $sql->fetch_assoc()['num'];
-        $sql = $conn->query('select count(*) as num from xposts');
+        $sql = $conn->query('select count(*) as num from ciim_xposts');
         $rows['posts'][] = $sql->fetch_assoc()['num'];
         return json_encode($rows);
     } catch (Exception $ex) {

@@ -15,7 +15,7 @@ require_once './backend/common.php'
 <body class="container">
 <h3 class="topHeading">
     <span>Sample Post and Reply Messaging Platform</span>
-    <span style="float: right">@cyberr.co.in</span>
+    <span style="float: right">dpresume</span>
 </h3>
 
 <div style="font-size: 14px; font-weight: bold; margin-top: 5%;">

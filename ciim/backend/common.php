@@ -10,13 +10,13 @@ if (isset($_POST['register'])) {
     $password = $conn->real_escape_string($_POST['password']);
     $guid=returnGuid($email);
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $sql = $conn->query("select id from users where email='$email'");
+        $sql = $conn->query("select id from ciim_users where email='$email'");
         if ($sql->num_rows > 0) {
             exit('failedUserExists');
         } else {
             $ePassword = password_hash($password, PASSWORD_BCRYPT);
-            $conn->query("insert into users (name,email,password,guid,createdOn) values('$name','$email','$ePassword','$guid',now())");
-            $sql = $conn->query("select id from users order by id desc limit 1");
+            $conn->query("insert into ciim_users (name,email,password,guid,createdOn) values('$name','$email','$ePassword','$guid',now())");
+            $sql = $conn->query("select id from ciim_users order by id desc limit 1");
             $data = $sql->fetch_assoc();
             exit('success');
         }
@@ -27,7 +27,7 @@ if (isset($_POST['register'])) {
     $email = $conn->real_escape_string($_POST['email']);
     $password = $conn->real_escape_string($_POST['password']);
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $sql = $conn->query("select * from users where email='$email' and isapproved=1");
+        $sql = $conn->query("select * from ciim_users where email='$email' and isapproved=1");
         if ($sql->num_rows == 0) {
             exit('failed or not approved');
         } else {

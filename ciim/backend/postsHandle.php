@@ -19,10 +19,10 @@ if (isset($_POST['getPostsAndReplies'])) {
     $comment = $conn->real_escape_string($_POST['comment']);
     $isReply = filter_var($conn->real_escape_string($_POST['isReply']), FILTER_VALIDATE_BOOLEAN);
     if ($isReply == true || $isReply == 1) {
-        $conn->query("insert into replies(userid,comment,commentid,createdOn) values('" . $userid . "','$comment','$commentId',now())");
+        $conn->query("insert into ciim_replies(userid,comment,commentid,createdOn) values('" . $userid . "','$comment','$commentId',now())");
         exit(pullReplies(0, true));
     } else {
-        $conn->query("insert into posts(userid,comment,createdOn) values('" . $userid . "','$comment',now())");
+        $conn->query("insert into ciim_xposts(userid,comment,createdOn) values('" . $userid . "','$comment',now())");
         exit(pullPosts(0, true));
     }
 }else if (isset($_POST['register'])) {
@@ -30,13 +30,13 @@ if (isset($_POST['getPostsAndReplies'])) {
     $email = $conn->real_escape_string($_POST['email']);
     $password = $conn->real_escape_string($_POST['password']);
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $sql = $conn->query("select id from users where email='$email'");
+        $sql = $conn->query("select id from ciim_users where email='$email'");
         if ($sql->num_rows > 0) {
             exit('failedUserExists');
         } else {
             $ePassword = password_hash($password, PASSWORD_BCRYPT);
-            $conn->query("insert into users (name,email,password,createdOn) values('$name','$email','$ePassword',now())");
-            $sql = $conn->query("select id from users order by id desc limit 1");
+            $conn->query("insert into ciim_users (name,email,password,createdOn) values('$name','$email','$ePassword',now())");
+            $sql = $conn->query("select id from ciim_users order by id desc limit 1");
             $data = $sql->fetch_assoc();
             exit('success');
         }
@@ -47,7 +47,7 @@ if (isset($_POST['getPostsAndReplies'])) {
     $email = $conn->real_escape_string($_POST['email']);
     $password = $conn->real_escape_string($_POST['password']);
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $sql = $conn->query("select id,password,name,role from users where email='$email'");
+        $sql = $conn->query("select id,password,name,role from ciim_users where email='$email'");
         if ($sql->num_rows == 0) {
             exit('failed');
         } else {

@@ -1,6 +1,4 @@
-create schema ibdn collate utf8mb4_general_ci;
-
-create table users
+create table ciim_users
 (
 	id int auto_increment
 		primary key,
@@ -13,7 +11,7 @@ create table users
 	guid text null
 );
 
-create table xposts
+create table ciim_xposts
 (
 	comment_id int auto_increment
 		primary key,
@@ -22,8 +20,22 @@ create table xposts
 	userid int not null,
 	date timestamp default current_timestamp() not null,
 	constraint xposts_users_id_fk
-		foreign key (userid) references users (id)
+		foreign key (userid) references ciim_users (id)
 			on update cascade on delete cascade
 )
 charset=utf8;
+
+
+create table ciim_replies(
+    userid int not null,
+    comment varchar(200) not null,
+    commentid int not null,
+    createdOn timestamp default current_timestamp() not null,
+    constraint xreplies_users_id_fk
+    foreign key (userid) references ciim_users (id)
+    on update cascade on delete cascade,
+    constraint xreplies_comment_id_fk
+    foreign key (commentid) references ciim_xposts (comment_id)
+    on update cascade on delete cascade
+)
 

@@ -6,7 +6,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 if (isset($_POST['sendmail']) && isset($_POST['name']) && isset($_POST['email']) && $_POST['sendmail'] == 1) {
     $name = $_POST['name'];
     $email = $_POST['email'];
-    $subject = 'Welcome to IBDN member list';
+    $subject = 'Welcome to member list';
     $redirectURI=APP_ROOT.'api/contactus/'.str_replace(' ','', $name);
     $body = '<pre>
     Hi '.$name.',
