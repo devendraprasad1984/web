@@ -18,8 +18,11 @@ require_once './backend/common.php'
     <span style="float: right">dpresume</span>
 </h3>
 
-<div style="font-size: 14px; font-weight: bold; margin-top: 5%;">
-    sample userName: test@gmail.com, password: test
+<div style="font-size: 14pt; font-weight: bold; margin-top: 5%;">
+    sample userName: test@gmail.com, password: test, role: admin
+</div>
+<div style="font-size: 12pt;">
+    when new user is added, login using test (admin) and go to admin console and approve it
 </div>
 
 <div class="modal fade" id="registerModal">
