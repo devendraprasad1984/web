@@ -1,0 +1,19 @@
+
+`javascript:S1854¼"7Remove this useless assignment to local variable "elm5"(¤ŒÙ¬üÿÿÿÿ8¸¥³–ğ-
+zjavascript:S2703·"WAdd the "let", "const" or "var" keyword to this declaration of "o" to make it explicit.(úŠ«8Ğ¢ÿ¨ğ-
+tjavascript:S3403à"KRemove this "===" check; it will always be false. Did you mean to use "=="?( «Ÿáøÿÿÿÿ8Ğ¢ÿ¨ğ-
+zjavascript:S1117æ"Q"e" hides or potentially hides a variable declared in an outer scope at line 483.(ùºŸ­şÿÿÿÿ8¦Î×õñ-
+_javascript:S930¢"7This function expects no arguments, but 1 was provided.(ÄÂ¸ûÿÿÿÿ8Ğ¢ÿ¨ğ-
+zjavascript:S1117Ş"Q"i" hides or potentially hides a variable declared in an outer scope at line 212.(èø´úÿÿÿÿ8Ğ¢ÿ¨ğ-
+Ejavascript:S1116Ÿ"Remove this empty statement.(ôŸìúÿÿÿÿ8¦Î×õñ-
+–javascript:S2583à"mChange this condition so that it does not always evaluate to "false"; some subsequent code is never executed.( «Ÿáøÿÿÿÿ8Ğ¢ÿ¨ğ-
+zjavascript:S1117ú"Q"i" hides or potentially hides a variable declared in an outer scope at line 212.(²Ú½ÿùÿÿÿÿ8Ğ¢ÿ¨ğ-
+ajavascript:S1854™"8Remove this useless assignment to local variable "price"(†Ø“Ùúÿÿÿÿ8Ğ¢ÿ¨ğ-
+€javascript:S2703Ô"WAdd the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.(Û±½ùÿÿÿÿ8Ğ¢ÿ¨ğ-
+€javascript:S2703’"WAdd the "let", "const" or "var" keyword to this declaration of "x" to make it explicit.(ÑÃêñøÿÿÿÿ8Ğ¢ÿ¨ğ-
+zjavascript:S1117ì"Q"i" hides or potentially hides a variable declared in an outer scope at line 212.(½îîÀşÿÿÿÿ8Ğ¢ÿ¨ğ-
+gjavascript:UnusedVariable¼"5Remove the declaration of the unused 'elm5' variable.(¤ŒÙ¬üÿÿÿÿ8¸¥³–ğ-
+hjavascript:UnusedVariable™"6Remove the declaration of the unused 'price' variable.(†Ø“Ùúÿÿÿÿ8Ğ¢ÿ¨ğ-
+javascript:S3923‚"[Remove this conditional structure or edit its code blocks so that they're not all the same.(î§²×8Ğ¢ÿ¨ğ-
+zjavascript:S1117é"Q"e" hides or potentially hides a variable declared in an outer scope at line 486.(ùºŸ­şÿÿÿÿ8¦Î×õñ-
+zjavascript:S1117Ê"Q"x" hides or potentially hides a variable declared in an outer scope at line 146.(Ò¶®¤ùÿÿÿÿ8Ğ¢ÿ¨ğ-
